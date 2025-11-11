@@ -1,0 +1,47 @@
+/* FooterComp.module.css */
+/* Contains styling for the Footer component (FooterComp.jsx). */
+
+/* Links. */
+.footer_links {
+    padding: 1%;
+    width: 100%;
+    text-align: center;
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Link text. */
+.footer_link_text {
+    color: #0075bc;
+    text-decoration: none;
+    padding: 0 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Mouse hover. */
+.footer_link_text:hover {
+    text-decoration: underline;
+    color: #00aa4c;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Divider. */
+.divider {
+  margin: 0 0;
+  color: #0075bc;
+}
+
+/* Makes text smaller for mobile. */
+@media (max-width: 600px) {
+  .footer_link_text {
+    font-size: 0.9rem;
+  }
+  .divider {
+    font-size: 0.8rem;
+    margin: 0 0;
+  }
+  .footer_links {
+    text-align: center;
+  }
+}

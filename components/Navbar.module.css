@@ -1,0 +1,98 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #00aa4c;
+  color: #ffffff;
+}
+
+.logo {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1rem, 2vw + 0.5rem, 1.5rem);
+  letter-spacing: 0.05em;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navLink {
+  font-family: Arial;
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.2rem);
+  text-decoration: none;
+  color: white;
+  transition: color 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.navLink:hover {
+  color: #231f20;
+}
+
+.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 600;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown .navLink {
+  padding: 0.5rem 1rem;
+  background-color: #0075bc;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.dropdownButton {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  color: #231f20;
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  min-width: 12rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.showDropdown {
+  display: block; /* visible when React state triggers it */
+}
+
+.dropdownItem {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+  transition: background 0.2s ease-in-out;
+}
+
+.dropdownItem:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

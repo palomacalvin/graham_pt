@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Copperplate';
+  src: url('/fonts/Copperplate.ttc') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MinionPro';
+  src: url('/fonts/MinionPro-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #231f20;
 }
 
 @theme inline {
@@ -14,7 +30,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #231f20;
     --foreground: #ededed;
   }
 }
@@ -23,4 +39,72 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  font-size: 3rem;
+  padding: 3rem;
+  color: #231f20;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #231f20;
+}
+
+h2 {
+  font-size: 1.25rem;
+  color: #231f20;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+  line-height: 2.5rem;
+}
+
+.formTemplate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  flex-wrap: wrap;
+}
+
+.basicButton {
+  background-color: #0075bc;
+  color: #ffffff;
+  padding-right: 25vh;
+  padding-left: 25vh;
+  padding-bottom: 3vh;
+  padding-top: 3vh;
+  border-radius: 4px;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.basicButton:hover {
+  color: #231f20;
+  transition: 0.3s;
+}
+
+.basicTextBlock {
+  padding-top: 2rem;
+  font-size: 1.25rem;
+  color: #231f20;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+  line-height: 2.5rem;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 0.5rem;
 }
