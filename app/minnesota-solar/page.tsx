@@ -1,8 +1,10 @@
-export default function SolarPage() {
+// /app/indiana/page.tsx
+import React from "react";
+
+export default function MinnesotaSolar() {
   return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold">Solar Energy Data</h1>
-      <p className="mt-4">This page will show information about solar energy.</p>
-    </main>
+    <div>
+      <h1>Minnesota Solar Page</h1>
+    </div>
   );
 }
