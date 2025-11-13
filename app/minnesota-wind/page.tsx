@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import LocationSelector from "@/components/LocationSelector";
-import { useEffect } from "react";
 
 interface ProjectData {
   county: string;
@@ -12,12 +11,14 @@ interface ProjectData {
   approvedLandValuation: boolean;
   useCountyAvgLandValue: boolean;
   userLandValue: number;
-  useEstimatedCapacityFactor: boolean;
+  useEstimatedCapacityFactor: number;
   userCapacityFactor: number;
   pilotAgreement: boolean;
   pilotPayment: number;
   inflationRate: number;
   previousPropertyClass: string;
+  agriculturalType?: "Homestead" | "Non-homestead";
+  newAgriculturalType?: "Homestead" | "Non-homestead";
   newPropertyClass: string;
   nameplateCapacity: number;
   landArea: number;
@@ -33,7 +34,7 @@ export default function ProjectForm() {
     approvedLandValuation: true,
     useCountyAvgLandValue: true,
     userLandValue: 0,
-    useEstimatedCapacityFactor: true,
+    useEstimatedCapacityFactor: 0,
     userCapacityFactor: 0,
     pilotAgreement: false,
     pilotPayment: 0,
@@ -46,60 +47,94 @@ export default function ProjectForm() {
     acreageUnderTurbine: 0,
   });
 
+  // Track whether the county average has been set to avoid overwriting user input
+  const [defaultValueSet, setDefaultValueSet] = useState(false);
+
+  // Fetch county average when county changes
+  useEffect(() => {
+    if (!projectData.county) return;
+
+    const fetchCountyData = async () => {
+      try {
+        const res = await fetch("/api/location");
+        const data = await res.json();
+
+        const countyData = data.counties.find(
+          (c: any) =>
+            c.county_name.toLowerCase() === projectData.county.toLowerCase()
+        );
+
+        if (countyData?.avg_market_value_per_acre !== undefined && !defaultValueSet) {
+          setProjectData((prev) => ({
+            ...prev,
+            userLandValue: countyData.avg_market_value_per_acre,
+          }));
+          setDefaultValueSet(true); // Mark as set to prevent infinite updates
+        }
+      } catch (err) {
+        console.error("Error fetching county data:", err);
+      }
+    };
+
+    fetchCountyData();
+
+
+  // reset the flag when county changes
+  return () => setDefaultValueSet(false);
+}, [projectData.county]);
+
 useEffect(() => {
   if (!projectData.county) return;
 
-  let isMounted = true;
-
-  const fetchCountyData = async () => {
+  const fetchCapacityFactor = async () => {
     try {
-      const res = await fetch("/api/minnesota_counties");
+      const res = await fetch("/api/location");
       const data = await res.json();
 
       const countyData = data.counties.find(
-        (c: any) => c.county_name.toLowerCase() === projectData.county.toLowerCase()
+        (c: any) =>
+          c.county_name.toLowerCase() === projectData.county.toLowerCase()
       );
 
-      if (countyData?.avg_market_value_per_acre !== undefined && isMounted) {
-        setProjectData(prev => ({
+      // assuming each county record includes est_capacity_factor
+      if (countyData?.est_capacity_factor !== undefined && !defaultValueSet) {
+        setProjectData((prev) => ({
           ...prev,
-          userLandValue: countyData.avg_market_value_per_acre,
+          useEstimatedCapacityFactor: countyData.est_capacity_factor,
         }));
+        setDefaultValueSet(true);
       }
     } catch (err) {
-      console.error("Error fetching county data:", err);
+      console.error("Error fetching capacity factor:", err);
     }
   };
 
-  fetchCountyData();
-
-  return () => {
-    isMounted = false;
-  };
-}, [projectData.county]);
+  fetchCapacityFactor();
 
 
-
-
-
-
-
+    // Reset default value flag if county changes
+    return () => setDefaultValueSet(false);
+  }, [projectData.county]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value, type } = e.target;
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+) => {
+  const { name, value, type } = e.target;
 
-    if (type === "checkbox") {
-      const target = e.target as HTMLInputElement;
-      setProjectData((prev) => ({ ...prev, [name]: target.checked }));
-    } else {
-      setProjectData((prev) => ({
-        ...prev,
-        [name]: type === "number" ? Number(value) : value,
-      }));
-    }
-  };
+  if (type === "checkbox") {
+    const target = e.target as HTMLInputElement;
+    setProjectData((prev) => ({ ...prev, [name]: target.checked }));
+  } else {
+    setProjectData((prev) => {
+      // Auto-clear agriculturalType if previousPropertyClass changes
+      if (name === "previousPropertyClass" && value !== "Agriculture") {
+        return { ...prev, [name]: value, agriculturalType: undefined };
+      }
+      return { ...prev, [name]: type === "number" ? Number(value) : value };
+    });
+  }
+};
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,14 +153,11 @@ useEffect(() => {
     <div>
       <Navbar />
 
-
-      {/* === Main Form === */}
       <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl mx-auto p-6">
-        {/* --- Project Location --- */}
+        {/* === Project Location === */}
         <section className="border rounded p-4">
-          <h2 className="text-xl font-semibold mb-4">Project Location</h2>
+          <h2 className="text-xl font-semibold mb-4">Project Location Information</h2>
 
-          {/* === Location Selector === */}
           <LocationSelector
             stateName="MINNESOTA"
             onSelectCounty={(county) =>
@@ -139,10 +171,10 @@ useEffect(() => {
             }
           />
 
-          <br></br>
+          <br />
 
           <label className="block mb-2">
-            County Approved New Land Valuation as Original Use
+            Check if the county approved new land valuation as the original use
             <input
               type="checkbox"
               name="approvedLandValuation"
@@ -153,7 +185,7 @@ useEffect(() => {
           </label>
 
           <label className="block mb-2">
-            Average Land Market Value ($/acre):
+            Land Market Value ($/acre):
             <input
               type="number"
               name="userLandValue"
@@ -163,47 +195,34 @@ useEffect(() => {
             />
           </label>
 
+          <p>Note that the default value in this field is the 
+            average land market value for the selected county.
+            Edit the value to match your project's details.
+          </p>
 
-          {!projectData.useCountyAvgLandValue && (
-            <label className="block mb-2">
-              Enter Land Value ($/acre):
-              <input
-                type="number"
-                name="userLandValue"
-                value={projectData.userLandValue}
-                onChange={handleChange}
-                className="border p-1 ml-2"
-              />
-            </label>
-          )}
+          <br></br>
 
           <label className="block mb-2">
-            Use Estimated Capacity Factor?
+            Estimated Capacity Factor:
             <input
-              type="checkbox"
+              type="number"
+              step="0.1"
               name="useEstimatedCapacityFactor"
-              checked={projectData.useEstimatedCapacityFactor}
+              value={projectData.useEstimatedCapacityFactor || ""}
               onChange={handleChange}
-              className="ml-2"
+              className="border p-1 ml-2 w-32"
             />
           </label>
 
-          {!projectData.useEstimatedCapacityFactor && (
-            <label className="block mb-2">
-              Enter Capacity Factor:
-              <input
-                type="number"
-                step="0.001"
-                name="userCapacityFactor"
-                value={projectData.userCapacityFactor}
-                onChange={handleChange}
-                className="border p-1 ml-2"
-              />
-            </label>
-          )}
+          <p>
+            Note that the default value is the average estimated capacity factor for the
+            selected county. Edit the value to match your project's details.
+          </p>
+
+          <br></br>
 
           <label className="block mb-2">
-            PILOT Agreement?
+            Did the county arrange a payment in lieu of taxes (PILOT) with the developer?
             <input
               type="checkbox"
               name="pilotAgreement"
@@ -219,29 +238,31 @@ useEffect(() => {
               <input
                 type="number"
                 name="pilotPayment"
-                value={projectData.pilotPayment}
+                value={projectData.pilotPayment || ""}
                 onChange={handleChange}
                 className="border p-1 ml-2"
               />
             </label>
           )}
 
+          <br></br>
+
           <label className="block mb-2">
             Average Yearly Inflation Rate (%):
             <input
               type="number"
-              step="0.01"
+              step="0.1"
               name="inflationRate"
-              value={projectData.inflationRate}
+              value={projectData.inflationRate || ""}
               onChange={handleChange}
               className="border p-1 ml-2"
             />
           </label>
         </section>
 
-        {/* --- Property Classification --- */}
+        {/* === Property Classification === */}
         <section className="border rounded p-4">
-          <h2 className="text-xl font-semibold mb-4">Property Classification</h2>
+          <h2 className="text-xl font-semibold mb-4">Property Classification Information</h2>
 
           <label className="block mb-2">
             Previous Property Class:
@@ -253,9 +274,28 @@ useEffect(() => {
             >
               <option value="">Select</option>
               <option value="Agriculture">Agriculture</option>
-              <option value="Non-homestead">Non-homestead</option>
+              <option value="RuralLand">Rural Land</option>
+              <option value="Commercial">Commercial</option>
             </select>
           </label>
+
+          
+          {/* Conditional dropdown for Agriculture */}
+          {projectData.previousPropertyClass === "Agriculture" && (
+            <label className="block mb-2">
+              Agricultural Land Type:
+              <select
+                name="agriculturalType"
+                value={projectData.agriculturalType || ""}
+                onChange={handleChange}
+                className="border p-1 ml-2"
+              >
+                <option value="">Select</option>
+                <option value="Homestead">Homestead</option>
+                <option value="Non-homestead">Non-homestead</option>
+              </select>
+            </label>
+          )}
 
           <label className="block mb-2">
             New Property Class:
@@ -266,33 +306,52 @@ useEffect(() => {
               className="border p-1 ml-2"
             >
               <option value="">Select</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="RuralLand">Rural Land</option>
               <option value="Commercial">Commercial</option>
-              <option value="Residential">Residential</option>
             </select>
           </label>
+
+          {/* Conditional dropdown for Agriculture */}
+          {projectData.newPropertyClass === "Agriculture" && (
+            <label className="block mb-2">
+              Agricultural Land Type:
+              <select
+                name="newAgriculturalType"
+                value={projectData.newAgriculturalType || ""}
+                onChange={handleChange}
+                className="border p-1 ml-2"
+              >
+                <option value="">Select</option>
+                <option value="Homestead">Homestead</option>
+                <option value="Non-homestead">Non-homestead</option>
+              </select>
+            </label>
+          )}
+
         </section>
 
-        {/* --- Wind Farm System --- */}
+        {/* === Wind Farm System === */}
         <section className="border rounded p-4">
-          <h2 className="text-xl font-semibold mb-4">Wind Farm System</h2>
+          <h2 className="text-xl font-semibold mb-4">Wind Farm Systems Information</h2>
 
           <label className="block mb-2">
-            Nameplate Capacity (MW):
+            Nameplate Capacity (mega-watt):
             <input
               type="number"
               name="nameplateCapacity"
-              value={projectData.nameplateCapacity}
+              value={projectData.nameplateCapacity || ""}
               onChange={handleChange}
               className="border p-1 ml-2"
             />
           </label>
 
           <label className="block mb-2">
-            Land Area (Acres):
+            Land Area of Project (acres):
             <input
               type="number"
               name="landArea"
-              value={projectData.landArea}
+              value={projectData.landArea || 700}
               onChange={handleChange}
               className="border p-1 ml-2"
             />
@@ -303,7 +362,7 @@ useEffect(() => {
             <input
               type="number"
               name="numberOfTurbines"
-              value={projectData.numberOfTurbines}
+              value={projectData.numberOfTurbines || ""}
               onChange={handleChange}
               className="border p-1 ml-2"
             />
@@ -314,7 +373,7 @@ useEffect(() => {
             <input
               type="number"
               name="acreageUnderTurbine"
-              value={projectData.acreageUnderTurbine}
+              value={projectData.acreageUnderTurbine || ""}
               onChange={handleChange}
               className="border p-1 ml-2"
             />
