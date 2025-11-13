@@ -3,70 +3,143 @@
 import { useEffect, useState } from "react";
 
 interface County {
-  name: string;
+  county_name: string;
+}
+
+interface City {
+  city_town: string;
 }
 
 interface Props {
   stateName: string;
-  onSelect?: (county: County | null) => void;
+  onSelectCounty?: (county: string | null) => void;
+  onSelectCity?: (city: string | null) => void;
+  onSelectSchoolDistrict?: (district: string | null) => void;
+
 }
 
-export default function LocationSelector({ stateName, onSelect }: Props) {
-  const [counties, setCounties] = useState<County[]>([]);
-  const [selectedCounty, setSelectedCounty] = useState<string>(""); // store as string for simplicity
+export default function LocationSelector({
+  stateName,
+  onSelectCounty,
+  onSelectCity,
+  onSelectSchoolDistrict,
+}: Props) {
 
-  // Fetch counties and normalize the data
+  // Set state for counties, cities, and SD
+  const [counties, setCounties] = useState<County[]>([]);
+  const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
+
+  const [cities, setCities] = useState<City[]>([]);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+
+  const [schoolDistricts, setSchoolDistricts] = useState<{ school_district: string }[]>([]);
+  const [selectedSchoolDistrict, setSelectedSchoolDistrict] = useState("");
+
+
+  // Fetch counties on load
   useEffect(() => {
-    console.log(`Fetching counties for state: ${stateName}`);
     fetch(`/api/location?state=${stateName}`)
       .then(res => res.json())
-      .then((data: { counties: any[] }) => {
-        // Normalize: ensure every object has a 'name' string
-        const normalized: County[] = data.counties.map(c => ({
-          name: c.name || c.county_name || "Unknown",
-        }));
-        console.log("Normalized counties:", normalized);
-        setCounties(normalized);
+      .then(data => {
+        setCounties(data.counties);
+        console.log("Fetched counties:", data.counties);
       })
       .catch(err => console.error("Error fetching counties:", err));
   }, [stateName]);
 
-  // Trigger onSelect when selection changes
+  // Fetch cities when a county is selected
   useEffect(() => {
-    if (onSelect) {
-      const countyObj = counties.find(c => c.name === selectedCounty) || null;
-      onSelect(countyObj);
-      console.log("Selected county:", countyObj);
-    }
-  }, [selectedCounty, counties, onSelect]);
+  if (!selectedCounty) return;
+
+    fetch(`/api/location/cities?county=${encodeURIComponent(selectedCounty.toUpperCase())}`)
+      .then(res => res.json())
+      .then(data => {
+        setCities(data.cities);
+        console.log("Fetched cities:", data.cities);
+      })
+      .catch(err => console.error("Error fetching cities:", err));
+  }, [selectedCounty]);
+
+  useEffect(() => {
+  if (!selectedCounty) return;
+
+  fetch(`/api/location/school-districts?county=${encodeURIComponent(selectedCounty)}`)
+    .then(res => res.json())
+    .then(data => {
+      setSchoolDistricts(data.schoolDistricts);
+      console.log("Fetched school districts:", data.schoolDistricts);
+    })
+    .catch(err => console.error("Error fetching school districts:", err));
+}, [selectedCounty]);
+
+
+
+  // Notify parent of selection changes
+  useEffect(() => {
+    if (onSelectCounty) onSelectCounty(selectedCounty);
+  }, [selectedCounty, onSelectCounty]);
+
+  useEffect(() => {
+    if (onSelectCity) onSelectCity(selectedCity);
+  }, [selectedCity, onSelectCity]);
 
   return (
-    <div style={{ width: "100%", maxWidth: "300px" }}>
-      <select
-        value={selectedCounty}
-        onChange={e => setSelectedCounty(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "8px",
-          border: "1px solid black",
-          borderRadius: "4px",
-          backgroundColor: "white",
-          color: "black",
-          appearance: "menulist",
-        }}
-      >
-        <option value="">-- Choose a County --</option>
-        {counties.map((c, i) => {
-          const displayName = c.name
-            ? c.name.charAt(0) + c.name.slice(1).toLowerCase()
-            : "Unknown";
-          return (
-            <option key={`${c.name}-${i}`} value={c.name}>
-              {displayName}
+    <div className="w-full max-w-xs space-y-4">
+      <div>
+        <select
+          value={selectedCounty || ""}
+          onChange={e => setSelectedCounty(e.target.value || null)}
+          className="w-full p-2 border border-gray-400 rounded bg-white text-black"
+        >
+          <option value="">-- Choose County --</option>
+          {counties.map((c, i) => (
+            <option key={`${c.county_name}-${i}`} value={c.county_name}>
+              {c.county_name}
             </option>
-          );
-        })}
-      </select>
+          ))}
+        </select>
+
+      </div>
+
+      <div>
+        <select
+          value={selectedCity || ""}
+          onChange={e => setSelectedCity(e.target.value || null)}
+          className="w-full p-2 border border-gray-400 rounded bg-white text-black"
+          disabled={!selectedCounty || cities.length === 0}
+        >
+          <option value="">-- Choose City/Town --</option>
+          {cities.map((c, i) => (
+            <option key={`${c.city_town}-${i}`} value={c.city_town}>
+              {c.city_town}
+            </option>
+          ))}
+        </select>
+      </div>
+
+          <div>
+
+          <select
+            name="schoolDistrict"
+            value={selectedSchoolDistrict}
+            onChange={(e) => {
+              setSelectedSchoolDistrict(e.target.value);
+              onSelectSchoolDistrict?.(e.target.value);
+            }}
+            className="w-full p-2 border border-gray-400 rounded bg-white text-black"
+          >
+            <option value="">-- Choose a School District --</option>
+            {schoolDistricts.map((sd, i) => (
+              <option key={`${sd.school_district}-${i}`} value={sd.school_district}>
+                {sd.school_district}
+              </option>
+            ))}
+          </select>
+
+
+        </div>
+
+
     </div>
   );
 }
