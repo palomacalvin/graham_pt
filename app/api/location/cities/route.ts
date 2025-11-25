@@ -15,7 +15,14 @@ export async function GET(request: Request) {
     }
 
     const res = await pool.query(
-      `SELECT city_town FROM minnesota_cities WHERE UPPER(home_county) ILIKE $1 ORDER BY city_town`,
+      `SELECT 
+         city_town,
+         ag_homestead_rate,
+         ag_non_homestead_rate,
+         commercial_rate
+       FROM minnesota_cities 
+       WHERE UPPER(home_county) ILIKE $1 
+       ORDER BY city_town`,
       [county]
     );
 

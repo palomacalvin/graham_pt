@@ -8,7 +8,10 @@ const pool = new Pool({
 export async function GET(request: Request) {
   try {
     const res = await pool.query(
-      `SELECT school_district FROM minnesota_school_districts ORDER BY school_district`
+      `SELECT school_district,
+      ag_homestead_rate,
+      ag_non_homestead_rate,
+      commercial_rate FROM minnesota_school_districts ORDER BY school_district`
     );
 
     return NextResponse.json({ schoolDistricts: res.rows });
