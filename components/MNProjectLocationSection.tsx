@@ -1,7 +1,8 @@
 "use client";
 
-import {ProjectData} from "@/types/MNproject";
+import { ProjectData } from "@/types/MNproject";
 import LocationSelector from "./LocationSelector";
+import { County } from "@/components/LocationSelector";
 
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
   setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>;
   countyAvgValue: number;
   userEditedLandValue: boolean;
+  onSelectCounty: (county: County | null) => void
 }
 
 export default function MNProjectLocationSection({
@@ -25,29 +27,41 @@ export default function MNProjectLocationSection({
 
       <LocationSelector
         stateName="MINNESOTA"
-        onSelectCounty={(county) =>
-          setProjectData((prev) => ({ ...prev, county: county || "" }))
-        }
+        onSelectCounty={(county) => {
+        setProjectData((prev) => ({
+          ...prev, // keep all other fields
+          county: county?.county_name || "",
+          countyTaxRates: county
+            ? {
+                ag_homestead_effective_rate: county.ag_homestead_effective_rate,
+                ag_non_homestead_effective_rate: county.ag_non_homestead_effective_rate,
+                commercial_effective_rate: county.commercial_effective_rate,
+              }
+            : undefined,
+        }));
+      }}
+
         onSelectCity={(cityObj) => {
           if (!cityObj) return;
           setProjectData((prev) => ({
             ...prev,
             township: cityObj.city_town,
             taxRates: {
-              homestead: cityObj.homestead_rate,
-              nonHomestead: cityObj.non_homestead_rate,
-              commercial: cityObj.commercial_rate
+              homestead: cityObj.homestead_rate / 100,
+              nonHomestead: cityObj.non_homestead_rate / 100,
+              commercial: cityObj.commercial_rate / 100
             }
           }));
         }}
         onSelectSchoolDistrict={(sdObj) => {
           if (!sdObj) return;
+          console.log(sdObj)
           setProjectData((prev) => ({
             ...prev,
             schoolDistrict: sdObj.school_district,
             taxRates: {
-              homestead: sdObj.homestead_rate > 0 ? sdObj.homestead_rate : prev.taxRates!.homestead,
-              nonHomestead: sdObj.non_homestead_rate > 0 ? sdObj.non_homestead_rate : prev.taxRates!.nonHomestead,
+              homestead: sdObj.ag_homestead_rate > 0 ? sdObj.ag_homestead_rate : prev.taxRates!.homestead,
+              nonHomestead: sdObj.ag_non_homestead_rate > 0 ? sdObj.ag_non_homestead_rate : prev.taxRates!.nonHomestead,
               commercial: sdObj.commercial_rate > 0 ? sdObj.commercial_rate : prev.taxRates!.commercial
             }
           }));

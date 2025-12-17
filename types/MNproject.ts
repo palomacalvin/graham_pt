@@ -1,6 +1,14 @@
 // /types/project.ts
 export interface ProjectData {
   county: string;
+
+  countyTaxRates?: {
+    ag_homestead_effective_rate: number;
+    ag_non_homestead_effective_rate: number;
+    commercial_effective_rate: number;
+  };
+
+
   township: string;
   schoolDistrict: string;
   approvedLandValuation: boolean;
@@ -25,4 +33,8 @@ export interface ProjectData {
     nonHomestead: number;
     commercial: number;
   }
+
 }
+
+
+

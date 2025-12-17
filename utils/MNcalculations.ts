@@ -2,9 +2,9 @@ import { ProjectData } from "@/types/MNproject";
 
 export function getProductionRate(nameplateCapacity: number): number {
   if (nameplateCapacity < 0) return 0;
-  if (nameplateCapacity < 2) return 0.12;
-  if (nameplateCapacity >= 2 && nameplateCapacity <= 12) return 0.36;
-  return 1.2;
+  if (nameplateCapacity < 2) return 1.2;
+  if (nameplateCapacity >= 2 && nameplateCapacity <= 12) return 3.6;
+  return 12.0;
 }
 
 export function getAnnualEnergyMWh(projectData: ProjectData): number {
@@ -20,27 +20,33 @@ export function getAnnualEnergyMWh(projectData: ProjectData): number {
 export function calculateRealPropertyTax(
   landArea: number,
   landValuePerAcre: number,
-  previousPropertyClass: string,
+  newPropertyClass: string,
   agriculturalType: "Homestead" | "Non-homestead" | undefined,
-  taxRates: { homestead: number; nonHomestead: number; commercial: number }
-    ): number {
-
+  taxRates: { ag_homestead_effective_rate: number; 
+    ag_non_homestead_effective_rate: number; 
+    commercial_effective_rate: number;
+  }
+): number {
 
   let chosenRate = 0;
 
-  switch (previousPropertyClass) {
+  switch (newPropertyClass) {
     case "Agriculture":
-      chosenRate = agriculturalType === "Homestead" ? taxRates.homestead : taxRates.nonHomestead;
+      chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
       break;
     case "RuralLand":
-      chosenRate = taxRates.nonHomestead;
+      chosenRate =
+        agriculturalType === "Homestead"
+          ? taxRates.ag_homestead_effective_rate
+          : taxRates.ag_non_homestead_effective_rate;
       break;
     case "Commercial":
-      chosenRate = taxRates.commercial;
+      chosenRate = taxRates.commercial_effective_rate;
       break;
     default:
       return 0;
   }
 
+  console.log(chosenRate)
   return landArea * landValuePerAcre * chosenRate;
 }

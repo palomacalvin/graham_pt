@@ -14,7 +14,10 @@ export async function GET(request: Request) {
          avg_wind_power_density, 
          est_capacity_factor, 
          avg_market_value_per_acre,
-         state
+         state,
+         ag_homestead_effective_rate,
+         ag_non_homestead_effective_rate,
+         commercial_effective_rate
        FROM minnesota_counties
        ORDER BY county_name`
     );

@@ -8,6 +8,7 @@ import WindFarmSection from "@/components/MNWindFarmSection";
 import TaxResults from "@/components/MNTaxResults";
 import { getProductionRate, getAnnualEnergyMWh, calculateRealPropertyTax } from "@/utils/MNcalculations";
 import { useCountyData } from "@/hooks/useCountyDataMN";
+import { County } from "@/components/LocationSelector";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -72,7 +73,7 @@ export default function ProjectForm() {
   });
 };
 
-console.log(projectData.taxRates)
+console.log(projectData.countyTaxRates)
 
   // Calculate production revenue
   const productionRate = getProductionRate(projectData.nameplateCapacity);
@@ -82,13 +83,13 @@ console.log(projectData.taxRates)
 
   // Real Property Tax
   const landValuePerAcre = (userEditedLandValue || countyAvgValue === 0) ? projectData.userLandValue : countyAvgValue;
-  const realPropertyTaxRevenue = projectData.taxRates
+  const realPropertyTaxRevenue = projectData.countyTaxRates
     ? calculateRealPropertyTax(
         projectData.landArea,
         landValuePerAcre,
-        projectData.previousPropertyClass,
+        projectData.newPropertyClass,
         projectData.agriculturalType,
-        projectData.taxRates
+        projectData.countyTaxRates
       )
     : 0;
 
@@ -102,8 +103,27 @@ console.log(projectData.taxRates)
     <div>
       <Navbar />
       <form onSubmit={handleSubmit}>
-        <MNProjectLocationSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData} countyAvgValue={countyAvgValue} userEditedLandValue={userEditedLandValue} />
-        <PropertyClassificationSection projectData={projectData} handleChange={handleChange} />
+        {/* <MNProjectLocationSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData} countyAvgValue={countyAvgValue} userEditedLandValue={userEditedLandValue} /> */}
+        <MNProjectLocationSection
+        projectData={projectData}
+        handleChange={handleChange}
+        setProjectData={setProjectData}
+        countyAvgValue={countyAvgValue}
+        userEditedLandValue={userEditedLandValue}
+        onSelectCounty={(county: County | null) => {
+          setProjectData(prev => ({
+            ...prev,
+            county: county?.county_name || "",
+            countyTaxRates: county ? {
+              ag_homestead_effective_rate: county.ag_homestead_effective_rate,
+              ag_non_homestead_effective_rate: county.ag_non_homestead_effective_rate,
+              commercial_effective_rate: county.commercial_effective_rate
+            } : undefined
+          }));
+        }}
+      />
+
+        <PropertyClassificationSection projectData={projectData} handleChange={handleChange} projectDataSetter={setProjectData} />
         <WindFarmSection projectData={projectData} handleChange={handleChange} />
         <button type="submit" className="basicButton">Save Project</button>
         <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} />
