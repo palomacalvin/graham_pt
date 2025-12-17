@@ -37,40 +37,42 @@ export default function ProjectForm() {
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-  const { name, value, type } = e.target;
+    const { name, value, type } = e.target;
 
-  setProjectData(prev => {
-    let newData: any = { ...prev };
+    setProjectData(prev => {
+      let newData: any = { ...prev };
 
-    if (type === "checkbox") {
-      newData[name] = (e.target as HTMLInputElement).checked;
-    } else if (type === "number") {
-      newData[name] = Number(value);
-    } else {
-      newData[name] = value;
-    }
-
-    // Ensure agriculturalType is never undefined
-    if (name === "previousPropertyClass") {
-      if (value === "Agriculture") {
-        newData.agriculturalType = newData.agriculturalType || "Homestead";
+      if (type === "checkbox") {
+        newData[name] = (e.target as HTMLInputElement).checked;
+      } else if (type === "number") {
+        newData[name] = Number(value);
       } else {
-        newData.agriculturalType = "Homestead"; // or null if you prefer
+        newData[name] = value;
       }
-    }
 
-    if (name === "newPropertyClass") {
-      if (value === "Agriculture") {
-        newData.newAgriculturalType = newData.newAgriculturalType || "Homestead";
-      } else {
-        newData.newAgriculturalType = "Homestead"; // or null
+      if (name === "previousPropertyClass") {
+        if (value === "Agriculture") {
+          newData.agriculturalType = newData.agriculturalType || "Homestead";
+        } else {
+          newData.agriculturalType = "Homestead";
+        }
       }
-    }
+
+      if (name === "newPropertyClass") {
+        if (value === "Agriculture") {
+          newData.newAgriculturalType = newData.newAgriculturalType || "Homestead";
+        } else {
+          newData.newAgriculturalType = "Homestead";
+        }
+      }
+
+
 
     return newData;
   });
 };
 
+console.log(projectData.taxRates)
 
   // Calculate production revenue
   const productionRate = getProductionRate(projectData.nameplateCapacity);
@@ -100,10 +102,10 @@ export default function ProjectForm() {
     <div>
       <Navbar />
       <form onSubmit={handleSubmit}>
-        <MNProjectLocationSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData} />
+        <MNProjectLocationSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData} countyAvgValue={countyAvgValue} userEditedLandValue={userEditedLandValue} />
         <PropertyClassificationSection projectData={projectData} handleChange={handleChange} />
         <WindFarmSection projectData={projectData} handleChange={handleChange} />
-        <button type="submit">Save Project</button>
+        <button type="submit" className="basicButton">Save Project</button>
         <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} />
       </form>
     </div>

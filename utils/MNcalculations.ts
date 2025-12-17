@@ -23,7 +23,8 @@ export function calculateRealPropertyTax(
   previousPropertyClass: string,
   agriculturalType: "Homestead" | "Non-homestead" | undefined,
   taxRates: { homestead: number; nonHomestead: number; commercial: number }
-): number {
+    ): number {
+
 
   let chosenRate = 0;
 

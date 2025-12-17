@@ -4,6 +4,7 @@ import { ProjectData } from "@/types/MNproject";
 interface Props {
   projectData: ProjectData;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  //projectDataSetter: 
 }
 
 export default function PropertyClassificationSection({ projectData, handleChange }: Props) {
@@ -13,8 +14,12 @@ export default function PropertyClassificationSection({ projectData, handleChang
 
       <label>
         Previous Property Class:
-        <select name="previousPropertyClass" value={projectData.previousPropertyClass} onChange={handleChange}>
-          <option value="">Select</option>
+        <select 
+        name="previousPropertyClass" 
+        value={projectData.previousPropertyClass} 
+        onChange={handleChange}
+        className="basicDropdown"
+        >
           <option value="Agriculture">Agriculture</option>
           <option value="RuralLand">Rural Land</option>
           <option value="Commercial">Commercial</option>
@@ -24,8 +29,12 @@ export default function PropertyClassificationSection({ projectData, handleChang
       {projectData.previousPropertyClass === "Agriculture" && (
         <label>
           Agricultural Land Type:
-          <select name="agriculturalType" value={projectData.agriculturalType || ""} onChange={handleChange}>
-            <option value="">Select</option>
+          <select 
+          name="agriculturalType" 
+          value={projectData.agriculturalType || ""} 
+          onChange={handleChange}
+          className="basicDropdown"
+          >
             <option value="Homestead">Homestead</option>
             <option value="Non-homestead">Non-homestead</option>
           </select>
@@ -34,8 +43,11 @@ export default function PropertyClassificationSection({ projectData, handleChang
 
       <label>
         New Property Class:
-        <select name="newPropertyClass" value={projectData.newPropertyClass} onChange={handleChange}>
-          <option value="">Select</option>
+        <select 
+        name="newPropertyClass" 
+        value={projectData.newPropertyClass} 
+        onChange={handleChange}
+        className="basicDropdown">
           <option value="Agriculture">Agriculture</option>
           <option value="RuralLand">Rural Land</option>
           <option value="Commercial">Commercial</option>
@@ -46,7 +58,6 @@ export default function PropertyClassificationSection({ projectData, handleChang
         <label>
           Agricultural Land Type:
           <select name="newAgriculturalType" value={projectData.newAgriculturalType || ""} onChange={handleChange}>
-            <option value="">Select</option>
             <option value="Homestead">Homestead</option>
             <option value="Non-homestead">Non-homestead</option>
           </select>

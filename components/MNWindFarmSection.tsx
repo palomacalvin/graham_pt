@@ -12,23 +12,43 @@ export default function WindFarmSection({ projectData, handleChange }: Props) {
       <h1>Wind Farm Systems Information</h1>
 
       <label>
-        Nameplate Capacity (MW):
-        <input type="number" name="nameplateCapacity" value={projectData.nameplateCapacity} onChange={handleChange} />
+        Nameplate Capacity (in mega-watts):
+        <input 
+        type="number" 
+        name="nameplateCapacity" 
+        value={projectData.nameplateCapacity} 
+        onChange={handleChange}
+        className="basicInputBox" />
       </label>
 
       <label>
         Land Area of Project (acres):
-        <input type="number" name="landArea" value={projectData.landArea} onChange={handleChange} />
+        <input 
+        type="number" 
+        name="landArea" 
+        value={projectData.landArea} 
+        onChange={handleChange}
+        className="basicInputBox" />
       </label>
 
       <label>
         Number of Turbines:
-        <input type="number" name="numberOfTurbines" value={projectData.numberOfTurbines} onChange={handleChange} />
+        <input 
+        type="number" 
+        name="numberOfTurbines" 
+        value={projectData.numberOfTurbines} 
+        onChange={handleChange}
+        className="basicInputBox" />
       </label>
 
       <label>
         Acreage Under Turbine:
-        <input type="number" name="acreageUnderTurbine" value={projectData.acreageUnderTurbine} onChange={handleChange} />
+        <input 
+        type="number" 
+        name="acreageUnderTurbine" 
+        value={projectData.acreageUnderTurbine} 
+        onChange={handleChange}
+        className="basicInputBox" />
       </label>
     </section>
   );

@@ -11,7 +11,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     <section>
       <h1>Your results</h1>
       <h3>Production Tax Revenue for Each Year</h3>
-      <table>
+      <table className="basicTable">
         <thead>
           <tr>
             <th>Item</th>
@@ -21,15 +21,15 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         <tbody>
           <tr>
             <td>County</td>
-            <td>{Math.round(totalProductionRevenue * 0.8)}</td>
+            <td>${Math.round(totalProductionRevenue * 0.8)}</td>
           </tr>
           <tr>
             <td>Township</td>
-            <td>{Math.round(totalProductionRevenue * 0.2)}</td>
+            <td>${Math.round(totalProductionRevenue * 0.2)}</td>
           </tr>
           <tr>
             <td>Total</td>
-            <td>{Math.round(totalProductionRevenue)}</td>
+            <td>${Math.round(totalProductionRevenue)}</td>
           </tr>
         </tbody>
       </table>

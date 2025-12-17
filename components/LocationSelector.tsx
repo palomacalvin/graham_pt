@@ -205,7 +205,8 @@ export default function LocationSelector({
       .then((res) => res.json())
       .then((data) => setCities(data.cities))
       .catch((err) => console.error("Error fetching cities:", err));
-  }, [selectedCounty]);
+  }, [selectedCounty, selectedSchoolDistrict, selectedCity]);
+
 
   // Fetch school districts for county
   useEffect(() => {
@@ -219,7 +220,7 @@ export default function LocationSelector({
       .then((res) => res.json())
       .then((data) => setSchoolDistricts(data.schoolDistricts))
       .catch((err) => console.error("Error fetching school districts:", err));
-  }, [selectedCounty]);
+  }, [selectedCounty, selectedSchoolDistrict, selectedCity]);
 
   return (
     <div className="w-full max-w-xs space-y-4">

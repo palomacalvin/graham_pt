@@ -55,44 +55,49 @@ export default function MNProjectLocationSection({
       />
 
       <label>
-        Land Market Value ($/acre):
+        County Average Land Market Value ($/acre):
         <input
           type="number"
           name="userLandValue"
           value={projectData.userLandValue || ""}
           onChange={handleChange}
+          className="basicInputBox"
         />
       </label>
 
       <label>
-        Estimated Capacity Factor:
+        County Estimated Wind Capacity Factor:
         <input
           type="number"
           step="0.1"
           name="useEstimatedCapacityFactor"
           value={projectData.useEstimatedCapacityFactor || ""}
           onChange={handleChange}
+          className="basicInputBox"
         />
       </label>
 
       <label>
-        PILOT Agreement:
+        Check if the county arranged a payment in lieu of taxes agreement (PILOT) with 
+        the developer:
         <input
           type="checkbox"
           name="pilotAgreement"
           checked={projectData.pilotAgreement}
           onChange={handleChange}
+          className="basicCheckBox"
         />
       </label>
 
       {projectData.pilotAgreement && (
         <label>
-          Annual Payment ($):
+          Enter the PILOT Annual Payment ($):
           <input
             type="number"
             name="pilotPayment"
             value={projectData.pilotPayment || ""}
             onChange={handleChange}
+            className="basicInputBox"
           />
         </label>
       )}
