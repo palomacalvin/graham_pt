@@ -4,7 +4,7 @@ import { ProjectData } from "@/types/MNproject";
 interface Props {
   projectData: ProjectData;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  //projectDataSetter: 
+  projectDataSetter: 
 }
 
 export default function PropertyClassificationSection({ projectData, handleChange }: Props) {

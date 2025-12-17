@@ -1,0 +1,28 @@
+// /types/project.ts
+export interface ProjectData {
+  county: string;
+  township: string;
+  schoolDistrict: string;
+  approvedLandValuation: boolean;
+  useCountyAvgLandValue: boolean;
+  userLandValue: number;
+  useEstimatedCapacityFactor: number;
+  userCapacityFactor: number;
+  pilotAgreement: boolean;
+  pilotPayment: number;
+  inflationRate: number;
+  previousPropertyClass: string;
+  agriculturalType?: "Homestead" | "Non-homestead";
+  newAgriculturalType?: "Homestead" | "Non-homestead";
+  newPropertyClass: string;
+  nameplateCapacity: number;
+  landArea: number;
+  numberOfTurbines: number;
+  acreageUnderTurbine: number;
+
+  taxRates?: {
+    homestead: number;
+    nonHomestead: number;
+    commercial: number;
+  }
+}
