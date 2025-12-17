@@ -183,7 +183,8 @@ export default function LocationSelector({
 
   const [schoolDistricts, setSchoolDistricts] = useState<SchoolDistrict[]>([]);
   const [selectedSchoolDistrict, setSelectedSchoolDistrict] =
-    useState<SchoolDistrict | null>(null);
+  
+  useState<SchoolDistrict | null>(null);
 
   // Fetch counties
   useEffect(() => {
