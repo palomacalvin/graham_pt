@@ -8,6 +8,17 @@ export interface ProjectData {
     commercial_effective_rate: number;
   };
 
+  cityTaxRates?: {
+    ag_homestead_effective_rate: number;
+    ag_non_homestead_effective_rate: number;
+    commercial_effective_rate: number;
+  }
+
+  schoolDistrictTaxRates?: {
+    ag_homestead_effective_rate: number;
+    ag_non_homestead_effective_rate: number;
+    commercial_effective_rate: number;
+  }
 
   township: string;
   schoolDistrict: string;
@@ -29,6 +40,18 @@ export interface ProjectData {
   acreageUnderTurbine: number;
 
   taxRates?: {
+    homestead: number;
+    nonHomestead: number;
+    commercial: number;
+  }
+  
+  taxRatesCity?: {
+    homestead: number;
+    nonHomestead: number;
+    commercial: number;
+  }
+
+  taxRatesSchoolDistrict?: {
     homestead: number;
     nonHomestead: number;
     commercial: number;

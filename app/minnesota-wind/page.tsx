@@ -6,16 +6,18 @@ import MNProjectLocationSection from "@/components/MNProjectLocationSection";
 import PropertyClassificationSection from "@/components/MNPropertyClassificationSection";
 import WindFarmSection from "@/components/MNWindFarmSection";
 import TaxResults from "@/components/MNTaxResults";
-import { getProductionRate, getAnnualEnergyMWh, calculateRealPropertyTax } from "@/utils/MNcalculations";
+import { getProductionRate, getAnnualEnergyMWh, calculateRealPropertyTax, calculateFormerRealPropertyTax } from "@/utils/MNcalculations";
 import { useCountyData } from "@/hooks/useCountyDataMN";
 import { County } from "@/components/LocationSelector";
+import { calculateCityRealPropertyTax, calculateFormerCityRealPropertyTax } from "@/utils/MNCityCalculations";
+import { calculateFormerSchoolDistrictRealPropertyTax, calculateSchoolDistrictRealPropertyTax } from "@/utils/MNSchoolDistrictCalculations";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
     county: "",
     township: "",
     schoolDistrict: "",
-    approvedLandValuation: true,
+    approvedLandValuation: false,
     useCountyAvgLandValue: true,
     userLandValue: 10000,
     useEstimatedCapacityFactor: 0,
@@ -30,6 +32,8 @@ export default function ProjectForm() {
     numberOfTurbines: 0,
     acreageUnderTurbine: 0,
     taxRates: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01 },
+    taxRatesCity: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01},
+    taxRatesSchoolDistrict: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01},
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
@@ -67,8 +71,6 @@ export default function ProjectForm() {
         }
       }
 
-
-
     return newData;
   });
 };
@@ -81,8 +83,10 @@ console.log(projectData.countyTaxRates)
   const modProdTaxRevenue = productionRate * annualMWh;
   const totalProductionRevenue = projectData.pilotAgreement ? projectData.pilotPayment : modProdTaxRevenue;
 
-  // Real Property Tax
   const landValuePerAcre = (userEditedLandValue || countyAvgValue === 0) ? projectData.userLandValue : countyAvgValue;
+
+
+  // Real Property Tax Revenue (County)
   const realPropertyTaxRevenue = projectData.countyTaxRates
     ? calculateRealPropertyTax(
         projectData.landArea,
@@ -92,6 +96,73 @@ console.log(projectData.countyTaxRates)
         projectData.countyTaxRates
       )
     : 0;
+
+  // Former Property Tax Revenue (County)
+  const formerRealPropertyTaxRevenue =
+  projectData.approvedLandValuation
+    ? realPropertyTaxRevenue
+    : projectData.countyTaxRates
+        ? calculateFormerRealPropertyTax(
+            projectData.landArea,
+            landValuePerAcre,
+            projectData.previousPropertyClass,
+            projectData.agriculturalType,
+            projectData.countyTaxRates
+          )
+        : 0;
+
+  // Real Property Tax Revenue (City)
+  const cityRealPropertyTaxRevenue = projectData.cityTaxRates
+    ? calculateCityRealPropertyTax(
+        projectData.landArea,
+        landValuePerAcre,
+        projectData.newPropertyClass,
+        projectData.agriculturalType,
+        projectData.cityTaxRates
+      )
+    : 0;
+
+  // Former Property Tax Revenue (City)
+  const formerCityRealPropertyTaxRevenue =
+  projectData.approvedLandValuation
+    ? realPropertyTaxRevenue
+    : projectData.cityTaxRates
+        ? calculateFormerCityRealPropertyTax(
+            projectData.landArea,
+            landValuePerAcre,
+            projectData.previousPropertyClass,
+            projectData.agriculturalType,
+            projectData.cityTaxRates
+          )
+        : 0;
+
+
+    // Real Property Tax Revenue (School District)
+    const schoolDistrictRealPropertyTaxRevenue = projectData.schoolDistrictTaxRates
+    ? calculateSchoolDistrictRealPropertyTax(
+        projectData.landArea,
+        landValuePerAcre,
+        projectData.newPropertyClass,
+        projectData.agriculturalType,
+        projectData.schoolDistrictTaxRates
+      )
+    : 0;
+
+    // Former Property Tax Revenue (County)
+    const formerSchoolDistrictRealPropertyTaxRevenue =
+    projectData.approvedLandValuation
+      ? realPropertyTaxRevenue
+      : projectData.schoolDistrictTaxRates
+          ? calculateFormerSchoolDistrictRealPropertyTax(
+              projectData.landArea,
+              landValuePerAcre,
+              projectData.previousPropertyClass,
+              projectData.agriculturalType,
+              projectData.schoolDistrictTaxRates
+            )
+          : 0;
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,7 +197,9 @@ console.log(projectData.countyTaxRates)
         <PropertyClassificationSection projectData={projectData} handleChange={handleChange} projectDataSetter={setProjectData} />
         <WindFarmSection projectData={projectData} handleChange={handleChange} />
         <button type="submit" className="basicButton">Save Project</button>
-        <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} />
+        <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} formerRealPropertyTaxRevenue={formerRealPropertyTaxRevenue}
+        cityRealPropertyTaxRevenue={cityRealPropertyTaxRevenue} formerCityRealPropertyTaxRevenue={formerCityRealPropertyTaxRevenue}
+        schoolDistrictRealPropertyTaxRevenue={schoolDistrictRealPropertyTaxRevenue} formerSchoolDistrictRealPropertyTaxRevenue={formerSchoolDistrictRealPropertyTaxRevenue}/>
       </form>
     </div>
   );

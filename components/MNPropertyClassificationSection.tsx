@@ -12,6 +12,16 @@ export default function PropertyClassificationSection({ projectData, handleChang
     <section>
       <h1>Property Classification Information</h1>
 
+      <label>Check if the county approved new land valuation as original use: 
+        <input
+          type="checkbox"
+          name="approvedLandValuation"
+          checked={projectData.approvedLandValuation}
+          onChange={handleChange}
+          className="basicCheckBox"
+        />
+      </label>
+
       <label>
         Previous Property Class:
         <select 

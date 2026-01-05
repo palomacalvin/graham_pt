@@ -17,7 +17,8 @@ export function getAnnualEnergyMWh(projectData: ProjectData): number {
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
 
-export function calculateRealPropertyTax(
+
+export function calculateCityRealPropertyTax(
   landArea: number,
   landValuePerAcre: number,
   newPropertyClass: string,
@@ -26,7 +27,7 @@ export function calculateRealPropertyTax(
     ag_non_homestead_effective_rate: number; 
     commercial_effective_rate: number;
   }
-): number {
+  ): number {
 
   let chosenRate = 0;
 
@@ -47,11 +48,14 @@ export function calculateRealPropertyTax(
       return 0;
   }
 
-  //console.log(chosenRate)
+  console.log(chosenRate)
+  let calculatedValue = landArea * landValuePerAcre * chosenRate;
+
+  console.log("City Calculated value:", calculatedValue)
   return landArea * landValuePerAcre * chosenRate;
 }
 
-export function calculateFormerRealPropertyTax(
+export function calculateFormerCityRealPropertyTax(
   landArea: number,
   landValuePerAcre: number,
   previousPropertyClass: string,
@@ -81,9 +85,9 @@ export function calculateFormerRealPropertyTax(
       return 0;
   }
 
-  console.log(chosenRate)
+  console.log("City Chosen Rate", chosenRate)
   let calculatedValue = landArea * landValuePerAcre * chosenRate;
 
-  console.log("Calculated value:", calculatedValue)
+  console.log("City Calculated value:", calculatedValue)
   return landArea * landValuePerAcre * chosenRate;
 }
