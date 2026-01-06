@@ -22,6 +22,17 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   cityRealPropertyTaxRevenue, formerCityRealPropertyTaxRevenue, schoolDistrictRealPropertyTaxRevenue,
   formerSchoolDistrictRealPropertyTaxRevenue
  }: Props) {
+
+  const netCounty = realPropertyTaxRevenue - formerRealPropertyTaxRevenue;
+  const netCity = cityRealPropertyTaxRevenue - formerCityRealPropertyTaxRevenue;
+  const netSchool = schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue;
+
+  const totalNetRevenue = netCounty + netCity + netSchool;
+  const totalNetTaxRevenue = totalProductionRevenue + totalNetRevenue;
+
+  const format$ = (value: number) => `$${Math.round(value)}`;
+
+
   return (
     <section>
       <h1>Your results</h1>
@@ -107,15 +118,31 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         <tbody>
           <tr>
             <td>New School District Real Property Tax Revenue</td>
-            <td>ADD</td>
+            <td>${Math.round(schoolDistrictRealPropertyTaxRevenue)}</td>
           </tr>
           <tr>
             <td>Former School District Real Property Tax Revenue</td>
-            <td>ADD</td>
+            <td>${Math.round(formerSchoolDistrictRealPropertyTaxRevenue)}</td>
           </tr>
           <tr>
             <td>Net School District Revenue</td>
-            <td>ADD</td>
+            <td>${Math.round(schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Total Net Revenue</h3>
+
+      <table className="basicTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>${Math.round((realPropertyTaxRevenue - formerRealPropertyTaxRevenue) + (cityRealPropertyTaxRevenue - formerCityRealPropertyTaxRevenue) + (schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue))}</td>
           </tr>
         </tbody>
       </table>
@@ -132,15 +159,15 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         <tbody>
           <tr>
             <td>Production</td>
-            <td>FIX ${Math.round(totalProductionRevenue + realPropertyTaxRevenue)}</td>
+            <td>${Math.round(totalProductionRevenue)}</td>
           </tr>
           <tr>
             <td>Real Property</td>
-            <td>ADD</td>
+            <td>${Math.round((realPropertyTaxRevenue - formerRealPropertyTaxRevenue) + (cityRealPropertyTaxRevenue - formerCityRealPropertyTaxRevenue) + (schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue))}</td>
           </tr>
           <tr>
             <td>Total</td>
-            <td>ADD</td>
+            <td>${Math.round(totalProductionRevenue + (realPropertyTaxRevenue - formerRealPropertyTaxRevenue) + (cityRealPropertyTaxRevenue - formerCityRealPropertyTaxRevenue) + (schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue))}</td>
           </tr>
         </tbody>
       </table>

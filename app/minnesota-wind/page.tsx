@@ -32,8 +32,8 @@ export default function ProjectForm() {
     numberOfTurbines: 0,
     acreageUnderTurbine: 0,
     taxRates: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01 },
-    taxRatesCity: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01},
-    taxRatesSchoolDistrict: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01},
+    cityTaxRates: { ag_homestead_effective_rate: 0.01, ag_non_homestead_effective_rate: 0.01, commercial_effective_rate: 0.01},
+    schoolDistrictTaxRates: { ag_homestead_effective_rate: 0.01, ag_non_homestead_effective_rate: 0.01, commercial_effective_rate: 0.01},
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
@@ -81,7 +81,7 @@ console.log(projectData.countyTaxRates)
   const productionRate = getProductionRate(projectData.nameplateCapacity);
   const annualMWh = getAnnualEnergyMWh(projectData);
   const modProdTaxRevenue = productionRate * annualMWh;
-  const totalProductionRevenue = projectData.pilotAgreement ? projectData.pilotPayment : modProdTaxRevenue;
+  const totalProductionRevenue = (projectData.pilotAgreement ? projectData.pilotPayment : modProdTaxRevenue) / 10;
 
   const landValuePerAcre = (userEditedLandValue || countyAvgValue === 0) ? projectData.userLandValue : countyAvgValue;
 
@@ -125,7 +125,7 @@ console.log(projectData.countyTaxRates)
   // Former Property Tax Revenue (City)
   const formerCityRealPropertyTaxRevenue =
   projectData.approvedLandValuation
-    ? realPropertyTaxRevenue
+    ? cityRealPropertyTaxRevenue
     : projectData.cityTaxRates
         ? calculateFormerCityRealPropertyTax(
             projectData.landArea,
@@ -139,21 +139,21 @@ console.log(projectData.countyTaxRates)
 
     // Real Property Tax Revenue (School District)
     const schoolDistrictRealPropertyTaxRevenue = projectData.schoolDistrictTaxRates
-    ? calculateSchoolDistrictRealPropertyTax(
-        projectData.landArea,
-        landValuePerAcre,
-        projectData.newPropertyClass,
-        projectData.agriculturalType,
-        projectData.schoolDistrictTaxRates
-      )
-    : 0;
+      ? calculateSchoolDistrictRealPropertyTax(
+          projectData.landArea,
+          landValuePerAcre,
+          projectData.newPropertyClass,
+          projectData.agriculturalType,
+          projectData.schoolDistrictTaxRates
+        )
+      : 0;
 
-    // Former Property Tax Revenue (County)
+    // Former Property Tax Revenue (School District)
     const formerSchoolDistrictRealPropertyTaxRevenue =
     projectData.approvedLandValuation
-      ? realPropertyTaxRevenue
+      ? schoolDistrictRealPropertyTaxRevenue
       : projectData.schoolDistrictTaxRates
-          ? calculateFormerSchoolDistrictRealPropertyTax(
+          ? calculateFormerCityRealPropertyTax(
               projectData.landArea,
               landValuePerAcre,
               projectData.previousPropertyClass,
@@ -190,6 +190,7 @@ console.log(projectData.countyTaxRates)
               ag_non_homestead_effective_rate: county.ag_non_homestead_effective_rate,
               commercial_effective_rate: county.commercial_effective_rate
             } : undefined
+            
           }));
         }}
       />

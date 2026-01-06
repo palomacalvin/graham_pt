@@ -42,15 +42,18 @@ export default function MNProjectLocationSection({
       }}
 
         onSelectCity={(cityObj) => {
+          console.log("FULL cityObj:", cityObj);
           if (!cityObj) return;
+
           setProjectData((prev) => ({
             ...prev,
             township: cityObj.city_town,
-            taxRates: {
-              homestead: cityObj.homestead_rate / 100,
-              nonHomestead: cityObj.non_homestead_rate / 100,
-              commercial: cityObj.commercial_rate / 100
+            cityTaxRates: {
+              ag_homestead_effective_rate: cityObj.ag_homestead_rate,
+              ag_non_homestead_effective_rate: cityObj.ag_non_homestead_rate,
+              commercial_effective_rate: cityObj.commercial_rate
             }
+            
           }));
         }}
         onSelectSchoolDistrict={(sdObj) => {
@@ -59,10 +62,10 @@ export default function MNProjectLocationSection({
           setProjectData((prev) => ({
             ...prev,
             schoolDistrict: sdObj.school_district,
-            taxRates: {
-              homestead: sdObj.ag_homestead_rate > 0 ? sdObj.ag_homestead_rate : prev.taxRates!.homestead,
-              nonHomestead: sdObj.ag_non_homestead_rate > 0 ? sdObj.ag_non_homestead_rate : prev.taxRates!.nonHomestead,
-              commercial: sdObj.commercial_rate > 0 ? sdObj.commercial_rate : prev.taxRates!.commercial
+            schoolDistrictTaxRates: {
+              ag_homestead_effective_rate: sdObj.ag_homestead_rate > 0 ? sdObj.ag_homestead_rate : prev.taxRates!.homestead,
+              ag_non_homestead_effective_rate: sdObj.ag_non_homestead_rate > 0 ? sdObj.ag_non_homestead_rate : prev.taxRates!.nonHomestead,
+              commercial_effective_rate: sdObj.commercial_rate > 0 ? sdObj.commercial_rate : prev.taxRates!.commercial
             }
           }));
         }}

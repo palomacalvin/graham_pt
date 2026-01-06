@@ -23,7 +23,7 @@ export function calculateCityRealPropertyTax(
   landValuePerAcre: number,
   newPropertyClass: string,
   agriculturalType: "Homestead" | "Non-homestead" | undefined,
-  taxRates: { ag_homestead_effective_rate: number; 
+  cityTaxRates: { ag_homestead_effective_rate: number; 
     ag_non_homestead_effective_rate: number; 
     commercial_effective_rate: number;
   }
@@ -33,22 +33,29 @@ export function calculateCityRealPropertyTax(
 
   switch (newPropertyClass) {
     case "Agriculture":
-      chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
+      chosenRate = agriculturalType === "Homestead" ? cityTaxRates.ag_homestead_effective_rate : cityTaxRates.ag_non_homestead_effective_rate;
       break;
     case "RuralLand":
       chosenRate =
         agriculturalType === "Homestead"
-          ? taxRates.ag_homestead_effective_rate
-          : taxRates.ag_non_homestead_effective_rate;
+          ? cityTaxRates.ag_homestead_effective_rate
+          : cityTaxRates.ag_non_homestead_effective_rate;
       break;
     case "Commercial":
-      chosenRate = taxRates.commercial_effective_rate;
+      chosenRate = cityTaxRates.commercial_effective_rate;
       break;
     default:
       return 0;
   }
 
-  console.log(chosenRate)
+  console.log("CITY NEW PROPERTY CLASS:", newPropertyClass)
+
+  console.log("City Tax Rates", cityTaxRates)
+
+  console.log("City Chosen Rate:", chosenRate)
+  console.log("CITY LAND AREA", landArea)
+  console.log("CITY LANDVALUEPERACRE", landValuePerAcre)
+  console.log("CITY CHOSEN RATE", chosenRate)
   let calculatedValue = landArea * landValuePerAcre * chosenRate;
 
   console.log("City Calculated value:", calculatedValue)
@@ -60,7 +67,7 @@ export function calculateFormerCityRealPropertyTax(
   landValuePerAcre: number,
   previousPropertyClass: string,
   agriculturalType: "Homestead" | "Non-homestead" | undefined,
-  taxRates: { ag_homestead_effective_rate: number; 
+  cityTaxRates: { ag_homestead_effective_rate: number; 
     ag_non_homestead_effective_rate: number; 
     commercial_effective_rate: number;
   }
@@ -70,20 +77,23 @@ export function calculateFormerCityRealPropertyTax(
 
   switch (previousPropertyClass) {
     case "Agriculture":
-      chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
+      chosenRate = agriculturalType === "Homestead" ? cityTaxRates.ag_homestead_effective_rate : cityTaxRates.ag_non_homestead_effective_rate;
       break;
     case "RuralLand":
       chosenRate =
         agriculturalType === "Homestead"
-          ? taxRates.ag_homestead_effective_rate
-          : taxRates.ag_non_homestead_effective_rate;
+          ? cityTaxRates.ag_homestead_effective_rate
+          : cityTaxRates.ag_non_homestead_effective_rate;
       break;
     case "Commercial":
-      chosenRate = taxRates.commercial_effective_rate;
+      chosenRate = cityTaxRates.commercial_effective_rate;
       break;
     default:
       return 0;
   }
+
+    console.log("CITY FORMER PROPERTY CLASS:", previousPropertyClass)
+
 
   console.log("City Chosen Rate", chosenRate)
   let calculatedValue = landArea * landValuePerAcre * chosenRate;

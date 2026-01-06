@@ -11,8 +11,8 @@ export interface County {
 
 interface City {
   city_town: string;
-  homestead_rate: number;
-  non_homestead_rate: number;
+  ag_homestead_rate: number;
+  ag_non_homestead_rate: number;
   commercial_rate: number;
 }
 
