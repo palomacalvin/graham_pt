@@ -25,6 +25,7 @@ export default function MNProjectLocationSection({
     <section>
       <h1>Project Location Information</h1>
 
+      <br></br>
       <LocationSelector
         stateName="MINNESOTA"
         onSelectCounty={(county) => {
@@ -71,6 +72,7 @@ export default function MNProjectLocationSection({
         }}
       />
 
+      <br></br>
       <label>
         County Average Land Market Value ($/acre):
         <input
@@ -108,7 +110,7 @@ export default function MNProjectLocationSection({
 
       {projectData.pilotAgreement && (
         <label>
-          Enter the PILOT Annual Payment ($):
+          Enter the PILOT Annual Payment amount ($):
           <input
             type="number"
             name="pilotPayment"

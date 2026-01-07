@@ -24,47 +24,56 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   formerSchoolDistrictRealPropertyTaxRevenue
  }: Props) {
 
+  // Variables for storing calculation information.
   const netCounty = realPropertyTaxRevenue - formerRealPropertyTaxRevenue;
   const netCity = cityRealPropertyTaxRevenue - formerCityRealPropertyTaxRevenue;
   const netSchool = schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue;
 
+  // Total calculation variables.
   const totalNetRevenue = netCounty + netCity + netSchool;
   const totalNetTaxRevenue = totalProductionRevenue + totalNetRevenue;
 
+  // Variables for temporal display.
   const startYear = 2026;
   const endYear = 2056;
   const years = endYear - startYear + 1;
   const inflationRate = 0.03; // Standard
 
+  // Set variable arrays.
   const netRevenues = {
     netCounty: realPropertyTaxRevenue - formerRealPropertyTaxRevenue,
     netCity: cityRealPropertyTaxRevenue - formerCityRealPropertyTaxRevenue,
     netSchool: schoolDistrictRealPropertyTaxRevenue - formerSchoolDistrictRealPropertyTaxRevenue,
   };
 
-
+  // Variable names to display in the table.
   const netRevenueNames: Record<string, string> = {
     netCounty: "Net County Property Tax Revenue",
     netCity: "Net City/Township Property Tax Revenue",
     netSchool: "Net School District Property Tax Revenue",
   };
 
+  // Production revenue variable arrays.
   const productionRevenues = {
     countyProduction: totalProductionRevenue * 0.8,
     cityProduction: totalProductionRevenue * 0.2,
   }
 
+  // Production revenue names for display in table.
   const productionRevenueNames: Record<string, string> = {
     countyProduction: "County Production Tax Revenue",
     cityProduction: "City/Township Production Tax Revenue",
   }
 
+  // Formatting string.
   const format$ = (value: number) => `$${Math.round(value)}`;
 
   return (
     <div>
     <section>
       <h1>Your results</h1>
+      <br></br>
+
       <h3>Production Tax Revenue for Each Year</h3>
       <table className="basicTable">
         <thead>
@@ -89,13 +98,14 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </tbody>
       </table>
 
+      <br></br>
       <h3>Real Property Tax Revenue (Year 1)</h3>
 
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Value</th>
+            <th>County Revenue</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -114,11 +124,12 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </tbody>
       </table>
 
+      <br></br>
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Value</th>
+            <th>City Revenue</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -137,11 +148,12 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </tbody>
       </table>
 
+      <br></br>
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Value</th>
+            <th>School District Revenue</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -160,13 +172,13 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </tbody>
       </table>
 
+      <br></br>
       <h3>Total Net Revenue</h3>
 
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Value</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -176,6 +188,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </tbody>
       </table>
 
+      <br></br>
       <h3>Total Net Tax Revenue (Year 1)</h3>
 
       <table className="basicTable">
@@ -187,11 +200,11 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </thead>
         <tbody>
           <tr>
-            <td>Production</td>
+            <td>Production Tax Revenue</td>
             <td>{format$(totalProductionRevenue)}</td>
           </tr>
           <tr>
-            <td>Real Property</td>
+            <td>Real Property Tax Revenue</td>
             <td>{format$(totalNetRevenue)}</td>
           </tr>
           <tr>
@@ -202,12 +215,13 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       </table>
     </section>
 
+    <br></br>
     <section>
-      <h3>Projected Revenue (2026 - 2056)</h3>
+      <h3>Projected Revenue [2026-2056]</h3>
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Revenue Type</th>
+            <th></th>
             {Array.from({ length: years }, (_, i) => (
               <th key={i}>{startYear + i}</th>
             ))}
@@ -245,7 +259,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                 return <td key={i}>{format$(totalRevenue)}</td>;
               })}
             </tr>
-            
+
 
             <tr>
               <td>Total City/Township Net Revenue</td>

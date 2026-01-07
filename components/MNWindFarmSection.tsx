@@ -10,6 +10,7 @@ export default function WindFarmSection({ projectData, handleChange }: Props) {
   return (
     <section>
       <h1>Wind Farm Systems Information</h1>
+      <br></br>
 
       <label>
         Nameplate Capacity (in mega-watts):

@@ -11,6 +11,7 @@ export default function PropertyClassificationSection({ projectData, handleChang
   return (
     <section>
       <h1>Property Classification Information</h1>
+      <br></br>
 
       <label>Check if the county approved new land valuation as original use: 
         <input

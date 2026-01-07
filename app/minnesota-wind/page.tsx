@@ -173,8 +173,14 @@ console.log(projectData.countyTaxRates)
   return (
     <div>
       <Navbar />
+      <p style={{ margin: "3rem" }}>
+        Fill in the fields below will values relevant to your project. Default values
+        are available for each county, city/township, and school district; these values 
+        have been compiled from state-by-state research. See the citations (TODO: ADD LINK) page for more details.
+      </p>
+      <div style={{ margin: "3rem" }}>
       <form onSubmit={handleSubmit}>
-        {/* <MNProjectLocationSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData} countyAvgValue={countyAvgValue} userEditedLandValue={userEditedLandValue} /> */}
+        {/* Project Location Section */}
         <MNProjectLocationSection
         projectData={projectData}
         handleChange={handleChange}
@@ -190,18 +196,27 @@ console.log(projectData.countyTaxRates)
               ag_non_homestead_effective_rate: county.ag_non_homestead_effective_rate,
               commercial_effective_rate: county.commercial_effective_rate
             } : undefined
-            
           }));
         }}
       />
 
+        {/* Property Classification Section */}
+        <br></br>
         <PropertyClassificationSection projectData={projectData} handleChange={handleChange} projectDataSetter={setProjectData} />
+
+        {/* Wind Farm Section */}
+        <br></br>
         <WindFarmSection projectData={projectData} handleChange={handleChange} />
-        <button type="submit" className="basicButton">Save Project</button>
+
+        <br></br>
+
+        {/* Results Section */}
         <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} formerRealPropertyTaxRevenue={formerRealPropertyTaxRevenue}
         cityRealPropertyTaxRevenue={cityRealPropertyTaxRevenue} formerCityRealPropertyTaxRevenue={formerCityRealPropertyTaxRevenue}
         schoolDistrictRealPropertyTaxRevenue={schoolDistrictRealPropertyTaxRevenue} formerSchoolDistrictRealPropertyTaxRevenue={formerSchoolDistrictRealPropertyTaxRevenue}/>
+
       </form>
+      </div>
     </div>
   );
 }
