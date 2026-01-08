@@ -26,6 +26,7 @@ export interface ProjectData {
   useCountyAvgLandValue: boolean;
   userLandValue: number;
   useEstimatedCapacityFactor: number;
+  solarEstimatedCapacityFactor: number;
   userCapacityFactor: number;
   pilotAgreement: boolean;
   pilotPayment: number;

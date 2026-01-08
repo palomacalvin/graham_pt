@@ -1,10 +1,9 @@
 import { ProjectData } from "@/types/MNproject";
 
 export function getProductionRate(nameplateCapacity: number): number {
-  if (nameplateCapacity < 0) return 0;
-  if (nameplateCapacity < 2) return 1.2;
-  if (nameplateCapacity >= 2 && nameplateCapacity <= 12) return 3.6;
-  return 12.0;
+  if (nameplateCapacity < 1) return 0;
+  if (nameplateCapacity >= 1) return 1.2;
+  return 0;
 }
 
 export function getAnnualEnergyMWh(projectData: ProjectData): number {
@@ -14,6 +13,7 @@ export function getAnnualEnergyMWh(projectData: ProjectData): number {
       ? projectData.userCapacityFactor
       : projectData.useEstimatedCapacityFactor;
 
+  console.log("CO Capacity factor", capacityFactor)
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
 
@@ -24,6 +24,7 @@ export function getAnnualSolarEnergyMWh(projectData: ProjectData): number {
       ? projectData.userCapacityFactor
       : projectData.solarEstimatedCapacityFactor;
 
+  console.log("Equation:", projectData.nameplateCapacity, "*", capacityFactor, "*", HOURS_PER_YEAR)
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
 
@@ -58,7 +59,13 @@ export function calculateRealPropertyTax(
   }
 
   console.log(chosenRate)
-  return landArea * landValuePerAcre * chosenRate;
+
+  let adjustedChosenRate = Number(chosenRate) / 100;
+
+  console.log("CO Adjusted Rate", adjustedChosenRate)
+
+
+  return landArea * landValuePerAcre * adjustedChosenRate;
 }
 
 export function calculateFormerRealPropertyTax(
@@ -93,12 +100,16 @@ export function calculateFormerRealPropertyTax(
 
   console.log(chosenRate)
   
-  let calculatedValue = landArea * landValuePerAcre * chosenRate;
+  // let calculatedValue = landArea * landValuePerAcre * chosenRate;
+  //   console.log("Calculated value:", calculatedValue)
+  //   console.log("Land Area", landArea)
+  //   console.log("Land Value per Acre", landValuePerAcre)
 
-  console.log("Calculated value:", calculatedValue)
-  console.log("Land Area", landArea)
-  console.log("Land Value per Acre", landValuePerAcre)
+  let adjustedChosenRate = Number(chosenRate) / 100
 
-  return landArea * landValuePerAcre * chosenRate;
+  console.log("CO Adjusted Rate", adjustedChosenRate)
+
+
+  return landArea * landValuePerAcre * adjustedChosenRate;
 }
 
