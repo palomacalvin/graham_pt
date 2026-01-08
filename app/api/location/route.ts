@@ -17,7 +17,9 @@ export async function GET(request: Request) {
          state,
          ag_homestead_effective_rate,
          ag_non_homestead_effective_rate,
-         commercial_effective_rate
+         commercial_effective_rate,
+         avg_solar_irradiance,
+         solar_estimated_capacity_factor
        FROM minnesota_counties
        ORDER BY county_name`
     );

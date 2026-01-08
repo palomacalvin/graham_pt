@@ -1,11 +1,11 @@
 import { ProjectData } from "@/types/MNproject";
 
 export function getProductionRate(nameplateCapacity: number): number {
-  if (nameplateCapacity < 0) return 0;
-  if (nameplateCapacity < 2) return 1.2;
-  if (nameplateCapacity >= 2 && nameplateCapacity <= 12) return 3.6;
-  return 12.0;
+  if (nameplateCapacity < 1) return 0;
+  if (nameplateCapacity >= 1) return 1.2;
+  return 0;
 }
+
 
 export function getAnnualEnergyMWh(projectData: ProjectData): number {
   const HOURS_PER_YEAR = 8760;
@@ -14,20 +14,12 @@ export function getAnnualEnergyMWh(projectData: ProjectData): number {
       ? projectData.userCapacityFactor
       : projectData.useEstimatedCapacityFactor;
 
+  console.log("SD Cap factor", capacityFactor)
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
 
-export function getAnnualSolarEnergyMWh(projectData: ProjectData): number {
-  const HOURS_PER_YEAR = 8760;
-  const capacityFactor =
-    projectData.userCapacityFactor && projectData.userCapacityFactor > 0
-      ? projectData.userCapacityFactor
-      : projectData.solarEstimatedCapacityFactor;
 
-  return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
-}
-
-export function calculateRealPropertyTax(
+export function calculateSchoolDistrictRealPropertyTax(
   landArea: number,
   landValuePerAcre: number,
   newPropertyClass: string,
@@ -36,7 +28,7 @@ export function calculateRealPropertyTax(
     ag_non_homestead_effective_rate: number; 
     commercial_effective_rate: number;
   }
-): number {
+  ): number {
 
   let chosenRate = 0;
 
@@ -57,11 +49,19 @@ export function calculateRealPropertyTax(
       return 0;
   }
 
-  console.log(chosenRate)
-  return landArea * landValuePerAcre * chosenRate;
+  // console.log(chosenRate)
+  // let calculatedValue = landArea * landValuePerAcre * chosenRate;
+  // console.log("SD Calculated value:", calculatedValue)
+
+  let adjustedChosenRate = Number(chosenRate) / 100;
+
+  console.log("SD Adjusted Rate", adjustedChosenRate)
+
+
+  return landArea * landValuePerAcre * adjustedChosenRate;
 }
 
-export function calculateFormerRealPropertyTax(
+export function calculateFormerSchoolDistrictRealPropertyTax(
   landArea: number,
   landValuePerAcre: number,
   previousPropertyClass: string,
@@ -91,14 +91,13 @@ export function calculateFormerRealPropertyTax(
       return 0;
   }
 
-  console.log(chosenRate)
-  
-  let calculatedValue = landArea * landValuePerAcre * chosenRate;
+  // console.log(chosenRate)
+  // let calculatedValue = landArea * landValuePerAcre * chosenRate;
+  // console.log("SD Calculated value:", calculatedValue)
 
-  console.log("Calculated value:", calculatedValue)
-  console.log("Land Area", landArea)
-  console.log("Land Value per Acre", landValuePerAcre)
+  let adjustedChosenRate = Number(chosenRate) / 100;
 
-  return landArea * landValuePerAcre * chosenRate;
+  console.log("SD Adjusted Rate", adjustedChosenRate)
+
+  return landArea * landValuePerAcre * adjustedChosenRate;
 }
-

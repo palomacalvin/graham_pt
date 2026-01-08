@@ -14,7 +14,10 @@ interface Props {
   onSelectCounty?: (county: County | null) => void
 }
 
-export default function MNProjectLocationSection({
+console.log("MNSolarProjectLocationSection rendered");
+
+
+export default function MNSolarProjectLocationSection({
   projectData,
   handleChange,
   setProjectData,
@@ -32,6 +35,10 @@ export default function MNProjectLocationSection({
         setProjectData((prev) => ({
           ...prev, // keep all other fields
           county: county?.county_name || "",
+
+          solarEstimatedCapacityFactor:
+          county?.solar_estimated_capacity_factor ?? prev.solarEstimatedCapacityFactor,
+
           countyTaxRates: county
             ? {
                 ag_homestead_effective_rate: county.ag_homestead_effective_rate,
@@ -39,7 +46,10 @@ export default function MNProjectLocationSection({
                 commercial_effective_rate: county.commercial_effective_rate,
               }
             : undefined,
+
         }));
+        console.log("Selected county:", county);
+
       }}
 
         onSelectCity={(cityObj) => {
@@ -85,28 +95,17 @@ export default function MNProjectLocationSection({
       </label>
 
       <label>
-        County Estimated Wind Capacity Factor:
+        Estimated Solar Capacity Factor:
         <input
           type="number"
           step="0.1"
-          name="useEstimatedCapacityFactor"
-          value={projectData.useEstimatedCapacityFactor || ""}
+          name="solarEstimatedCapacityFactor"
+          value={projectData.solarEstimatedCapacityFactor ?? ""}
           onChange={handleChange}
           className="basicInputBox"
         />
       </label>
 
-      <label>
-        Check if the county arranged a payment in lieu of taxes agreement (PILOT) with 
-        the developer:
-        <input
-          type="checkbox"
-          name="pilotAgreement"
-          checked={projectData.pilotAgreement}
-          onChange={handleChange}
-          className="basicCheckBox"
-        />
-      </label>
 
       {projectData.pilotAgreement && (
         <label>

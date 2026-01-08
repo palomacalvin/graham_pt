@@ -7,6 +7,14 @@ export interface County {
   ag_homestead_effective_rate: number;
   ag_non_homestead_effective_rate: number;
   commercial_effective_rate: number;
+
+  // Wind fetching.
+  est_capacity_factor?: number;
+
+  // Solar fetching.
+  solar_estimated_capacity_factor?: number;
+  avg_solar_irradiance?: number;
+
 }
 
 interface City {
@@ -94,6 +102,9 @@ export default function LocationSelector({
         <select
           value={selectedCounty?.county_name || ""}
           onChange={(e) => {
+            // console.log("County select changed:", e.target.value);
+
+
             const countyObj = counties.find(c => c.county_name === e.target.value) || null;
             // const value = e.target.value || null;
             setSelectedCounty(countyObj);

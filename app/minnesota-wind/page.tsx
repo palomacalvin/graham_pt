@@ -21,6 +21,7 @@ export default function ProjectForm() {
     useCountyAvgLandValue: true,
     userLandValue: 10000,
     useEstimatedCapacityFactor: 0,
+    solarEstimatedCapacityFactor: 0,
     userCapacityFactor: 0,
     pilotAgreement: false,
     pilotPayment: 0,
@@ -75,7 +76,7 @@ export default function ProjectForm() {
   });
 };
 
-console.log(projectData.countyTaxRates)
+// console.log(projectData.countyTaxRates)
 
   // Calculate production revenue
   const productionRate = getProductionRate(projectData.nameplateCapacity);

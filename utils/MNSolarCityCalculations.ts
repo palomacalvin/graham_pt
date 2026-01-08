@@ -1,11 +1,11 @@
 import { ProjectData } from "@/types/MNproject";
 
 export function getProductionRate(nameplateCapacity: number): number {
-  if (nameplateCapacity < 0) return 0;
-  if (nameplateCapacity < 2) return 1.2;
-  if (nameplateCapacity >= 2 && nameplateCapacity <= 12) return 3.6;
-  return 12.0;
+  if (nameplateCapacity < 1) return 0;
+  if (nameplateCapacity >= 1) return 1.2;
+  return 0;
 }
+
 
 export function getAnnualEnergyMWh(projectData: ProjectData): number {
   const HOURS_PER_YEAR = 8760;
@@ -14,6 +14,7 @@ export function getAnnualEnergyMWh(projectData: ProjectData): number {
       ? projectData.userCapacityFactor
       : projectData.useEstimatedCapacityFactor;
 
+  console.log("CITY Capacity Factor:", capacityFactor)
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
 
@@ -56,10 +57,12 @@ export function calculateCityRealPropertyTax(
   // console.log("CITY LAND AREA", landArea)
   // console.log("CITY LANDVALUEPERACRE", landValuePerAcre)
   // console.log("CITY CHOSEN RATE", chosenRate)
-  let calculatedValue = landArea * landValuePerAcre * chosenRate;
-
+  //let calculatedValue = landArea * landValuePerAcre * chosenRate;
   // console.log("City Calculated value:", calculatedValue)
-  return landArea * landValuePerAcre * chosenRate;
+
+  let adjustedChosenRate = Number(chosenRate) / 100;
+
+  return landArea * landValuePerAcre * adjustedChosenRate;
 }
 
 export function calculateFormerCityRealPropertyTax(
@@ -92,12 +95,12 @@ export function calculateFormerCityRealPropertyTax(
       return 0;
   }
 
-    // console.log("CITY FORMER PROPERTY CLASS:", previousPropertyClass)
-
-
+  // console.log("CITY FORMER PROPERTY CLASS:", previousPropertyClass)
   // console.log("City Chosen Rate", chosenRate)
-  let calculatedValue = landArea * landValuePerAcre * chosenRate;
-
+  //let calculatedValue = landArea * landValuePerAcre * chosenRate;
   // console.log("City Calculated value:", calculatedValue)
-  return landArea * landValuePerAcre * chosenRate;
+
+  let adjustedChosenRate = Number(chosenRate) / 100;
+
+  return landArea * landValuePerAcre * adjustedChosenRate;
 }
