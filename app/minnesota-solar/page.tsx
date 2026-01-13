@@ -2,15 +2,16 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { ProjectData } from "@/types/MNproject";
-import MNSolarProjectLocationSection from "@/components/MNSolarProjectLocationSection";
-import SolarPropertyClassificationSection from "@/components/MNSolarPropertyClassificationSection";
+import MNSolarProjectLocationSection from "@/app/minnesota-components/MNSolarProjectLocationSection";
+import SolarPropertyClassificationSection from "@/app/minnesota-components/MNSolarPropertyClassificationSection";
 import { getProductionRate, getAnnualSolarEnergyMWh, calculateRealPropertyTax, calculateFormerRealPropertyTax } from "@/utils/MNSolarCountyCalculations";
 import { useCountyData } from "@/hooks/useCountyDataMN";
 import { County } from "@/components/LocationSelector";
 import { calculateCityRealPropertyTax, calculateFormerCityRealPropertyTax } from "@/utils/MNSolarCityCalculations";
 import { calculateFormerSchoolDistrictRealPropertyTax, calculateSchoolDistrictRealPropertyTax } from "@/utils/MNSolarSchoolDistrictCalculations";
-import SolarFarmSection from "@/components/MNSolarFarmSection";
-import TaxResults from "@/components/MNTaxResults";
+import SolarFarmSection from "@/app/minnesota-components/MNSolarFarmSection";
+import TaxResults from "@/app/minnesota-components/MNTaxResults";
+import Link from "next/link";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -177,7 +178,7 @@ export default function ProjectForm() {
       <p style={{ margin: "3rem" }}>
         Fill in the fields below will values relevant to your project. Default values
         are available for each county, city/township, and school district; these values 
-        have been compiled from state-by-state research. See the citations (TODO: ADD LINK) page for more details.
+        have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
       </p>
       <div style={{ margin: "3rem" }}>
       <form onSubmit={handleSubmit}>

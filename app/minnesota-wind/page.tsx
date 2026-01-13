@@ -2,15 +2,16 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { ProjectData } from "@/types/MNproject";
-import MNProjectLocationSection from "@/components/MNProjectLocationSection";
-import PropertyClassificationSection from "@/components/MNPropertyClassificationSection";
-import WindFarmSection from "@/components/MNWindFarmSection";
-import TaxResults from "@/components/MNTaxResults";
+import MNProjectLocationSection from "@/app/minnesota-components/MNProjectLocationSection";
+import PropertyClassificationSection from "@/app/minnesota-components/MNPropertyClassificationSection";
+import WindFarmSection from "@/app/minnesota-components/MNWindFarmSection";
+import TaxResults from "@/app/minnesota-components/MNTaxResults";
 import { getProductionRate, getAnnualEnergyMWh, calculateRealPropertyTax, calculateFormerRealPropertyTax } from "@/utils/MNcalculations";
 import { useCountyData } from "@/hooks/useCountyDataMN";
 import { County } from "@/components/LocationSelector";
 import { calculateCityRealPropertyTax, calculateFormerCityRealPropertyTax } from "@/utils/MNCityCalculations";
 import { calculateFormerSchoolDistrictRealPropertyTax, calculateSchoolDistrictRealPropertyTax } from "@/utils/MNSchoolDistrictCalculations";
+import Link from "next/link";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -177,7 +178,7 @@ export default function ProjectForm() {
       <p style={{ margin: "3rem" }}>
         Fill in the fields below will values relevant to your project. Default values
         are available for each county, city/township, and school district; these values 
-        have been compiled from state-by-state research. See the citations (TODO: ADD LINK) page for more details.
+        have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
       </p>
       <div style={{ margin: "3rem" }}>
       <form onSubmit={handleSubmit}>

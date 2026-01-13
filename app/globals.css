@@ -166,3 +166,10 @@ label {
   margin-bottom: 0.75rem;
 }
 
+.basicLinkText {
+  color: #0075bc;
+}
+
+.basicLinkText:hover {
+  color: #00aa4c;
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { ProjectData } from "@/types/MNproject";
-import LocationSelector from "./LocationSelector";
+import LocationSelector from "../../components/LocationSelector";
 import { County } from "@/components/LocationSelector";
 
 
@@ -14,10 +14,7 @@ interface Props {
   onSelectCounty?: (county: County | null) => void
 }
 
-console.log("MNSolarProjectLocationSection rendered");
-
-
-export default function MNSolarProjectLocationSection({
+export default function MNProjectLocationSection({
   projectData,
   handleChange,
   setProjectData,
@@ -35,10 +32,6 @@ export default function MNSolarProjectLocationSection({
         setProjectData((prev) => ({
           ...prev, // keep all other fields
           county: county?.county_name || "",
-
-          solarEstimatedCapacityFactor:
-          county?.solar_estimated_capacity_factor ?? prev.solarEstimatedCapacityFactor,
-
           countyTaxRates: county
             ? {
                 ag_homestead_effective_rate: county.ag_homestead_effective_rate,
@@ -46,10 +39,7 @@ export default function MNSolarProjectLocationSection({
                 commercial_effective_rate: county.commercial_effective_rate,
               }
             : undefined,
-
         }));
-        console.log("Selected county:", county);
-
       }}
 
         onSelectCity={(cityObj) => {
@@ -95,17 +85,28 @@ export default function MNSolarProjectLocationSection({
       </label>
 
       <label>
-        Estimated Solar Capacity Factor:
+        County Estimated Wind Capacity Factor:
         <input
           type="number"
           step="0.1"
-          name="solarEstimatedCapacityFactor"
-          value={projectData.solarEstimatedCapacityFactor ?? ""}
+          name="useEstimatedCapacityFactor"
+          value={projectData.useEstimatedCapacityFactor || ""}
           onChange={handleChange}
           className="basicInputBox"
         />
       </label>
 
+      <label>
+        Check if the county arranged a payment in lieu of taxes agreement (PILOT) with 
+        the developer:
+        <input
+          type="checkbox"
+          name="pilotAgreement"
+          checked={projectData.pilotAgreement}
+          onChange={handleChange}
+          className="basicCheckBox"
+        />
+      </label>
 
       {projectData.pilotAgreement && (
         <label>

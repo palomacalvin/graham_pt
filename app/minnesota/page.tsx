@@ -53,7 +53,8 @@ export default function Home() {
           </h2>
 
           <h2>
-          Click on the buttons above to understand the tax impacts for wind and solar projects.
+          Click on the buttons above to understand the tax impacts for wind and solar projects. Note that all values are
+          estimates.
 
           </h2>
 
@@ -70,7 +71,10 @@ export default function Home() {
                   (e.g., wind or sunlight levels), energy demand (e.g., grid power needs), and specific project requirements
                   (e.g., maintenance, adverse conditions, compliance).</li>
               </ul>
+          </div>
 
+          <div className="basicTextBlock">
+            Have questions? Visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="minnesota/files/Minnesota-Property-Tax-Final-2025.pdf" download="Minnesota-Policy-Brief.pdf"> download the policy brief</a> for more information.
           </div>
         </div>
     </div>

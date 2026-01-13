@@ -59,7 +59,7 @@ export default function LocationSelector({
 
   // Fetch counties
   useEffect(() => {
-    fetch(`/api/location?state=${stateName}`)
+    fetch(`/api/minnesota/location?state=${stateName}`)
       .then((res) => res.json())
       .then((data) => setCounties(data.counties))
       .catch((err) => console.error("Error fetching counties:", err));
@@ -73,7 +73,7 @@ export default function LocationSelector({
       return;
     }
 
-    fetch(`/api/location/cities?county=${encodeURIComponent(selectedCounty?.county_name)}`)
+    fetch(`/api/minnesota/location/cities?county=${encodeURIComponent(selectedCounty?.county_name)}`)
       .then((res) => res.json())
       .then((data) => setCities(data.cities))
       .catch((err) => console.error("Error fetching cities:", err));
@@ -88,7 +88,7 @@ export default function LocationSelector({
       return;
     }
 
-    fetch(`/api/location/school-districts?county=${encodeURIComponent(selectedCounty?.county_name)}`)
+    fetch(`/api/minnesota/location/school-districts?county=${encodeURIComponent(selectedCounty?.county_name)}`)
       .then((res) => res.json())
       .then((data) => setSchoolDistricts(data.schoolDistricts))
       .catch((err) => console.error("Error fetching school districts:", err));

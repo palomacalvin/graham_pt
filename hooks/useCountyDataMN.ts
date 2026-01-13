@@ -12,7 +12,7 @@ export function useCountyData(projectData: ProjectData, setProjectData: React.Di
 
     const fetchCountyData = async () => {
       try {
-        const res = await fetch("/api/location");
+        const res = await fetch("/api/minnesota/location");
         const data = await res.json();
 
         const countyData = data.counties.find(
