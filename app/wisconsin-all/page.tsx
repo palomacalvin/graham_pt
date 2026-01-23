@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import WIUserSelections from "@/app/wisconsin-components/WIUserSelections";
 import { County } from "@/components/WILocationSelector";
-import WIResults from "../wisconsin-components/WIResults";
+import WIResults from "@/app/wisconsin-components/WIResults";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -105,11 +105,7 @@ export default function ProjectForm() {
           setProjectData={setProjectData}
         />
 
-        <WIResults project_size={projectData.nameplate_capacity} acres_converted={projectData.land_area} 
-        conversion_charge_rate={0} reduction_in_local_pt={0} tvc={projectData.tvc || "Town"}
-        />
-
-
+        <WIResults projectData={projectData} />
 
       </form>
       </div>

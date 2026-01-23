@@ -25,17 +25,37 @@ export default function WIUserSelections({
       <LocationSelector
         stateName="WISCONSIN"
         onSelectCounty={(county) => {
+            console.log("Selected county:", county)
             setProjectData((prev) => ({
             ...prev,
-            county: county?.county_name || "",
+            county_name: county?.county_name || "",
+            over_30_acres: county?.over_30_acres || prev.over_30_acres,
+            between_10_and_30_acres: county?.between_10_and_30_acres || prev.between_10_and_30_acres,
+            under_10_acres: county?.under_10_acres || prev.under_10_acres,
             }));
         }}
-        onSelectCity={(municipality) => {
+        onSelectMunicipality={(municipality) => {
+            console.log("Selected municipality:", municipality);
             if (!municipality) return;
 
             setProjectData((prev) => ({
             ...prev,
-            municipality: municipality.municipality, // adjust if your object uses a different key
+            municipality: municipality.municipality,
+            tvc: municipality.tvc,
+            code: municipality.code,
+
+            grade_1: municipality.grade_1 ?? prev.grade_1,
+            grade_2: municipality.grade_2 ?? prev.grade_2,
+            grade_3: municipality.grade_3 ?? prev.grade_3,
+            pasture: municipality.pasture ?? prev.pasture,
+            school_tax: municipality.school_tax ?? prev.school_tax,
+            college_tax: municipality.college_tax ?? prev.college_tax,
+            county_tax: municipality.county_tax ?? prev.county_tax,
+            local_tax: municipality.local_tax ?? prev.local_tax,
+            other_tax: municipality.other_tax ?? prev.other_tax,
+            total_property_tax: municipality.total_property_tax ?? prev.total_property_tax,
+            gross_rate: municipality.gross_rate ?? prev.gross_rate,
+            effective_rate: municipality.effective_rate ?? prev.effective_rate,
             }));
         }}
         />
@@ -44,7 +64,7 @@ export default function WIUserSelections({
         <label>
             Project Type
             <select
-                name="projectType"
+                name="project_type"
                 value={projectData.project_type}
                 onChange={handleChange}
                 className="basicInputBox"
@@ -59,7 +79,7 @@ export default function WIUserSelections({
                 Nameplate Capacity / Project Size (MW)
                 <input
                     type="number"
-                    name="projectSizeMW"
+                    name="nameplate_capacity"
                     value={projectData.nameplate_capacity}
                     onChange={handleChange}
                     className="basicInputBox"
@@ -71,7 +91,7 @@ export default function WIUserSelections({
                 Fenceline Acres
                 <input
                 type="number"
-                name="solarFencelineAcres"
+                name="land_area"
                 value={projectData.land_area || ""}
                 onChange={handleChange}
                 className="basicInputBox"
@@ -84,7 +104,7 @@ export default function WIUserSelections({
                 Number of Turbines
                 <input
                 type="number"
-                name="windTurbineCount"
+                name="number_of_turbines"
                 value={projectData.number_of_turbines || ""}
                 onChange={handleChange}
                 className="basicInputBox"
@@ -95,7 +115,7 @@ export default function WIUserSelections({
             <label>
             Grade of Agricultural Land Converted
             <select
-                name="agLandGrade"
+                name="selected_grade"
                 value={projectData.selected_grade}
                 onChange={handleChange}
                 className="basicInputBox"
@@ -107,6 +127,7 @@ export default function WIUserSelections({
                 <option value={4}>Pasture</option>
             </select>
             </label>
+
     </section>
     
   );

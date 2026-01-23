@@ -18,7 +18,19 @@ export async function GET(req: Request) {
     SELECT
       code,
       tvc,
-      municipality
+      municipality,
+      grade_1,
+      grade_2,
+      grade_3,
+      pasture,
+      gross_rate,
+      effective_rate,
+      total_property_tax,
+      school_tax,
+      college_tax,
+      county_tax,
+      local_tax,
+      other_tax
     FROM wisconsin_tax_rates
     WHERE county_name = $1
     ORDER BY municipality

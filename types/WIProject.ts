@@ -2,6 +2,8 @@
 export interface ProjectData {
   county_name: string;
 
+  project_type: "Solar" | "Wind" | "";
+
   // Conversion rates.
   over_30_acres: number;
   between_10_and_30_acres: number;
@@ -29,9 +31,9 @@ export interface ProjectData {
   other_tax: number;
 
   // User choices.
-  selected_grade: number;
+  selected_grade: 1 | 2 | 3 | 4;
   number_of_turbines: number;
-  solar_fenceline_acres: number;
+  land_area: number;
 
   // Other.
   inflation_rate: number;
