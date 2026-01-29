@@ -1,4 +1,4 @@
-import { ProjectData } from "@/types/MNproject";
+import { ProjectData } from "@/types/MNSolarProject";
 
 export function getProductionRate(nameplateCapacity: number): number {
   if (nameplateCapacity < 1) return 0;
