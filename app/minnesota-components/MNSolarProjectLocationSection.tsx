@@ -1,6 +1,6 @@
 "use client";
 
-import { ProjectData } from "@/types/MNproject";
+import { ProjectData } from "@/types/MNSolarProject";
 import LocationSelector from "../../components/LocationSelector";
 import { County } from "@/components/LocationSelector";
 
