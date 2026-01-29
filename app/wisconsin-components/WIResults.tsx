@@ -32,8 +32,6 @@ const formatCurrency = (value: number) => {
   return `$ ${rounded.toLocaleString()}`;
 };
 
-
-
 export default function WIResults({ projectData }: Props) {
   if (
     !projectData ||
@@ -46,8 +44,6 @@ export default function WIResults({ projectData }: Props) {
       </p>
     );
   }
-
-
 
   // Hardcoded values.
   const UTILITY_AID_PER_MW = 5000;

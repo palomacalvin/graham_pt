@@ -1,4 +1,4 @@
-import { ProjectData } from "@/types/MNproject";
+import { ProjectData } from "@/types/MNSolarProject";
 
 export function getProductionRate(nameplateCapacity: number): number {
   if (nameplateCapacity < 1) return 0;
@@ -99,17 +99,8 @@ export function calculateFormerRealPropertyTax(
   }
 
   console.log(chosenRate)
-  
-  // let calculatedValue = landArea * landValuePerAcre * chosenRate;
-  //   console.log("Calculated value:", calculatedValue)
-  //   console.log("Land Area", landArea)
-  //   console.log("Land Value per Acre", landValuePerAcre)
-
   let adjustedChosenRate = Number(chosenRate) / 100
-
   console.log("CO Adjusted Rate", adjustedChosenRate)
-
-
   return landArea * landValuePerAcre * adjustedChosenRate;
 }
 

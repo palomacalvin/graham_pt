@@ -173,3 +173,8 @@ label {
 .basicLinkText:hover {
   color: #00aa4c;
 }
+
+.rowHighlight {
+  background-color: #d4ffd6;
+  font-weight: bold;
+}

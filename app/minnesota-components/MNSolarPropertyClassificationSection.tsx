@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectData } from "@/types/MNproject";
+import { ProjectData } from "@/types/MNSolarProject";
 
 interface Props {
   projectData: ProjectData;
@@ -58,7 +58,10 @@ export default function SolarPropertyClassificationSection({ projectData, handle
       {projectData.newPropertyClass === "Agriculture" && (
         <label>
           Agricultural Land Type:
-          <select name="newAgriculturalType" value={projectData.newAgriculturalType || ""} onChange={handleChange}>
+          <select name="newAgriculturalType" 
+          value={projectData.newAgriculturalType || ""} 
+          onChange={handleChange}
+          className="basicDropdown">
             <option value="Homestead">Homestead</option>
             <option value="Non-homestead">Non-homestead</option>
           </select>

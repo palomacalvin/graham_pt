@@ -84,7 +84,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Unit</th>
+            <th>Item</th>
             <th>Value</th>
           </tr>
         </thead>
@@ -98,13 +98,101 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>{formatCurrency(totalProductionRevenue * 0.2)}</td>
           </tr>
           <tr>
-            <td className="rowHighlight"><strong>Total</strong></td>
-            <td className="rowHighlight"><strong>{formatCurrency(totalProductionRevenue)}</strong></td>
+            <td>Total</td>
+            <td>{formatCurrency(totalProductionRevenue)}</td>
           </tr>
         </tbody>
       </table>
 
       <br></br>
+      <h3>Real Property Tax Revenue (Year 1)</h3>
+
+      <table className="basicTable">
+        <thead>
+          <tr>
+            <th>County Revenue</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>New County Real Property Tax Revenue</td>
+            <td>{formatCurrency(realPropertyTaxRevenue)}</td>
+          </tr>
+          <tr>
+            <td>Former County Real Property Tax Revenue</td>
+            <td>{formatCurrency(formerRealPropertyTaxRevenue)}</td>
+          </tr>
+          <tr>
+            <td>Net County Revenue</td>
+            <td>{formatCurrency(netCounty)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br></br>
+      <table className="basicTable">
+        <thead>
+          <tr>
+            <th>City Revenue</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>New City/Township Real Property Tax Revenue</td>
+            <td>{formatCurrency(cityRealPropertyTaxRevenue)}</td>
+          </tr>
+          <tr>
+            <td>Former City/Township Real Property Tax Revenue</td>
+            <td>{formatCurrency(formerCityRealPropertyTaxRevenue)}</td>
+          </tr>
+          <tr>
+            <td>Net City/Township Revenue</td>
+            <td>{formatCurrency(netCity)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br></br>
+      <table className="basicTable">
+        <thead>
+          <tr>
+            <th>School District Revenue</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>New School District Real Property Tax Revenue</td>
+            <td>{formatCurrency(schoolDistrictRealPropertyTaxRevenue)}</td>
+          </tr>
+          <tr>
+            <td>Former School District Real Property Tax Revenue</td>
+            <td>{formatCurrency(formerSchoolDistrictRealPropertyTaxRevenue)}</td>
+          </tr>
+          <tr>
+            <td>Net School District Revenue</td>
+            <td>{formatCurrency(netSchool)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br></br>
+      <h3>Total Net Revenue</h3>
+
+      <table className="basicTable">
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{formatCurrency(totalNetRevenue)}</td>
+          </tr>
+        </tbody>
+      </table>
 
       <br></br>
       <h3>Total Net Tax Revenue (Year 1)</h3>
@@ -112,7 +200,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Revenue Type</th>
+            <th>Item</th>
             <th>Value</th>
           </tr>
         </thead>
@@ -126,8 +214,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>{formatCurrency(totalNetRevenue)}</td>
           </tr>
           <tr>
-            <td className="rowHighlight"><strong>Total</strong></td>
-            <td className="rowHighlight"><strong>{formatCurrency(totalNetTaxRevenue)}</strong></td>
+            <td>Total</td>
+            <td>{formatCurrency(totalNetTaxRevenue)}</td>
           </tr>
         </tbody>
       </table>
@@ -135,7 +223,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
     <br></br>
     <section>
-      <h3>Projected Revenue [{startYear}-{startYear+30}]</h3>
+      <h3>Projected Revenue [2026-2056]</h3>
       <table className="basicTable">
         <thead>
           <tr>
@@ -155,9 +243,6 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                 })}
               </tr>
             ))}
-
-            <tr><th></th></tr>
-
           </tbody>
 
           <tbody>
@@ -169,7 +254,6 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                 )}
               </tr>
             ))}
-            <tr><th></th></tr>
 
              {/* Total County Net Revenue */}
             <tr>
@@ -202,11 +286,9 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               })}
             </tr>
 
-            <tr><th></th></tr>
-
           {/* Total Net Revenue Across All Jurisdictions */}
-          <tr className="rowHighlight">
-            <td><strong>Total Project Net Revenue</strong></td>
+          <tr>
+            <td>Total Project Net Revenue</td>
             {Array.from({ length: years }, (_, i) => {
               const totalRevenue =
                 // County Net + inflated production

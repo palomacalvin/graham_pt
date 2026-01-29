@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectData } from "@/types/MNproject";
+import { ProjectData } from "@/types/MNSolarProject";
 
 interface Props {
   projectData: ProjectData;

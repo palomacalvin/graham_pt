@@ -22,6 +22,7 @@ export interface ProjectData {
 
   township: string;
   schoolDistrict: string;
+  approvedLandValuation: boolean;
   useCountyAvgLandValue: boolean;
   userLandValue: number;
   useEstimatedCapacityFactor: number;
@@ -30,8 +31,10 @@ export interface ProjectData {
   pilotAgreement: boolean;
   pilotPayment: number;
   inflationRate: number;
-  propertyClass: "Agriculture" | "RuralLand" | "Commercial";
+  previousPropertyClass: string;
   agriculturalType?: "Homestead" | "Non-homestead";
+  newAgriculturalType?: "Homestead" | "Non-homestead";
+  newPropertyClass: string;
   nameplateCapacity: number;
   landArea: number;
   numberOfTurbines: number;
@@ -54,7 +57,5 @@ export interface ProjectData {
     nonHomestead: number;
     commercial: number;
   }
+
 }
-
-
-

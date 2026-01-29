@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
-import { ProjectData } from "@/types/MNproject";
+import { ProjectData } from "@/types/MNSolarProject";
 import MNSolarProjectLocationSection from "@/app/minnesota-components/MNSolarProjectLocationSection";
 import SolarPropertyClassificationSection from "@/app/minnesota-components/MNSolarPropertyClassificationSection";
 import { getProductionRate, getAnnualSolarEnergyMWh, calculateRealPropertyTax, calculateFormerRealPropertyTax } from "@/utils/MNSolarCountyCalculations";
-import { useCountyData } from "@/hooks/useCountyDataMN";
+import { useCountyData } from "@/hooks/useCountyDataMNSolar";
 import { County } from "@/components/LocationSelector";
 import { calculateCityRealPropertyTax, calculateFormerCityRealPropertyTax } from "@/utils/MNSolarCityCalculations";
 import { calculateFormerSchoolDistrictRealPropertyTax, calculateSchoolDistrictRealPropertyTax } from "@/utils/MNSolarSchoolDistrictCalculations";
 import SolarFarmSection from "@/app/minnesota-components/MNSolarFarmSection";
-import TaxResults from "@/app/minnesota-components/MNTaxResults";
+import TaxResults from "@/app/minnesota-components/MNSolarTaxResults";
 import Link from "next/link";
 
 export default function ProjectForm() {

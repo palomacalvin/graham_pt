@@ -27,78 +27,78 @@ export function getAnnualSolarEnergyMWh(projectData: ProjectData): number {
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
 
-export function calculateRealPropertyTax(
-  landArea: number,
-  landValuePerAcre: number,
-  newPropertyClass: string,
-  agriculturalType: "Homestead" | "Non-homestead" | undefined,
-  taxRates: { ag_homestead_effective_rate: number; 
-    ag_non_homestead_effective_rate: number; 
-    commercial_effective_rate: number;
-  }
-): number {
+// export function calculateRealPropertyTax(
+//   landArea: number,
+//   landValuePerAcre: number,
+//   newPropertyClass: string,
+//   agriculturalType: "Homestead" | "Non-homestead" | undefined,
+//   taxRates: { ag_homestead_effective_rate: number; 
+//     ag_non_homestead_effective_rate: number; 
+//     commercial_effective_rate: number;
+//   }
+// ): number {
 
-  let chosenRate = 0;
+//   let chosenRate = 0;
 
-  switch (newPropertyClass) {
-    case "Agriculture":
-      chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
-      break;
-    case "RuralLand":
-      chosenRate =
-        agriculturalType === "Homestead"
-          ? taxRates.ag_homestead_effective_rate
-          : taxRates.ag_non_homestead_effective_rate;
-      break;
-    case "Commercial":
-      chosenRate = taxRates.commercial_effective_rate;
-      break;
-    default:
-      return 0;
-  }
+//   switch (newPropertyClass) {
+//     case "Agriculture":
+//       chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
+//       break;
+//     case "RuralLand":
+//       chosenRate =
+//         agriculturalType === "Homestead"
+//           ? taxRates.ag_homestead_effective_rate
+//           : taxRates.ag_non_homestead_effective_rate;
+//       break;
+//     case "Commercial":
+//       chosenRate = taxRates.commercial_effective_rate;
+//       break;
+//     default:
+//       return 0;
+//   }
 
-  console.log(chosenRate)
-  return landArea * landValuePerAcre * chosenRate;
-}
+//   console.log(chosenRate)
+//   return landArea * landValuePerAcre * chosenRate;
+// }
 
-export function calculateFormerRealPropertyTax(
-  landArea: number,
-  landValuePerAcre: number,
-  previousPropertyClass: string,
-  agriculturalType: "Homestead" | "Non-homestead" | undefined,
-  taxRates: { ag_homestead_effective_rate: number; 
-    ag_non_homestead_effective_rate: number; 
-    commercial_effective_rate: number;
-  }
-  ): number {
+// export function calculateFormerRealPropertyTax(
+//   landArea: number,
+//   landValuePerAcre: number,
+//   previousPropertyClass: string,
+//   agriculturalType: "Homestead" | "Non-homestead" | undefined,
+//   taxRates: { ag_homestead_effective_rate: number; 
+//     ag_non_homestead_effective_rate: number; 
+//     commercial_effective_rate: number;
+//   }
+//   ): number {
 
-  let chosenRate = 0;
+//   let chosenRate = 0;
 
-  switch (previousPropertyClass) {
-    case "Agriculture":
-      chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
-      break;
-    case "RuralLand":
-      chosenRate =
-        agriculturalType === "Homestead"
-          ? taxRates.ag_homestead_effective_rate
-          : taxRates.ag_non_homestead_effective_rate;
-      break;
-    case "Commercial":
-      chosenRate = taxRates.commercial_effective_rate;
-      break;
-    default:
-      return 0;
-  }
+//   switch (previousPropertyClass) {
+//     case "Agriculture":
+//       chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
+//       break;
+//     case "RuralLand":
+//       chosenRate =
+//         agriculturalType === "Homestead"
+//           ? taxRates.ag_homestead_effective_rate
+//           : taxRates.ag_non_homestead_effective_rate;
+//       break;
+//     case "Commercial":
+//       chosenRate = taxRates.commercial_effective_rate;
+//       break;
+//     default:
+//       return 0;
+//   }
 
-  console.log(chosenRate)
+//   console.log(chosenRate)
   
-  let calculatedValue = landArea * landValuePerAcre * chosenRate;
+//   let calculatedValue = landArea * landValuePerAcre * chosenRate;
 
-  console.log("Calculated value:", calculatedValue)
-  console.log("Land Area", landArea)
-  console.log("Land Value per Acre", landValuePerAcre)
+//   console.log("Calculated value:", calculatedValue)
+//   console.log("Land Area", landArea)
+//   console.log("Land Value per Acre", landValuePerAcre)
 
-  return landArea * landValuePerAcre * chosenRate;
-}
+//   return landArea * landValuePerAcre * chosenRate;
+// }
 

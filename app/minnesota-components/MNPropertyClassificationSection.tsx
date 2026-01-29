@@ -7,29 +7,22 @@ interface Props {
   projectDataSetter: React.Dispatch<React.SetStateAction<ProjectData>>
 }
 
-export default function PropertyClassificationSection({ projectData, handleChange }: Props) {
+export default function PropertyClassificationSection({
+  projectData,
+  handleChange,
+}: Props) {
   return (
     <section>
       <h1>Property Classification Information</h1>
-      <br></br>
-
-      <label>Check if the county approved new land valuation as original use: 
-        <input
-          type="checkbox"
-          name="approvedLandValuation"
-          checked={projectData.approvedLandValuation}
-          onChange={handleChange}
-          className="basicCheckBox"
-        />
-      </label>
+      <br />
 
       <label>
-        Previous Property Class:
-        <select 
-        name="previousPropertyClass" 
-        value={projectData.previousPropertyClass} 
-        onChange={handleChange}
-        className="basicDropdown"
+        Property Class:
+        <select
+          name="propertyClass"
+          value={projectData.propertyClass}
+          onChange={handleChange}
+          className="basicDropdown"
         >
           <option value="Agriculture">Agriculture</option>
           <option value="RuralLand">Rural Land</option>
@@ -37,38 +30,15 @@ export default function PropertyClassificationSection({ projectData, handleChang
         </select>
       </label>
 
-      {projectData.previousPropertyClass === "Agriculture" && (
+      {projectData.propertyClass === "Agriculture" && (
         <label>
           Agricultural Land Type:
-          <select 
-          name="agriculturalType" 
-          value={projectData.agriculturalType || ""} 
-          onChange={handleChange}
-          className="basicDropdown"
+          <select
+            name="agriculturalType"
+            value={projectData.agriculturalType || "Homestead"}
+            onChange={handleChange}
+            className="basicDropdown"
           >
-            <option value="Homestead">Homestead</option>
-            <option value="Non-homestead">Non-homestead</option>
-          </select>
-        </label>
-      )}
-
-      <label>
-        New Property Class:
-        <select 
-        name="newPropertyClass" 
-        value={projectData.newPropertyClass} 
-        onChange={handleChange}
-        className="basicDropdown">
-          <option value="Agriculture">Agriculture</option>
-          <option value="RuralLand">Rural Land</option>
-          <option value="Commercial">Commercial</option>
-        </select>
-      </label>
-
-      {projectData.newPropertyClass === "Agriculture" && (
-        <label>
-          Agricultural Land Type:
-          <select name="newAgriculturalType" value={projectData.newAgriculturalType || ""} onChange={handleChange}>
             <option value="Homestead">Homestead</option>
             <option value="Non-homestead">Non-homestead</option>
           </select>
