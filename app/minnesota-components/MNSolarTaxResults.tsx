@@ -84,7 +84,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Item</th>
+            <th>Jurisdiction</th>
             <th>Value</th>
           </tr>
         </thead>
@@ -97,7 +97,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>Township</td>
             <td>{formatCurrency(totalProductionRevenue * 0.2)}</td>
           </tr>
-          <tr>
+          <tr className="rowHighlight">
             <td>Total</td>
             <td>{formatCurrency(totalProductionRevenue)}</td>
           </tr>
@@ -124,8 +124,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>{formatCurrency(formerRealPropertyTaxRevenue)}</td>
           </tr>
           <tr>
-            <td>Net County Revenue</td>
-            <td>{formatCurrency(netCounty)}</td>
+            <td className="rowHighlight">Net County Revenue</td>
+            <td className="rowHighlight">{formatCurrency(netCounty)}</td>
           </tr>
         </tbody>
       </table>
@@ -148,8 +148,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>{formatCurrency(formerCityRealPropertyTaxRevenue)}</td>
           </tr>
           <tr>
-            <td>Net City/Township Revenue</td>
-            <td>{formatCurrency(netCity)}</td>
+            <td className="rowHighlight">Net City/Township Revenue</td>
+            <td className="rowHighlight">{formatCurrency(netCity)}</td>
           </tr>
         </tbody>
       </table>
@@ -172,8 +172,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>{formatCurrency(formerSchoolDistrictRealPropertyTaxRevenue)}</td>
           </tr>
           <tr>
-            <td>Net School District Revenue</td>
-            <td>{formatCurrency(netSchool)}</td>
+            <td className="rowHighlight">Net School District Revenue</td>
+            <td className="rowHighlight">{formatCurrency(netSchool)}</td>
           </tr>
         </tbody>
       </table>
@@ -184,11 +184,11 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <table className="basicTable">
         <thead>
           <tr>
-            <th></th>
+            <th>Value</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr className="rowHighlight">
             <td>{formatCurrency(totalNetRevenue)}</td>
           </tr>
         </tbody>
@@ -200,7 +200,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Item</th>
+            <th>Revenue Type</th>
             <th>Value</th>
           </tr>
         </thead>
@@ -213,7 +213,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>Real Property Tax Revenue</td>
             <td>{formatCurrency(totalNetRevenue)}</td>
           </tr>
-          <tr>
+          <tr className="rowHighlight">
             <td>Total</td>
             <td>{formatCurrency(totalNetTaxRevenue)}</td>
           </tr>
@@ -239,10 +239,12 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                 <td>{netRevenueNames[key] || key}</td>
                 {Array.from({ length: years }, (_, i) => {
                   const revenue = baseValue * Math.pow(1 + inflationRate, i);
-                  return <td key={i}>${Math.round(revenue)}</td>;
+                  return <td key={i}>{formatCurrency(revenue)}</td>;
                 })}
               </tr>
             ))}
+
+            <tr><th></th></tr>
           </tbody>
 
           <tbody>
@@ -254,6 +256,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                 )}
               </tr>
             ))}
+
+            <tr><th></th></tr>
 
              {/* Total County Net Revenue */}
             <tr>
@@ -286,8 +290,10 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               })}
             </tr>
 
+            <tr><th></th></tr>
+
           {/* Total Net Revenue Across All Jurisdictions */}
-          <tr>
+          <tr className="rowHighlight">
             <td>Total Project Net Revenue</td>
             {Array.from({ length: years }, (_, i) => {
               const totalRevenue =

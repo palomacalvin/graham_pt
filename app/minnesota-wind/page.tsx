@@ -60,7 +60,7 @@ export default function ProjectForm() {
   });
 };
 
-// console.log(projectData.countyTaxRates)
+  // console.log(projectData.countyTaxRates)
 
   // Calculate production revenue
   const productionRate = getProductionRate(projectData.nameplateCapacity);
@@ -69,47 +69,6 @@ export default function ProjectForm() {
   const totalProductionRevenue = (projectData.pilotAgreement ? projectData.pilotPayment : modProdTaxRevenue) / 10;
 
   const landValuePerAcre = (userEditedLandValue || countyAvgValue === 0) ? projectData.userLandValue : countyAvgValue;
-
-
-  // Real Property Tax Revenue (County)
-  // const realPropertyTaxRevenue = projectData.countyTaxRates
-  //   ? calculateRealPropertyTax(
-  //       projectData.landArea,
-  //       landValuePerAcre,
-  //       projectData.propertyClass,
-  //       projectData.agriculturalType,
-  //       projectData.countyTaxRates
-  //     )
-  //   : 0;
-
-
-  // Real Property Tax Revenue (City)
-  // const cityRealPropertyTaxRevenue = projectData.cityTaxRates
-  //   ? calculateCityRealPropertyTax(
-  //       projectData.landArea,
-  //       landValuePerAcre,
-  //       projectData.propertyClass,
-  //       projectData.agriculturalType,
-  //       projectData.cityTaxRates
-  //     )
-  //   : 0;
-
-  //   // Real Property Tax Revenue (School District)
-  //   const schoolDistrictRealPropertyTaxRevenue = projectData.schoolDistrictTaxRates
-  //     ? calculateSchoolDistrictRealPropertyTax(
-  //         projectData.landArea,
-  //         landValuePerAcre,
-  //         projectData.propertyClass,
-  //         projectData.agriculturalType,
-  //         projectData.schoolDistrictTaxRates
-  //       )
-  //     : 0;
-
-
-    // const formerRealPropertyTaxRevenue = 0;
-    // const formerCityRealPropertyTaxRevenue = 0;
-    // const formerSchoolDistrictRealPropertyTaxRevenue = 0;
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

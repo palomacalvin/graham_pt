@@ -178,3 +178,8 @@ label {
   background-color: #d4ffd6;
   font-weight: bold;
 }
+
+.rowHighlight td {
+  background-color: #d4ffd6;
+  font-weight: bold;
+}
