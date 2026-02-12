@@ -137,6 +137,7 @@ h3 {
 .basicTable {
   width: 100%;
   border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .basicTable th,
@@ -177,9 +178,21 @@ label {
 .rowHighlight {
   background-color: #d4ffd6;
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .rowHighlight td {
   background-color: #d4ffd6;
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.basicFormList ol {
+  list-style: decimal;
+  margin-left: 1.5rem;
+}
+
+.basicFormListElement li {
+  margin-bottom: 0.5rem;
 }

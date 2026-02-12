@@ -92,8 +92,8 @@ export default function ProjectForm() {
     <div>
       <Navbar />
       <p style={{ margin: "3rem" }}>
-        Fill in the fields below will values relevant to your project. Default values
-        are available for each county. these values 
+        Fill in the fields below with values relevant to your project. Default values
+        are available for each county. These values 
         have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
       </p>
       <div style={{ margin: "3rem" }}>
