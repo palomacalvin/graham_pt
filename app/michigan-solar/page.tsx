@@ -20,6 +20,13 @@ export default function MichiganSolar() {
     real_property_conditions: "No",
     real_property_school_district_millages: 3000000,
     real_property_other_millages: 0,
+
+    nameplate_capacity: 100,
+    original_cost_pre_inverter: 90000000,
+    original_cost_post_inverter: 10000000,
+    expected_useful_life: 30,
+    inflation_multiplier: 1.02,
+    annual_discount_rate: 0.03,
   });
 
   return (

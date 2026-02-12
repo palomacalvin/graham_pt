@@ -88,7 +88,7 @@ export default function MIWindProjectDetailsSection({
         <input
           type="number"
           step="0.01"
-          value={projectData?.annual_discount_rate ?? 3.0}
+          value={projectData?.annual_discount_rate ?? 0.03}
           onChange={(e) =>
             setProjectData((prev) => ({
               ...prev!,

@@ -52,15 +52,15 @@ export default function MISolarProjectDetailsSection ({
                 solar modules, racks, tracking, on-site battery storage systems, controls, interver ($):
                 <input
                     type="number"
-                    value={projectData?.original_cost_post_inverter ?? 90000000}
+                    value={projectData.original_cost_pre_inverter}
                     onChange={(e) =>
-                    setProjectData((prev) => ({
-                        ...prev!,
+                        setProjectData((prev) => ({
+                        ...prev,
                         original_cost_pre_interface: parseFloat(e.target.value),
-                    }))
+                        }))
                     }
                     className="basicInputBox"
-                />
+                    />
             </label>
 
 
@@ -118,7 +118,7 @@ export default function MISolarProjectDetailsSection ({
             <input
                 type="number"
                 step="0.01"
-                value={projectData?.annual_discount_rate ?? 3.0}
+                value={projectData?.annual_discount_rate ?? 0.03}
                 onChange={(e) =>
                     setProjectData((prev) => ({
                     ...prev,
