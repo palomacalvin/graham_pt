@@ -116,18 +116,33 @@ export default function MISolarRealPropertyCalculator ({
                     </ol>
 
                     <select
-                        value={projectData.real_property_conditions}
+                        value={
+                            projectData.real_property_conditions === true
+                                ? "yes"
+                                : projectData.real_property_conditions === false
+                                ? "no"
+                                : ""
+                        }
                         onChange={(e) =>
                             setProjectData((prev) => ({
                                 ...prev,
-                                real_property_conditions: e.target.value,
+                                real_property_conditions:
+                                    e.target.value === "yes"
+                                        ? true
+                                        : e.target.value === "no"
+                                        ? false
+                                        : undefined,
                             }))
                         }
-                        className="basicDropdown">
+                        className="basicDropdown"
+                    >
                         <option value="">-- Choose Option --</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
+
+
+
                 </fieldset>
             </section>
 

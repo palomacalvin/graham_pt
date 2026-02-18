@@ -17,7 +17,7 @@ export default function MichiganSolar() {
     real_property_ownership_change: "No",
     pre_solar_taxable_value: 3000000,
     post_solar_taxable_value: 3000000,
-    real_property_conditions: "No",
+    real_property_conditions: false,
     real_property_school_district_millages: 3000000,
     real_property_other_millages: 0,
 

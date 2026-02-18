@@ -1,52 +1,38 @@
 import { ProjectData } from "@/types/MISolarProject";
 import { MIMultiplicationFactors } from "@/types/MIMultiplicationFactors";
 
+// PILT / Non-PILT Values
+const QUALIFYING_PILT_RATE = 2000
+const NON_QUALIFYING_PILT_RATE = 7000
 
 // Data structure for the yearly revenue calculations.
 interface YearlyRevenueResult {
   year: number;
-  tcv: number;
+  tcv?: number;
   revenue: number;
 }
 
 // NPV calculation function.
 export function calculateNPV(rate: number, cash_flows: number[]): number {
-  const first_year = cash_flows[0] ?? 0;
-  const remaining = cash_flows.slice(1);
+    const first_year = cash_flows[0] ?? 0;
+    const remaining = cash_flows.slice(1);
 
-  const discounted = remaining.reduce((sum, cf, i) => {
+    const discounted = remaining.reduce((sum, cf, i) => {
     return sum + cf / Math.pow(1 + rate, i + 1);
-  }, 0);
+    }, 0);
 
-  return first_year + discounted;
+    return first_year + discounted;
 }
-
-// Generates yearly revenue arrays up to 30 years.
-export function generateYearlyRevenue(
-    original_cost: number,
-    millage_rate: number,
-    factors: { factor_form_5762: number }[],
-    years = 30
-): YearlyRevenueResult[] {
-    return factors.slice(0, years).map((factor, index) => {
-    const year = index + 1;
-    const tcv = original_cost * factor.factor_form_5762 * 0.5;
-    const revenue = (millage_rate / 1000) * tcv;
-
-    return { year, tcv, revenue };
-    });
-}
-
 
 // Sums the revenues.
 export function sumRevenueStreams(
-  streams: number[][]
+    streams: number[][]
 ): number[] {
-  const years = streams[0]?.length ?? 0;
+    const years = streams[0]?.length ?? 0;
 
-  return Array.from({ length: years }, (_, i) =>
-    streams.reduce((sum, stream) => sum + (stream[i] ?? 0), 0)
-  );
+    return Array.from({ length: years }, (_, i) =>
+        streams.reduce((sum, stream) => sum + (stream[i] ?? 0), 0)
+    );
 }
 
 // Calculates the gross total.
@@ -57,28 +43,60 @@ export function calculateGrossTotal(values: number[]): number {
 // Main tax results calculations for each unit/jurisdiction.
 export function calculateMichiganTaxResults(
     projectData: ProjectData,
-    multiplicationFactors: MIMultiplicationFactors[]
+    multiplicationFactors: MIMultiplicationFactors[],
+    originalCost: number,
+    years = 30
 ) {
-    const original_cost = projectData.original_cost_pre_inverter ?? 0;
     const discount_rate = projectData.annual_discount_rate ?? 0.05;
+    const nameplate_capacity = projectData.nameplate_capacity ?? 0;
 
-    const county_allocated = generateYearlyRevenue(
-        original_cost,
-        projectData.county_allocated ?? 0,
-        multiplicationFactors
-    );
+    const pilt_rate = projectData.real_property_conditions
+        ? QUALIFYING_PILT_RATE
+        : NON_QUALIFYING_PILT_RATE;
 
-    const county_extra = generateYearlyRevenue(
-        original_cost,
-        projectData.county_extra_voted ?? 0,
-        multiplicationFactors
-    );
+    const pilt_payment = nameplate_capacity * pilt_rate;
 
-    const county_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.county_debt ?? 0,
-        multiplicationFactors
-    );
+
+    const total_homestead_rate = Math.abs(((projectData.sd_comm_pers ?? 0) - (projectData.homestead_rate ?? 0)) / 1000);
+    console.log(total_homestead_rate);
+    const divisor = total_homestead_rate > 0 ? total_homestead_rate : 1;
+
+    const proportionalPayment = (millage?: number) =>
+        pilt_payment * (((millage ?? 0) / 1000) / divisor);
+
+
+    const generateYearlyRevenue = (
+        millage?: number
+    ): YearlyRevenueResult[] => {
+
+        return multiplicationFactors.slice(0, years).map((factor, index) => {
+
+            const year = index + 1;
+
+            // PILT years
+            if (year <= 20) {
+                const revenue = proportionalPayment(millage);
+                return { year, revenue };
+            }
+
+            // Non-PILT years
+            const tcv = originalCost * factor.factor_form_5762 * 0.5;
+            const revenue = ((millage ?? 0) / 1000) * tcv;
+
+            return { year, tcv, revenue };
+        });
+    };
+
+
+
+
+    // ================= COUNTY =================
+
+    const county_allocated = generateYearlyRevenue(projectData.county_allocated);
+
+    const county_extra = generateYearlyRevenue(projectData.county_extra_voted);
+
+    const county_debt = generateYearlyRevenue(projectData.county_debt);
 
     const total_county_per_year = sumRevenueStreams([
         county_allocated.map(x => x.revenue),
@@ -89,26 +107,18 @@ export function calculateMichiganTaxResults(
     const gross_county = calculateGrossTotal(total_county_per_year);
     const county_npv = calculateNPV(discount_rate, total_county_per_year);
 
-  
+    console.log(total_county_per_year);
+    console.log(gross_county);
+    console.log(county_npv);
+
+
     // ========================= Local Unit ======================== //
 
-    const local_unit_allocated = generateYearlyRevenue(
-        original_cost,
-        projectData.lu_allocated ?? 0,
-        multiplicationFactors
-    );
+    const local_unit_allocated = generateYearlyRevenue(projectData.lu_allocated);
 
-    const local_unit_extra_voted = generateYearlyRevenue(
-        original_cost,
-        projectData.lu_extra_voted ?? 0,
-        multiplicationFactors
-    );
+    const local_unit_extra_voted = generateYearlyRevenue(projectData.lu_extra_voted);
 
-    const local_unit_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.lu_debt ?? 0,
-        multiplicationFactors,
-    );
+    const local_unit_debt = generateYearlyRevenue(projectData.lu_debt);
 
     const total_local_unit_per_year = sumRevenueStreams([
         local_unit_allocated.map(x => x.revenue),
@@ -121,31 +131,13 @@ export function calculateMichiganTaxResults(
 
     // ========================= School District ======================== //
 
-    const sd_hold_harmless = generateYearlyRevenue(
-        original_cost,
-        projectData.sd_hold_harmless ?? 0,
-        multiplicationFactors,
-    );
+    const sd_hold_harmless = generateYearlyRevenue(projectData.sd_hold_harmless);
 
-    const sd_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.sd_debt ?? 0,
-        multiplicationFactors,
-    );
+    const sd_debt = generateYearlyRevenue(projectData.sd_debt);
 
-    const sd_sinking_fund = generateYearlyRevenue(
-        original_cost,
-        projectData.sd_sinking_fund ?? 0,
-        multiplicationFactors,
-    );
+    const sd_sinking_fund = generateYearlyRevenue(projectData.sd_sinking_fund);
 
-
-    const sd_recreational = generateYearlyRevenue(
-        original_cost,
-        projectData.sd_recreational ?? 0,
-        multiplicationFactors,
-    );
-
+    const sd_recreational = generateYearlyRevenue(projectData.sd_recreational);
 
     const total_sd_per_year = sumRevenueStreams([
         sd_hold_harmless.map(x => x.revenue),
@@ -157,40 +149,17 @@ export function calculateMichiganTaxResults(
     const gross_sd = calculateGrossTotal(total_sd_per_year);
     const sd_npv = calculateNPV(discount_rate, total_sd_per_year);
 
-
     // ========================= Intermediate School District ======================== //
 
-    const int_sd_allocated = generateYearlyRevenue(
-        original_cost,
-        projectData.isd_allocated ?? 0,
-        multiplicationFactors,
-    );
+    const int_sd_allocated = generateYearlyRevenue(projectData.isd_allocated);
 
-    const int_sd_vocational = generateYearlyRevenue(
-        original_cost,
-        projectData.isd_vocational ?? 0,
-        multiplicationFactors,
-    );
+    const int_sd_vocational = generateYearlyRevenue(projectData.isd_vocational);
 
-    const int_sd_special_ed = generateYearlyRevenue(
-        original_cost,
-        projectData.isd_special_ed ?? 0,
-        multiplicationFactors,
-    );
+    const int_sd_special_ed = generateYearlyRevenue(projectData.isd_special_ed);
 
+    const int_sd_debt = generateYearlyRevenue(projectData.isd_debt);
 
-    const int_sd_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.isd_debt ?? 0,
-        multiplicationFactors,
-    );
-
-    const int_sd_enhancement = generateYearlyRevenue(
-        original_cost,
-        projectData.isd_enhancement ?? 0,
-        multiplicationFactors,
-    );
-
+    const int_sd_enhancement = generateYearlyRevenue(projectData.isd_enhancement);
 
     const total_isd_per_year = sumRevenueStreams([
         int_sd_allocated.map(x => x.revenue),
@@ -206,18 +175,9 @@ export function calculateMichiganTaxResults(
 
     // ========================= Community College ======================== //
 
-    const comm_college_operating = generateYearlyRevenue(
-        original_cost,
-        projectData.cc_operating ?? 0,
-        multiplicationFactors,
-    );
+    const comm_college_operating = generateYearlyRevenue(projectData.cc_operating);
 
-    const comm_college_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.cc_debt ?? 0,
-        multiplicationFactors,
-    );
-
+    const comm_college_debt = generateYearlyRevenue(projectData.cc_debt);
 
     const total_cc_per_year = sumRevenueStreams([
         comm_college_operating.map(x => x.revenue),
@@ -229,18 +189,9 @@ export function calculateMichiganTaxResults(
 
     // ========================= Public Authorities ======================== //
 
-    const pa = generateYearlyRevenue(
-        original_cost,
-        projectData.part_unit_auth ?? 0,
-        multiplicationFactors,
-    );
+    const pa = generateYearlyRevenue(projectData.part_unit_auth);
 
-    const pa_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.part_unit_auth_debt ?? 0,
-        multiplicationFactors,
-    );
-
+    const pa_debt = generateYearlyRevenue(projectData.part_unit_auth_debt);
 
     const total_pa_per_year = sumRevenueStreams([
         pa.map(x => x.revenue),
@@ -252,36 +203,15 @@ export function calculateMichiganTaxResults(
 
     // ========================= Village ======================== //
 
-    const vill_allocated = generateYearlyRevenue(
-        original_cost,
-        projectData.village_allocated ?? 0,
-        multiplicationFactors,
-    );
+    const vill_allocated = generateYearlyRevenue(projectData.village_allocated);
 
-    const vill_extra = generateYearlyRevenue(
-        original_cost,
-        projectData.village_extra_voted ?? 0,
-        multiplicationFactors,
-    );
+    const vill_extra = generateYearlyRevenue(projectData.village_extra_voted);
 
-    const vill_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.village_debt ?? 0,
-        multiplicationFactors,
-    );
+    const vill_debt = generateYearlyRevenue(projectData.village_debt);
 
-    const vill_pa = generateYearlyRevenue(
-        original_cost,
-        projectData.village_auth ?? 0,
-        multiplicationFactors,
-    );
+    const vill_pa = generateYearlyRevenue(projectData.village_auth);
 
-    const vill_pa_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.village_auth_debt ?? 0,
-        multiplicationFactors,
-    );
-
+    const vill_pa_debt = generateYearlyRevenue(projectData.village_auth_debt);
 
     const total_village_per_year = sumRevenueStreams([
         vill_allocated.map(x => x.revenue),
@@ -356,11 +286,5 @@ export function calculateMichiganTaxResults(
             gross: gross_village,
             npv: village_npv,
         },
-
-
     };
-
-
-    
-
 }
