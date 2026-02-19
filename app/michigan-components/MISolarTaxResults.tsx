@@ -6,6 +6,9 @@ import { MIMultiplicationFactors } from "@/types/MIMultiplicationFactors";
 
 import { calculateMichiganTaxResults as calculateNonPILT } from "@/utils/MINonPILTSolarCalculations";
 import { calculateMichiganTaxResults as calculatePILT } from "@/utils/MIPILTSolarCalculations";
+import { calculateMichiganTaxResults as calculateRealPropertyTaxes } from "@/utils/MIRealPropertySolarCalculations";
+import { calculateMichiganTaxResults as calculateUPPRevenue } from "@/utils/MIUPPSolarCalculations";
+
 
 interface Props {
     projectData: ProjectData;
@@ -86,7 +89,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
     // Define state.
     const [multiplicationFactors, setMultiplicationFactors] = 
-    useState<MIMultiplicationFactors[]>([]);
+        useState<MIMultiplicationFactors[]>([]);
 
     const nonPiltResults = multiplicationFactors.length
     ? calculateNonPILT(projectData, multiplicationFactors)
@@ -113,6 +116,15 @@ export default function MISolarTaxResults( {projectData}: Props) {
         public_authority: emptyUnit(),
         village: emptyUnit(),
     };
+
+    const realPropertyResults = multiplicationFactors.length
+        ? calculateRealPropertyTaxes(projectData, multiplicationFactors)
+        : null;
+
+
+    const uppRevenueResults = multiplicationFactors.length
+        ? calculateUPPRevenue(projectData, multiplicationFactors)
+        : null;
 
     // Helper to provide empty structure for a taxing unit
     function emptyUnit() {
@@ -202,6 +214,53 @@ export default function MISolarTaxResults( {projectData}: Props) {
         pilt_total_all_taxing_units
     );
 
+
+    // ================= REAL PROPERTY REVENUE ALL UNITS COMBINED =================
+
+    const real_property_revenue_all_units =
+        realPropertyResults
+            ? realPropertyResults.county.totalPerYear.map((_, i) =>
+            realPropertyResults.county.totalPerYear[i] +
+            realPropertyResults.local_unit.totalPerYear[i] +
+            realPropertyResults.school_district.totalPerYear[i] +
+            realPropertyResults.intermediate_school_district.totalPerYear[i] +
+            realPropertyResults.community_college.totalPerYear[i] +
+            realPropertyResults.public_authority.totalPerYear[i] +
+            realPropertyResults.village.totalPerYear[i]
+        )
+        : [];
+
+    const real_property_gross_all_units =
+        real_property_revenue_all_units?.reduce((sum, val) => sum + val, 0);
+
+    const real_property_all_units_npv = calculateNPV(
+        projectData.annual_discount_rate ?? 0.05,
+        real_property_revenue_all_units
+    );
+
+
+    // ================= UPP REVENUE ALL TAXING UNITS COMBINED =================
+
+    const upp_total_all_taxing_units = 
+        uppRevenueResults
+            ? uppRevenueResults.county.totalPerYear.map((_, i) =>
+            uppRevenueResults?.county.totalPerYear[i] +
+            uppRevenueResults?.local_unit.totalPerYear[i] +
+            uppRevenueResults?.school_district.totalPerYear[i] +
+            uppRevenueResults?.intermediate_school_district.totalPerYear[i] +
+            uppRevenueResults?.community_college.totalPerYear[i] +
+            uppRevenueResults?.public_authority.totalPerYear[i] +
+            uppRevenueResults?.village.totalPerYear[i]
+    ) 
+    : [];
+
+    const upp_gross_all_units_revenue =
+        upp_total_all_taxing_units?.reduce((sum, val) => sum + val, 0);
+
+    const upp_all_units_npv = calculateNPV(
+        projectData.annual_discount_rate ?? 0.05,
+        upp_total_all_taxing_units ?? 0
+    );
 
 
 
@@ -1328,6 +1387,702 @@ export default function MISolarTaxResults( {projectData}: Props) {
                     </tbody>
                 </table>
             )}
+
+
+            {/* REAL PROPERTY TAX TESTING */}
+            {/* <h1> TESTING TABLE </h1>
+                <table className="basicTable">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            {realPropertyResults?.county.allocated.map((year) => (
+                                <th key={year.year}>Year {year.year}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>County - Allocated</td>
+                            {realPropertyResults?.county.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr>
+                            <td>County - Extra Voted</td>
+                            {realPropertyResults?.county.extra.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue ?? 0)}</td>
+                            ))}
+                        </tr>
+
+                        <tr>
+                            <td>County - Debt</td>
+                            {realPropertyResults?.county.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue ?? 0)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - County</td>
+                            {realPropertyResults?.county.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - County</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.county.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - County</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.county.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Local Unit - Allocated</td>
+                            {realPropertyResults?.local_unit.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Local Unit - Extra Voted</td>
+                            {realPropertyResults?.local_unit.extra.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Local Unit - Debt</td>
+                            {realPropertyResults?.local_unit.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Local Unit</td>
+                            {realPropertyResults?.local_unit.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Local Unit</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.local_unit.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Local Unit</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.local_unit.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>School District - Hold Harmless</td>
+                            {realPropertyResults?.school_district.hold_harmless.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Operating</td>
+                            {realPropertyResults?.school_district.operating.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Debt</td>
+                            {realPropertyResults?.school_district.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Sinking Fund</td>
+                            {realPropertyResults?.school_district.sinking_fund.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Recreational</td>
+                            {realPropertyResults?.school_district.recreational.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - School District</td>
+                            {realPropertyResults?.school_district.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - School District</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.school_district.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - School District</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.school_district.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Intermediate School District - Allocated</td>
+                            {realPropertyResults?.intermediate_school_district.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Vocational</td>
+                            {realPropertyResults?.intermediate_school_district.vocational.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Special Educationa</td>
+                            {realPropertyResults?.intermediate_school_district.special_education.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Debt</td>
+                            {realPropertyResults?.intermediate_school_district.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Enhancement</td>
+                            {realPropertyResults?.intermediate_school_district.enhancement.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Intermediate School District</td>
+                            {realPropertyResults?.intermediate_school_district.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Intermediate School District</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.intermediate_school_district.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Intermediate School District</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.intermediate_school_district.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Community College - Operating</td>
+                            {realPropertyResults?.community_college.operating.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Community College - Debt</td>
+                            {realPropertyResults?.community_college.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Community College</td>
+                            {realPropertyResults?.community_college.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Community College</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.community_college.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Community College</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.community_college.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Public Authorities (e.g. library, park authorities, etc.)</td>
+                            {realPropertyResults?.public_authority.authority.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Public Authority Debt</td>
+                            {realPropertyResults?.public_authority.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Public Authorities</td>
+                            {realPropertyResults?.public_authority.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Public Authorities</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.public_authority.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Public Authorities</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.public_authority.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Village - Allocated</td>
+                            {realPropertyResults?.village.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Extra Voted</td>
+                            {realPropertyResults?.village.extra.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Debt</td>
+                            {realPropertyResults?.village.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Public Authorities</td>
+                            {realPropertyResults?.village.authority.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Public Authority Debt</td>
+                            {realPropertyResults?.village.authority_debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Village</td>
+                            {realPropertyResults?.village.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Village</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.village.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Village</td>
+                            <td colSpan={3}>{formatCurrency(realPropertyResults?.village.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr className="rowBold">
+                            <td>Total Per Year - All Taxing Units</td>
+                            {real_property_revenue_all_units.map((total, index) => (
+                            <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>
+                            Gross IPP Revenue Over Course of Project - All Taxing Units
+                            </td>
+                            <td colSpan={3}>
+                            {formatCurrency(real_property_gross_all_units)}
+                            </td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>
+                            Net Present Value of IPP Revenue Over Course of Project - All Taxing Units
+                            </td>
+                            <td colSpan={3}>
+                            {formatCurrency(real_property_all_units_npv)}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> */}
+
+
+
+                {/* UPP REVENUE TESTING TABLE */}
+
+                {/* Non-PILT Table */}
+                <table className="basicTable">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            {uppRevenueResults?.county.allocated.map((year) => (
+                                <th key={year.year}>Year {year.year}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>County - Allocated</td>
+                            {uppRevenueResults?.county.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr>
+                            <td>County - Extra Voted</td>
+                            {uppRevenueResults?.county.extra.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue ?? 0)}</td>
+                            ))}
+                        </tr>
+
+                        <tr>
+                            <td>County - Debt</td>
+                            {uppRevenueResults?.county.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue ?? 0)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - County</td>
+                            {uppRevenueResults?.county.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - County</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.county.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - County</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.county.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Local Unit - Allocated</td>
+                            {uppRevenueResults?.local_unit.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Local Unit - Extra Voted</td>
+                            {uppRevenueResults?.local_unit.extra.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Local Unit - Debt</td>
+                            {uppRevenueResults?.local_unit.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Local Unit</td>
+                            {uppRevenueResults?.local_unit.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Local Unit</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.local_unit.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Local Unit</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.local_unit.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>School District - Hold Harmless</td>
+                            {uppRevenueResults?.school_district.hold_harmless.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Operating</td>
+                            {uppRevenueResults?.school_district.operating.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Debt</td>
+                            {uppRevenueResults?.school_district.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Sinking Fund</td>
+                            {uppRevenueResults?.school_district.sinking_fund.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>School District - Recreational</td>
+                            {uppRevenueResults?.school_district.recreational.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - School District</td>
+                            {uppRevenueResults?.school_district.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - School District</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.school_district.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - School District</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.school_district.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Intermediate School District - Allocated</td>
+                            {uppRevenueResults?.intermediate_school_district.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Vocational</td>
+                            {uppRevenueResults?.intermediate_school_district.vocational.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Special Educationa</td>
+                            {uppRevenueResults?.intermediate_school_district.special_education.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Debt</td>
+                            {uppRevenueResults?.intermediate_school_district.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Intermediate School District - Enhancement</td>
+                            {uppRevenueResults?.intermediate_school_district.enhancement.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Intermediate School District</td>
+                            {uppRevenueResults?.intermediate_school_district.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Intermediate School District</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.intermediate_school_district.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Intermediate School District</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.intermediate_school_district.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Community College - Operating</td>
+                            {uppRevenueResults?.community_college.operating.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Community College - Debt</td>
+                            {uppRevenueResults?.community_college.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Community College</td>
+                            {uppRevenueResults?.community_college.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Community College</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.community_college.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Community College</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.community_college.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Public Authorities (e.g. library, park authorities, etc.)</td>
+                            {uppRevenueResults?.public_authority.authority.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Public Authority Debt</td>
+                            {uppRevenueResults?.public_authority.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Public Authorities</td>
+                            {uppRevenueResults?.public_authority.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Public Authorities</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.public_authority.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Public Authorities</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.public_authority.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr>
+                            <td>Village - Allocated</td>
+                            {uppRevenueResults?.village.allocated.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Extra Voted</td>
+                            {uppRevenueResults?.village.extra.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Debt</td>
+                            {uppRevenueResults?.village.debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Public Authorities</td>
+                            {uppRevenueResults?.village.authority.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Village - Public Authority Debt</td>
+                            {uppRevenueResults?.village.authority_debt.map((year) => (
+                                <td key={year.year}>{formatCurrency(year.revenue)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowBold">
+                            <td>Total Per Year - Village</td>
+                            {uppRevenueResults?.village.totalPerYear.map((total, index) => (
+                                <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Gross IPP Revenue Over Course of Project - Village</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.village.gross ?? 0)}</td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>Net Present Value of IPP Revenue Over Course of Project - Village</td>
+                            <td colSpan={3}>{formatCurrency(uppRevenueResults?.village.npv ?? 0)}</td>
+                        </tr>
+                    </tbody>
+
+                    <tr><th></th></tr>
+
+                    <tbody>
+                        <tr className="rowBold">
+                            <td>Total Per Year - All Taxing Units</td>
+                            {upp_total_all_taxing_units.map((total, index) => (
+                            <td key={index}>{formatCurrency(total)}</td>
+                            ))}
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>
+                            Gross IPP Revenue Over Course of Project - All Taxing Units
+                            </td>
+                            <td colSpan={3}>
+                            {formatCurrency(upp_gross_all_units_revenue)}
+                            </td>
+                        </tr>
+
+                        <tr className="rowHighlight">
+                            <td colSpan={3}>
+                            Net Present Value of IPP Revenue Over Course of Project - All Taxing Units
+                            </td>
+                            <td colSpan={3}>
+                            {formatCurrency(upp_all_units_npv)}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
         </section>
     );
