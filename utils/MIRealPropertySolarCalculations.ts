@@ -78,7 +78,7 @@ export function generateYearlyRevenue(
     return results;
 }
 
-
+  
 // Sums the revenues.
 export function sumRevenueStreams(
   streams: number[][]
