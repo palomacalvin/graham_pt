@@ -80,9 +80,9 @@ export default function ProjectForm() {
     <div>
       <Navbar />
       <p style={{ margin: "3rem" }}>
-        Fill in the fields below will values relevant to your project. Default values
-        are available for each county, city/township, and school district; these values 
-        have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
+          Fill in the fields below with values relevant to your project. Once you choose a location,
+          default values will auto-populate. You may override these values if necessary. Default values 
+          have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
       </p>
       <div style={{ margin: "3rem" }}>
       <form onSubmit={handleSubmit}>

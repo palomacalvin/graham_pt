@@ -1139,12 +1139,64 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             </tr>
                         </tbody>
                     </table>
-
-
-
                 </section>
             )}
+
+
+            <section>
+                <h1>Community Benefits</h1>
+
+                <p>Below is an estimate of real-world community benefits from your planned renewable project
+                    over the course of its lifespan.
+                </p>
+
+                <table className="basicTable">
+                    <thead>
+                        <th></th>
+                        <th>Expenditure</th>
+                        <th>Jurisdiction</th>
+                        <th>Unit Cost</th>
+                        <th>Non-PILT Benefit</th>
+                        <th>PILT Benefit</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
+                            <td>Roadway Maintenance</td>
+                            <td>County</td>
+                            <td>~$1152 per mile</td>
+                            <td>
+                                {Math.round((county.npv) / 1152)} miles
+                            </td>
+                            <td>{Math.round((piltCounty.npv) / 1152)} miles
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/firefighter.png" alt="Vector graphic of a firefighter"></img></td>
+                            <td>Firefighters</td>
+                            <td>Township</td>
+                            <td>~$71835 per full-time employee (FTE)</td>
+                            <td>{Math.round((local_unit.npv) / 71835)} FTEs</td>
+                            <td>{Math.round((piltLocalUnit.npv / 71835))} FTEs</td>
+                        </tr>
+
+                        <tr>
+                            <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a fire truck"></img></td>
+                            <td>Fire Trucks</td>
+                            <td>Township</td>
+                            <td>~$2100000 per unit</td>
+                            <td>{Math.round((local_unit.npv) / 2100000)} fire truck(s)</td>
+                            <td>{Math.round((piltLocalUnit.npv) / 2100000)} fire truck(s)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
         </section>
+        
     );
 
 }
