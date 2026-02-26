@@ -35,21 +35,7 @@ export default function MIProjectLocationSection({
 
       {projectData && (
         <>
-          <br />
 
-          {/* <div>
-            <strong>Selected Location:</strong>
-            <br></br> 
-            <br></br>
-            <ul>
-              <li>County: {projectData.county_name}</li>
-              <li>Local Unit: {projectData.local_unit_name}</li>
-              <li>
-                Type: {projectData.city ? "City" : "Township"}
-              </li>
-              <li>School District: {projectData.school_name}</li>
-            </ul>
-          </div> */}
         </>
       )}
     </section>

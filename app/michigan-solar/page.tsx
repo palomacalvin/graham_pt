@@ -25,7 +25,7 @@ export default function MichiganSolar() {
     original_cost_pre_inverter: 90000000,
     original_cost_post_inverter: 10000000,
     expected_useful_life: 30,
-    inflation_multiplier: 1.02,
+    inflation_multiplier: 0.02,
     annual_discount_rate: 0.03,
   });
 
@@ -33,32 +33,42 @@ export default function MichiganSolar() {
     <div>
       <Navbar />
 
-       <p style={{ margin: "3rem" }}>
-        Fill in the fields below with values relevant to your project. Default values
-        are available for each county, city/township, and school district; these values
-        have been compiled from state-by-state research. See the{" "}
-          <Link className="basicLinkText" href="references">
-            References
-          </Link>{" "}
-          page for more details.
+        <div style={{ margin: "3rem" }}>
+
+        <h1>Michigan Solar Renewable Energy Tax Impacts Calculator</h1>
+
+        </div>
+
+        <p style={{ margin: "3rem" }}>
+          Fill in the fields below with values relevant to your project. Default values
+          are available for each county, city/township, and school district; these values
+          have been compiled from state-by-state research. See the{" "}
+            <Link className="basicLinkText" href="references">
+              References
+            </Link>{" "}
+            page for more details.
         </p>
 
-      <div style={{ margin: "3rem" }}>
-          {/* Project Location Section */}
-          <MIProjectLocationSection projectData={projectData} setProjectData={setProjectData}/>
-      </div>
+        <p style={{ margin: "3rem" }}>
+          Hover over the information icons next to each field to learn more about individual inputs.
+        </p>
 
-      <div style={{ margin: "3rem" }}>
-        <MISolarProjectDetailsSection projectData={projectData} setProjectData={setProjectData} />
-      </div>
+        <div style={{ margin: "3rem" }}>
+            {/* Project Location Section */}
+            <MIProjectLocationSection projectData={projectData} setProjectData={setProjectData}/>
+        </div>
 
-      <div style={{ margin: "3rem" }}>
-        <MISolarRealPropertyCalculator projectData={projectData} setProjectData={setProjectData} />
-      </div>
+        <div style={{ margin: "3rem" }}>
+          <MISolarProjectDetailsSection projectData={projectData} setProjectData={setProjectData} />
+        </div>
 
-      <div style={{ margin: "3rem" }}>
-        <MISolarTaxResults projectData={projectData} />
-      </div>
+        <div style={{ margin: "3rem" }}>
+          <MISolarRealPropertyCalculator projectData={projectData} setProjectData={setProjectData} />
+        </div>
+
+        <div style={{ margin: "3rem" }}>
+          <MISolarTaxResults projectData={projectData} />
+        </div>
 
 
     </div>

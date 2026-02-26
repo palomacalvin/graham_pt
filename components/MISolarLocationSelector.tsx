@@ -172,7 +172,10 @@ return (
             </option>
           ))}
         </select>
+        <div className="required">Required</div>
       </div>
+
+      <br></br>
 
       {/* City and Township */}
       <div>
@@ -191,22 +194,29 @@ return (
             <option key={c} value={c}>{c}</option>
             ))}
         </select>
+        <div className="required">Required</div>
+
+        <br></br>
 
         {/* Village (optional) */}
         {villages.length > 0 && (
+          <div style={{ marginTop: "3rem" }}>
             <select
-            value={selectedVillage}
-            onChange={(e) => {
+              value={selectedVillage}
+              onChange={(e) => {
                 setSelectedVillage(e.target.value);
                 setSelectedSchool("");
-            }}
-            className="basicDropdown"
+              }}
+              className="basicDropdown"
             >
-            <option value="">-- Choose Village --</option>
-            {villages.map((v) => (
+              <option value="">-- Choose Village --</option>
+              {villages.map((v) => (
                 <option key={v} value={v}>{v}</option>
-            ))}
+              ))}
+
+
             </select>
+          </div>
         )}
 
         {/* School District */}

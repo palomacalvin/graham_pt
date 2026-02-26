@@ -55,7 +55,6 @@ h1 {
 h2 {
   font-size: 1.25rem;
   color: #231f20;
-  padding-left: 3rem;
   padding-right: 3rem;
   padding-bottom: 1rem;
   line-height: 2.5rem;
@@ -203,4 +202,71 @@ label {
 
 .basicFormListElement li {
   margin-bottom: 0.5rem;
+}
+
+.required {
+  color: red;
+  font-style: italic;
+  font-size: 0.85rem;
+  padding-left: 0.5rem;
+}
+
+
+.inputWithInfo {
+  display: flex;
+  align-items: center; /* vertically center input and icon */
+  gap: 0.5rem;
+  position: relative;  /* needed for tooltip positioning */
+}
+
+.inputWithInfo input,
+.inputWithInfo select {
+
+}
+
+.infoWrapper {
+  display: inline-flex;  /* keep inline for flex layout, allows hover to work */
+  align-items: center;   /* vertically center the image inside wrapper */
+  position: relative;
+  cursor: pointer;
+}
+
+.infoWrapper img {
+  width: 30px;   /* adjust to match input height */
+  height: 30px;
+  display: block; /* can stay block now because wrapper uses flex */
+}
+
+.infoBubble {
+  visibility: hidden;
+  width: 220px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%; /* show above icon */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.875rem;
+}
+
+.infoWrapper:hover .infoBubble {
+  visibility: visible;
+  opacity: 1;
+}
+
+.infoBubble::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* arrow at bottom */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
 }

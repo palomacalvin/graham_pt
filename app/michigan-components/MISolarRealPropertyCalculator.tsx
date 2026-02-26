@@ -16,7 +16,7 @@ export default function MISolarRealPropertyCalculator ({
 }: Props) {
     return (
         <section>
-            <h1>Project Details</h1>
+            <h1>Real Property Calculation Details</h1>
 
             <br />
 
@@ -140,8 +140,6 @@ export default function MISolarRealPropertyCalculator ({
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
-
-
 
                 </fieldset>
             </section>

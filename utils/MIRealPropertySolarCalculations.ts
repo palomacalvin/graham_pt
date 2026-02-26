@@ -31,7 +31,7 @@ export function generateYearlyRevenue(
 
     const results: YearlyRevenueResult[] = [];
 
-    const inflation = projectData?.inflation_multiplier ?? 1;
+    const inflation_rate = projectData?.inflation_multiplier ?? 0;
 
     const ownership_change = projectData?.real_property_ownership_change;
 
@@ -66,7 +66,7 @@ export function generateYearlyRevenue(
     // ======================= Year 2+ Calculations ======================= //
 
     for (let year = 2; year <= years; year++) {
-        revenue = revenue * inflation;
+        revenue = revenue * (1 + inflation_rate);
 
         results.push({
             year,
@@ -78,7 +78,6 @@ export function generateYearlyRevenue(
     return results;
 }
 
-  
 // Sums the revenues.
 export function sumRevenueStreams(
   streams: number[][]

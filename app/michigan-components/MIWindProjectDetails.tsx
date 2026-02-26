@@ -2,16 +2,36 @@
 
 import React from "react";
 import { ProjectData } from "../../types/MIWindProject";
+import { useState } from "react";
+import { useEffect } from "react";
 
 interface Props {
   projectData: ProjectData | null;
   setProjectData: React.Dispatch<React.SetStateAction<ProjectData | null>>;
 }
 
+
 export default function MIWindProjectDetailsSection({
   projectData,
   setProjectData,
 }: Props) {
+
+
+  const [inflation_percent, setInflationPercent] = useState<number>(2);
+  const [discount_percent, setDiscountPercent] = useState<number>(3);
+
+  useEffect(() => {
+  if (!projectData) return;
+
+  if (projectData.inflation_multiplier != null) {
+    setInflationPercent((projectData.inflation_multiplier - 1) * 100);
+  }
+
+  if (projectData.annual_discount_rate != null) {
+    setDiscountPercent(projectData.annual_discount_rate * 100);
+  }
+}, [projectData]);
+
   return (
     <section>
       <h1>Project Details</h1>
@@ -67,18 +87,26 @@ export default function MIWindProjectDetailsSection({
         />
       </label>
 
+
+
+      
+
+
       <label>
-        Average annual inflation rate multiplier:
+        Average annual inflation rate (%):
         <input
           type="number"
           step="0.01"
-          value={projectData?.inflation_multiplier ?? 1.02}
-          onChange={(e) =>
+          value={inflation_percent}
+          onChange={(e) => {
+            const percent = parseFloat(e.target.value);
+            setInflationPercent(percent);
+
             setProjectData((prev) => ({
               ...prev!,
-              inflation_multiplier: parseFloat(e.target.value),
-            }))
-          }
+              inflation_multiplier: 1 + percent / 100,
+            }));
+          }}
           className="basicInputBox"
         />
       </label>
@@ -88,13 +116,16 @@ export default function MIWindProjectDetailsSection({
         <input
           type="number"
           step="0.01"
-          value={projectData?.annual_discount_rate ?? 0.03}
-          onChange={(e) =>
+          value={discount_percent}
+          onChange={(e) => {
+            const percent = parseFloat(e.target.value);
+            setDiscountPercent(percent);
+
             setProjectData((prev) => ({
               ...prev!,
-              annual_discount_rate: parseFloat(e.target.value),
-            }))
-          }
+              annual_discount_rate: percent / 100,
+            }));
+          }}
           className="basicInputBox"
         />
       </label>
