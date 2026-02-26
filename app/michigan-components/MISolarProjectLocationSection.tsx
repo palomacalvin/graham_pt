@@ -20,6 +20,7 @@ export default function MIProjectLocationSection({
 
       <br />
 
+
       <LocationSelector
         stateName="MICHIGAN"
         onSelectLocation={(location) => {

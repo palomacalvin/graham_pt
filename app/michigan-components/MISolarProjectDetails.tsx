@@ -23,6 +23,13 @@ export default function MISolarProjectDetailsSection ({
 
             <br />
 
+            <p style={{ color: "red", fontStyle: "italic"}}>
+                All fields in this section are required. You may choose to
+                use the defaults listed below, or override them with values relevant to
+                your project.
+            </p>
+            
+            <br></br>
             
             <label>
                 Nameplate capacity of solar project (in megawatts):

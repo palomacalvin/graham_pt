@@ -13,8 +13,8 @@ import MISolarTaxResults from "../michigan-components/MISolarTaxResults";
 export default function MichiganSolar() {
     const [projectData, setProjectData] = useState<ProjectData>({
     // Required fields.
-    real_property_previously_covered: "Yes",
-    real_property_ownership_change: "No",
+    real_property_previously_covered: "yes",
+    real_property_ownership_change: "no",
     pre_solar_taxable_value: 3000000,
     post_solar_taxable_value: 3000000,
     real_property_conditions: false,

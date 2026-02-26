@@ -20,6 +20,14 @@ export default function MISolarRealPropertyCalculator ({
 
             <br />
 
+            <p style={{ color: "red", fontStyle: "italic"}}>
+                All fields in this section are required. You may choose to
+                use the defaults listed below, or override them with values relevant to
+                your project.
+            </p>
+
+            <br></br>
+
             <label>
                 Was the real property previously covered by a principal
                 residence or agricultural exemption?:
@@ -48,25 +56,37 @@ export default function MISolarRealPropertyCalculator ({
 
             <label>
                 Did the real property change ownership as a result of the solar project?
-                <div>
-                    <select
-                        value={projectData.real_property_ownership_change}
-                        onChange={(e) => {
-                            setProjectData((prev) => ({
-                                ...prev,
-                                real_property_ownership_change: e.target.value,
-                                }))
-                            }}
-                            className="basicDropdown"
-                        >
-                        <option value="">-- Choose Option --</option>
-                        <option value={"yes"}>
-                            Yes
-                        </option>
-                        <option value={"no"}>
-                            No
-                        </option>
-                    </select>
+                <div className="inputWithInfo">
+                    <div>
+                        <select
+                            value={projectData.real_property_ownership_change}
+                            onChange={(e) => {
+                                setProjectData((prev) => ({
+                                    ...prev,
+                                    real_property_ownership_change: e.target.value,
+                                    }))
+                                }}
+                                className="basicDropdown"
+                            >
+                            <option value="">-- Choose Option --</option>
+                            <option value={"yes"}>
+                                Yes
+                            </option>
+                            <option value={"no"}>
+                                No
+                            </option>
+                        </select>
+
+                        
+                    </div>
+                    
+                    <div className="infoWrapper">
+                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            In most cases, but not always, the answer to this question will be "No"
+                            because the land under solar projects is typically leased.
+                        </div>
+                    </div>
                 </div>
             </label>
         
@@ -87,6 +107,34 @@ export default function MISolarRealPropertyCalculator ({
             </label>
 
             <br></br>
+
+            <label>
+                Post-solar taxable value of the real property:
+                <div className="inputWithInfo">
+                    <input
+                        type="number"
+                        value={projectData.post_solar_taxable_value ?? 3000000}
+                        onChange={(e) =>
+                        setProjectData((prev) => ({
+                            ...prev!,
+                            post_solar_taxable_value: parseFloat(e.target.value),
+                        }))
+                        }
+                        className="basicInputBox"
+                    />
+
+                    <div className="infoWrapper">
+                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            Note: If the real property changed ownership as a result 
+                            of the solar project (that is, if the developer purchased 
+                            the underlying land instead of leasing it), the taxable value 
+                            will be "uncapped" to equal the state equalized value (SEV), 
+                            which in turn is set at 50% of true cash value.
+                        </div>
+                    </div>
+                </div>
+            </label>
 
 
             <section className="basicFormList">
@@ -146,7 +194,7 @@ export default function MISolarRealPropertyCalculator ({
 
             <br></br>
 
-            <label>
+            {/* <label>
                 Real property's taxable value newly subject to the local school district's
                 operating millage as a result of the solar project:
                 <input
@@ -168,7 +216,7 @@ export default function MISolarRealPropertyCalculator ({
                     readOnly
                     className="basicInputBox"
                 />
-            </label>
+            </label> */}
 
         </section>
     )

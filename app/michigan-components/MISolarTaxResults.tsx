@@ -394,7 +394,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         }</td>
                     </tr>
 
-                    <tr className="rowBold">
+                    <tr className="rowHighlight">
                         <td>All Units</td>
 
                         {/* IPP */}
@@ -557,7 +557,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         }</td>
                     </tr>
 
-                    <tr className="rowBold">
+                    <tr className="rowHighlight">
                         <td>All Units</td>
 
                         {/* IPP */}
@@ -626,18 +626,40 @@ export default function MISolarTaxResults( {projectData}: Props) {
             </table>
 
             <br></br>
+            <br></br>
 
             <h1>Breakdown Over the Life of the Project</h1>
+            <br></br>
 
-            <div style={{ marginBottom: "1rem" }}>
-                <button onClick={() => setVisibleTable("non_pilt")} className="basicButton">
+            <p>
+                Click on the buttons below to view gross and net present values for each 
+                jurisdiction over the life of the project. 
+            </p>
+            <br></br>
+
+            <p>The gross value represents revenue over the life of the project without adjustments
+                for future inflation or risk over the life of the project.
+            </p>
+            <br></br>
+            
+            <p>
+                The net present value represents revenue over the life of the project that has been
+                adjusted for inflation and risk over the life of the project. This is calculated
+                by accounting for the difference between the annual inflation and discount rate.
+            </p>
+            <br></br>
+
+            <br></br>
+
+            <div className="buttonContainer">
+                <button onClick={() => setVisibleTable("non_pilt")} className="inPageButton">
                     View Non-PILT Calculations
                 </button>
 
                 <button
                     onClick={() => setVisibleTable("pilt")}
                     style={{ marginLeft: "10px" }}
-                    className="basicButton"
+                    className="inPageButton"
                 >
                     View PILT Calculations
                 </button>
@@ -645,14 +667,12 @@ export default function MISolarTaxResults( {projectData}: Props) {
                 <button
                     onClick={() => setVisibleTable(null)}
                     style={{ marginLeft: "10px" }}
-                    className="basicButton"
+                    className="inPageButton"
                 >
                     Hide
                 </button>
-             
             </div>
-
-            <h2></h2>
+            <br></br>
 
 
             {visibleTable === "non_pilt" && (
@@ -840,8 +860,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         <thead>
                             <tr>
                                 <th>Jurisdiction</th>
-                                <th>Gross over the life of the project</th>
-                                <th>Net Present Value over the life of the project</th>
+                                <th>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</th>
+                                <th>Net Present Value [Adjusted for future inflation and risk
+                                    over the life of the project]
+                                </th>
                             </tr>
                         </thead>
 
@@ -1090,8 +1112,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         <thead>
                             <tr>
                                 <th>Jurisdiction</th>
-                                <th>Gross over the life of the project</th>
-                                <th>Net Present Value over the life of the project</th>
+                                <th>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</th>
+                                <th>Net Present Value [Adjusted for future inflation and risk
+                                    over the life of the project]
+                                </th>
                             </tr>
                         </thead>
 
@@ -1143,12 +1167,15 @@ export default function MISolarTaxResults( {projectData}: Props) {
             )}
 
 
+            <br></br>
             <section>
                 <h1>Community Benefits</h1>
+                <br></br>
 
                 <p>Below is an estimate of real-world community benefits from your planned renewable project
                     over the course of its lifespan.
                 </p>
+                <br></br>
 
                 <table className="basicTable">
                     <thead>
@@ -1156,8 +1183,8 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         <th>Expenditure</th>
                         <th>Jurisdiction</th>
                         <th>Unit Cost</th>
-                        <th>Non-PILT Benefit</th>
-                        <th>PILT Benefit</th>
+                        <th>Total Lifetime Non-PILT Benefit</th>
+                        <th>Total Lifetime PILT Benefit</th>
                     </thead>
 
                     <tbody>
