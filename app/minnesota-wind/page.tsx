@@ -79,11 +79,27 @@ export default function ProjectForm() {
   return (
     <div>
       <Navbar />
-      <p style={{ margin: "3rem" }}>
-          Fill in the fields below with values relevant to your project. Once you choose a location,
-          default values will auto-populate. You may override these values if necessary. Default values 
-          have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
+
+      <div style={{ margin: "3rem" }}>
+
+          <h1>Minnesota Wind Renewable Energy Tax Impacts Calculator</h1>
+
+      </div>
+
+
+      <p className="basicBox">
+          Fill in the fields below with values relevant to your project. Default values
+          are available for each county, city/township, and school district; these values
+          have been compiled from state-by-state research. See the{" "}
+            <Link className="boxLinkText" href="references">
+              References
+            </Link>{" "}
+            page for more details.
+
+          Hover over the information icons next to each field to learn more about individual inputs.
       </p>
+
+
       <div style={{ margin: "3rem" }}>
       <form onSubmit={handleSubmit}>
         {/* Project Location Section */}

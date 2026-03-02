@@ -31,7 +31,7 @@ export function generateYearlyRevenue(
     return factors.slice(0, years).map((factor, index) => {
     const year = index + 1;
     const tcv = original_cost * factor.factor_form_3589 * 0.5;
-    console.log("TCV:", original_cost, "*", factor.factor_form_3589, "*", 0.5)
+    //console.log("TCV:", original_cost, "*", factor.factor_form_3589, "*", 0.5)
     const revenue = (millage_rate / 1000) * tcv;
 
     return { year, tcv, revenue };

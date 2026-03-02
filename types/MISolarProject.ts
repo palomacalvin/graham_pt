@@ -54,8 +54,9 @@ export interface ProjectData {
     pre_solar_taxable_value: number;
     post_solar_taxable_value: number;
     real_property_conditions?: boolean;
-    real_property_school_district_millages: 3000000;
-    real_property_other_millages: 0;
+    real_property_school_district_millages: number;
+    real_property_other_millages: number;
+    project_acreage: number;
 }
 
 

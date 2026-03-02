@@ -25,8 +25,9 @@ export default function MichiganSolar() {
     original_cost_pre_inverter: 90000000,
     original_cost_post_inverter: 10000000,
     expected_useful_life: 30,
-    inflation_multiplier: 0.02,
+    inflation_multiplier: 0.027,
     annual_discount_rate: 0.03,
+    project_acreage: 0,
   });
 
   return (
@@ -39,17 +40,15 @@ export default function MichiganSolar() {
 
         </div>
 
-        <p style={{ margin: "3rem" }}>
+        <p className="basicBox">
           Fill in the fields below with values relevant to your project. Default values
           are available for each county, city/township, and school district; these values
           have been compiled from state-by-state research. See the{" "}
-            <Link className="basicLinkText" href="references">
+            <Link className="boxLinkText" href="references">
               References
             </Link>{" "}
             page for more details.
-        </p>
 
-        <p style={{ margin: "3rem" }}>
           Hover over the information icons next to each field to learn more about individual inputs.
         </p>
 

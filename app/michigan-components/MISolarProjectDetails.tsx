@@ -163,10 +163,10 @@ export default function MISolarProjectDetailsSection ({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default number (1.02) shown in column C represents the average 
+                        The default number (2.7%) shown in column C represents the average 
                         annual inflation rate multiplier from 1995-2025 as calculated by 
                         the State Tax Commission (see Table 5 in the "Backend" sheet). 
-                        The 1.02 multiplier translates to a 2% average annual inflation rate. 
+                        The default multiplier translates to a 2.7% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
                     </div>

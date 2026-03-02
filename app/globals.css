@@ -58,6 +58,7 @@ h2 {
   padding-right: 3rem;
   padding-bottom: 1rem;
   line-height: 2.5rem;
+  margin-left: 3rem;
 }
 
 h3 {
@@ -68,6 +69,7 @@ h3 {
   line-height: 2.5rem;
   font-weight: 200;
 }
+
 
 .formTemplate {
   display: flex;
@@ -172,6 +174,16 @@ label {
 
 .basicLinkText:hover {
   color: #00aa4c;
+}
+
+.boxLinkText {
+  color: #004067;
+  text-decoration: underline;
+}
+
+.boxLinkText:hover {
+  color: #00aa4c;
+  text-decoration: underline;
 }
 
 .rowHighlight {
@@ -298,4 +310,20 @@ label {
 .inPageButton:hover {
   color: #231f20;
   transition: 0.3s;
+}
+
+
+.basicBox {
+  margin: 3rem;
+  background-color: #98d8ff;
+  color: #231f20;
+  padding-right: 10vh;
+  padding-left: 10vh;
+  padding-bottom: 3vh;
+  padding-top: 3vh;
+  border-radius: 4px;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.15rem;
+  font-weight: 550;
 }

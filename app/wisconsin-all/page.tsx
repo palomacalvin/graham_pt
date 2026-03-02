@@ -91,24 +91,39 @@ export default function ProjectForm() {
   return (
     <div>
       <Navbar />
-      <p style={{ margin: "3rem" }}>
-        Fill in the fields below with values relevant to your project. Default values
-        are available for each county. These values 
-        have been compiled from state-by-state research. See the <Link className="basicLinkText" href="references">References </Link>page for more details.
-      </p>
+
       <div style={{ margin: "3rem" }}>
-      <form onSubmit={handleSubmit}>
-        {/* Project Selections / User Inputs */}
-        <WIUserSelections
-          projectData={projectData}
-          handleChange={handleChange}
-          setProjectData={setProjectData}
-        />
 
-        <WIResults projectData={projectData} />
+          <h1>Wisconsin Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
 
-      </form>
       </div>
-    </div>
+
+      <p className="basicBox">
+          Fill in the fields below with values relevant to your project. Default values
+          are available for each county, city/township, and school district; these values
+          have been compiled from state-by-state research. See the{" "}
+            <Link className="boxLinkText" href="references">
+              References
+            </Link>{" "}
+            page for more details.
+
+          Hover over the information icons next to each field to learn more about individual inputs.
+      </p>
+
+
+      <div style={{ margin: "3rem" }}>
+        <form onSubmit={handleSubmit}>
+          {/* Project Selections / User Inputs */}
+          <WIUserSelections
+            projectData={projectData}
+            handleChange={handleChange}
+            setProjectData={setProjectData}
+          />
+
+          <WIResults projectData={projectData} />
+
+        </form>
+      </div>
+      </div>
   );
 }

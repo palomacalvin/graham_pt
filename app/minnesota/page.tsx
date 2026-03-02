@@ -1,8 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import { useLinkClickHandler } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const router = useRouter();
@@ -74,9 +73,11 @@ export default function Home() {
           </div>
 
           <div className="basicTextBlock">
-            Have questions? Visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="minnesota/files/Minnesota-Property-Tax-Final-2025.pdf" download="Minnesota-Policy-Brief.pdf"> download the policy brief</a> for more information.
+            Have questions? Click to visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="/minnesota/files/Minnesota-Property-Tax-Final-2025.pdf" download="Minnesota-Policy-Brief.pdf"> download the policy brief</a> for more information.
           </div>
         </div>
+
+        <Footer></Footer>
     </div>
   );
 }
