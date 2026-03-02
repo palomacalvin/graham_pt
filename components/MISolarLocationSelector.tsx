@@ -221,6 +221,7 @@ return (
 
         {/* School District */}
         {schools.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
             <select
             value={selectedSchool}
             onChange={(e) => setSelectedSchool(e.target.value)}
@@ -231,8 +232,12 @@ return (
                 <option key={s} value={s}>{s}</option>
             ))}
             </select>
-        )}
+            <div className="required">Required</div>
 
+            </div>
+        )}
+       
+        
       </div>
     </div>
   );

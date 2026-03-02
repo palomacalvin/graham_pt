@@ -24,6 +24,18 @@ export function calculateNPV(rate: number, cash_flows: number[]): number {
     return first_year + discounted;
 }
 
+export function calculateYearlyNPV(
+    rate: number,
+    cash_flows: number[]
+    ): number[] {
+        return cash_flows.map((cf, i) =>
+            i === 0
+            ? cf
+            : cf / Math.pow(1 + rate, i)
+        );
+    }
+
+
 // Sums the revenues.
 export function sumRevenueStreams(
     streams: number[][]
@@ -106,10 +118,12 @@ export function calculateMichiganTaxResults(
 
     const gross_county = calculateGrossTotal(total_county_per_year);
     const county_npv = calculateNPV(discount_rate, total_county_per_year);
+    const county_npv_per_year = calculateYearlyNPV(discount_rate, total_county_per_year);
+    
 
-    console.log(total_county_per_year);
-    console.log(gross_county);
-    console.log(county_npv);
+    // console.log(total_county_per_year);
+    // console.log(gross_county);
+    // console.log(county_npv);
 
 
     // ========================= Local Unit ======================== //
@@ -128,6 +142,8 @@ export function calculateMichiganTaxResults(
 
     const gross_local_unit = calculateGrossTotal(total_local_unit_per_year);
     const local_unit_npv = calculateNPV(discount_rate, total_local_unit_per_year);
+    const local_unit_npv_per_year = calculateYearlyNPV(discount_rate, total_local_unit_per_year);
+    
 
     // ========================= School District ======================== //
 
@@ -148,6 +164,8 @@ export function calculateMichiganTaxResults(
 
     const gross_sd = calculateGrossTotal(total_sd_per_year);
     const sd_npv = calculateNPV(discount_rate, total_sd_per_year);
+    const sd_npv_per_year = calculateYearlyNPV(discount_rate, total_sd_per_year);
+    
 
     // ========================= Intermediate School District ======================== //
 
@@ -171,6 +189,8 @@ export function calculateMichiganTaxResults(
 
     const gross_isd = calculateGrossTotal(total_isd_per_year);
     const isd_npv = calculateNPV(discount_rate, total_isd_per_year);
+    const isd_npv_per_year = calculateYearlyNPV(discount_rate, total_isd_per_year);
+    
 
 
     // ========================= Community College ======================== //
@@ -186,6 +206,8 @@ export function calculateMichiganTaxResults(
 
     const gross_comm_college = calculateGrossTotal(total_cc_per_year);
     const comm_college_npv = calculateNPV(discount_rate, total_cc_per_year);
+    const comm_college_npv_per_year = calculateYearlyNPV(discount_rate, total_cc_per_year);
+    
 
     // ========================= Public Authorities ======================== //
 
@@ -200,6 +222,8 @@ export function calculateMichiganTaxResults(
 
     const gross_pa = calculateGrossTotal(total_pa_per_year);
     const pa_npv = calculateNPV(discount_rate, total_pa_per_year);
+    const pa_npv_per_year = calculateYearlyNPV(discount_rate, total_pa_per_year);
+    
 
     // ========================= Village ======================== //
 
@@ -223,6 +247,8 @@ export function calculateMichiganTaxResults(
 
     const gross_village = calculateGrossTotal(total_village_per_year);
     const village_npv = calculateNPV(discount_rate, total_village_per_year);
+    const village_npv_per_year = calculateYearlyNPV(discount_rate, total_village_per_year);
+    
 
     // ====================== FINAL RETURN ===================== //
 
@@ -234,6 +260,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_county_per_year,
             gross: gross_county,
             npv: county_npv,
+            npv_per_year: county_npv_per_year,
         },
         local_unit: {
             allocated: local_unit_allocated,
@@ -242,6 +269,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_local_unit_per_year,
             gross: gross_local_unit,
             npv: local_unit_npv,
+            npv_per_year: local_unit_npv_per_year,
         },
         school_district: {
             hold_harmless: sd_hold_harmless,
@@ -251,6 +279,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_sd_per_year,
             gross: gross_sd,
             npv: sd_npv,
+            npv_per_year: sd_npv_per_year,
         },
         intermediate_school_district: {
             allocated: int_sd_allocated,
@@ -261,6 +290,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_isd_per_year,
             gross: gross_isd,
             npv: isd_npv,
+            npv_per_year: isd_npv_per_year,
         },
         community_college: {
             operating: comm_college_operating,
@@ -268,6 +298,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_cc_per_year,
             gross: gross_comm_college,
             npv: comm_college_npv,
+            npv_per_year: comm_college_npv_per_year,
         },
         public_authority: {
             authority: pa,
@@ -275,6 +306,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_pa_per_year,
             gross: gross_pa,
             npv: pa_npv,
+            npv_per_year: pa_npv_per_year,
         },
         village: {
             allocated: vill_allocated,
@@ -285,6 +317,7 @@ export function calculateMichiganTaxResults(
             totalPerYear: total_village_per_year,
             gross: gross_village,
             npv: village_npv,
+            npv_per_year: village_npv_per_year
         },
     };
 }

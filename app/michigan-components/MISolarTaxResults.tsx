@@ -16,63 +16,6 @@ interface Props {
 
 export default function MISolarTaxResults( {projectData}: Props) {
     const calculated_homestead_rate = (projectData?.homestead_rate ?? 0) - (projectData?.sd_comm_pers ?? 0);
-    const calculated_non_homestead_rate = (projectData?.non_homestead_rate ?? 0) - (projectData?.sd_comm_pers ?? 0);
-    const county_allocated = (projectData?.county_allocated ?? 0);
-    const county_extra_voted = (projectData?.county_extra_voted ?? 0);
-    const county_debt = (projectData.county_debt ?? 0);
-    const local_unit_allocated = (projectData.lu_allocated ?? 0);
-    const local_unit_extra_voted = (projectData.lu_extra_voted ?? 0);
-    const local_unit_debt = (projectData.lu_debt ?? 0);
-    const school_district_hold_harmless = (projectData.sd_hold_harmless ?? 0);
-    const school_district_non_homestead_operating = (projectData.sd_non_homestead ?? 0);
-    const school_district_debt = (projectData.sd_debt ?? 0);
-    const school_district_sinking_fund = (projectData.sd_sinking_fund ?? 0);
-    const school_district_recreational = (projectData.sd_recreational ?? 0);
-    const intermediate_school_district_allocated = (projectData.isd_allocated ?? 0);
-    const intermediate_school_district_vocational = (projectData.isd_vocational ?? 0);
-    const intermediate_school_district_special_ed = (projectData.isd_special_ed ?? 0);
-    const intermediate_school_district_debt = (projectData.isd_debt ?? 0);
-    const intermediate_school_district_enhancement = (projectData.isd_enhancement ?? 0);
-    const community_college_operating = (projectData.cc_operating ?? 0);
-    const community_college_debt = (projectData.cc_debt ?? 0);
-    const public_authorities = (projectData.part_unit_auth ?? 0);
-    const public_authority_debt = (projectData.part_unit_auth_debt ?? 0);
-    const special_assessment = (projectData.special_assessment ?? 0);
-    const village_allocated = (projectData.village_allocated ?? 0);
-    const village_extra_voted = (projectData.village_extra_voted ?? 0);
-    const village_debt = (projectData.village_debt ?? 0);
-    const village_public_authorities = (projectData.village_auth ?? 0);
-    const village_public_authority_debt = (projectData.village_auth_debt ?? 0);
-    const village_special_assessment = (projectData.village_special_assessment ?? 0);
-    
-    // Proportional values
-    const county_allocated_proportional = (projectData?.county_allocated ?? 0) / calculated_homestead_rate;
-    const county_extra_voted_proportional = (projectData?.county_extra_voted ?? 0) / calculated_homestead_rate;
-    const county_debt_proportional = (projectData?.county_debt ?? 0) / calculated_homestead_rate;
-    const local_unit_allocated_proportional = (projectData?.lu_allocated ?? 0) / calculated_homestead_rate;
-    const local_unit_extra_voted_proportional = (projectData?.lu_extra_voted ?? 0) / calculated_homestead_rate;
-    const local_unit_debt_proportional = (projectData?.lu_debt ?? 0) / calculated_homestead_rate;
-    const sd_hold_harmless_proportional = (projectData?.sd_hold_harmless ?? 0) / calculated_homestead_rate;
-    const sd_debt_proportional = (projectData?.sd_debt ?? 0) / calculated_homestead_rate;
-    const sd_sinking_fund_proportional = (projectData?.sd_sinking_fund ?? 0) / calculated_homestead_rate;
-    const sd_recreational_proportional = (projectData?.sd_recreational ?? 0) / calculated_homestead_rate;
-    const isd_allocated_proportional = (projectData?.isd_allocated ?? 0) / calculated_homestead_rate;
-    const isd_vocational_proportional = (projectData?.isd_vocational ?? 0) / calculated_homestead_rate;
-    const isd_special_ed_proportional = (projectData?.isd_special_ed ?? 0) / calculated_homestead_rate;
-    const isd_debt_proportional = (projectData?.isd_debt ?? 0) / calculated_homestead_rate;
-    const isd_enhancement_proportional = (projectData?.isd_enhancement ?? 0) / calculated_homestead_rate;
-    const cc_operating_proportional = (projectData?.cc_operating ?? 0) / calculated_homestead_rate;
-    const cc_debt_proportional = (projectData?.cc_debt ?? 0) / calculated_homestead_rate;
-    const pa_proportional = (projectData?.part_unit_auth ?? 0) / calculated_homestead_rate;
-    const pa_debt_proportional = (projectData?.part_unit_auth_debt ?? 0) / calculated_homestead_rate;
-    const special_assessment_proportional = (projectData?.special_assessment ?? 0) / calculated_homestead_rate;
-    const village_allocated_proportional = (projectData?.village_allocated ?? 0) / calculated_homestead_rate;
-    const village_extra_voted_proportional = (projectData?.village_extra_voted ?? 0) / calculated_homestead_rate;
-    const village_debt_proportional = (projectData?.village_debt ?? 0) / calculated_homestead_rate;
-    const village_pa_proportional = (projectData?.village_auth ?? 0) / calculated_homestead_rate;
-    const village_pa_debt_proportional = (projectData?.village_auth_debt ?? 0) / calculated_homestead_rate;
-    const village_special_assessment_proportional = (projectData?.village_special_assessment ?? 0) / calculated_homestead_rate;
-
 
     // String for easily formatting currency.
     const formatCurrency = (value: number) => {
@@ -143,7 +86,8 @@ export default function MISolarTaxResults( {projectData}: Props) {
             enhancement: [],
             totalPerYear: [],
             gross: 0,
-            npv: 0
+            npv: 0,
+            npv_per_year: [],
         };
     }
 
@@ -263,6 +207,50 @@ export default function MISolarTaxResults( {projectData}: Props) {
     );
 
 
+    // ======================= Total Gross By Year and Jurisdiction ===============
+    const total_gross_per_year = county.totalPerYear.map((_, index) =>
+        county.totalPerYear[index] +
+        local_unit.totalPerYear[index] +
+        school_district.totalPerYear[index] +
+        intermediate_school_district.totalPerYear[index] +
+        community_college.totalPerYear[index] +
+        public_authority.totalPerYear[index] +
+        village.totalPerYear[index]
+    );
+
+
+    // ======================= Non-PILT Total NPV By Year and Jurisdiction ===============
+
+    function sumRevenueStreams(streams: number[][]): number[] {
+    const years = streams[0]?.length ?? 0;
+
+    return Array.from({ length: years }, (_, i) =>
+            streams.reduce((sum, stream) => sum + (stream[i] ?? 0), 0)
+        );
+    }
+    const total_npv_per_year = sumRevenueStreams([
+        county.npv_per_year,
+        local_unit.npv_per_year,
+        school_district.npv_per_year,
+        intermediate_school_district.npv_per_year,
+        community_college.npv_per_year,
+        public_authority.npv_per_year,
+        village.npv_per_year
+    ]);
+
+
+    // ======================= PILT Total NPV By Year and Jurisdiction ===============
+
+    const pilt_total_npv_per_year = sumRevenueStreams([
+        piltCounty.npv_per_year,
+        piltLocalUnit.npv_per_year,
+        piltSchoolDistrict.npv_per_year,
+        piltISD.npv_per_year,
+        piltCC.npv_per_year,
+        piltPA.npv_per_year,
+        piltVillage.npv_per_year
+    ]);
+
 
     useEffect(() => {
         const fetchFactors = async () => {
@@ -302,7 +290,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
             <br></br>
 
-            <h2>Non-PILT Year 1 Results</h2>
+            <h2 style={{ margin: "0rem" }}>Non-PILT Year 1 Results</h2>
 
             <table className="basicTable">
                 <thead>
@@ -464,7 +452,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
             <br></br>
 
-            <h2>PILT Year 1 Results</h2>
+            <h2 style={{ margin: "0rem" }}>PILT Year 1 Results</h2>
 
 
             <table className="basicTable">
@@ -676,184 +664,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
 
             {visibleTable === "non_pilt" && (
-
                 <section>
-                <table className="basicTable">
-                    {/* HEADER */}
-                    <thead>
-                        <tr>
-                            <th></th>
-                                {county.allocated.map((year) => (
-                                    <th key={year.year}>Year {year.year}</th>
-                                ))}
-                        </tr>
-                    </thead>
-
-                    {/* JURISDICTION TOTALS */}
-                    <tr>
-                        <td>Total Per Year - County</td>
-                            {county.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Local Unit</td>
-                            {local_unit.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - School District</td>
-                            {school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Intermediate School District</td>
-                            {intermediate_school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Community College</td>
-                            {community_college.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-
-                    <tr>
-                    <td>Public Authorities</td>
-                        {public_authority.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                    <td>Village</td>
-                        {village.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr className="rowBold">
-                        <td>Non-PILT IPP Totals for All Taxing Units</td>
-                            {non_pilt_total_all_taxing_units.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>))}
-                    </tr>
-
-                    <tr><th></th></tr>
-
-                    <tr>
-                        <td>Total Per Year - County</td>
-                            {realPropertyResults?.county.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    
-                    <tr>
-                        <td>Total Per Year - Local Unit</td>
-                            {realPropertyResults?.local_unit.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - School District</td>
-                            {realPropertyResults?.school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Intermediate School District</td>
-                            {realPropertyResults?.intermediate_school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Community College</td>
-                            {realPropertyResults?.community_college.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-
-                    <tr>
-                    <td>Public Authorities</td>
-                        {realPropertyResults?.public_authority.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                    <td>Village</td>
-                        {realPropertyResults?.village.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr className="rowBold">
-                        <td>Non-PILT IPP Totals for All Taxing Units</td>
-                            {real_property_revenue_all_units.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>))}
-                    </tr>
-
-                    <tr><th></th></tr>
-
-                    
-                    <tr>
-                        <td>Total Per Year - County</td>
-                            {uppRevenueResults?.county.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    
-                    <tr>
-                        <td>Total Per Year - Local Unit</td>
-                            {uppRevenueResults?.local_unit.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - School District</td>
-                            {uppRevenueResults?.school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Intermediate School District</td>
-                            {uppRevenueResults?.intermediate_school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Community College</td>
-                            {uppRevenueResults?.community_college.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-
-                    <tr>
-                    <td>Public Authorities</td>
-                        {uppRevenueResults?.public_authority.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                    <td>Village</td>
-                        {uppRevenueResults?.village.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-                    
-
-                    <tr>
-                        <td>UPP Totals for All Taxing Units</td>
-                        {upp_total_all_taxing_units.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-        
-                </table>
-
                     <br></br>
 
                     <table className="basicTable">
@@ -909,7 +720,160 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 <td>{formatCurrency(village.gross)}</td>
                                 <td>{formatCurrency(village.npv)}</td>
                             </tr>
+
+                            <tr className="rowHighlight">
+                                <td>All Taxing Units</td>
+                                <td>{formatCurrency(county.gross + local_unit.gross + school_district.gross +
+                                intermediate_school_district.gross + community_college.gross + public_authority.gross +
+                                village.gross)}</td>
+                                <td>{formatCurrency(county.npv + local_unit.npv + school_district.npv 
+                                + intermediate_school_district.npv + community_college.npv + public_authority.npv +
+                                village.npv)}</td>
+                            </tr>
                         </tbody>
+                    </table>
+
+                    <br></br>
+                    <br></br>
+
+                    <table className="basicTable">
+                        <thead>
+                            <tr>
+                                <th>Jurisdiction</th>
+                                {county.allocated.map((year) => (
+                                <th key={year.year}>Year {year.year}</th>
+                                ))}
+                            </tr>
+                        </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Gross Per Year - County</td>
+                                        {county.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - County</td>
+                                    {county.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Local Unit</td>
+                                        {local_unit.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Local Unit</td>
+                                    {local_unit.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - School District</td>
+                                        {school_district.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - School District</td>
+                                    {school_district.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Intermediate School District</td>
+                                        {intermediate_school_district.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Intermediate School District</td>
+                                    {intermediate_school_district.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Community College</td>
+                                        {community_college.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Community College</td>
+                                    {community_college.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Public Authorities (e.g. library, park authorities, etc.)</td>
+                                        {public_authority.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Public Authority</td>
+                                    {public_authority.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Village</td>
+                                        {village.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Village</td>
+                                    {village.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr className="rowBold">
+                                    <td>Total Gross Per Year - All Jurisdictions</td>
+                                    {total_gross_per_year.map((total, index) => (
+                                        <td key={index}>{formatCurrency(total)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr className="rowBold">
+                                    <td>Total NPV Per Year - All Jurisdictions</td>
+                                    {total_npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr className="rowHighlight">
+                                    <td>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.gross + local_unit.gross + school_district.gross +
+                                    intermediate_school_district.gross + community_college.gross + public_authority.gross +
+                                    village.gross)}</td>
+                                </tr>
+
+                                <tr className="rowHighlight">
+                                    <td>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.npv + local_unit.npv + school_district.npv 
+                                        + intermediate_school_district.npv + community_college.npv + public_authority.npv +
+                                        village.npv)}</td>
+                                </tr>
+
+                            </tbody>
                     </table>
 
                 </section>
@@ -931,180 +895,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
             {visibleTable === "pilt" && (
 
                 <section>
-                <table className="basicTable">
-                    {/* HEADER */}
-                    <thead>
-                        <tr>
-                            <th></th>
-                                {piltCounty.allocated.map((year) => (
-                                    <th key={year.year}>Year {year.year}</th>
-                                ))}
-                        </tr>
-                    </thead>
-
-                    {/* JURISDICTION TOTALS */}
-                    <tr>
-                        <td>Total Per Year - County</td>
-                            {piltCounty.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Local Unit</td>
-                            {piltLocalUnit.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - School District</td>
-                            {piltSchoolDistrict.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Intermediate School District</td>
-                            {piltISD.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Community College</td>
-                            {piltCC.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-
-                    <tr>
-                    <td>Public Authorities</td>
-                        {piltPA.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                    <td>Village</td>
-                        {piltVillage.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr className="rowBold">
-                        <td>Non-PILT IPP Totals for All Taxing Units</td>
-                            {pilt_total_all_taxing_units.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>))}
-                    </tr>
-
-                    <tr><th></th></tr>
-
-                    <tr>
-                        <td>Total Per Year - County</td>
-                            {realPropertyResults?.county.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    
-                    <tr>
-                        <td>Total Per Year - Local Unit</td>
-                            {realPropertyResults?.local_unit.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - School District</td>
-                            {realPropertyResults?.school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Intermediate School District</td>
-                            {realPropertyResults?.intermediate_school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Community College</td>
-                            {realPropertyResults?.community_college.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-
-                    <tr>
-                    <td>Public Authorities</td>
-                        {realPropertyResults?.public_authority.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                    <td>Village</td>
-                        {realPropertyResults?.village.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr className="rowBold">
-                        <td>Non-PILT IPP Totals for All Taxing Units</td>
-                            {real_property_revenue_all_units.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>))}
-                    </tr>
-
-                    <tr><th></th></tr>
-
-                    
-                    <tr>
-                        <td>Total Per Year - County</td>
-                            {uppRevenueResults?.county.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    
-                    <tr>
-                        <td>Total Per Year - Local Unit</td>
-                            {uppRevenueResults?.local_unit.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - School District</td>
-                            {uppRevenueResults?.school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Intermediate School District</td>
-                            {uppRevenueResults?.intermediate_school_district.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-                    <tr>
-                        <td>Total Per Year - Community College</td>
-                            {uppRevenueResults?.community_college.totalPerYear.map((total, index) => (
-                                <td key={index}>{formatCurrency(total)}</td>
-                            ))}
-                    </tr>
-
-                    <tr>
-                    <td>Public Authorities</td>
-                        {uppRevenueResults?.public_authority.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                    <td>Village</td>
-                        {uppRevenueResults?.village.totalPerYear.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-                    
-
-                    <tr>
-                        <td className="rowBold">UPP Totals for All Taxing Units</td>
-                        {upp_total_all_taxing_units.map((total, index) => (
-                            <td key={index}>{formatCurrency(total)}</td>
-                        ))}
-                    </tr>
-                </table>
 
                 <br></br>
 
@@ -1161,8 +951,162 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 <td>{formatCurrency(piltVillage.gross)}</td>
                                 <td>{formatCurrency(piltVillage.npv)}</td>
                             </tr>
+
+                            <tr className="rowHighlight">
+                                <td>All Taxing Units</td>
+                                <td>{formatCurrency(piltCounty.gross + piltLocalUnit.gross + piltSchoolDistrict.gross +
+                                piltISD.gross + piltCC.gross + piltPA.gross +
+                                piltVillage.gross)}</td>
+                                <td>{formatCurrency(piltCounty.npv + piltLocalUnit.npv + piltSchoolDistrict.npv 
+                                + piltISD.npv + piltCC.npv + piltPA.npv +
+                                piltVillage.npv)}</td>
+                            </tr>
                         </tbody>
                     </table>
+
+                    <br></br>
+                    <br></br>
+
+                    <table className="basicTable">
+                        <thead>
+                            <tr>
+                                <th>Jurisdiction</th>
+                                {piltCounty.allocated.map((year) => (
+                                <th key={year.year}>Year {year.year}</th>
+                                ))}
+                            </tr>
+                        </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Gross Per Year - County</td>
+                                        {piltCounty.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - County</td>
+                                    {piltCounty.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Local Unit</td>
+                                        {piltLocalUnit.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Local Unit</td>
+                                    {piltLocalUnit.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - School District</td>
+                                        {piltSchoolDistrict.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - School District</td>
+                                    {piltSchoolDistrict.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Intermediate School District</td>
+                                        {piltISD.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Intermediate School District</td>
+                                    {piltISD.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Community College</td>
+                                        {piltCC.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Community College</td>
+                                    {piltCC.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Public Authorities (e.g. library, park authorities, etc.)</td>
+                                        {piltPA.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Public Authority</td>
+                                    {piltPA.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr>
+                                    <td>Gross Per Year - Village</td>
+                                        {piltVillage.totalPerYear.map((total, index) => (
+                                            <td key={index}>{formatCurrency(total)}</td>
+                                        ))}
+                                </tr>
+
+                                <tr>
+                                    <td>NPV Per Year - Village</td>
+                                    {piltVillage.npv_per_year.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr className="rowBold">
+                                    <td>Total Gross Per Year - All Jurisdictions</td>
+                                    {pilt_total_npv_per_year.map((total, index) => (
+                                        <td key={index}>{formatCurrency(total)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr className="rowBold">
+                                    <td>Total NPV Per Year - All Jurisdictions</td>
+                                    {pilt_total_all_taxing_units.map((value, index) => (
+                                        <td key={index}>{formatCurrency(value)}</td>
+                                    ))}
+                                </tr>
+
+                                <tr className="rowHighlight">
+                                    <td>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.gross + piltLocalUnit.gross + piltSchoolDistrict.gross +
+                                    piltISD.gross + piltCC.gross + piltPA.gross +
+                                    piltVillage.gross)}</td>
+                                </tr>
+
+                                <tr className="rowHighlight">
+                                    <td>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.npv + piltLocalUnit.npv + piltSchoolDistrict.npv 
+                                        + piltISD.npv + piltCC.npv + piltPA.npv +
+                                        piltVillage.npv)}</td>
+                                </tr>
+
+                            </tbody>
+                    </table>
+
                 </section>
             )}
 
@@ -1192,7 +1136,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
                             <td>Roadway Maintenance</td>
                             <td>County</td>
-                            <td>~$1152 per mile</td>
+                            <td>~$1,152 per mile</td>
                             <td>
                                 {Math.round((county.npv) / 1152)} miles
                             </td>
@@ -1204,7 +1148,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/firefighter.png" alt="Vector graphic of a firefighter"></img></td>
                             <td>Firefighters</td>
                             <td>Township</td>
-                            <td>~$71835 per full-time employee (FTE)</td>
+                            <td>~$71,835 per full-time employee (FTE)</td>
                             <td>{Math.round((local_unit.npv) / 71835)} FTEs</td>
                             <td>{Math.round((piltLocalUnit.npv / 71835))} FTEs</td>
                         </tr>
@@ -1213,7 +1157,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a fire truck"></img></td>
                             <td>Fire Trucks</td>
                             <td>Township</td>
-                            <td>~$2100000 per unit</td>
+                            <td>~$2,100,000 per unit</td>
                             <td>{Math.round((local_unit.npv) / 2100000)} fire truck(s)</td>
                             <td>{Math.round((piltLocalUnit.npv) / 2100000)} fire truck(s)</td>
                         </tr>
