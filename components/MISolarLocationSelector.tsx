@@ -189,7 +189,7 @@ return (
             disabled={!selectedCounty}
             className="basicDropdown"
         >
-          <option value="">-- Choose City / Township --</option>
+          <option value="">-- Choose Local Unit --</option>
             {cities.map((c) => (
             <option key={c} value={c}>{c}</option>
             ))}

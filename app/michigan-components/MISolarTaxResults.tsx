@@ -755,24 +755,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr>
-                                    <td>NPV Per Year - County</td>
-                                    {county.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
-                                <tr>
                                     <td>Gross Per Year - Local Unit</td>
                                         {local_unit.totalPerYear.map((total, index) => (
                                             <td key={index}>{formatCurrency(total)}</td>
                                         ))}
-                                </tr>
-
-                                <tr>
-                                    <td>NPV Per Year - Local Unit</td>
-                                    {local_unit.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
                                 </tr>
 
                                 <tr>
@@ -783,24 +769,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr>
-                                    <td>NPV Per Year - School District</td>
-                                    {school_district.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
-                                <tr>
                                     <td>Gross Per Year - Intermediate School District</td>
                                         {intermediate_school_district.totalPerYear.map((total, index) => (
                                             <td key={index}>{formatCurrency(total)}</td>
                                         ))}
-                                </tr>
-
-                                <tr>
-                                    <td>NPV Per Year - Intermediate School District</td>
-                                    {intermediate_school_district.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
                                 </tr>
 
                                 <tr>
@@ -811,24 +783,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr>
-                                    <td>NPV Per Year - Community College</td>
-                                    {community_college.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
-                                <tr>
                                     <td>Gross Per Year - Public Authorities (e.g. library, park authorities, etc.)</td>
                                         {public_authority.totalPerYear.map((total, index) => (
                                             <td key={index}>{formatCurrency(total)}</td>
                                         ))}
-                                </tr>
-
-                                <tr>
-                                    <td>NPV Per Year - Public Authority</td>
-                                    {public_authority.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
                                 </tr>
 
                                 <tr>
@@ -838,13 +796,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                         ))}
                                 </tr>
 
-                                <tr>
-                                    <td>NPV Per Year - Village</td>
-                                    {village.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
                                 <tr className="rowBold">
                                     <td>Total Gross Per Year - All Jurisdictions</td>
                                     {total_gross_per_year.map((total, index) => (
@@ -852,22 +803,15 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                     ))}
                                 </tr>
 
-                                <tr className="rowBold">
-                                    <td>Total NPV Per Year - All Jurisdictions</td>
-                                    {total_npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
                                 <tr className="rowHighlight">
-                                    <td>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={3}>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.gross + local_unit.gross + school_district.gross +
                                     intermediate_school_district.gross + community_college.gross + public_authority.gross +
                                     village.gross)}</td>
                                 </tr>
 
                                 <tr className="rowHighlight">
-                                    <td>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={3}>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.npv + local_unit.npv + school_district.npv 
                                         + intermediate_school_district.npv + community_college.npv + public_authority.npv +
                                         village.npv)}</td>
@@ -878,17 +822,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
                 </section>
             )}
-
-
-
-
-
-
-
-
-        
-
-
 
 
 
@@ -986,24 +919,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr>
-                                    <td>NPV Per Year - County</td>
-                                    {piltCounty.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
-                                <tr>
                                     <td>Gross Per Year - Local Unit</td>
                                         {piltLocalUnit.totalPerYear.map((total, index) => (
                                             <td key={index}>{formatCurrency(total)}</td>
                                         ))}
-                                </tr>
-
-                                <tr>
-                                    <td>NPV Per Year - Local Unit</td>
-                                    {piltLocalUnit.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
                                 </tr>
 
                                 <tr>
@@ -1014,24 +933,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr>
-                                    <td>NPV Per Year - School District</td>
-                                    {piltSchoolDistrict.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
-                                <tr>
                                     <td>Gross Per Year - Intermediate School District</td>
                                         {piltISD.totalPerYear.map((total, index) => (
                                             <td key={index}>{formatCurrency(total)}</td>
                                         ))}
-                                </tr>
-
-                                <tr>
-                                    <td>NPV Per Year - Intermediate School District</td>
-                                    {piltISD.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
                                 </tr>
 
                                 <tr>
@@ -1042,24 +947,10 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr>
-                                    <td>NPV Per Year - Community College</td>
-                                    {piltCC.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
-                                <tr>
                                     <td>Gross Per Year - Public Authorities (e.g. library, park authorities, etc.)</td>
                                         {piltPA.totalPerYear.map((total, index) => (
                                             <td key={index}>{formatCurrency(total)}</td>
                                         ))}
-                                </tr>
-
-                                <tr>
-                                    <td>NPV Per Year - Public Authority</td>
-                                    {piltPA.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
                                 </tr>
 
                                 <tr>
@@ -1069,13 +960,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                         ))}
                                 </tr>
 
-                                <tr>
-                                    <td>NPV Per Year - Village</td>
-                                    {piltVillage.npv_per_year.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
                                 <tr className="rowBold">
                                     <td>Total Gross Per Year - All Jurisdictions</td>
                                     {pilt_total_npv_per_year.map((total, index) => (
@@ -1083,22 +967,15 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                     ))}
                                 </tr>
 
-                                <tr className="rowBold">
-                                    <td>Total NPV Per Year - All Jurisdictions</td>
-                                    {pilt_total_all_taxing_units.map((value, index) => (
-                                        <td key={index}>{formatCurrency(value)}</td>
-                                    ))}
-                                </tr>
-
                                 <tr className="rowHighlight">
-                                    <td>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={3}>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.gross + piltLocalUnit.gross + piltSchoolDistrict.gross +
                                     piltISD.gross + piltCC.gross + piltPA.gross +
                                     piltVillage.gross)}</td>
                                 </tr>
 
                                 <tr className="rowHighlight">
-                                    <td>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={3}>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.npv + piltLocalUnit.npv + piltSchoolDistrict.npv 
                                         + piltISD.npv + piltCC.npv + piltPA.npv +
                                         piltVillage.npv)}</td>

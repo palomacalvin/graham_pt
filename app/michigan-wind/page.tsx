@@ -15,15 +15,23 @@ export default function MichiganWind() {
     <div>
       <Navbar />
 
-       <p style={{ margin: "3rem" }}>
+      <div style={{ margin: "3rem" }}>
+
+        <h1>Michigan Wind Renewable Energy Tax Impacts Calculator</h1>
+
+      </div>
+
+      <p className="basicBox">
         Fill in the fields below with values relevant to your project. Default values
         are available for each county, city/township, and school district; these values
         have been compiled from state-by-state research. See the{" "}
-          <Link className="basicLinkText" href="references">
+          <Link className="boxLinkText" href="references">
             References
           </Link>{" "}
           page for more details.
-        </p>
+
+        Hover over the information icons next to each field to learn more about individual inputs.
+      </p>
 
       <div style={{ margin: "3rem" }}>
           {/* Project Location Section */}

@@ -45,14 +45,6 @@ export default function MISolarProjectDetailsSection ({
                             }
                         className="basicInputBox"
                     />
-
-                    <div className="infoWrapper">
-                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                        <div className="infoBubble">
-                            If you don't know the total cost of a particular project, it can be estimated by 
-                            multiplying $1 million by the nameplate capacity in megawatts.
-                        </div>
-                    </div>
                 </div>
             </label>
 
@@ -69,7 +61,7 @@ export default function MISolarProjectDetailsSection ({
                     onChange={(e) =>
                         setProjectData((prev) => ({
                         ...prev,
-                        original_cost_pre_interface: parseFloat(e.target.value),
+                        original_cost_pre_inverter: parseFloat(e.target.value),
                         }))
                     }
                     className="basicInputBox"
@@ -77,10 +69,10 @@ export default function MISolarProjectDetailsSection ({
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                         <div className="infoBubble">
-                            If you are unsure about how the total project cost should be divided between these two 
+                            If you don't know the total cost of a particular project, it can be estimated by 
+                            multiplying $1 million by the nameplate capacity in megawatts. If you are unsure about how the total project cost should be divided between these two 
                             categories, assume that 90% of the total cost is for site improvements <strong>up 
-                            to and including the inverter</strong>, while 10% is for site improvements <strong>after</strong>{" "}
-                            the inverter.
+                            to and including the inverter</strong>.
                         </div>
                     </div>
                 </div>
@@ -98,7 +90,7 @@ export default function MISolarProjectDetailsSection ({
                     onChange={(e) =>
                         setProjectData((prev) => ({
                         ...prev,
-                        original_cost_post_interface: parseFloat(e.target.value),
+                        original_cost_post_inverter: parseFloat(e.target.value),
                         }))
                     }
                     className="basicInputBox"
@@ -108,8 +100,7 @@ export default function MISolarProjectDetailsSection ({
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
                         If you are unsure about how the total project cost should be divided between these two 
-                        categories, assume that 90% of the total cost is for site improvements <strong>up 
-                        to and including the inverter</strong>, while 10% is for site improvements <strong>after</strong>{" "} 
+                        categories, assume that 10% is for site improvements <strong>after</strong>{" "} 
                         the inverter.
                     </div>
                 </div>
@@ -163,9 +154,9 @@ export default function MISolarProjectDetailsSection ({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default number (2.7%) shown in column C represents the average 
+                        The default number (2.7%) represents the average 
                         annual inflation rate multiplier from 1995-2025 as calculated by 
-                        the State Tax Commission (see Table 5 in the "Backend" sheet). 
+                        the State Tax Commission. 
                         The default multiplier translates to a 2.7% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
@@ -192,18 +183,16 @@ export default function MISolarProjectDetailsSection ({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default discount rate of 3.0% comes from FEMP guidelines for 
-                        analyzing renewable energy projects for federal agencies 
-                        (https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf). 
+                        The default discount rate of 3.0% comes from {" "}
+                        <a style={{ textDecoration: "underline" }} target="_blank" href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
                         Users can override this default rate and enter their own estimated 
                         discount rate if they prefer.
                     </div>
                 </div>
 
             </div>
-        </label>
+            </label>
 
         </section>
-
     )
 }

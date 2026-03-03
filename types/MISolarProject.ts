@@ -51,8 +51,8 @@ export interface ProjectData {
     // Real property values.
     real_property_previously_covered: string;
     real_property_ownership_change: string;
-    pre_solar_taxable_value: number;
-    post_solar_taxable_value: number;
+    post_solar_taxable_value?: number;
+    pre_solar_taxable_value?: number;
     real_property_conditions?: boolean;
     real_property_school_district_millages: number;
     real_property_other_millages: number;

@@ -28,8 +28,8 @@ const FooterComp = ({  }) => {
         <span className={styles.divider}>{" ∘ "}</span>
 
         {/* Internal link */}
-        <Link href="/contact" className={styles.footer_link_text}>
-            Contact
+        <Link href="/references" className={styles.footer_link_text}>
+            References
         </Link>
 
         <span className={styles.divider}>{" ∘ "}</span>

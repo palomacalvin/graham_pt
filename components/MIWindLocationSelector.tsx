@@ -150,7 +150,9 @@ return (
             </option>
           ))}
         </select>
+        <div className="required">Required</div>
       </div>
+      <br></br>
 
       {/* City and Township */}
       <div>
@@ -164,11 +166,16 @@ return (
             disabled={!selectedCounty}
             className="basicDropdown"
         >
-          <option value="">-- Choose City / Township --</option>
+          <option value="">-- Choose Local Unit --</option>
             {cities.map((c) => (
             <option key={c} value={c}>{c}</option>
             ))}
         </select>
+
+        <div className="required">Required</div>
+
+        <br></br>
+
 
         {/* Village (optional) */}
         {villages.length > 0 && (
@@ -189,6 +196,7 @@ return (
 
         {/* School District */}
         {schools.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
             <select
             value={selectedSchool}
             onChange={(e) => setSelectedSchool(e.target.value)}
@@ -199,6 +207,10 @@ return (
                 <option key={s} value={s}>{s}</option>
             ))}
             </select>
+
+            <div className="required">Required</div>
+
+            </div>
         )}
 
       </div>

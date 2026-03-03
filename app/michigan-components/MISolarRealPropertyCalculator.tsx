@@ -33,7 +33,7 @@ export default function MISolarRealPropertyCalculator ({
                 ? projectData.project_acreage
                 : (projectData.nameplate_capacity ?? 0) * 7;
 
-        const pre_solar_taxable_value = acreage * 4285.7;
+        const pre_solar = acreage * 4285.7;
 
         const post_solar_value =
             projectData.real_property_ownership_change === "yes"
@@ -45,21 +45,26 @@ export default function MISolarRealPropertyCalculator ({
         const ownership_changed = projectData.real_property_ownership_change === "yes";
 
         // Calculate millages
-        const school_district_millages = was_previously_covered && ownership_changed
-            ? post_solar_value
-            : was_previously_covered && !ownership_changed
-            ? post_solar_value
-            : !was_previously_covered && ownership_changed
-            ? post_solar_value - pre_solar_taxable_value
-            : 0;
+        let school_district_millages = 0;
+        let other_millages = 0;
 
-        const other_millages = was_previously_covered && ownership_changed
-            ? post_solar_value - pre_solar_taxable_value
-            : was_previously_covered && !ownership_changed
-            ? 0
-            : !was_previously_covered && ownership_changed
-            ? post_solar_value - pre_solar_taxable_value
-            : 0;
+        if (ownership_changed) {
+            if (was_previously_covered) {
+                school_district_millages = post_solar_value;
+            } else {
+                school_district_millages = post_solar_value - pre_solar_taxable_value;
+            }
+
+            other_millages = post_solar_value - pre_solar_taxable_value;
+        } else {
+            if (was_previously_covered) {
+                school_district_millages = post_solar_value;
+            } else {
+                school_district_millages = 0;
+            }
+
+            other_millages = 0;
+        }
 
         // Log everything
         console.log("=== Real Property Calculation ===");
@@ -72,18 +77,20 @@ export default function MISolarRealPropertyCalculator ({
         console.log("Other Millages:", other_millages);
 
         // Update project data state
-        setProjectData((prev) => ({
-            ...prev,
-            pre_solar_taxable_value,
-            post_solar_taxable_value: post_solar_value,
-            real_property_school_district_millages: school_district_millages,
-            real_property_other_millages: other_millages,
+        setProjectData(prev => ({
+        ...prev,
+        pre_solar_taxable_value: pre_solar,
+        post_solar_taxable_value:
+            prev.post_solar_taxable_value !== undefined
+                ? prev.post_solar_taxable_value
+                : projectData.real_property_ownership_change === "yes"
+                ? pre_solar 
+                : undefined,
         }));
     }, [
         projectData.project_acreage,
-        projectData.real_property_previously_covered,
+        projectData.nameplate_capacity,
         projectData.real_property_ownership_change,
-        projectData.post_solar_taxable_value,
     ]);
     
 
@@ -115,8 +122,6 @@ export default function MISolarRealPropertyCalculator ({
                     }
                     className="basicInputBox"
                 />
-                
-                    
 
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -134,12 +139,12 @@ export default function MISolarRealPropertyCalculator ({
                     type="number"
                     value={pre_solar_taxable_value}
                     readOnly
-                    onChange={(e) =>
-                    setProjectData((prev) => ({
-                        ...prev!,
-                        pre_solar_taxable_value: parseFloat(e.target.value),
-                    }))
-                    }
+                    // onChange={(e) =>
+                    // setProjectData((prev) => ({
+                    //     ...prev!,
+                    //     pre_solar_taxable_value: parseFloat(e.target.value),
+                    // }))
+                    // }
                     className="basicInputBox"
                 />
                 

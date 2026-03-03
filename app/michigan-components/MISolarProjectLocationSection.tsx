@@ -36,7 +36,6 @@ export default function MIProjectLocationSection({
 
       {projectData && (
         <>
-
         </>
       )}
     </section>

@@ -101,26 +101,26 @@ export default function ProjectForm() {
 
 
       <div style={{ margin: "3rem" }}>
-      <form onSubmit={handleSubmit}>
-        {/* Project Location Section */}
-        <MNProjectLocationSection
-        projectData={projectData}
-        handleChange={handleChange}
-        setProjectData={setProjectData}
-        countyAvgValue={countyAvgValue}
-        userEditedLandValue={userEditedLandValue}
-        onSelectCounty={(county: County | null) => {
-          setProjectData(prev => ({
-            ...prev,
-            county: county?.county_name || "",
-            countyTaxRates: county ? {
-              ag_homestead_effective_rate: county.ag_homestead_effective_rate,
-              ag_non_homestead_effective_rate: county.ag_non_homestead_effective_rate,
-              commercial_effective_rate: county.commercial_effective_rate
-            } : undefined
-          }));
-        }}
-      />
+        <form onSubmit={handleSubmit}>
+          {/* Project Location Section */}
+          <MNProjectLocationSection
+          projectData={projectData}
+          handleChange={handleChange}
+          setProjectData={setProjectData}
+          countyAvgValue={countyAvgValue}
+          userEditedLandValue={userEditedLandValue}
+          onSelectCounty={(county: County | null) => {
+            setProjectData(prev => ({
+              ...prev,
+              county: county?.county_name || "",
+              countyTaxRates: county ? {
+                ag_homestead_effective_rate: county.ag_homestead_effective_rate,
+                ag_non_homestead_effective_rate: county.ag_non_homestead_effective_rate,
+                commercial_effective_rate: county.commercial_effective_rate
+              } : undefined
+            }));
+          }}
+        />
 
         {/* Property Classification Section */}
         <br></br>

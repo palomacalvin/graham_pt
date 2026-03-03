@@ -137,7 +137,7 @@ export function calculateMichiganTaxResults(
 
     const sd_hold_harmless = generateYearlyRevenue(
         original_cost,
-        projectData.sd_hold_harmless ?? 0,
+        projectData.real_property_school_district_millages ?? 0,
         multiplicationFactors,
     );
 

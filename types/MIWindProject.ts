@@ -58,6 +58,8 @@ export interface ProjectData {
     post_wind_taxable_value: number;
     change_in_real_property_taxable_value: 0.00;
 
+    project_acreage: number;
+
 }
 
 
