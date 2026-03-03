@@ -45,9 +45,9 @@ export function generateYearlyRevenue(
 
 
     // ================== Year 1 Calculations ======================== //
-    let base_revenue: number;
     let tcv: number;
-    let revenue: number = 0;
+    let base_revenue: number;
+    let revenue: number;
 
     if (is_school_operating) {
     // Use post_solar if available, otherwise pre_solar
@@ -57,8 +57,9 @@ export function generateYearlyRevenue(
         // Only count the increase if there was ownership change
         tcv = taxable_increase;
         base_revenue = (millage_rate / 1000) * tcv;
-}
+    }
 
+    revenue = base_revenue;
     results.push({
         year: 1,
         tcv: is_school_operating 

@@ -252,6 +252,104 @@ export default function MISolarTaxResults( {projectData}: Props) {
     ]);
 
 
+    function sumJurisdictionPerYearArrays(
+        base: number[],
+        realProperty?: number[],
+        upp?: number[]
+    ): number[] {
+        const years = base.length;
+        return Array.from({ length: years }, (_, i) => 
+            (base[i] ?? 0) + (realProperty?.[i] ?? 0) + (upp?.[i] ?? 0)
+        );
+    }
+
+    const non_pilt_county_combined = sumJurisdictionPerYearArrays(
+        county.totalPerYear,
+        realPropertyResults?.county.totalPerYear,
+        uppRevenueResults?.county.totalPerYear
+    );
+
+    const non_pilt_local_unit_combined = sumJurisdictionPerYearArrays(
+        local_unit.totalPerYear,
+        realPropertyResults?.local_unit.totalPerYear,
+        uppRevenueResults?.local_unit.totalPerYear
+    );
+
+    const non_pilt_school_district_combined = sumJurisdictionPerYearArrays(
+        school_district.totalPerYear,
+        realPropertyResults?.school_district.totalPerYear,
+        uppRevenueResults?.school_district.totalPerYear
+    );
+
+    const non_pilt_intermediate_school_district_combined = sumJurisdictionPerYearArrays(
+        intermediate_school_district.totalPerYear,
+        realPropertyResults?.intermediate_school_district.totalPerYear,
+        uppRevenueResults?.intermediate_school_district.totalPerYear
+    );
+
+    const non_pilt_community_college_combined = sumJurisdictionPerYearArrays(
+        community_college.totalPerYear,
+        realPropertyResults?.community_college.totalPerYear,
+        uppRevenueResults?.community_college.totalPerYear
+    );
+
+    const non_pilt_public_authority_combined = sumJurisdictionPerYearArrays(
+        public_authority.totalPerYear,
+        realPropertyResults?.public_authority.totalPerYear,
+        uppRevenueResults?.public_authority.totalPerYear
+    );
+
+    const non_pilt_village_combined = sumJurisdictionPerYearArrays(
+        village.totalPerYear,
+        realPropertyResults?.village.totalPerYear,
+        uppRevenueResults?.village.totalPerYear
+    );
+
+
+
+
+    const pilt_county_combined = sumJurisdictionPerYearArrays(
+        piltCounty.totalPerYear,
+        realPropertyResults?.county.totalPerYear,
+        uppRevenueResults?.county.totalPerYear
+    );
+
+    const pilt_local_unit_combined = sumJurisdictionPerYearArrays(
+        piltLocalUnit.totalPerYear,
+        realPropertyResults?.local_unit.totalPerYear,
+        uppRevenueResults?.local_unit.totalPerYear
+    );
+
+    const pilt_school_district_combined = sumJurisdictionPerYearArrays(
+        piltSchoolDistrict.totalPerYear,
+        realPropertyResults?.school_district.totalPerYear,
+        uppRevenueResults?.school_district.totalPerYear
+    );
+
+    const pilt_intermediate_school_district_combined = sumJurisdictionPerYearArrays(
+        piltISD.totalPerYear,
+        realPropertyResults?.intermediate_school_district.totalPerYear,
+        uppRevenueResults?.intermediate_school_district.totalPerYear
+    );
+
+    const pilt_community_college_combined = sumJurisdictionPerYearArrays(
+        piltCC.totalPerYear,
+        realPropertyResults?.community_college.totalPerYear,
+        uppRevenueResults?.community_college.totalPerYear
+    );
+
+    const pilt_public_authority_combined = sumJurisdictionPerYearArrays(
+        piltPA.totalPerYear,
+        realPropertyResults?.public_authority.totalPerYear,
+        uppRevenueResults?.public_authority.totalPerYear
+    );
+
+    const pilt_village_combined = sumJurisdictionPerYearArrays(
+        piltVillage.totalPerYear,
+        realPropertyResults?.village.totalPerYear,
+        uppRevenueResults?.village.totalPerYear
+    );
+
     useEffect(() => {
         const fetchFactors = async () => {
             try {
@@ -681,54 +779,63 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         <tbody>
                             <tr>
                                 <td>County</td>
-                                <td>{formatCurrency(county.gross)}</td>
-                                <td>{formatCurrency(county.npv)}</td>
+                                <td>{formatCurrency(county.gross + (realPropertyResults?.county.gross ?? 0) + (uppRevenueResults?.county.gross ?? 0))}</td>
+                                <td>{formatCurrency(county.npv + (realPropertyResults?.county.npv ?? 0) + (uppRevenueResults?.county.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Local Unit</td>
-                                <td>{formatCurrency(local_unit.gross)}</td>
-                                <td>{formatCurrency(local_unit.npv)}</td>
+                                <td>{formatCurrency(local_unit.gross + (realPropertyResults?.local_unit.gross ?? 0) + (uppRevenueResults?.local_unit.gross ?? 0))}</td>
+                                <td>{formatCurrency(local_unit.npv + (realPropertyResults?.local_unit.npv ?? 0) + (uppRevenueResults?.local_unit.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>School District</td>
-                                <td>{formatCurrency(school_district.gross)}</td>
-                                <td>{formatCurrency(school_district.npv)}</td>
+                                <td>{formatCurrency(school_district.gross + (realPropertyResults?.school_district.gross ?? 0) + (uppRevenueResults?.school_district.gross ?? 0))}</td>
+                                <td>{formatCurrency(school_district.npv + (realPropertyResults?.school_district.npv ?? 0) + (uppRevenueResults?.school_district.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Intermediate School District</td>
-                                <td>{formatCurrency(intermediate_school_district.gross)}</td>
-                                <td>{formatCurrency(intermediate_school_district.npv)}</td>
+                                <td>{formatCurrency(intermediate_school_district.gross + (realPropertyResults?.intermediate_school_district.gross ?? 0) + (uppRevenueResults?.intermediate_school_district.gross ?? 0))}</td>
+                                <td>{formatCurrency(intermediate_school_district.npv + (realPropertyResults?.intermediate_school_district.npv ?? 0) + (uppRevenueResults?.intermediate_school_district.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Community College</td>
-                                <td>{formatCurrency(community_college.gross)}</td>
-                                <td>{formatCurrency(community_college.npv)}</td>
+                                <td>{formatCurrency(community_college.gross + (realPropertyResults?.community_college.gross ?? 0) + (uppRevenueResults?.community_college.gross ?? 0))}</td>
+                                <td>{formatCurrency(community_college.npv + (realPropertyResults?.community_college.npv ?? 0) + (uppRevenueResults?.community_college.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Public Authorities</td>
-                                <td>{formatCurrency(public_authority.gross)}</td>
-                                <td>{formatCurrency(public_authority.npv)}</td>
+                                <td>{formatCurrency(public_authority.gross + (realPropertyResults?.public_authority.gross ?? 0) + (uppRevenueResults?.public_authority.gross ?? 0))}</td>
+                                <td>{formatCurrency(public_authority.npv + (realPropertyResults?.public_authority.npv ?? 0) + (uppRevenueResults?.public_authority.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Village</td>
-                                <td>{formatCurrency(village.gross)}</td>
-                                <td>{formatCurrency(village.npv)}</td>
+                                <td>{formatCurrency(village.gross + (realPropertyResults?.village.gross ?? 0) + (uppRevenueResults?.village.gross ?? 0))}</td>
+                                <td>{formatCurrency(village.npv + (realPropertyResults?.village.npv ?? 0) + (uppRevenueResults?.village.npv ?? 0))}</td>
                             </tr>
 
                             <tr className="rowHighlight">
                                 <td>All Taxing Units</td>
-                                <td>{formatCurrency(county.gross + local_unit.gross + school_district.gross +
-                                intermediate_school_district.gross + community_college.gross + public_authority.gross +
-                                village.gross)}</td>
-                                <td>{formatCurrency(county.npv + local_unit.npv + school_district.npv 
-                                + intermediate_school_district.npv + community_college.npv + public_authority.npv +
-                                village.npv)}</td>
+                                <td>{formatCurrency((county.gross + (realPropertyResults?.county.gross ?? 0) + (uppRevenueResults?.county.gross ?? 0) + local_unit.gross + 
+                                (realPropertyResults?.local_unit.gross ?? 0) + (uppRevenueResults?.local_unit.gross ?? 0) + school_district.gross +
+                                (realPropertyResults?.school_district.gross ?? 0) + (uppRevenueResults?.school_district.gross ?? 0) + intermediate_school_district.gross
+                                + (realPropertyResults?.intermediate_school_district.gross ?? 0) + (uppRevenueResults?.intermediate_school_district.gross ?? 0) + 
+                                community_college.gross + (realPropertyResults?.community_college.gross ?? 0) + (uppRevenueResults?.community_college.gross ?? 0) + 
+                                public_authority.gross + (realPropertyResults?.public_authority.gross ?? 0) + (uppRevenueResults?.public_authority.gross ?? 0) + 
+                                village.gross + (realPropertyResults?.village.gross ?? 0) + (uppRevenueResults?.village.gross ?? 0)))}</td>
+                                
+                                <td>{formatCurrency(county.npv + (realPropertyResults?.county.npv ?? 0) + (uppRevenueResults?.county.npv ?? 0) 
+                                + local_unit.npv + (realPropertyResults?.local_unit.npv ?? 0) + (uppRevenueResults?.local_unit.npv ?? 0) 
+                                + school_district.npv + (realPropertyResults?.school_district.npv ?? 0) + (uppRevenueResults?.school_district.npv ?? 0)
+                                + intermediate_school_district.npv + (realPropertyResults?.intermediate_school_district.npv ?? 0) + (uppRevenueResults?.intermediate_school_district.npv ?? 0)
+                                + community_college.npv + (realPropertyResults?.community_college.npv ?? 0) + (uppRevenueResults?.community_college.npv ?? 0)
+                                + public_authority.npv + (realPropertyResults?.public_authority.npv ?? 0) + (uppRevenueResults?.public_authority.npv ?? 0) +
+                                village.npv + (realPropertyResults?.village.npv ?? 0) + (uppRevenueResults?.village.npv ?? 0))}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -745,58 +852,59 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                 ))}
                             </tr>
                         </thead>
-
+                        
                             <tbody>
                                 <tr>
                                     <td>Gross Per Year - County</td>
-                                        {county.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_county_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
+
                                 <tr>
                                     <td>Gross Per Year - Local Unit</td>
-                                        {local_unit.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_local_unit_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - School District</td>
-                                        {school_district.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_school_district_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Intermediate School District</td>
-                                        {intermediate_school_district.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_intermediate_school_district_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Community College</td>
-                                        {community_college.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_community_college_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Public Authorities (e.g. library, park authorities, etc.)</td>
-                                        {public_authority.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_public_authority_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Village</td>
-                                        {village.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {non_pilt_village_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
-                                <tr className="rowBold">
+                                {/* <tr className="rowBold">
                                     <td>Total Gross Per Year - All Jurisdictions</td>
                                     {total_gross_per_year.map((total, index) => (
                                         <td key={index}>{formatCurrency(total)}</td>
@@ -815,7 +923,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.npv + local_unit.npv + school_district.npv 
                                         + intermediate_school_district.npv + community_college.npv + public_authority.npv +
                                         village.npv)}</td>
-                                </tr>
+                                </tr> */}
 
                             </tbody>
                     </table>
@@ -845,54 +953,63 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         <tbody>
                             <tr>
                                 <td>County</td>
-                                <td>{formatCurrency(piltCounty.gross)}</td>
-                                <td>{formatCurrency(piltCounty.npv)}</td>
+                                <td>{formatCurrency(piltCounty.gross + (realPropertyResults?.county.gross ?? 0) + (uppRevenueResults?.county.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltCounty.npv + (realPropertyResults?.county.npv ?? 0) + (uppRevenueResults?.county.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Local Unit</td>
-                                <td>{formatCurrency(piltLocalUnit.gross)}</td>
-                                <td>{formatCurrency(piltLocalUnit.npv)}</td>
+                                <td>{formatCurrency(piltLocalUnit.gross + (realPropertyResults?.local_unit.gross ?? 0) + (uppRevenueResults?.local_unit.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltLocalUnit.npv + (realPropertyResults?.local_unit.npv ?? 0) + (uppRevenueResults?.local_unit.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>School District</td>
-                                <td>{formatCurrency(piltSchoolDistrict.gross)}</td>
-                                <td>{formatCurrency(piltSchoolDistrict.npv)}</td>
+                                <td>{formatCurrency(piltSchoolDistrict.gross + (realPropertyResults?.school_district.gross ?? 0) + (uppRevenueResults?.school_district.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltSchoolDistrict.npv + (realPropertyResults?.school_district.npv ?? 0) + (uppRevenueResults?.school_district.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Intermediate School District</td>
-                                <td>{formatCurrency(piltISD.gross)}</td>
-                                <td>{formatCurrency(piltISD.npv)}</td>
+                                <td>{formatCurrency(piltISD.gross + (realPropertyResults?.intermediate_school_district.gross ?? 0) + (uppRevenueResults?.intermediate_school_district.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltISD.npv + (realPropertyResults?.intermediate_school_district.npv ?? 0) + (uppRevenueResults?.intermediate_school_district.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Community College</td>
-                                <td>{formatCurrency(piltCC.gross)}</td>
-                                <td>{formatCurrency(piltCC.npv)}</td>
+                                <td>{formatCurrency(piltCC.gross + (realPropertyResults?.community_college.gross ?? 0) + (uppRevenueResults?.community_college.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltCC.npv + (realPropertyResults?.community_college.npv ?? 0) + (uppRevenueResults?.community_college.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Public Authorities</td>
-                                <td>{formatCurrency(piltPA.gross)}</td>
-                                <td>{formatCurrency(piltPA.npv)}</td>
+                                <td>{formatCurrency(piltPA.gross + (realPropertyResults?.public_authority.gross ?? 0) + (uppRevenueResults?.public_authority.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltPA.npv + (realPropertyResults?.public_authority.npv ?? 0) + (uppRevenueResults?.public_authority.npv ?? 0))}</td>
                             </tr>
 
                             <tr>
                                 <td>Village</td>
-                                <td>{formatCurrency(piltVillage.gross)}</td>
-                                <td>{formatCurrency(piltVillage.npv)}</td>
+                                <td>{formatCurrency(piltVillage.gross + (realPropertyResults?.village.gross ?? 0) + (uppRevenueResults?.village.gross ?? 0))}</td>
+                                <td>{formatCurrency(piltVillage.npv + (realPropertyResults?.village.npv ?? 0) + (uppRevenueResults?.village.npv ?? 0))}</td>
                             </tr>
 
                             <tr className="rowHighlight">
                                 <td>All Taxing Units</td>
-                                <td>{formatCurrency(piltCounty.gross + piltLocalUnit.gross + piltSchoolDistrict.gross +
-                                piltISD.gross + piltCC.gross + piltPA.gross +
-                                piltVillage.gross)}</td>
-                                <td>{formatCurrency(piltCounty.npv + piltLocalUnit.npv + piltSchoolDistrict.npv 
-                                + piltISD.npv + piltCC.npv + piltPA.npv +
-                                piltVillage.npv)}</td>
+                                <td>{formatCurrency(piltCounty.gross + (realPropertyResults?.county.gross ?? 0) + (uppRevenueResults?.county.gross ?? 0) +
+                                piltLocalUnit.gross + (realPropertyResults?.local_unit.gross ?? 0) + (uppRevenueResults?.local_unit.gross ?? 0) 
+                                + piltSchoolDistrict.gross + (realPropertyResults?.school_district.gross ?? 0) + (uppRevenueResults?.school_district.gross ?? 0)
+                                + piltISD.gross + (realPropertyResults?.intermediate_school_district.gross ?? 0) + (uppRevenueResults?.intermediate_school_district.gross ?? 0)
+                                + piltCC.gross + (realPropertyResults?.community_college.gross ?? 0) + (uppRevenueResults?.community_college.gross ?? 0)
+                                + piltPA.gross + (realPropertyResults?.public_authority.gross ?? 0) + (uppRevenueResults?.public_authority.gross ?? 0)
+                                + piltVillage.gross + (realPropertyResults?.village.gross ?? 0) + (uppRevenueResults?.village.gross ?? 0))}</td>
+                                
+                                <td>{formatCurrency(piltCounty.npv + (realPropertyResults?.county.npv ?? 0) + (uppRevenueResults?.county.npv ?? 0) 
+                                + piltLocalUnit.npv + (realPropertyResults?.local_unit.npv ?? 0) + (uppRevenueResults?.local_unit.npv ?? 0) 
+                                + piltSchoolDistrict.npv + (realPropertyResults?.school_district.npv ?? 0) + (uppRevenueResults?.school_district.npv ?? 0) +
+                                + piltISD.npv + (realPropertyResults?.intermediate_school_district.npv ?? 0) + (uppRevenueResults?.intermediate_school_district.npv ?? 0)
+                                + piltCC.npv + (realPropertyResults?.community_college.npv ?? 0) + (uppRevenueResults?.community_college.npv ?? 0)
+                                + piltPA.npv + (realPropertyResults?.public_authority.npv ?? 0) + (uppRevenueResults?.public_authority.npv ?? 0) 
+                                + piltVillage.npv + (realPropertyResults?.village.npv ?? 0) + (uppRevenueResults?.village.npv ?? 0))}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -913,54 +1030,55 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <tbody>
                                 <tr>
                                     <td>Gross Per Year - County</td>
-                                        {piltCounty.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_county_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
+
                                 <tr>
                                     <td>Gross Per Year - Local Unit</td>
-                                        {piltLocalUnit.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_local_unit_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - School District</td>
-                                        {piltSchoolDistrict.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_school_district_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Intermediate School District</td>
-                                        {piltISD.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_intermediate_school_district_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Community College</td>
-                                        {piltCC.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_community_college_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Public Authorities (e.g. library, park authorities, etc.)</td>
-                                        {piltPA.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_public_authority_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
                                 <tr>
                                     <td>Gross Per Year - Village</td>
-                                        {piltVillage.totalPerYear.map((total, index) => (
-                                            <td key={index}>{formatCurrency(total)}</td>
+                                        {pilt_village_combined.map((value, i) => (
+                                            <td key={i}>{formatCurrency(value)}</td>
                                         ))}
                                 </tr>
 
-                                <tr className="rowBold">
+                                {/* <tr className="rowBold">
                                     <td>Total Gross Per Year - All Jurisdictions</td>
                                     {pilt_total_npv_per_year.map((total, index) => (
                                         <td key={index}>{formatCurrency(total)}</td>
@@ -979,7 +1097,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.npv + piltLocalUnit.npv + piltSchoolDistrict.npv 
                                         + piltISD.npv + piltCC.npv + piltPA.npv +
                                         piltVillage.npv)}</td>
-                                </tr>
+                                </tr> */}
 
                             </tbody>
                     </table>

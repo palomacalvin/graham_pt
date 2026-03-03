@@ -112,7 +112,7 @@ export default function MISolarProjectDetailsSection ({
             <div className="inputWithInfo">
                 <input
                     type="number"
-                    step="0.1"
+                    step="1"
                     value={projectData?.expected_useful_life ?? 30}
                     onChange={(e) =>
                         setProjectData((prev) => ({
