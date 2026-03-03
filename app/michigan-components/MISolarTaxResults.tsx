@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { ProjectData } from "@/types/MISolarProject";
 import { MIMultiplicationFactors } from "@/types/MIMultiplicationFactors";
 
-import { calculateMichiganTaxResults as calculateNonPILT } from "@/utils/MINonPILTSolarCalculations";
+import { calculateGrossTotal, calculateMichiganTaxResults as calculateNonPILT } from "@/utils/MINonPILTSolarCalculations";
 import { calculateMichiganTaxResults as calculatePILT } from "@/utils/MIPILTSolarCalculations";
 import { calculateMichiganTaxResults as calculateRealPropertyTaxes } from "@/utils/MIRealPropertySolarCalculations";
 import { calculateMichiganTaxResults as calculateUPPRevenue } from "@/utils/MIUPPSolarCalculations";
@@ -348,6 +348,39 @@ export default function MISolarTaxResults( {projectData}: Props) {
         piltVillage.totalPerYear,
         realPropertyResults?.village.totalPerYear,
         uppRevenueResults?.village.totalPerYear
+    );
+
+    const total_gross_per_year_final = sumRevenueStreams([
+        non_pilt_county_combined,
+        non_pilt_local_unit_combined,
+        non_pilt_school_district_combined,
+        non_pilt_intermediate_school_district_combined,
+        non_pilt_community_college_combined,
+        non_pilt_public_authority_combined,
+        non_pilt_village_combined,
+    ]);
+
+    const pilt_total_gross_per_year_final = sumRevenueStreams([
+        pilt_county_combined,
+        pilt_local_unit_combined,
+        pilt_school_district_combined,
+        pilt_intermediate_school_district_combined,
+        pilt_community_college_combined,
+        pilt_public_authority_combined,
+        pilt_village_combined,
+    ]);
+
+    const total_gross_all_units_final = calculateGrossTotal(total_gross_per_year_final);
+    const pilt_total_gross_all_units_final = calculateGrossTotal(pilt_total_gross_per_year_final);
+
+    const total_npv_all_units_final = calculateNPV(
+        projectData.annual_discount_rate ?? 0,
+        total_gross_per_year_final
+    );
+
+    const pilt_total_npv_all_units_final = calculateNPV(
+        projectData.annual_discount_rate ?? 0,
+        pilt_total_gross_per_year_final
     );
 
     useEffect(() => {
@@ -904,26 +937,22 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                         ))}
                                 </tr>
 
-                                {/* <tr className="rowBold">
+                                <tr className="rowBold">
                                     <td>Total Gross Per Year - All Jurisdictions</td>
-                                    {total_gross_per_year.map((total, index) => (
+                                    {total_gross_per_year_final.map((total, index) => (
                                         <td key={index}>{formatCurrency(total)}</td>
                                     ))}
                                 </tr>
 
                                 <tr className="rowHighlight">
                                     <td colSpan={3}>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
-                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.gross + local_unit.gross + school_district.gross +
-                                    intermediate_school_district.gross + community_college.gross + public_authority.gross +
-                                    village.gross)}</td>
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(total_gross_all_units_final)}</td>
                                 </tr>
 
                                 <tr className="rowHighlight">
                                     <td colSpan={3}>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
-                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(county.npv + local_unit.npv + school_district.npv 
-                                        + intermediate_school_district.npv + community_college.npv + public_authority.npv +
-                                        village.npv)}</td>
-                                </tr> */}
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(total_npv_all_units_final)}</td>
+                                </tr>
 
                             </tbody>
                     </table>
@@ -1078,26 +1107,22 @@ export default function MISolarTaxResults( {projectData}: Props) {
                                         ))}
                                 </tr>
 
-                                {/* <tr className="rowBold">
+                                <tr className="rowBold">
                                     <td>Total Gross Per Year - All Jurisdictions</td>
-                                    {pilt_total_npv_per_year.map((total, index) => (
+                                    {pilt_total_gross_per_year_final.map((total, index) => (
                                         <td key={index}>{formatCurrency(total)}</td>
                                     ))}
                                 </tr>
 
                                 <tr className="rowHighlight">
                                     <td colSpan={3}>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
-                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.gross + piltLocalUnit.gross + piltSchoolDistrict.gross +
-                                    piltISD.gross + piltCC.gross + piltPA.gross +
-                                    piltVillage.gross)}</td>
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(pilt_total_gross_all_units_final)}</td>
                                 </tr>
 
                                 <tr className="rowHighlight">
                                     <td colSpan={3}>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
-                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(piltCounty.npv + piltLocalUnit.npv + piltSchoolDistrict.npv 
-                                        + piltISD.npv + piltCC.npv + piltPA.npv +
-                                        piltVillage.npv)}</td>
-                                </tr> */}
+                                    <td colSpan={projectData.expected_useful_life}>{formatCurrency(pilt_total_npv_all_units_final)}</td>
+                                </tr>
 
                             </tbody>
                     </table>
