@@ -80,34 +80,51 @@ export default function LocationSelector({ onSelectLocation }: Props) {
 
     // Filter local units by county.
     const cities = useMemo(() => {
-        if (!selectedCounty) return [];
-        const localUnits = allLocations.filter(
-        (l) => l.county_name === selectedCounty
-        );
-        return Array.from(new Set(localUnits.map((l) => l.local_unit_name))).sort();
-    }, [allLocations, selectedCounty]);
+    if (!selectedCounty) return [];
 
-    // List villages for selected city (if present).
+    return allLocations
+      .filter((l) => l.county_name === selectedCounty)
+      .map((l) => ({
+        name: l.local_unit_name,
+        isCity: l.city,
+      }));
+  }, [allLocations, selectedCounty]);
+
+    // Filter by village.
+
     const villages = useMemo(() => {
-        if (!selectedCounty || !selectedCity) return [];
-        const cityLocations = allLocations.filter(
-        (l) => l.county_name === selectedCounty && l.local_unit_name === selectedCity
-        );
-        return Array.from(
-        new Set(cityLocations.map((l) => l.village_name).filter(Boolean))
-        ) as string[];
+      if (!selectedCounty || !selectedCity) return [];
+
+      const [unitName, isCity] = selectedCity.split("__");
+
+      const filtered = allLocations.filter(
+        (l) =>
+          l.county_name === selectedCounty &&
+          l.local_unit_name === unitName &&
+          String(l.city) === isCity
+      );
+
+      return Array.from(
+        new Set(filtered.map((l) => l.village_name).filter(Boolean))
+      ) as string[];
     }, [allLocations, selectedCounty, selectedCity]);
+
 
     // List schools for selected county, city, and village combination.
     const schools = useMemo(() => {
-        if (!selectedCounty || !selectedCity) return [];
-        const filtered = allLocations.filter(
+      if (!selectedCounty || !selectedCity) return [];
+
+      const [unitName, isCity] = selectedCity.split("__");
+
+      const filtered = allLocations.filter(
         (l) =>
-            l.county_name === selectedCounty &&
-            l.local_unit_name === selectedCity &&
-            (!selectedVillage || l.village_name === selectedVillage)
-        );
-        return Array.from(new Set(filtered.map((l) => l.school_name))).sort();
+          l.county_name === selectedCounty &&
+          l.local_unit_name === unitName &&
+          String(l.city) === isCity &&
+          (!selectedVillage || l.village_name === selectedVillage)
+      );
+
+      return Array.from(new Set(filtered.map((l) => l.school_name))).sort();
     }, [allLocations, selectedCounty, selectedCity, selectedVillage]);
 
     // Update selected location whenever all selections are made
@@ -120,11 +137,14 @@ export default function LocationSelector({ onSelectLocation }: Props) {
         return;
       }
 
+      const [unitName, isCity] = selectedCity.split("__");
+
       const loc =
         allLocations.find(
           (l) =>
             l.county_name === selectedCounty &&
-            l.local_unit_name === selectedCity &&
+            l.local_unit_name === unitName &&
+            String(l.city) === isCity &&
             (!selectedVillage || l.village_name === selectedVillage) &&
             (!selectedSchool || l.school_name === selectedSchool)
         ) || null;
@@ -190,9 +210,14 @@ return (
             className="basicDropdown"
         >
           <option value="">-- Choose Local Unit --</option>
-            {cities.map((c) => (
-            <option key={c} value={c}>{c}</option>
-            ))}
+          {cities.map((c, index) => (
+            <option
+              key={`${c.name}-${c.isCity}-${index}`}
+              value={`${c.name}__${c.isCity}`}
+            >
+              {c.name} {c.isCity ? "(City)" : "(Township)"}
+            </option>
+          ))}
         </select>
         <div className="required">Required</div>
 
@@ -200,7 +225,7 @@ return (
 
         {/* Village (optional) */}
         {villages.length > 0 && (
-          <div style={{ marginTop: "3rem" }}>
+          <div style={{ marginTop: "0rem" }}>
             <select
               value={selectedVillage}
               onChange={(e) => {
@@ -214,8 +239,8 @@ return (
                 <option key={v} value={v}>{v}</option>
               ))}
 
-
             </select>
+            <div className="required">Required</div>
           </div>
         )}
 
