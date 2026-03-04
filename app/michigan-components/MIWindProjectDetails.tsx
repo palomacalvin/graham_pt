@@ -2,12 +2,11 @@
 
 import React from "react";
 import { ProjectData } from "../../types/MIWindProject";
-import { useState } from "react";
 import { useEffect } from "react";
 
 interface Props {
-  projectData: ProjectData | null;
-  setProjectData: React.Dispatch<React.SetStateAction<ProjectData | null>>;
+  projectData: ProjectData;
+  setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>;
 }
 
 export default function MIWindProjectDetailsSection({
@@ -15,13 +14,116 @@ export default function MIWindProjectDetailsSection({
   setProjectData,
 }: Props) {
 
-  const inflation = (projectData?.inflation_multiplier ?? 0) * 100;
-  const discount = (projectData?.annual_discount_rate ?? 0) * 100;
+    const inflation = (projectData.inflation_multiplier ?? 0) * 100;
+    const discount = (projectData.annual_discount_rate ?? 0) * 100;
+  
+    useEffect(() => {
+      if (!projectData.auto_calculate_costs) return;
+      if (!projectData.nameplate_capacity) return;
+
+      const base_cost = projectData.nameplate_capacity * 1_000_000;
+
+      setProjectData((prev) => ({
+        ...prev,
+        original_cost_pre_interface: base_cost * 0.9,
+        original_cost_post_interface: base_cost * 0.1,
+      }));
+    }, [projectData.nameplate_capacity, projectData.auto_calculate_costs]);
+
+      const DEFAULT_PROJECT_DETAILS = {
+          nameplate_capacity: 100,
+          expected_useful_life: 30,
+          inflation_multiplier: 0.027,
+          annual_discount_rate: 0.03,
+          auto_calculate_costs: true,
+      };
+  
+      const handleResetDefaults = () => {
+        setProjectData(prev => ({
+          ...prev,
+          ...DEFAULT_PROJECT_DETAILS,
+        }));
+      };
+
 
   useEffect(() => {
-  if (!projectData) return;
+          // Compute acreage and taxable values inside the effect
+          // const acreage = projectData.project_acreage;
+  
+          const pre_wind = acreage * 4285.7;
+  
+          const post_wind_value =
+              projectData.real_property_ownership_change === "yes"
+                  ? projectData.post_wind_taxable_value ?? pre_wind
+                  : pre_wind;
 
-}, [projectData]);
+          // Update project data state
+          setProjectData(prev => ({
+          ...prev,
+          pre_wind_taxable_value: pre_wind,
+          post_wind_taxable_value:
+              prev.post_wind_taxable_value !== undefined
+                  ? prev.post_wind_taxable_value
+                  : projectData.real_property_ownership_change === "yes"
+                  ? pre_wind 
+                  : undefined,
+          }));
+      }, [
+          projectData.project_acreage,
+          projectData.nameplate_capacity,
+          projectData.real_property_ownership_change,
+      ]);
+
+      const acreage = projectData.project_acreage;
+
+      const DEFAULT_TURBINES = {
+        number_1_5_turbines: 8,
+        number_1_65_turbines: 8,
+        number_2_turbines: 8,
+        number_2_2_turbines: 8,
+        number_2_5_turbines: 8,
+      };
+      
+      const handleResetTurbines = () => {
+        const total =
+          DEFAULT_TURBINES.number_1_5_turbines +
+          DEFAULT_TURBINES.number_1_65_turbines +
+          DEFAULT_TURBINES.number_2_turbines +
+          DEFAULT_TURBINES.number_2_2_turbines +
+          DEFAULT_TURBINES.number_2_5_turbines;
+
+        setProjectData(prev => ({
+          ...prev,
+          ...DEFAULT_TURBINES,
+          project_acreage: total,
+          auto_calculate_acreage: true,
+        }));
+      };
+
+      useEffect(() => {
+      if (!projectData.auto_calculate_acreage) return;
+
+      const totalTurbines =
+        (projectData.number_1_5_turbines ?? 0) +
+        (projectData.number_1_65_turbines ?? 0) +
+        (projectData.number_2_turbines ?? 0) +
+        (projectData.number_2_2_turbines ?? 0) +
+        (projectData.number_2_5_turbines ?? 0);
+
+      if (projectData.project_acreage !== totalTurbines) {
+        setProjectData(prev => ({
+          ...prev,
+          project_acreage: totalTurbines,
+        }));
+      }
+    }, [
+      projectData.number_1_5_turbines,
+      projectData.number_1_65_turbines,
+      projectData.number_2_turbines,
+      projectData.number_2_2_turbines,
+      projectData.number_2_5_turbines,
+      projectData.auto_calculate_acreage,
+    ]);
 
   return (
     <section>
@@ -36,18 +138,67 @@ export default function MIWindProjectDetailsSection({
 
       <br></br>
 
+      <button
+          type="button"
+          onClick={handleResetDefaults}
+          className="inPageButton"
+      >
+          Reset to Defaults
+      </button>
+
+      <br></br>
+
+      <label>
+        Nameplate capacity of wind project (in megawatts):
+        <div className="inputWithInfo">
+            <input
+                type="number"
+                value={projectData.nameplate_capacity ?? 100}
+                onChange={(e) =>
+                    setProjectData((prev) => ({
+                        ...prev,
+                        nameplate_capacity: parseFloat(e.target.value),
+                    }))
+                    }
+                className="basicInputBox"
+            />
+        </div>
+      </label>
+
+      {!projectData.auto_calculate_costs && (
+        <>
+          <br></br>
+            <p className="warning">
+                <img
+                    src="/photos-logos/warning-alert.svg"
+                    alt="Warning sign logo."
+                    className="warningImg"
+                />
+                <span>
+                    WARNING: Costs are manually overridden. Click "Reset to Defaults" to restore automatic
+                    calculation from nameplate capacity.
+                </span>
+            </p>
+          <br></br>
+        </>
+      )}
+
+      <br></br>
+
       <label>
         Original cost of site improvements for <strong>new</strong>{" "}
-        solar projects <strong>up to and including the inverter</strong>, including:
-        solar modules, racks, tracking, on-site battery storage systems, controls, interver ($):
+        wind projects <strong>up to and including the power interface (converters)</strong>, including:
+        the rotor, drive train, tower, controls, foundation, and all land 
+        improvements (except buildings) like roads, fences, and communication facilities ($):
         <div className="inputWithInfo">
         <input
             type="number"
-            value={projectData?.original_cost_pre_interface ?? 90000000}
+            value={projectData.original_cost_pre_interface}
             onChange={(e) =>
                 setProjectData((prev) => ({
-                ...prev!,
-                original_cost_pre_interface: parseFloat(e.target.value),
+                    ...prev,
+                    auto_calculate_costs: false,
+                    original_cost_pre_interface: parseFloat(e.target.value),
                 }))
             }
             className="basicInputBox"
@@ -55,50 +206,44 @@ export default function MIWindProjectDetailsSection({
             <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                 <div className="infoBubble">
-                    If you don't know the total cost of a particular project, it can 
-                    be estimated by multiplying $1 million by the nameplate capacity 
-                    in megawatts.
-                    If you are unsure about how the total project cost should be 
-                    divided between these two categories, assume that 90% of the total 
-                    cost is for site improvements up to and including the power interface, 
-                    while 10% is for site improvements after the power interface.
+                    If you don't know the total cost of a particular project, it can be estimated by 
+                    multiplying $1 million by the nameplate capacity in megawatts. If you are unsure about how the total project cost should be divided between these two 
+                    categories, assume that 90% of the total cost is for site improvements <strong>up 
+                    to and including the inverter</strong>.
                 </div>
             </div>
         </div>
-      </label>
+    </label>
 
 
       <label>
-        Original cost of site improvements for <strong>new</strong> solar project
-        {" "}<strong>after the inverter</strong>, including: cables, substations, and other transmission
-        and distribution infrastructure created by the solar project ($):
-        <div className="inputWithInfo">
-            <input
-                type="number"
-                value={projectData?.original_cost_post_interface ?? 10000000}
-                onChange={(e) =>
-                    setProjectData((prev) => ({
-                    ...prev!,
-                    original_cost_post_interface: parseFloat(e.target.value),
-                    }))
-                }
-                className="basicInputBox"
-            />
+            Original cost of site improvements for <strong>new</strong> wind projects
+            {" "}<strong>after the interface</strong>, including: cables, substations, and other transmission
+            and distribution infrastructure created by the wind project ($):
+            <div className="inputWithInfo">
+                <input
+                    type="number"
+                    value={projectData.original_cost_post_interface}
+                    onChange={(e) =>
+                        setProjectData((prev) => ({
+                            ...prev,
+                            auto_calculate_costs: false,
+                            original_cost_post_interface: parseFloat(e.target.value),
+                        }))
+                    }
+                    className="basicInputBox"
+                />
 
-              <div className="infoWrapper">
-                  <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                  <div className="infoBubble">
-                    If you don't know the total cost of a particular project, it can 
-                    be estimated by multiplying $1 million by the nameplate capacity 
-                    in megawatts.
-                    If you are unsure about how the total project cost should be 
-                    divided between these two categories, assume that 90% of the total 
-                    cost is for site improvements up to and including the power interface, 
-                    while 10% is for site improvements after the power interface.
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        If you are unsure about how the total project cost should be divided between these two 
+                        categories, assume that 10% is for site improvements <strong>after</strong>{" "} 
+                        the inverter.
+                    </div>
                 </div>
-              </div>
-          </div>
-      </label>
+            </div>
+        </label>
 
 
       <label>
@@ -106,11 +251,11 @@ export default function MIWindProjectDetailsSection({
             <div className="inputWithInfo">
                 <input
                     type="number"
-                    step="0.1"
-                    value={projectData?.expected_useful_life ?? 30}
+                    step="1"
+                    value={projectData.expected_useful_life ?? 30}
                     onChange={(e) =>
                         setProjectData((prev) => ({
-                        ...prev!,
+                        ...prev,
                         expected_useful_life: parseFloat(e.target.value),
                         }))
                 }
@@ -118,84 +263,127 @@ export default function MIWindProjectDetailsSection({
                 />
 
                 <div className="infoWrapper">
-                  <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                  <div className="infoBubble">
-                      Note: This calculator can only calculate revenues up to 35 years.
-                  </div>
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        Note: This calculator can only calculate revenues up to 35 years.
+                    </div>
                 </div>
             </div>
         </label>
 
 
-      <label>
-        Average annual inflation rate (%):
-        <div className="inputWithInfo">
-            <input
-                type="number"
-                step="0.01"
-                value={inflation}
-                onChange={(e) =>
-                setProjectData((prev) => ({
-                    ...prev!,
-                    inflation_multiplier: parseFloat(e.target.value) / 100,
-                }))
-                }
-                className="basicInputBox"
-            />
-            
+        <label>
+            Average annual inflation rate (%):
+            <div className="inputWithInfo">
+                <input
+                    type="number"
+                    step="0.01"
+                    value={inflation}
+                    onChange={(e) =>
+                    setProjectData((prev) => ({
+                        ...prev,
+                        inflation_multiplier: parseFloat(e.target.value) / 100,
+                    }))
+                    }
+                    className="basicInputBox"
+                />
+                
 
-            <div className="infoWrapper">
-                <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                <div className="infoBubble">
-                    The default number (2.7%) shown in column C represents the average 
-                    annual inflation rate multiplier from 1995-2025 as calculated by 
-                    the State Tax Commission (see Table 5 in the "Backend" sheet). 
-                    The default multiplier translates to a 2.7% average annual inflation rate. 
-                    Users can override this default number and enter their own estimated 
-                    average annual inflation rate multiplier if they prefer.
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        The default number (2.7%) represents the average 
+                        annual inflation rate multiplier from 1995-2025 as calculated by 
+                        the State Tax Commission. 
+                        The default multiplier translates to a 2.7% average annual inflation rate. 
+                        Users can override this default number and enter their own estimated 
+                        average annual inflation rate multiplier if they prefer.
+                    </div>
                 </div>
             </div>
-        </div>
-      </label>
+        </label>
+
+        <label>
+            Annual discount rate (%):
+            <div className="inputWithInfo">
+                <input
+                    type="number"
+                    step="0.01"
+                    value={discount}
+                    onChange={(e) =>
+                    setProjectData((prev) => ({
+                        ...prev,
+                        annual_discount_rate: parseFloat(e.target.value) / 100,
+                    }))
+                    }
+                    className="basicInputBox"
+                />
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        The default discount rate of 3.0% comes from {" "}
+                        <a style={{ textDecoration: "underline" }} target="_blank" href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
+                        Users can override this default rate and enter their own estimated 
+                        discount rate if they prefer.
+                    </div>
+                </div>
+
+                </div>
+              </label>
 
       <label>
-        Annual discount rate (%):
-        <div className="inputWithInfo">
+          <div className="inputWithInfo">
+          Project acreage under turbines:
           <input
-              type="number"
-              step="0.01"
-              value={discount}
-              onChange={(e) =>
-              setProjectData((prev) => ({
-                  ...prev!,
-                  annual_discount_rate: parseFloat(e.target.value) / 100,
-              }))
-              }
-              className="basicInputBox"
-            />
-            <div className="infoWrapper">
-              <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-              <div className="infoBubble">
-                  The default discount rate of 3.0% comes from FEMP guidelines for 
-                  analyzing renewable energy projects for federal agencies 
-                  (https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf). 
-                  Users can override this default rate and enter their own estimated 
-                  discount rate if they prefer.
-            </div>
+                type="number"
+                value={projectData.project_acreage ?? 0}
+                onChange={(e) =>
+                  setProjectData(prev => ({
+                    ...prev!,
+                    auto_calculate_acreage: false,
+                    project_acreage: parseFloat(e.target.value) || 0,
+                  }))
+                }
+                className="basicInputBox"
+              />
+
+              <div className="infoWrapper">
+                  <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                  <div className="infoBubble">
+                      We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                  </div>
+              </div>
           </div>
-        </div>
       </label>
 
+      {!projectData.auto_calculate_acreage && (
+          <>
+            <br />
+            <p className="warning">
+              <img
+                src="/photos-logos/warning-alert.svg"
+                alt="Warning sign logo."
+                className="warningImg"
+              />
+              <span>
+                WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
+                below to restore automatic calculation from turbine totals.
+              </span>
+            </p>
+            <br />
+          </>
+        )}
+        
 
       <label>
         Number of 1.5 MW wind turbine towers in service:
         <input
           type="number"
-          value={projectData?.number_1_5_turbines ?? 3}
+          value={projectData.number_1_5_turbines ?? 0}
           onChange={(e) =>
-            setProjectData((prev) => ({
+            setProjectData(prev => ({
               ...prev!,
-              turbines_1_5_MW: parseInt(e.target.value, 10),
+              number_1_5_turbines: parseInt(e.target.value, 10) || 0,
             }))
           }
           className="basicInputBox"
@@ -206,11 +394,11 @@ export default function MIWindProjectDetailsSection({
         Number of 1.65 MW wind turbine towers in service:
         <input
           type="number"
-          value={projectData?.number_1_65_turbines ?? 3}
+          value={projectData.number_1_65_turbines ?? 0}
           onChange={(e) =>
             setProjectData((prev) => ({
               ...prev!,
-              turbines_1_65_MW: parseInt(e.target.value, 10),
+              number_1_65_turbines: parseInt(e.target.value, 10) || 0,
             }))
           }
           className="basicInputBox"
@@ -221,11 +409,11 @@ export default function MIWindProjectDetailsSection({
         Number of 2.0 MW wind turbine towers in service:
         <input
           type="number"
-          value={projectData?.number_2_turbines ?? 3}
+          value={projectData.number_2_turbines ?? 0}
           onChange={(e) =>
             setProjectData((prev) => ({
               ...prev!,
-              turbines_2_0_MW: parseInt(e.target.value, 10),
+              number_2_turbines: parseInt(e.target.value, 10) || 0,
             }))
           }
           className="basicInputBox"
@@ -236,11 +424,11 @@ export default function MIWindProjectDetailsSection({
         Number of 2.2 MW wind turbine towers in service:
         <input
           type="number"
-          value={projectData?.number_2_2_turbines ?? 3}
+          value={projectData.number_2_2_turbines ?? 0}
           onChange={(e) =>
             setProjectData((prev) => ({
               ...prev!,
-              turbines_2_2_MW: parseInt(e.target.value, 10),
+              number_2_2_turbines: parseInt(e.target.value, 10) || 0,
             }))
           }
           className="basicInputBox"
@@ -251,16 +439,27 @@ export default function MIWindProjectDetailsSection({
         Number of 2.5 MW or greater wind turbine towers in service:
         <input
           type="number"
-          value={projectData?.number_2_5_turbines ?? 3}
+          value={projectData.number_2_5_turbines ?? 0}
           onChange={(e) =>
             setProjectData((prev) => ({
               ...prev!,
-              turbines_2_5_MW_or_greater: parseInt(e.target.value, 10),
+              number_2_5_turbines: parseInt(e.target.value, 10) || 0,
             }))
           }
           className="basicInputBox"
         />
       </label>
+
+      <button
+        type="button"
+        onClick={handleResetTurbines}
+        className="inPageButton"
+      >
+        Reset Turbines to Default
+      </button>
+
+
     </section>
   );
+
 }

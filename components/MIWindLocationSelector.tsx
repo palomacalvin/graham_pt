@@ -47,173 +47,193 @@ interface Props {
   onSelectLocation?: (location: Location | null) => void;
 }
 
-export function LocationSelector({ onSelectLocation }: Props) {
+export default function LocationSelector({ onSelectLocation }: Props) {
   const [allLocations, setAllLocations] = useState<Location[]>([]);
-  const [selectedCounty, setSelectedCounty] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<string>("");
-  const [selectedVillage, setSelectedVillage] = useState<string>("");
-  const [selectedSchool, setSelectedSchool] = useState<string>("");
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [selectedCounty, setSelectedCounty] = useState("");
+  const [selectedUnit, setSelectedUnit] = useState<{ name: string; isCity: boolean } | null>(null);
+  const [selectedVillage, setSelectedVillage] = useState("");
+  const [selectedSchool, setSelectedSchool] = useState("");
 
-    // Fetch all data for each location.
-    useEffect(() => {
-        fetch("/api/michigan/millages")
-        .then((res) => res.json())
-        .then((data) => {
-            if (Array.isArray(data?.counties)) {
-            setAllLocations(data.counties);
-            } else {
-            setAllLocations([]);
-            }
-        })
-        .catch((err) => {
-            console.error("Error fetching millages:", err);
-            setAllLocations([]);
-        });
-    }, []);
+  // Fetch all locations and normalize city to boolean
+  useEffect(() => {
+    fetch("/api/michigan/millages")
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data?.counties)) {
+          setAllLocations(
+            data.counties.map((l: any) => ({
+              ...l,
+              city: l.city === true || l.city === "true", // now TypeScript won't complain
+            }))
+          );
+        } else setAllLocations([]);
+      })
+      .catch(() => setAllLocations([]));
+  }, []);
 
-    // Sort by unique counties.
-    const counties = useMemo(
-        () => Array.from(new Set(allLocations.map((l) => l.county_name))).sort(),
-        [allLocations]
-    );
+  // Counties
+  const counties = useMemo(() => Array.from(new Set(allLocations.map(l => l.county_name))).sort(), [allLocations]);
 
-    // Filter local units by county.
-    const cities = useMemo(() => {
-        if (!selectedCounty) return [];
-        const localUnits = allLocations.filter(
-        (l) => l.county_name === selectedCounty
-        );
-        return Array.from(new Set(localUnits.map((l) => l.local_unit_name))).sort();
-    }, [allLocations, selectedCounty]);
+  // Local units (cities + townships) for selected county
+  const localUnits = useMemo(() => {
+    if (!selectedCounty) return [];
+    const units = allLocations.filter(l => l.county_name === selectedCounty);
+    const map = new Map<string, { name: string; isCity: boolean }>();
+    units.forEach(l => {
+      const isCity = l.city === true; // normalize
+      const key = `${l.local_unit_name}__${isCity}`;
+      if (!map.has(key)) map.set(key, { name: l.local_unit_name, isCity });
+    });
+    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+  }, [allLocations, selectedCounty]);
 
-    // List villages for selected city (if present).
-    const villages = useMemo(() => {
-        if (!selectedCounty || !selectedCity) return [];
-        const cityLocations = allLocations.filter(
-        (l) => l.county_name === selectedCounty && l.local_unit_name === selectedCity
-        );
-        return Array.from(
-        new Set(cityLocations.map((l) => l.village_name).filter(Boolean))
-        ) as string[];
-    }, [allLocations, selectedCounty, selectedCity]);
+  // Villages for selected unit
+  const villages = useMemo(() => {
+    if (!selectedCounty || !selectedUnit) return [];
+    return Array.from(
+      new Set(
+        allLocations
+          .filter(
+            l =>
+              l.county_name === selectedCounty &&
+              l.local_unit_name === selectedUnit.name &&
+              l.city === selectedUnit.isCity
+          )
+          .map(l => l.village_name)
+          .filter(Boolean)
+      )
+    ) as string[];
+  }, [allLocations, selectedCounty, selectedUnit]);
 
-    // List schools for selected county, city, and village combination.
-    const schools = useMemo(() => {
-        if (!selectedCounty || !selectedCity) return [];
-        const filtered = allLocations.filter(
-        (l) =>
-            l.county_name === selectedCounty &&
-            l.local_unit_name === selectedCity &&
-            (!selectedVillage || l.village_name === selectedVillage)
-        );
-        return Array.from(new Set(filtered.map((l) => l.school_name))).sort();
-    }, [allLocations, selectedCounty, selectedCity, selectedVillage]);
+  // Schools for selected county/unit/village
+  const schools = useMemo(() => {
+    if (!selectedCounty || !selectedUnit) return [];
+    return Array.from(
+      new Set(
+        allLocations
+          .filter(
+            l =>
+              l.county_name === selectedCounty &&
+              l.local_unit_name === selectedUnit.name &&
+              l.city === selectedUnit.isCity &&
+              (!selectedVillage || l.village_name === selectedVillage)
+          )
+          .map(l => l.school_name)
+      )
+    ).sort();
+  }, [allLocations, selectedCounty, selectedUnit, selectedVillage]);
 
-    // Update selected location whenever all selections are made
-    useEffect(() => {
-        if (!selectedCounty || !selectedCity) {
-        setSelectedLocation(null);
-        onSelectLocation?.(null);
-        return;
-        }
-        const loc = allLocations.find(
-        (l) =>
-            l.county_name === selectedCounty &&
-            l.local_unit_name === selectedCity &&
-            (!selectedVillage || l.village_name === selectedVillage) &&
-            (!selectedSchool || l.school_name === selectedSchool)
-        ) || null;
+  // Update selected location
+  useEffect(() => {
+    if (!selectedCounty || !selectedUnit) {
+      onSelectLocation?.(null);
+      return;
+    }
+    const loc = allLocations.find(
+      l =>
+        l.county_name === selectedCounty &&
+        l.local_unit_name === selectedUnit.name &&
+        l.city === selectedUnit.isCity &&
+        (selectedVillage ? l.village_name === selectedVillage : true) &&
+        (selectedSchool ? l.school_name === selectedSchool : true)
+    ) || null;
+    onSelectLocation?.(loc);
+  }, [allLocations, selectedCounty, selectedUnit, selectedVillage, selectedSchool, onSelectLocation]);
 
-        setSelectedLocation(loc);
-        onSelectLocation?.(loc);
-    }, [selectedCounty, selectedCity, selectedVillage, selectedSchool, allLocations, onSelectLocation]);
-
-return (
+  return (
     <div>
-      {/* County Select */}
+      {/* County */}
       <div>
         <select
           value={selectedCounty}
-          onChange={(e) => {
+          onChange={e => {
             setSelectedCounty(e.target.value);
-            setSelectedCity("");
+            setSelectedUnit(null);
             setSelectedVillage("");
             setSelectedSchool("");
-            }}
-            className="basicDropdown"
+          }}
+          className="basicDropdown"
         >
           <option value="">-- Choose County --</option>
-          {counties.map((county) => (
-            <option key={county} value={county}>
-              {county}
+          {counties.map(c => (
+            <option key={c} value={c}>
+              {c}
             </option>
           ))}
         </select>
         <div className="required">Required</div>
       </div>
-      <br></br>
 
-      {/* City and Township */}
+      <br />
+
+      {/* Local Unit (City / Township) */}
       <div>
         <select
-            value={selectedCity}
-            onChange={(e) => {
-            setSelectedCity(e.target.value);
-            setSelectedVillage("");
-            setSelectedSchool("");
+            value={selectedUnit ? `${selectedUnit.name}__${selectedUnit.isCity ? "true" : "false"}` : ""}
+            onChange={e => {
+              const [name, isCityStr] = e.target.value.split("__");
+              setSelectedUnit({ name, isCity: isCityStr === "true" });
+              setSelectedVillage("");
+              setSelectedSchool("");
             }}
             disabled={!selectedCounty}
             className="basicDropdown"
-        >
-          <option value="">-- Choose Local Unit --</option>
-            {cities.map((c) => (
-            <option key={c} value={c}>{c}</option>
+          >
+            <option value="">-- Choose Local Unit --</option>
+            {localUnits.map(lu => (
+              <option
+                key={`${lu.name}__${lu.isCity}`}
+                value={`${lu.name}__${lu.isCity ? "true" : "false"}`}
+              >
+                {lu.name} {lu.isCity ? "(City)" : "(Township)"}
+              </option>
             ))}
-        </select>
-
+          </select>
         <div className="required">Required</div>
+      </div>
 
-        <br></br>
+      <br />
 
-
-        {/* Village (optional) */}
-        {villages.length > 0 && (
-            <select
+      {/* Village */}
+      {villages.length > 0 && (
+        <div>
+          <select
             value={selectedVillage}
-            onChange={(e) => {
-                setSelectedVillage(e.target.value);
-                setSelectedSchool("");
+            onChange={e => {
+              setSelectedVillage(e.target.value);
+              setSelectedSchool("");
             }}
             className="basicDropdown"
-            >
+          >
             <option value="">-- Choose Village --</option>
-            {villages.map((v) => (
-                <option key={v} value={v}>{v}</option>
+            {villages.map(v => (
+              <option key={v} value={v}>
+                {v}
+              </option>
             ))}
-            </select>
-        )}
+          </select>
+          <div className="required">Required</div>
+        </div>
+      )}
 
-        {/* School District */}
-        {schools.length > 0 && (
-          <div style={{ marginTop: "1rem" }}>
-            <select
+      {/* School */}
+      {schools.length > 0 && (
+        <div>
+          <select
             value={selectedSchool}
-            onChange={(e) => setSelectedSchool(e.target.value)}
+            onChange={e => setSelectedSchool(e.target.value)}
             className="basicDropdown"
-            >
+          >
             <option value="">-- Choose School District --</option>
-            {schools.map((s) => (
-                <option key={s} value={s}>{s}</option>
+            {schools.map(s => (
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
-            </select>
-
-            <div className="required">Required</div>
-
-            </div>
-        )}
-
-      </div>
+          </select>
+          <div className="required">Required</div>
+        </div>
+      )}
     </div>
   );
 }

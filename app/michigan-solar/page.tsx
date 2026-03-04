@@ -40,17 +40,23 @@ export default function MichiganSolar() {
 
         </div>
 
-        <p className="basicBox">
-          Fill in the fields below with values relevant to your project. Default values
-          are available for each county, city/township, and school district; these values
-          have been compiled from state-by-state research. See the{" "}
-            <Link className="boxLinkText" href="references">
-              References
-            </Link>{" "}
-            page for more details.
+        <div className="basicBox">
+          <p>
+            Fill in the fields below with values relevant to your project. Default values
+            are available for each county, city/township, and school district; these values
+            have been compiled from state-by-state research. See the{" "}
+              <Link className="boxLinkText" href="references">
+                References
+              </Link>{" "}
+              page for more details.
 
-          Hover over the information icons next to each field to learn more about individual inputs.
-        </p>
+            Hover over the information icons next to each field to learn more about individual inputs.
+          </p>
+
+          <p style={{ marginTop: "1rem" }}>
+            Please contact Vamika Jain at vamikaj@umich.edu for any questions or feedback.
+          </p>
+        </div>
 
         <div style={{ margin: "3rem" }}>
             {/* Project Location Section */}

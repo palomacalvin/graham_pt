@@ -54,11 +54,15 @@ export interface ProjectData {
 
     // Real property values.
     real_property_ownership_change: string;
-    pre_wind_taxable_value: number;
-    post_wind_taxable_value: number;
+    pre_wind_taxable_value?: number;
+    post_wind_taxable_value?: number;
     change_in_real_property_taxable_value: 0.00;
 
     project_acreage: number;
+    nameplate_capacity?: number;
+    auto_calculate_costs: boolean;
+    auto_calculate_acreage?: boolean;
+    
 
 }
 

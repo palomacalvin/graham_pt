@@ -2,11 +2,11 @@
 
 import React from "react";
 import { ProjectData } from "@/types/MIWindProject";
-import { LocationSelector } from "../../components/MIWindLocationSelector";
+import LocationSelector from "@/components/MIWindLocationSelector";
 
 interface Props {
   projectData: ProjectData | null;
-  setProjectData: React.Dispatch<React.SetStateAction<ProjectData | null>>;
+  setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>;
 }
 
 export default function MIWindProjectLocationSection({
