@@ -3,6 +3,7 @@
 import React from "react";
 import { ProjectData } from "@/types/MISolarProject";
 import LocationSelector from "@/components/MISolarLocationSelector";
+import { useCallback } from "react";
 
 interface Props {
   projectData: ProjectData;
@@ -14,6 +15,17 @@ export default function MIProjectLocationSection({
   projectData,
   setProjectData,
 }: Props) {
+
+  const handleSelectLocation = useCallback((location: any) => {
+    if (!location) return;
+
+    setProjectData((prev) => ({
+      ...prev,
+      ...location,
+    }));
+  }, [setProjectData]);
+
+
   return (
     <section>
       <h1>Project Location Information</h1>
@@ -23,14 +35,7 @@ export default function MIProjectLocationSection({
 
       <LocationSelector
         stateName="MICHIGAN"
-        onSelectLocation={(location) => {
-          if (!location) return;
-
-          setProjectData((prev) => ({
-            ...prev,
-            ...location,
-          }));
-        }}
+        onSelectLocation={handleSelectLocation}
       />
 
 
