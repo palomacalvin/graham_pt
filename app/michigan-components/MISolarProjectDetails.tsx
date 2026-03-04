@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ProjectData } from "@/types/MISolarProject";
+import { useEffect } from "react";
 
 interface Props {
   projectData: ProjectData;
@@ -17,6 +18,34 @@ export default function MISolarProjectDetailsSection ({
     const inflation = (projectData.inflation_multiplier ?? 0) * 100;
     const discount = (projectData.annual_discount_rate ?? 0) * 100;
 
+    useEffect(() => {
+        if (!projectData.auto_calculate_costs) return;
+        if (!projectData.nameplate_capacity) return;
+
+        const base_cost = projectData.nameplate_capacity * 1_000_000;
+
+        setProjectData((prev) => ({
+            ...prev,
+            original_cost_pre_inverter: base_cost * 0.9,
+            original_cost_post_inverter: base_cost * 0.1,
+        }));
+    }, [projectData.nameplate_capacity, projectData.auto_calculate_costs]);
+
+    const DEFAULT_PROJECT_DETAILS = {
+        nameplate_capacity: 100,
+        expected_useful_life: 30,
+        inflation_multiplier: 0.027,
+        annual_discount_rate: 0.03,
+        auto_calculate_costs: true,
+    };
+
+    const handleResetDefaults = () => {
+        setProjectData((prev) => ({
+            ...prev,
+            ...DEFAULT_PROJECT_DETAILS,
+        }));
+    };
+
     return (
         <section>
             <h1>Project Details</h1>
@@ -29,6 +58,16 @@ export default function MISolarProjectDetailsSection ({
                 your project.
             </p>
             
+            <br></br>
+
+            <button
+                type="button"
+                onClick={handleResetDefaults}
+                className="inPageButton"
+            >
+                Reset to Defaults
+            </button>
+
             <br></br>
             
             <label>
@@ -48,7 +87,24 @@ export default function MISolarProjectDetailsSection ({
                 </div>
             </label>
 
-        
+            {!projectData.auto_calculate_costs && (
+                <>
+                <br></br>
+                    <p className="warning">
+                        <img
+                            src="/photos-logos/warning-alert.svg"
+                            alt="Warning sign logo."
+                            className="warningImg"
+                        />
+                        <span>
+                            WARNING: Costs are manually overridden. Click "Reset to Defaults" to restore automatic
+                            calculation from nameplate capacity.
+                        </span>
+                    </p>
+                <br></br>
+                </>
+                
+            )}
 
             <label>
                 Original cost of site improvements for <strong>new</strong>{" "}
@@ -60,8 +116,9 @@ export default function MISolarProjectDetailsSection ({
                     value={projectData.original_cost_pre_inverter}
                     onChange={(e) =>
                         setProjectData((prev) => ({
-                        ...prev,
-                        original_cost_pre_inverter: parseFloat(e.target.value),
+                            ...prev,
+                            auto_calculate_costs: false,
+                            original_cost_pre_inverter: parseFloat(e.target.value),
                         }))
                     }
                     className="basicInputBox"
@@ -89,8 +146,9 @@ export default function MISolarProjectDetailsSection ({
                     value={projectData?.original_cost_post_inverter ?? 10000000}
                     onChange={(e) =>
                         setProjectData((prev) => ({
-                        ...prev,
-                        original_cost_post_inverter: parseFloat(e.target.value),
+                            ...prev,
+                            auto_calculate_costs: false,
+                            original_cost_post_inverter: parseFloat(e.target.value),
                         }))
                     }
                     className="basicInputBox"

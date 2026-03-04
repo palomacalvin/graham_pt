@@ -12,6 +12,8 @@ export default function MISolarRealPropertyCalculator ({
     projectData,
     setProjectData
 
+    
+
 }: Props) {
 
     const acreage =
@@ -92,7 +94,21 @@ export default function MISolarRealPropertyCalculator ({
         projectData.nameplate_capacity,
         projectData.real_property_ownership_change,
     ]);
+
+    const DEFAULT_REAL_PROPERTY = {
+        project_acreage: 0, // Triggers 7 acres per MW fallback
+        real_property_previously_covered: "yes",
+        real_property_ownership_change: "no",
+        real_property_conditions: false,
+        post_solar_taxable_value: undefined,
+    };
     
+    const handleResetDefaults = () => {
+        setProjectData((prev) => ({
+            ...prev,
+            ...DEFAULT_REAL_PROPERTY,
+        }));
+    };
 
     return (
         <section>
@@ -105,6 +121,16 @@ export default function MISolarRealPropertyCalculator ({
                 use the defaults listed below, or override them with values relevant to
                 your project.
             </p>
+
+            <br></br>
+
+            <button
+                type="button"
+                onClick={handleResetDefaults}
+                className="inPageButton"
+            >
+                Reset to Defaults
+            </button>
 
             <br></br>
 
@@ -188,6 +214,7 @@ export default function MISolarRealPropertyCalculator ({
 
 
             <section className="basicFormList">
+                <div className="inputWithInfo">
                 <fieldset>
                     <legend>
                         Is any of the following true about the real property?
@@ -238,7 +265,17 @@ export default function MISolarRealPropertyCalculator ({
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
+
+                        <div className="infoWrapper">
+                            <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble" className="adjustedInfoIcon"></img>
+                            <div className="infoBubble">
+                                This determines which PILT rate would apply to the project. 
+                            </div>
+                        </div>
+
                 </fieldset>
+
+            </div>
 
             <br></br>
 

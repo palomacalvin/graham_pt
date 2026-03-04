@@ -27,6 +27,7 @@ export default function MichiganSolar() {
     inflation_multiplier: 0.027,
     annual_discount_rate: 0.03,
     project_acreage: 0,
+    auto_calculate_costs: true,
   });
 
   return (

@@ -57,6 +57,10 @@ export interface ProjectData {
     real_property_school_district_millages: number;
     real_property_other_millages: number;
     project_acreage: number;
+
+
+    // Auto-calculations
+    auto_calculate_costs: boolean;
 }
 
 
