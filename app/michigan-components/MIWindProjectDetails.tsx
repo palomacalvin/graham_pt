@@ -46,35 +46,70 @@ export default function MIWindProjectDetailsSection({
       };
 
 
+      
+  const acreage = projectData.project_acreage;
+  const acreage_default_value = acreage * 4285.7;
+
   useEffect(() => {
-          // Compute acreage and taxable values inside the effect
-          // const acreage = projectData.project_acreage;
-  
-          const pre_wind = acreage * 4285.7;
-  
-          const post_wind_value =
-              projectData.real_property_ownership_change === "yes"
-                  ? projectData.post_wind_taxable_value ?? pre_wind
-                  : pre_wind;
+    const acreage = projectData.project_acreage ?? 0;
+    const defaultValue = acreage * 4285.7;
 
-          // Update project data state
-          setProjectData(prev => ({
-          ...prev,
-          pre_wind_taxable_value: pre_wind,
-          post_wind_taxable_value:
-              prev.post_wind_taxable_value !== undefined
-                  ? prev.post_wind_taxable_value
-                  : projectData.real_property_ownership_change === "yes"
-                  ? pre_wind 
-                  : undefined,
-          }));
-      }, [
-          projectData.project_acreage,
-          projectData.nameplate_capacity,
-          projectData.real_property_ownership_change,
-      ]);
+    const pre =
+      projectData.pre_wind_taxable_value ?? defaultValue;
 
-      const acreage = projectData.project_acreage;
+    const post =
+      projectData.post_wind_taxable_value ?? defaultValue;
+
+    const change =
+      projectData.real_property_ownership_change === "yes"
+        ? post - pre
+        : 0;
+
+    console.log("Taxable value change:", change);
+
+    setProjectData(prev => ({
+      ...prev,
+      real_property_taxable_value_change: change,
+    }));
+  }, [
+    projectData.project_acreage,
+    projectData.pre_wind_taxable_value,
+    projectData.post_wind_taxable_value,
+    projectData.real_property_ownership_change,
+  ]);
+
+
+
+  // useEffect(() => {
+  //     const acreage = projectData.project_acreage ?? 0;
+  //     const pre_wind = acreage * 4285.7;
+
+  //     setProjectData(prev => ({
+  //       ...prev,
+  //       pre_wind_taxable_value: pre_wind,
+
+  //       // Only auto-sync post value IF user has not overridden it
+  //       post_wind_taxable_value:
+  //         projectData.real_property_ownership_change === "yes"
+  //           ? prev.post_wind_taxable_value ?? undefined
+  //           : undefined,
+  //     }));
+  //   }, [
+  //     projectData.project_acreage,
+  //     projectData.real_property_ownership_change,
+  //   ]);
+
+
+      const pre_wind = acreage * 4285.7;
+
+      const post_wind = projectData.real_property_ownership_change === "yes"
+      ? projectData.post_wind_taxable_value ?? pre_wind
+      : pre_wind;
+
+      const newly_subject_value =
+        projectData.real_property_ownership_change === "yes"
+          ? post_wind - pre_wind
+          : 0;
 
       const DEFAULT_TURBINES = {
         number_1_5_turbines: 8,
@@ -97,6 +132,13 @@ export default function MIWindProjectDetailsSection({
           ...DEFAULT_TURBINES,
           project_acreage: total,
           auto_calculate_acreage: true,
+
+          pre_wind_taxable_value: pre_wind,
+          post_wind_taxable_value:
+            projectData.real_property_ownership_change === "yes"
+              ? post_wind
+              : undefined,
+          real_property_newly_subject_value: newly_subject_value,
         }));
       };
 
@@ -125,7 +167,23 @@ export default function MIWindProjectDetailsSection({
       projectData.auto_calculate_acreage,
     ]);
 
+
+    const post_wind_display =
+      projectData.post_wind_taxable_value ?? pre_wind;
+
+
+    const handleResetPostWindValue = () => {
+      const resetValue = (projectData.project_acreage ?? 0) * 4285.7;
+
+      setProjectData(prev => ({
+        ...prev,
+        pre_wind_taxable_value: resetValue,
+        post_wind_taxable_value: resetValue,
+      }));
+    };
+
   return (
+    <>
     <section>
       <h1>Project Details</h1>
       <br></br>
@@ -460,6 +518,113 @@ export default function MIWindProjectDetailsSection({
 
 
     </section>
+
+    <section style={{ marginTop: "3rem" }}>
+            <h1>Real Property Calculation Details</h1>
+
+            <br></br>
+
+            <label>
+                Did the real property change ownership as a result of the solar project?
+                <div className="inputWithInfo">
+                    <div>
+                        <select
+                            value={projectData.real_property_ownership_change}
+                            onChange={(e) => {
+                                setProjectData((prev) => ({
+                                    ...prev,
+                                    real_property_ownership_change: e.target.value,
+                                    }))
+                                }}
+                                className="basicDropdown"
+                            >
+                            <option value="">-- Choose Option --</option>
+                            <option value={"yes"}>
+                                Yes
+                            </option>
+                            <option value={"no"}>
+                                No
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div className="infoWrapper">
+                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            In most cases, but not always, the answer to this question will be "No" because the land under wind projects is typically leased.
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <label>
+                <div className="inputWithInfo">
+                  Pre-Wind Taxable Value:
+                  <input
+                    type="number"
+                    value={
+                      projectData.pre_wind_taxable_value ?? acreage_default_value
+                    }
+                    onChange={(e) =>
+                      setProjectData(prev => ({
+                        ...prev,
+                        pre_wind_taxable_value: parseFloat(e.target.value) || 0,
+                      }))
+                    }
+                    className="basicInputBox"
+                  />
+
+                  <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble" />
+                    <div className="infoBubble">
+                      Note that the taxable value of land in Michigan is typically an adjusted assessed 
+                      value set by the government and is less than the true market value. We assume a hypothetical $4,285.70 / acre
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              {projectData.real_property_ownership_change === "yes" && (
+                <label>
+                  <div className="inputWithInfo">
+                    Post-Wind Taxable Value:
+                    <input
+                      type="number"
+                      value={
+                        projectData.post_wind_taxable_value ?? acreage_default_value
+                      }
+                      onChange={(e) =>
+                        setProjectData(prev => ({
+                          ...prev,
+                          post_wind_taxable_value: parseFloat(e.target.value) || 0,
+                        }))
+                      }
+                      className="basicInputBox"
+                    />
+
+                    <div className="infoWrapper">
+                      <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble" />
+                      <div className="infoBubble">
+                        Note: If the real property changed ownership as a result of the solar project 
+                        (i.e., the developer purchased the underlying land instead of leasing it), the taxable value will be "uncapped" to equal the state equalized value (SEV), which is set at 50% of true cash value.
+                      </div>
+                    </div>
+                  </div>
+                </label>
+              )}
+
+              <br></br>
+              <button
+                type="button"
+                onClick={handleResetPostWindValue}
+                className="inPageButton"
+              >
+                Reset Values to Match Acreage
+              </button>
+
+            <br></br>
+        </section>
+      </>
   );
 
 }

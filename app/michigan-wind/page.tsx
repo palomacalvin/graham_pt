@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import { ProjectData } from "@/types/MIWindProject";
 import MIProjectLocationSection from "@/app/michigan-components/MIWindProjectLocationSection";
 import MIWindProjectDetailsSection from "../michigan-components/MIWindProjectDetails";
+import MIWindRealPropertyCalculator from "../michigan-components/MIWindRealPropertyCalculator";
 
 export default function MichiganWind() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -70,6 +71,10 @@ export default function MichiganWind() {
       <div style={{ margin: "3rem" }}>
         <MIWindProjectDetailsSection projectData={projectData} setProjectData={setProjectData} />
       </div>
+
+      {/* <div style={{ margin: "3rem" }}>
+        <MIWindRealPropertyCalculator projectData={projectData} setProjectData={setProjectData} />
+      </div> */}
     </div>
   );
 }

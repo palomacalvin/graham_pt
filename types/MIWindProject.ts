@@ -57,12 +57,14 @@ export interface ProjectData {
     pre_wind_taxable_value?: number;
     post_wind_taxable_value?: number;
     change_in_real_property_taxable_value: 0.00;
+    real_property_newly_subject?: number;
 
     project_acreage: number;
     nameplate_capacity?: number;
     auto_calculate_costs: boolean;
     auto_calculate_acreage?: boolean;
-    
+    real_property_taxable_value_change?: number;
+
 
 }
 
