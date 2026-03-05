@@ -63,7 +63,7 @@ export default function LocationSelector({ onSelectLocation }: Props) {
           setAllLocations(
             data.counties.map((l: any) => ({
               ...l,
-              city: l.city === true || l.city === "true", // now TypeScript won't complain
+              city: l.city === true || l.city === "true",
             }))
           );
         } else setAllLocations([]);

@@ -103,7 +103,6 @@ export default function MISolarProjectDetailsSection ({
                     </p>
                 <br></br>
                 </>
-                
             )}
 
             <label>
@@ -137,7 +136,7 @@ export default function MISolarProjectDetailsSection ({
 
 
         <label>
-            Original cost of site improvements for <strong>new</strong> solar project
+            Original cost of site improvements for <strong>new</strong> solar projects
             {" "}<strong>after the inverter</strong>, including: cables, substations, and other transmission
             and distribution infrastructure created by the solar project ($):
             <div className="inputWithInfo">

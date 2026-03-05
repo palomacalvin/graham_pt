@@ -3,6 +3,8 @@
 import React from "react";
 import { ProjectData } from "@/types/MIWindProject";
 import LocationSelector from "@/components/MIWindLocationSelector";
+import { useCallback } from "react";
+
 
 interface Props {
   projectData: ProjectData | null;
@@ -13,6 +15,17 @@ export default function MIWindProjectLocationSection({
   projectData,
   setProjectData,
 }: Props) {
+
+  const handleSelectLocation = useCallback((location: any) => {
+      if (!location) return;
+  
+      setProjectData((prev) => ({
+        ...prev,
+        ...location,
+      }));
+    }, [setProjectData]);
+
+
   return (
     <section>
       <h1>Project Location Information</h1>
@@ -21,14 +34,7 @@ export default function MIWindProjectLocationSection({
 
         <LocationSelector
             stateName="MICHIGAN"
-            onSelectLocation={(location) => {
-                if (!location) return;
-
-                setProjectData((prev) => ({
-                ...prev!,
-                ...location,
-                }));
-            }}
+            onSelectLocation={(handleSelectLocation)}
         />
 
 
@@ -36,19 +42,6 @@ export default function MIWindProjectLocationSection({
         <>
           <br />
 
-          {/* <div>
-            <strong>Selected Location:</strong>
-            <br></br>
-            <br></br>
-            <ul>
-              <li>County: {projectData.county_name}</li>
-              <li>Local Unit: {projectData.local_unit_name}</li>
-              <li>
-                Type: {projectData.city ? "City" : "Township"}
-              </li>
-              <li>School District: {projectData.school_name}</li>
-            </ul>
-          </div> */}
         </>
       )}
     </section>

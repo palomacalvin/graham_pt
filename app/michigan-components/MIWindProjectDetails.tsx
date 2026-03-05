@@ -310,13 +310,20 @@ export default function MIWindProjectDetailsSection({
                 <input
                     type="number"
                     step="1"
+                    min={1}
+                    max={35}
                     value={projectData.expected_useful_life ?? 30}
-                    onChange={(e) =>
-                        setProjectData((prev) => ({
+                   onChange={(e) => {
+                      let value = parseInt(e.target.value, 10) || 1;
+
+                      // Cap value at 35
+                      if (value > 35) value = 35;
+
+                      setProjectData((prev) => ({
                         ...prev,
-                        expected_useful_life: parseFloat(e.target.value),
-                        }))
-                }
+                        expected_useful_life: value,
+                      }));
+                    }}
                 className="basicInputBox"
                 />
 
@@ -388,6 +395,11 @@ export default function MIWindProjectDetailsSection({
 
                 </div>
               </label>
+
+      <br></br>
+      <h1>Acreage and Turbines</h1>
+
+      <br></br>
 
       <label>
           <div className="inputWithInfo">

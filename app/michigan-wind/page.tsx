@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import { ProjectData } from "@/types/MIWindProject";
 import MIProjectLocationSection from "@/app/michigan-components/MIWindProjectLocationSection";
 import MIWindProjectDetailsSection from "../michigan-components/MIWindProjectDetails";
-import MIWindRealPropertyCalculator from "../michigan-components/MIWindRealPropertyCalculator";
+import MIWindTaxResults from "../michigan-components/MIWindTaxResults";
 
 export default function MichiganWind() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -61,6 +61,16 @@ export default function MichiganWind() {
           <p style={{ marginTop: "1rem" }}>
             Please contact Vamika Jain at vamikaj@umich.edu for any questions or feedback.
           </p>
+
+          <br></br>
+
+          <a
+            className="inPageButton basicLinkText"
+            href="/michigan/Michigan-Property-Tax-Final-2025.pdf"
+            download="Michigan-Policy-Brief.pdf"
+          >
+            Click to download the policy brief
+          </a>
       </div>
 
       <div style={{ margin: "3rem" }}>
@@ -75,6 +85,10 @@ export default function MichiganWind() {
       {/* <div style={{ margin: "3rem" }}>
         <MIWindRealPropertyCalculator projectData={projectData} setProjectData={setProjectData} />
       </div> */}
+
+      <div style={{ margin: "3rem" }}>
+        <MIWindTaxResults projectData={projectData}/>
+      </div>
     </div>
   );
 }

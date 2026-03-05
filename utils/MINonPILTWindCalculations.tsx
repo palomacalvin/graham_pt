@@ -33,19 +33,55 @@ export function calculateYearlyNPV(
 }
 
 // Generates yearly revenue arrays up to 30 years.
-export function generateYearlyRevenue(
-    original_cost: number,
+export function generateIPPYearlyRevenue(
     millage_rate: number,
-    factors: { factor_form_3589: number }[],
+    pre_interface_cost: number,
+    turbine_tcv: number,
+    factors4565: MIMultiplicationFactors[],
     years = 30
 ): YearlyRevenueResult[] {
-    return factors.slice(0, years).map((factor, index) => {
-    const year = index + 1;
-    const tcv = original_cost * factor.factor_form_3589 * 0.5;
-    const revenue = (millage_rate / 1000) * tcv;
 
-    return { year, tcv, revenue };
+    return factors4565.slice(0, years).map((factor, index) => {
+    const year = index + 1;
+
+    const installation_tcv =
+        pre_interface_cost * factor.factor_form_4565 * 0.5;
+
+    const combined_tcv =
+        turbine_tcv + installation_tcv;
+
+    const revenue =
+        (millage_rate / 1000) * combined_tcv;
+
+    return {
+        year,
+        tcv: combined_tcv,
+        revenue,
+    };
     });
+}
+
+// Calculate turbine true cash values.
+export function calculateTurbineTCV(projectData: ProjectData) {
+
+  const turbine_values = {
+    "1.5": 43600,
+    "1.65": 47900,
+    "2": 58100,
+    "2.2": 64000,
+    "2.5+": 72700,
+  };
+
+  const turbine_tcv =
+    (
+      turbine_values["1.5"] * (projectData.number_1_5_turbines ?? 0) +
+      turbine_values["1.65"] * (projectData.number_1_65_turbines ?? 0) +
+      turbine_values["2"] * (projectData.number_2_turbines ?? 0) +
+      turbine_values["2.2"] * (projectData.number_2_2_turbines ?? 0) +
+      turbine_values["2.5+"] * (projectData.number_2_5_turbines ?? 0)
+    ) * 0.5;
+
+  return turbine_tcv;
 }
 
 
@@ -65,6 +101,8 @@ export function calculateGrossTotal(values: number[]): number {
     return values.reduce((acc, val) => acc + val, 0);
 }
 
+
+
 // Main tax results calculations for each unit/jurisdiction.
 export function calculateMichiganTaxResults(
     projectData: ProjectData,
@@ -72,23 +110,33 @@ export function calculateMichiganTaxResults(
 ) {
     const original_cost = projectData.original_cost_pre_interface ?? 0;
     const discount_rate = projectData.annual_discount_rate ?? 0.05;
+    const turbine_tcv = calculateTurbineTCV(projectData);
 
-    const county_allocated = generateYearlyRevenue(
-        original_cost,
+    const expected_years = projectData.expected_useful_life ?? 30;
+
+
+    const county_allocated = generateIPPYearlyRevenue(
         projectData.county_allocated ?? 0,
-        multiplicationFactors
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
+        multiplicationFactors,
+        expected_years
     );
 
-    const county_extra = generateYearlyRevenue(
-        original_cost,
+    const county_extra = generateIPPYearlyRevenue(
         projectData.county_extra_voted ?? 0,
-        multiplicationFactors
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
+        multiplicationFactors,
+        expected_years
     );
 
-    const county_debt = generateYearlyRevenue(
-        original_cost,
+    const county_debt = generateIPPYearlyRevenue(
         projectData.county_debt ?? 0,
-        multiplicationFactors
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
+        multiplicationFactors,
+        expected_years
     );
 
     const total_county_per_year = sumRevenueStreams([
@@ -104,22 +152,28 @@ export function calculateMichiganTaxResults(
   
     // ========================= Local Unit ======================== //
 
-    const local_unit_allocated = generateYearlyRevenue(
-        original_cost,
+    const local_unit_allocated = generateIPPYearlyRevenue(
         projectData.lu_allocated ?? 0,
-        multiplicationFactors
-    );
-
-    const local_unit_extra_voted = generateYearlyRevenue(
-        original_cost,
-        projectData.lu_extra_voted ?? 0,
-        multiplicationFactors
-    );
-
-    const local_unit_debt = generateYearlyRevenue(
-        original_cost,
-        projectData.lu_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
+    );
+
+    const local_unit_extra_voted = generateIPPYearlyRevenue(
+        projectData.lu_extra_voted ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
+        multiplicationFactors,
+        expected_years
+    );
+
+    const local_unit_debt = generateIPPYearlyRevenue(
+        projectData.lu_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
+        multiplicationFactors,
+        expected_years
     );
 
     const total_local_unit_per_year = sumRevenueStreams([
@@ -135,29 +189,37 @@ export function calculateMichiganTaxResults(
 
     // ========================= School District ======================== //
 
-    const sd_hold_harmless = generateYearlyRevenue(
-        original_cost,
+    const sd_hold_harmless = generateIPPYearlyRevenue(
         projectData.sd_hold_harmless ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const sd_debt = generateYearlyRevenue(
-        original_cost,
+    const sd_debt = generateIPPYearlyRevenue(
         projectData.sd_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years,
     );
 
-    const sd_sinking_fund = generateYearlyRevenue(
-        original_cost,
+    const sd_sinking_fund = generateIPPYearlyRevenue(
         projectData.sd_sinking_fund ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years,
     );
 
 
-    const sd_recreational = generateYearlyRevenue(
-        original_cost,
+    const sd_recreational = generateIPPYearlyRevenue(
         projectData.sd_recreational ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years,
     );
 
 
@@ -175,35 +237,45 @@ export function calculateMichiganTaxResults(
 
     // ========================= Intermediate School District ======================== //
 
-    const int_sd_allocated = generateYearlyRevenue(
-        original_cost,
+    const int_sd_allocated = generateIPPYearlyRevenue(
         projectData.isd_allocated ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const int_sd_vocational = generateYearlyRevenue(
-        original_cost,
+    const int_sd_vocational = generateIPPYearlyRevenue(
         projectData.isd_vocational ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const int_sd_special_ed = generateYearlyRevenue(
-        original_cost,
+    const int_sd_special_ed = generateIPPYearlyRevenue(
         projectData.isd_special_ed ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
 
-    const int_sd_debt = generateYearlyRevenue(
-        original_cost,
+    const int_sd_debt = generateIPPYearlyRevenue(
         projectData.isd_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const int_sd_enhancement = generateYearlyRevenue(
-        original_cost,
+    const int_sd_enhancement = generateIPPYearlyRevenue(
         projectData.isd_enhancement ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
 
@@ -222,16 +294,20 @@ export function calculateMichiganTaxResults(
 
     // ========================= Community College ======================== //
 
-    const comm_college_operating = generateYearlyRevenue(
-        original_cost,
+    const comm_college_operating = generateIPPYearlyRevenue(
         projectData.cc_operating ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const comm_college_debt = generateYearlyRevenue(
-        original_cost,
+    const comm_college_debt = generateIPPYearlyRevenue(
         projectData.cc_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
 
@@ -247,16 +323,20 @@ export function calculateMichiganTaxResults(
 
     // ========================= Public Authorities ======================== //
 
-    const pa = generateYearlyRevenue(
-        original_cost,
+    const pa = generateIPPYearlyRevenue(
         projectData.part_unit_auth ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const pa_debt = generateYearlyRevenue(
-        original_cost,
+    const pa_debt = generateIPPYearlyRevenue(
         projectData.part_unit_auth_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
 
@@ -272,34 +352,44 @@ export function calculateMichiganTaxResults(
 
     // ========================= Village ======================== //
 
-    const vill_allocated = generateYearlyRevenue(
-        original_cost,
+    const vill_allocated = generateIPPYearlyRevenue(
         projectData.village_allocated ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const vill_extra = generateYearlyRevenue(
-        original_cost,
+    const vill_extra = generateIPPYearlyRevenue(
         projectData.village_extra_voted ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const vill_debt = generateYearlyRevenue(
-        original_cost,
+    const vill_debt = generateIPPYearlyRevenue(
         projectData.village_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years
     );
 
-    const vill_pa = generateYearlyRevenue(
-        original_cost,
+    const vill_pa = generateIPPYearlyRevenue(
         projectData.village_auth ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years,
     );
 
-    const vill_pa_debt = generateYearlyRevenue(
-        original_cost,
+    const vill_pa_debt = generateIPPYearlyRevenue(
         projectData.village_auth_debt ?? 0,
+        projectData.original_cost_pre_interface ?? 0,
+        turbine_tcv,
         multiplicationFactors,
+        expected_years,
     );
 
 

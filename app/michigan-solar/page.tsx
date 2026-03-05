@@ -30,6 +30,8 @@ export default function MichiganSolar() {
     auto_calculate_costs: true,
   });
 
+  
+
   return (
     <div>
       <Navbar />
@@ -56,6 +58,17 @@ export default function MichiganSolar() {
           <p style={{ marginTop: "1rem" }}>
             Please contact Vamika Jain at vamikaj@umich.edu for any questions or feedback.
           </p>
+
+          <br></br>
+
+          <a
+            className="inPageButton basicLinkText"
+            href="/michigan/Michigan-Property-Tax-Final-2025.pdf"
+            download="Michigan-Policy-Brief.pdf"
+          >
+            Click to download the policy brief
+          </a>
+          
         </div>
 
         <div style={{ margin: "3rem" }}>
