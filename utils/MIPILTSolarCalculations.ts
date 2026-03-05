@@ -57,10 +57,12 @@ export function calculateMichiganTaxResults(
     projectData: ProjectData,
     multiplicationFactors: MIMultiplicationFactors[],
     originalCost: number,
-    years = 30
+   
 ) {
     const discount_rate = projectData.annual_discount_rate ?? 0.05;
     const nameplate_capacity = projectData.nameplate_capacity ?? 0;
+
+    const years = Math.min(projectData.expected_useful_life ?? 30, 35);
 
     const pilt_rate = projectData.real_property_conditions
         ? QUALIFYING_PILT_RATE
@@ -94,6 +96,8 @@ export function calculateMichiganTaxResults(
             // Non-PILT years
             const tcv = originalCost * factor.factor_form_5762 * 0.5;
             const revenue = ((millage ?? 0) / 1000) * tcv;
+
+            console.log(`Year ${year}, Revenue: ${revenue}, TCV: ${tcv}`);
 
             return { year, tcv, revenue };
         });

@@ -106,18 +106,25 @@ export function calculateMichiganTaxResults(
 ) {
     const original_cost = projectData.original_cost_pre_inverter ?? 0;
     const discount_rate = projectData.annual_discount_rate ?? 0.05;
+    const years = Math.min(projectData.expected_useful_life ?? 30, 35);
 
     const county_allocated = generateYearlyRevenue(
         projectData.county_allocated ?? 0,
+        years,
+        projectData,
     );
 
 
     const county_extra = generateYearlyRevenue(
         projectData.county_extra_voted ?? 0,
+        years,
+        projectData,
     );
 
     const county_debt = generateYearlyRevenue(
         projectData.county_debt ?? 0,
+        years,
+        projectData,
     );
 
     const total_county_per_year = sumRevenueStreams([
@@ -134,19 +141,19 @@ export function calculateMichiganTaxResults(
 
     const local_unit_allocated = generateYearlyRevenue(
         projectData.lu_allocated ?? 0,
-        30,
+        years,
         projectData
     );
 
     const local_unit_extra_voted = generateYearlyRevenue(
         projectData.lu_extra_voted ?? 0,
-        30,
+        years,
         projectData
     );
 
     const local_unit_debt = generateYearlyRevenue(
         projectData.lu_debt ?? 0,
-        30,
+        years,
         projectData
     );
 
@@ -163,33 +170,33 @@ export function calculateMichiganTaxResults(
 
     const sd_hold_harmless = generateYearlyRevenue(
         projectData.sd_hold_harmless ?? 0,
-        30,
+        years,
         projectData
     );
 
     const sd_debt = generateYearlyRevenue(
         projectData.sd_debt ?? 0,
-        30,
+        years,
         projectData
     );
 
     const sd_operating = generateYearlyRevenue(
         projectData.sd_non_homestead ?? 0,
-        30,
+        years,
         projectData,
         true
     );
 
     const sd_sinking_fund = generateYearlyRevenue(
         projectData.sd_sinking_fund ?? 0,
-        30,
+        years,
         projectData
     );
 
 
     const sd_recreational = generateYearlyRevenue(
         projectData.sd_recreational ?? 0,
-        30,
+        years,
         projectData
     );
 
@@ -210,32 +217,32 @@ export function calculateMichiganTaxResults(
 
     const int_sd_allocated = generateYearlyRevenue(
         projectData.isd_allocated ?? 0,
-        30,
+        years,
         projectData
     );
 
     const int_sd_vocational = generateYearlyRevenue(
         projectData.isd_vocational ?? 0,
-        30,
+        years,
         projectData
     );
 
     const int_sd_special_ed = generateYearlyRevenue(
         projectData.isd_special_ed ?? 0,
-        30,
+        years,
         projectData
     );
 
 
     const int_sd_debt = generateYearlyRevenue(
         projectData.isd_debt ?? 0,
-        30,
+        years,
         projectData
     );
 
     const int_sd_enhancement = generateYearlyRevenue(
         projectData.isd_enhancement ?? 0,
-        30,
+        years,
         projectData
     );
 
@@ -256,13 +263,13 @@ export function calculateMichiganTaxResults(
 
     const comm_college_operating = generateYearlyRevenue(
         projectData.cc_operating ?? 0,
-        30,
+        years,
         projectData
     );
 
     const comm_college_debt = generateYearlyRevenue(
         projectData.cc_debt ?? 0,
-        30,
+        years,
         projectData
     );
 
@@ -279,13 +286,13 @@ export function calculateMichiganTaxResults(
 
     const pa = generateYearlyRevenue(
         projectData.part_unit_auth ?? 0,
-        30,
+        years,
         projectData
     );
 
     const pa_debt = generateYearlyRevenue(
         projectData.part_unit_auth_debt ?? 0,
-        30,
+        years,
         projectData
     );
 
@@ -302,31 +309,31 @@ export function calculateMichiganTaxResults(
 
     const vill_allocated = generateYearlyRevenue(
         projectData.village_allocated ?? 0,
-        30,
+        years,
         projectData
     );
 
     const vill_extra = generateYearlyRevenue(
         projectData.village_extra_voted ?? 0,
-        30,
+        years,
         projectData
     );
 
     const vill_debt = generateYearlyRevenue(
         projectData.village_debt ?? 0,
-        30,
+        years,
         projectData
     );
 
     const vill_pa = generateYearlyRevenue(
         projectData.village_auth ?? 0,
-        30,
+        years,
         projectData
     );
 
     const vill_pa_debt = generateYearlyRevenue(
         projectData.village_auth_debt ?? 0,
-        30,
+        years,
         projectData
     );
 

@@ -39,8 +39,8 @@ export default function MISolarTaxResults( {projectData}: Props) {
     : null;
 
     const piltResults = useMemo(() => {
-        return calculatePILT(projectData, multiplicationFactors, projectData.original_cost_pre_inverter ?? 0, 30); // your PILT engine does not use factors
-    }, [projectData]);
+        return calculatePILT(projectData, multiplicationFactors, projectData.original_cost_pre_inverter ?? 0); // your PILT engine does not use factors
+    }, [projectData, multiplicationFactors]);
 
     const {
         county,
@@ -1158,9 +1158,9 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td>County</td>
                             <td>~$1,152 per mile</td>
                             <td>
-                                {Math.round((county.npv) / 1152)} miles
+                                ~{Math.round((county.npv) / 1152)} miles
                             </td>
-                            <td>{Math.round((piltCounty.npv) / 1152)} miles
+                            <td>~{Math.round((piltCounty.npv) / 1152)} miles
                             </td>
                         </tr>
 
@@ -1169,8 +1169,8 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td>Firefighters</td>
                             <td>Township</td>
                             <td>~$71,835 per full-time employee (FTE)</td>
-                            <td>{Math.round((local_unit.npv) / 71835)} FTEs</td>
-                            <td>{Math.round((piltLocalUnit.npv / 71835))} FTEs</td>
+                            <td>~{Math.round((local_unit.npv) / 71835)} FTEs</td>
+                            <td>~{Math.round((piltLocalUnit.npv / 71835))} FTEs</td>
                         </tr>
 
                         <tr>
@@ -1178,8 +1178,8 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td>Fire Trucks</td>
                             <td>Township</td>
                             <td>~$2,100,000 per unit</td>
-                            <td>{Math.round((local_unit.npv) / 2100000)} fire truck(s)</td>
-                            <td>{Math.round((piltLocalUnit.npv) / 2100000)} fire truck(s)</td>
+                            <td>~{Math.round((local_unit.npv) / 2100000)} fire truck(s)</td>
+                            <td>~{Math.round((piltLocalUnit.npv) / 2100000)} fire truck(s)</td>
                         </tr>
                     </tbody>
                 </table>

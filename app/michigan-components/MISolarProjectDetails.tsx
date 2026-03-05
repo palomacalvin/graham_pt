@@ -46,6 +46,12 @@ export default function MISolarProjectDetailsSection ({
         }));
     };
 
+
+    const years = Math.min(projectData.expected_useful_life ?? 30, 35);
+
+    const years_array = Array.from({ length: years }, (_, i) => i + 1);
+
+
     return (
         <section>
             <h1>Project Details</h1>
@@ -170,13 +176,20 @@ export default function MISolarProjectDetailsSection ({
                 <input
                     type="number"
                     step="1"
-                    value={projectData?.expected_useful_life ?? 30}
-                    onChange={(e) =>
-                        setProjectData((prev) => ({
+                    min={1}
+                    max={35}
+                    value={projectData.expected_useful_life ?? 30}
+                   onChange={(e) => {
+                      let value = parseInt(e.target.value, 10) || 1;
+
+                      // Cap value at 35
+                      if (value > 35) value = 35;
+
+                      setProjectData((prev) => ({
                         ...prev,
-                        expected_useful_life: parseFloat(e.target.value),
-                        }))
-                }
+                        expected_useful_life: value,
+                      }));
+                    }}
                 className="basicInputBox"
                 />
 
