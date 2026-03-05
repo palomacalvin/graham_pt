@@ -78,28 +78,6 @@ export default function MIWindProjectDetailsSection({
     projectData.real_property_ownership_change,
   ]);
 
-
-
-  // useEffect(() => {
-  //     const acreage = projectData.project_acreage ?? 0;
-  //     const pre_wind = acreage * 4285.7;
-
-  //     setProjectData(prev => ({
-  //       ...prev,
-  //       pre_wind_taxable_value: pre_wind,
-
-  //       // Only auto-sync post value IF user has not overridden it
-  //       post_wind_taxable_value:
-  //         projectData.real_property_ownership_change === "yes"
-  //           ? prev.post_wind_taxable_value ?? undefined
-  //           : undefined,
-  //     }));
-  //   }, [
-  //     projectData.project_acreage,
-  //     projectData.real_property_ownership_change,
-  //   ]);
-
-
       const pre_wind = acreage * 4285.7;
 
       const post_wind = projectData.real_property_ownership_change === "yes"

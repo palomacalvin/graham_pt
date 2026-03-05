@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { ProjectData } from "@/types/MISolarProject";
+import { useState } from "react";
 
 interface Props {
   projectData: ProjectData;
@@ -11,10 +12,10 @@ interface Props {
 export default function MISolarRealPropertyCalculator ({
     projectData,
     setProjectData
-
-    
-
 }: Props) {
+
+    const [hasManualPostSolarValue, setHasManualPostSolarValue] = useState(false);
+    const [hasManualPreSolarValue, setHasManualPreSolarValue] = useState(false);
 
     const acreage =
         projectData.project_acreage > 0
@@ -23,78 +24,6 @@ export default function MISolarRealPropertyCalculator ({
 
     const pre_solar_taxable_value = acreage * 4285.7;
 
-    const post_solar_value =
-        projectData.real_property_ownership_change === "yes"
-        ? projectData.post_solar_taxable_value ?? pre_solar_taxable_value
-        : pre_solar_taxable_value;
-
-    useEffect(() => {
-        // Compute acreage and taxable values inside the effect
-        const acreage =
-            projectData.project_acreage > 0
-                ? projectData.project_acreage
-                : (projectData.nameplate_capacity ?? 0) * 7;
-
-        const pre_solar = acreage * 4285.7;
-
-        const post_solar_value =
-            projectData.real_property_ownership_change === "yes"
-                ? projectData.post_solar_taxable_value ?? pre_solar_taxable_value
-                : pre_solar_taxable_value;
-
-        // Convert yes/no strings to booleans
-        const was_previously_covered = projectData.real_property_previously_covered === "yes";
-        const ownership_changed = projectData.real_property_ownership_change === "yes";
-
-        // Calculate millages
-        let school_district_millages = 0;
-        let other_millages = 0;
-
-        if (ownership_changed) {
-            if (was_previously_covered) {
-                school_district_millages = post_solar_value;
-            } else {
-                school_district_millages = post_solar_value - pre_solar_taxable_value;
-            }
-
-            other_millages = post_solar_value - pre_solar_taxable_value;
-        } else {
-            if (was_previously_covered) {
-                school_district_millages = post_solar_value;
-            } else {
-                school_district_millages = 0;
-            }
-
-            other_millages = 0;
-        }
-
-        // Log everything
-        console.log("=== Real Property Calculation ===");
-        console.log("Project acreage:", acreage);
-        console.log("Pre-solar taxable value:", pre_solar_taxable_value);
-        console.log("Post-solar taxable value:", post_solar_value);
-        console.log("Previously covered:", was_previously_covered);
-        console.log("Ownership changed:", ownership_changed);
-        console.log("School District Millages:", school_district_millages);
-        console.log("Other Millages:", other_millages);
-
-        // Update project data state
-        setProjectData(prev => ({
-        ...prev,
-        pre_solar_taxable_value: pre_solar,
-        post_solar_taxable_value:
-            prev.post_solar_taxable_value !== undefined
-                ? prev.post_solar_taxable_value
-                : projectData.real_property_ownership_change === "yes"
-                ? pre_solar 
-                : undefined,
-        }));
-    }, [
-        projectData.project_acreage,
-        projectData.nameplate_capacity,
-        projectData.real_property_ownership_change,
-    ]);
-
     const DEFAULT_REAL_PROPERTY = {
         project_acreage: 0, // Triggers 7 acres per MW fallback
         real_property_previously_covered: "yes",
@@ -102,13 +31,126 @@ export default function MISolarRealPropertyCalculator ({
         real_property_conditions: false,
         post_solar_taxable_value: undefined,
     };
-    
+
     const handleResetDefaults = () => {
+        setHasManualPostSolarValue(false); // reset manual override
+        setHasManualPreSolarValue(false); // reset pre-solar override
+
         setProjectData((prev) => ({
             ...prev,
             ...DEFAULT_REAL_PROPERTY,
+            post_solar_taxable_value: undefined, // go back to derived default
+            pre_solar_taxable_value: undefined,
         }));
     };
+
+    useEffect(() => {
+
+        const default_value = acreage * 4285.7;
+        const pre = projectData.pre_solar_taxable_value ?? default_value;
+        const post = projectData.post_solar_taxable_value ?? default_value;
+
+        const change = projectData.real_property_ownership_change === "yes"
+            ? post - pre
+            : 0;
+
+        console.log("Taxable value change:", change);
+
+        setProjectData((prev) => ({
+            ...prev,
+            real_property_taxable_value_change: change,
+        }));
+    }, [
+        projectData.project_acreage,
+        projectData.pre_solar_taxable_value,
+        projectData.post_solar_taxable_value,
+        projectData.real_property_ownership_change,
+    ]);
+
+  // Recalculate post-solar taxable value based on ownership change
+  useEffect(() => {
+    const defaultPre = acreage * 4285.7;
+
+    const pre_solar = hasManualPreSolarValue
+        ? projectData.pre_solar_taxable_value ?? defaultPre
+        : defaultPre;
+
+    const post_solar = hasManualPostSolarValue
+        ? projectData.post_solar_taxable_value ?? pre_solar
+        : projectData.real_property_ownership_change === "yes"
+        ? pre_solar
+        : undefined;
+
+    const newly_subject_value =
+        projectData.real_property_ownership_change === "yes"
+            ? (post_solar ?? 0) - pre_solar
+            : 0;
+
+    setProjectData((prev) => ({
+        ...prev,
+        pre_solar_taxable_value: pre_solar,
+        post_solar_taxable_value: post_solar,
+        real_property_newly_subject_value: newly_subject_value,
+    }));
+}, [
+    acreage,
+    projectData.real_property_ownership_change,
+    hasManualPreSolarValue,
+    hasManualPostSolarValue,
+]);
+
+  // Handle changes to post-solar value
+  const handlePostSolarValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseFloat(e.target.value);
+    setHasManualPostSolarValue(true);
+    setProjectData((prev) => ({
+      ...prev,
+      post_solar_taxable_value: isNaN(newValue) ? 0 : Math.round(newValue),
+    }));
+  };
+
+  const handlePostSolarValueBlur = () => {
+    // Reset the flag when the user stops editing the post-solar taxable value
+    // setHasManualPostSolarValue(false);
+  };
+
+  const calculateMillages = (post_solar_value: number, pre_solar_value: number) => {
+    let school_district_millages = 0;
+    let other_millages = 0;
+
+    if (projectData.real_property_ownership_change === "yes") {
+      if (projectData.real_property_previously_covered === "yes") {
+        school_district_millages = post_solar_value;
+      } else {
+        school_district_millages = post_solar_value - pre_solar_value;
+      }
+      other_millages = post_solar_value - pre_solar_value;
+    } else {
+      if (projectData.real_property_previously_covered === "yes") {
+        school_district_millages = post_solar_value;
+      } else {
+        school_district_millages = 0;
+      }
+      other_millages = 0;
+    }
+
+        console.log("School District Millages:", school_district_millages);
+    console.log("Other Millages:", other_millages);
+
+    return { school_district_millages, other_millages };
+  };
+
+    
+  
+    //const post_solar_value = projectData.post_solar_taxable_value ?? pre_solar_taxable_value;
+
+    const post_solar_value = hasManualPostSolarValue
+        ? projectData.post_solar_taxable_value ?? pre_solar_taxable_value
+        : projectData.real_property_ownership_change === "yes"
+        ? pre_solar_taxable_value
+        : undefined;
+    const { school_district_millages, other_millages } = calculateMillages(post_solar_value ?? 0, pre_solar_taxable_value);
+
 
     return (
         <section>
@@ -122,6 +164,7 @@ export default function MISolarRealPropertyCalculator ({
                 your project.
             </p>
 
+            <br></br>
             <br></br>
 
             <button
@@ -158,19 +201,39 @@ export default function MISolarRealPropertyCalculator ({
                 </div>
             </label>
 
+            {hasManualPreSolarValue && (
+                <>
+                    <br />
+                    <p className="warning">
+                        <img
+                            src="/photos-logos/warning-alert.svg"
+                            alt="Warning sign logo."
+                            className="warningImg"
+                        />
+                        <span>
+                            WARNING: The pre-solar taxable value is manually overridden. Click "Reset to Defaults" to restore
+                            automatic calculation based on acreage.
+                        </span>
+                    </p>
+                    <br />
+                </>
+            )}
+
             <label>
                 <div className="inputWithInfo">
                 Pre-Solar Taxable Value:
                 <input
                     type="number"
-                    value={pre_solar_taxable_value}
-                    readOnly
-                    // onChange={(e) =>
-                    // setProjectData((prev) => ({
-                    //     ...prev!,
-                    //     pre_solar_taxable_value: parseFloat(e.target.value),
-                    // }))
-                    // }
+                    step="1"
+                    value={projectData.pre_solar_taxable_value ?? pre_solar_taxable_value}
+                    onChange={(e) => {
+                        const newValue = parseFloat(e.target.value);
+                        setHasManualPreSolarValue(true);
+                        setProjectData((prev) => ({
+                            ...prev,
+                            pre_solar_taxable_value: isNaN(newValue) ? 0 : Math.round(newValue),
+                        }));
+                    }}
                     className="basicInputBox"
                 />
                 
@@ -315,19 +378,34 @@ export default function MISolarRealPropertyCalculator ({
 
             <br></br>
 
+            {hasManualPostSolarValue && (
+                <>
+                <br></br>
+                    <p className="warning">
+                        <img
+                            src="/photos-logos/warning-alert.svg"
+                            alt="Warning sign logo."
+                            className="warningImg"
+                        />
+                        <span>
+                            WARNING: The post-solar taxable value is manually overridden. Click "Reset to Defaults" to restore
+                            automatic calculation based on acreage and ownership change.
+                        </span>
+                    </p>
+                <br></br>
+                </>
+            )}
+
             {projectData.real_property_ownership_change === "yes" && (
                 <label>
                     Post-solar taxable value of the real property:
                     <div className="inputWithInfo">
                         <input
                             type="number"
-                            value={projectData.post_solar_taxable_value ?? pre_solar_taxable_value}
-                            onChange={(e) =>
-                            setProjectData((prev) => ({
-                                ...prev!,
-                                post_solar_taxable_value: parseFloat(e.target.value),
-                            }))
-                            }
+                            step="1"
+                            value={post_solar_value ?? pre_solar_taxable_value}
+                            onChange={handlePostSolarValueChange}
+                            onBlur={handlePostSolarValueBlur}
                             className="basicInputBox"
                         />
                         <div className="infoWrapper">
