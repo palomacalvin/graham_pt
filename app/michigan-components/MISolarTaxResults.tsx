@@ -113,7 +113,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
         return sum + cf / Math.pow(1 + rate, i + 1);
     }, 0);
 
-    return first_year + discounted;
+        return first_year + discounted;
     }
 
 

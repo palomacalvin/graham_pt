@@ -10,6 +10,8 @@ import MISolarProjectDetailsSection from "../michigan-components/MISolarProjectD
 import MISolarRealPropertyCalculator from "../michigan-components/MISolarRealPropertyCalculator";
 import MISolarTaxResults from "../michigan-components/MISolarTaxResults";
 
+import Instructions from "@/components/Instructions";
+
 export default function MichiganSolar() {
     const [projectData, setProjectData] = useState<ProjectData>({
     // Required fields.
@@ -28,9 +30,8 @@ export default function MichiganSolar() {
     annual_discount_rate: 0.03,
     project_acreage: 0,
     auto_calculate_costs: true,
-  });
 
-  
+  });
 
   return (
     <div>
@@ -42,34 +43,7 @@ export default function MichiganSolar() {
 
         </div>
 
-        <div className="basicBox">
-          <p>
-            Fill in the fields below with values relevant to your project. Default values
-            are available for each county, city/township, and school district; these values
-            have been compiled from state-by-state research. See the{" "}
-              <Link className="boxLinkText" href="references">
-                References
-              </Link>{" "}
-              page for more details.
-
-            Hover over the information icons next to each field to learn more about individual inputs.
-          </p>
-
-          <p style={{ marginTop: "1rem" }}>
-            Please contact Vamika Jain at vamikaj@umich.edu for any questions or feedback.
-          </p>
-
-          <br></br>
-
-          <a
-            className="inPageButton basicLinkText"
-            href="/michigan/Michigan-Property-Tax-Final-2025.pdf"
-            download="Michigan-Policy-Brief.pdf"
-          >
-            Click to download the policy brief
-          </a>
-          
-        </div>
+        <Instructions state="Michigan" />
 
         <div style={{ margin: "3rem" }}>
             {/* Project Location Section */}

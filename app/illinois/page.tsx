@@ -1,4 +1,3 @@
-// /app/indiana/page.tsx
 import React from "react";
 import Navbar from "@/components/Navbar";
 

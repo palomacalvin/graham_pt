@@ -13,6 +13,8 @@ import SolarFarmSection from "@/app/minnesota-components/MNSolarFarmSection";
 import TaxResults from "@/app/minnesota-components/MNSolarTaxResults";
 import Link from "next/link";
 
+import Instructions from "@/components/Instructions";
+
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
     county: "",
@@ -26,9 +28,10 @@ export default function ProjectForm() {
     userCapacityFactor: 0,
     pilotAgreement: false,
     pilotPayment: 0,
-    inflationRate: 3.0,
+    inflationRate: 0.027,
     previousPropertyClass: "RuralLand",
-    newPropertyClass: "Homestead",
+    newPropertyClass: "Agriculture",
+    newAgriculturalType: "Homestead",
     nameplateCapacity: 100,
     landArea: 700,
     numberOfTurbines: 0,
@@ -36,6 +39,8 @@ export default function ProjectForm() {
     taxRates: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01 },
     cityTaxRates: { ag_homestead_effective_rate: 0.01, ag_non_homestead_effective_rate: 0.01, commercial_effective_rate: 0.01},
     schoolDistrictTaxRates: { ag_homestead_effective_rate: 0.01, ag_non_homestead_effective_rate: 0.01, commercial_effective_rate: 0.01},
+    discountRate: 0.03,
+    auto_calculate_costs: true,
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
@@ -182,29 +187,18 @@ export default function ProjectForm() {
 
         </div>
         
-        <p className="basicBox">
-          Fill in the fields below with values relevant to your project. Default values
-          are available for each county, city/township, and school district; these values
-          have been compiled from state-by-state research. See the{" "}
-            <Link className="boxLinkText" href="references">
-              References
-            </Link>{" "}
-            page for more details.
-
-          Hover over the information icons next to each field to learn more about individual inputs.
-        </p>
-
+        <Instructions state="Minnesota" />
 
       <div style={{ margin: "3rem" }}>
       <form onSubmit={handleSubmit}>
         {/* Project Location Section */}
         <MNSolarProjectLocationSection
-        projectData={projectData}
-        handleChange={handleChange}
-        setProjectData={setProjectData}
-        countyAvgValue={countyAvgValue}
-        userEditedLandValue={userEditedLandValue}
-      />
+          projectData={projectData}
+          handleChange={handleChange}
+          setProjectData={setProjectData}
+          countyAvgValue={countyAvgValue}
+          userEditedLandValue={userEditedLandValue}
+        />
 
         {/* Property Classification Section */}
         <br></br>

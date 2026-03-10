@@ -9,6 +9,8 @@ import MIProjectLocationSection from "@/app/michigan-components/MIWindProjectLoc
 import MIWindProjectDetailsSection from "../michigan-components/MIWindProjectDetails";
 import MIWindTaxResults from "../michigan-components/MIWindTaxResults";
 
+import Instructions from "@/components/Instructions";
+
 export default function MichiganWind() {
   const [projectData, setProjectData] = useState<ProjectData>({
     real_property_ownership_change: "no",
@@ -45,33 +47,7 @@ export default function MichiganWind() {
 
       </div>
 
-      <div className="basicBox">
-          <p>
-            Fill in the fields below with values relevant to your project. Default values
-            are available for each county, city/township, and school district; these values
-            have been compiled from state-by-state research. See the{" "}
-              <Link className="boxLinkText" href="references">
-                References
-              </Link>{" "}
-              page for more details.
-
-            Hover over the information icons next to each field to learn more about individual inputs.
-          </p>
-
-          <p style={{ marginTop: "1rem" }}>
-            Please contact Vamika Jain at vamikaj@umich.edu for any questions or feedback.
-          </p>
-
-          <br></br>
-
-          <a
-            className="inPageButton basicLinkText"
-            href="/michigan/Michigan-Property-Tax-Final-2025.pdf"
-            download="Michigan-Policy-Brief.pdf"
-          >
-            Click to download the policy brief
-          </a>
-      </div>
+      <Instructions state="Michigan" />
 
       <div style={{ margin: "3rem" }}>
           {/* Project Location Section */}
@@ -81,10 +57,6 @@ export default function MichiganWind() {
       <div style={{ margin: "3rem" }}>
         <MIWindProjectDetailsSection projectData={projectData} setProjectData={setProjectData} />
       </div>
-
-      {/* <div style={{ margin: "3rem" }}>
-        <MIWindRealPropertyCalculator projectData={projectData} setProjectData={setProjectData} />
-      </div> */}
 
       <div style={{ margin: "3rem" }}>
         <MIWindTaxResults projectData={projectData}/>

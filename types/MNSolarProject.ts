@@ -31,6 +31,8 @@ export interface ProjectData {
   pilotAgreement: boolean;
   pilotPayment: number;
   inflationRate: number;
+  discountRate: number;
+  auto_calculate_costs: boolean;
   previousPropertyClass: string;
   agriculturalType?: "Homestead" | "Non-homestead";
   newAgriculturalType?: "Homestead" | "Non-homestead";

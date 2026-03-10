@@ -12,6 +12,7 @@ import { County } from "@/components/LocationSelector";
 import { calculateCityRealPropertyTax } from "@/utils/MNCityCalculations";
 import { calculateSchoolDistrictRealPropertyTax } from "@/utils/MNSchoolDistrictCalculations";
 import Link from "next/link";
+import Instructions from "@/components/Instructions";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -87,18 +88,7 @@ export default function ProjectForm() {
       </div>
 
 
-      <p className="basicBox">
-          Fill in the fields below with values relevant to your project. Default values
-          are available for each county, city/township, and school district; these values
-          have been compiled from state-by-state research. See the{" "}
-            <Link className="boxLinkText" href="references">
-              References
-            </Link>{" "}
-            page for more details.
-
-          Hover over the information icons next to each field to learn more about individual inputs.
-      </p>
-
+      <Instructions state="Minnesota" />
 
       <div style={{ margin: "3rem" }}>
         <form onSubmit={handleSubmit}>

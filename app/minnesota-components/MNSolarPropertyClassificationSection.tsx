@@ -13,18 +13,26 @@ export default function SolarPropertyClassificationSection({ projectData, handle
       <h1>Property Classification Information</h1>
       <br></br>
 
+      <p style={{ color: "red", fontStyle: "italic"}}>
+        All fields in this section are required. You may choose to
+        use the defaults listed below, or override them with values relevant to
+        your project.
+      </p>
+
+      <br></br>
+
       <label>
         Previous Property Class:
-        <select 
-        name="previousPropertyClass" 
-        value={projectData.previousPropertyClass} 
-        onChange={handleChange}
-        className="basicDropdown"
-        >
-          <option value="Agriculture">Agriculture</option>
-          <option value="RuralLand">Rural Land</option>
-          <option value="Commercial">Commercial</option>
-        </select>
+          <select 
+          name="previousPropertyClass" 
+          value={projectData.previousPropertyClass} 
+          onChange={handleChange}
+          className="basicDropdown"
+          >
+            <option value="Agriculture">Agriculture</option>
+            <option value="RuralLand">Rural Land</option>
+            <option value="Commercial">Commercial</option>
+          </select>
       </label>
 
       {projectData.previousPropertyClass === "Agriculture" && (
@@ -45,13 +53,13 @@ export default function SolarPropertyClassificationSection({ projectData, handle
       <label>
         New Property Class:
         <select 
-        name="newPropertyClass" 
-        value={projectData.newPropertyClass} 
-        onChange={handleChange}
-        className="basicDropdown">
-          <option value="Agriculture">Agriculture</option>
-          <option value="RuralLand">Rural Land</option>
-          <option value="Commercial">Commercial</option>
+          name="newPropertyClass" 
+          value={projectData.newPropertyClass} 
+          onChange={handleChange}
+          className="basicDropdown">
+            <option value="Agriculture">Agriculture</option>
+            <option value="RuralLand">Rural Land</option>
+            <option value="Commercial">Commercial</option>
         </select>
       </label>
 

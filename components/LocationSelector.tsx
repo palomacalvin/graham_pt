@@ -123,6 +123,7 @@ export default function LocationSelector({
             </option>
           ))}
         </select>
+        <p className="required">Required</p>
       </div>
 
       {/* City Select */}
@@ -150,6 +151,7 @@ export default function LocationSelector({
             </option>
           ))}
         </select>
+        <p className="required">Required</p>
       </div>
 
       {/* School District Select */}
@@ -177,6 +179,7 @@ export default function LocationSelector({
             </option>
           ))}
         </select>
+        <p className="required">Required</p>
       </div>
     </div>
   );

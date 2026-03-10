@@ -80,6 +80,12 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <h1>Your results</h1>
       <br></br>
 
+      <p>
+        These values are based on user inputs. Taxable value for property taxes is adjusted
+        for inflation annually.
+      </p>
+      <br></br>
+
       <h3>Production Tax Revenue for Each Year</h3>
       <table className="basicTable">
         <thead>
@@ -179,12 +185,11 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       </table>
 
       <br></br>
-      <h3>Total Net Revenue</h3>
 
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Value</th>
+            <th>Total Net Revenue for All Jurisdictions</th>
           </tr>
         </thead>
         <tbody>
@@ -206,11 +211,11 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </thead>
         <tbody>
           <tr>
-            <td>Production Tax Revenue</td>
+            <td>Net Production Tax Revenue</td>
             <td>{formatCurrency(totalProductionRevenue)}</td>
           </tr>
           <tr>
-            <td>Real Property Tax Revenue</td>
+            <td>Net Real Property Tax Revenue</td>
             <td>{formatCurrency(totalNetRevenue)}</td>
           </tr>
           <tr className="rowHighlight">
