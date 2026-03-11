@@ -41,6 +41,7 @@ export interface ProjectData {
   landArea: number;
   numberOfTurbines: number;
   acreageUnderTurbine: number;
+  expected_useful_life: number;
 
   taxRates?: {
     homestead: number;

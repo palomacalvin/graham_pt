@@ -29,7 +29,8 @@ export default function MNSolarProjectLocationSection({
 
   const inflation = (projectData.inflationRate?? 0) * 100;
   const discount = (projectData.discountRate ?? 0) * 100;
-  
+
+
   useEffect(() => {
       if (!projectData.auto_calculate_costs) return;
       if (!projectData.nameplateCapacity) return;
@@ -71,6 +72,7 @@ export default function MNSolarProjectLocationSection({
 
 
   return (
+    <>
     <section>
       <h1>Project Location Information</h1>
       <br></br>
@@ -265,5 +267,40 @@ export default function MNSolarProjectLocationSection({
           Reset inflation factors
         </button>
     </section>
+
+    <section>
+      <label>
+            Expected useful economic life of project (years):
+            <div className="inputWithInfo">
+                <input
+                    type="number"
+                    step="1"
+                    min={1}
+                    max={35}
+                    value={projectData.expected_useful_life ?? 30}
+                   onChange={(e) => {
+                      let value = parseInt(e.target.value, 10) || 1;
+
+                      // Cap value at 35
+                      if (value > 35) value = 35;
+
+                      setProjectData((prev) => ({
+                        ...prev,
+                        expected_useful_life: value,
+                      }));
+                    }}
+                className="basicInputBox"
+                />
+
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        Note: This calculator can only calculate revenues up to 35 years.
+                    </div>
+                </div>
+            </div>
+        </label>
+    </section>
+    </>
   );
 }

@@ -16,12 +16,48 @@ interface Props {
   schoolDistrictRealPropertyTaxRevenue: number;
   formerSchoolDistrictRealPropertyTaxRevenue: number;
 
+  discountRate: number;
+
+}
+// Adding inflation.
+export function inflationRevenues(
+  baseValue: number,
+  years: number,
+  inflationRate: number
+  ) {
+  const results = [];
+
+  let revenue = baseValue;
+
+  results.push(revenue); // Year 1
+
+  for (let year = 2; year <= years; year++) {
+    revenue = revenue * (1 + inflationRate);
+    results.push(revenue);
+  }
+
+  return results;
+}
+
+// Gross and NPV calculations:
+export function calculateGrossTotal(values: number[]): number {
+  return values.reduce((sum, val) => sum + val, 0);
+}
+
+export function calculateNPV(rate: number, cashFlows: number[]): number {
+  const firstYear = cashFlows[0] ?? 0;
+
+  const discounted = cashFlows.slice(1).reduce((sum, cf, i) => {
+    return sum + cf / Math.pow(1 + rate, i + 1);
+  }, 0);
+
+  return firstYear + discounted;
 }
 
 
 export default function TaxResults({ totalProductionRevenue, realPropertyTaxRevenue, formerRealPropertyTaxRevenue,
   cityRealPropertyTaxRevenue, formerCityRealPropertyTaxRevenue, schoolDistrictRealPropertyTaxRevenue,
-  formerSchoolDistrictRealPropertyTaxRevenue
+  formerSchoolDistrictRealPropertyTaxRevenue, discountRate = 0.03,
  }: Props) {
 
   // Variables for storing calculation information.
@@ -53,6 +89,13 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     netSchool: "Net School District Property Tax Revenue",
   };
 
+  const revenueSeries = {
+    netCounty: inflationRevenues(netCounty, years, inflationRate),
+    netCity: inflationRevenues(netCity, years, inflationRate),
+    netSchool: inflationRevenues(netSchool, years, inflationRate),
+  };
+
+
   // Production revenue variable arrays.
   const productionRevenues = {
     countyProduction: totalProductionRevenue * 0.8,
@@ -64,6 +107,40 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     countyProduction: "County Production Tax Revenue",
     cityProduction: "City/Township Production Tax Revenue",
   }
+
+  const countyBase = netCounty + productionRevenues.countyProduction;
+  const cityBase = netCity + productionRevenues.cityProduction;
+  const schoolBase = netSchool;
+
+
+  // Yearly revenue arrays.
+  const countyPerYear = revenueSeries.netCounty.map(
+    (value) => value + productionRevenues.countyProduction
+  );
+
+  const cityPerYear = revenueSeries.netCity.map(
+    (value) => value + productionRevenues.cityProduction
+  );
+
+  const schoolPerYear = [...revenueSeries.netSchool];
+
+
+  // Gross and NPV results.
+  const grossCounty = countyBase * years;
+  const grossCity = cityBase * years;
+  const grossSchool = schoolBase * years;
+
+
+  const npvCounty = calculateNPV(discountRate, countyPerYear);
+  const npvCity = calculateNPV(discountRate, cityPerYear);
+  const npvSchool = calculateNPV(discountRate, schoolPerYear);
+
+  // Gross and NPV totals.
+  const grossTotal = grossCounty + grossCity + grossSchool;
+  const npvTotal = npvCounty + npvCity + npvSchool;
+
+
+
 
   // Creates formatting for the results, adding $ and separating commas.
   const formatCurrency = (value: number) => {
@@ -200,13 +277,11 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       </table>
 
       <br></br>
-      <h3>Total Net Tax Revenue (Year 1)</h3>
 
       <table className="basicTable">
         <thead>
           <tr>
-            <th>Revenue Type</th>
-            <th>Value</th>
+            <th colSpan={2}>Total Net Tax Revenue (Year 1)</th>
           </tr>
         </thead>
         <tbody>
@@ -227,6 +302,66 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     </section>
 
     <br></br>
+
+    <h1>Breakdown Over the Life of the Project</h1>
+
+    <br></br>
+
+    <p>
+      The gross value represents revenue over the life of the project without 
+      adjustments for future inflation or risk over the life of the project.
+    </p>
+
+    <br></br>
+
+    <p>
+      The net present value represents revenue over the life of the project that has 
+      been adjusted for inflation and risk over the life of the project. 
+      This is calculated by accounting for the difference between the annual 
+      inflation and discount rate.
+    </p>
+
+    <br></br>
+
+    {/* Jurisdictional Gross/NPV Totals */}
+    <table className="basicTable">
+      <thead>
+        <tr>
+          <th>Jurisdiction</th>
+          <th>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</th>
+          <th>Net Present Value [Adjusted for future inflation and risk over the life of the project]</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>County</td>
+          <td>{formatCurrency(grossCounty)}</td>
+          <td>{formatCurrency(npvCounty)}</td>
+        </tr>
+
+        <tr>
+          <td>City/Township</td>
+          <td>{formatCurrency(grossCity)}</td>
+          <td>{formatCurrency(npvCity)}</td>
+        </tr>
+
+        <tr>
+          <td>School District</td>
+          <td>{formatCurrency(grossSchool)}</td>
+          <td>{formatCurrency(npvSchool)}</td>
+        </tr>
+
+        <tr className="rowHighlight">
+          <td>All Jurisdictions</td>
+          <td>{formatCurrency(grossTotal)}</td>
+          <td>{formatCurrency(npvTotal)}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <br></br>
     <section>
       <h3>Projected Revenue [2026-2056]</h3>
       <table className="basicTable">
@@ -239,16 +374,14 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
           </tr>
         </thead>
           <tbody>
-            {Object.entries(netRevenues).map(([key, baseValue]) => (
+            {Object.entries(netRevenues).map(([key]) => (
               <tr key={key}>
                 <td>{netRevenueNames[key] || key}</td>
-                {Array.from({ length: years }, (_, i) => {
-                  const revenue = baseValue * Math.pow(1 + inflationRate, i);
-                  return <td key={i}>{formatCurrency(revenue)}</td>;
-                })}
+                {revenueSeries[key as keyof typeof revenueSeries].map((revenue, i) => (
+                  <td key={i}>{formatCurrency(revenue)}</td>
+                ))}
               </tr>
             ))}
-
             <tr><th></th></tr>
           </tbody>
 
@@ -257,7 +390,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               <tr key={key}>
                 <td>{productionRevenueNames[key] || key}</td>
                 {Array.from({ length: years }, (_, i) => 
-                  <td key={Math.random()}>{formatCurrency(baseValue)}</td>
+                  <td key={i}>{formatCurrency(baseValue)}</td>
                 )}
               </tr>
             ))}
@@ -269,7 +402,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               <td>Total County Net Revenue</td>
               {Array.from({ length: years }, (_, i) => {
                 const totalRevenue =
-                  netRevenues.netCounty * Math.pow(1 + inflationRate, i) +
+                  revenueSeries.netCounty[i] +
                   productionRevenues.countyProduction;
                 return <td key={i}>{formatCurrency(totalRevenue)}</td>;
               })}
@@ -280,8 +413,9 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               <td>Total City/Township Net Revenue</td>
               {Array.from({ length: years }, (_, i) => {
                 const totalRevenue =
-                  netRevenues.netCity * Math.pow(1 + inflationRate, i) +
+                  revenueSeries.netCity[i] +
                   productionRevenues.cityProduction;
+
                 return <td key={i}>{formatCurrency(totalRevenue)}</td>;
               })}
             </tr>
@@ -289,8 +423,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <tr>
               <td>Total School District Net Revenue</td>
               {Array.from({ length: years }, (_, i) => {
-                const totalRevenue =
-                  netRevenues.netSchool * Math.pow(1 + inflationRate, i);
+                const totalRevenue = revenueSeries.netSchool[i];
                 return <td key={i}>{formatCurrency(totalRevenue)}</td>;
               })}
             </tr>
@@ -302,17 +435,15 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             <td>Total Project Net Revenue</td>
             {Array.from({ length: years }, (_, i) => {
               const totalRevenue =
-                // County Net + inflated production
-                netRevenues.netCounty * Math.pow(1 + inflationRate, i) +
+                revenueSeries.netCounty[i] +
                 productionRevenues.countyProduction +
-                // City Net + inflated production
-                netRevenues.netCity * Math.pow(1 + inflationRate, i) +
+                revenueSeries.netCity[i] +
                 productionRevenues.cityProduction +
-                // School Net (inflated)
-                netRevenues.netSchool * Math.pow(1 + inflationRate, i);
+                revenueSeries.netSchool[i];
 
               return <td key={i}>{formatCurrency(totalRevenue)}</td>;
             })}
+
           </tr>
 
 
