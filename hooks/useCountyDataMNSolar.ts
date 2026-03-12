@@ -7,41 +7,40 @@ export function useCountyData(projectData: ProjectData, setProjectData: React.Di
   const [capacityFactorDefaultSet, setCapacityFactorDefaultSet] = useState(false);
 
   // Fetch county data for land value
-  useEffect(() => {
-    if (!projectData.county) return;
+useEffect(() => {
+  if (!projectData.county) return;
 
-    const fetchCountyData = async () => {
-      try {
-        const res = await fetch("/api/minnesota/location");
-        const data = await res.json();
+  const fetchCountyData = async () => {
+    try {
+      const res = await fetch("/api/minnesota/location");
+      const data = await res.json();
 
-        const countyData = data.counties.find(
-          (c: any) => c.county_name.toLowerCase() === projectData.county.toLowerCase()
-        );
+      const countyData = data.counties.find(
+        (c: any) => c.county_name.toLowerCase() === projectData.county.toLowerCase()
+      );
 
-        if (countyData?.avg_market_value_per_acre && !landValueDefaultSet) {
-          const avgValue = Number(countyData.avg_market_value_per_acre);
-          setProjectData((prev) => ({ ...prev, userLandValue: avgValue }));
-          setCountyAvgValue(avgValue);
-          setLandValueDefaultSet(true);
-        }
+      if (!countyData) return;
 
-        if (countyData?.est_capacity_factor && !capacityFactorDefaultSet) {
-          setProjectData((prev) => ({ ...prev, useEstimatedCapacityFactor: countyData.est_capacity_factor }));
-          setCapacityFactorDefaultSet(true);
-        }
-      } catch (err) {
-        console.error("Error fetching county data:", err);
-      }
-    };
+      // Always update defaults for the selected county
+      setProjectData((prev) => ({
+        ...prev,
+        userLandValue: countyData.avg_market_value_per_acre
+          ? Number(countyData.avg_market_value_per_acre)
+          : prev.userLandValue,
+        useEstimatedCapacityFactor: countyData.est_capacity_factor
+          ? countyData.est_capacity_factor
+          : prev.useEstimatedCapacityFactor,
+      }));
 
-    fetchCountyData();
+      setCountyAvgValue(countyData.avg_market_value_per_acre || 0);
+    } catch (err) {
+      console.error("Error fetching county data:", err);
+    }
+  };
 
-    return () => {
-      setLandValueDefaultSet(false);
-      setCapacityFactorDefaultSet(false);
-    };
-  }, [projectData.county]);
+  fetchCountyData();
+}, [projectData.county]);
 
-  return { countyAvgValue };
+return {countyAvgValue};
+
 }

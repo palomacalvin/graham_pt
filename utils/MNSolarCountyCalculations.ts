@@ -46,10 +46,7 @@ export function calculateRealPropertyTax(
       chosenRate = agriculturalType === "Homestead" ? taxRates.ag_homestead_effective_rate : taxRates.ag_non_homestead_effective_rate;
       break;
     case "RuralLand":
-      chosenRate =
-        agriculturalType === "Homestead"
-          ? taxRates.ag_homestead_effective_rate
-          : taxRates.ag_non_homestead_effective_rate;
+      chosenRate = taxRates.ag_non_homestead_effective_rate;
       break;
     case "Commercial":
       chosenRate = taxRates.commercial_effective_rate;

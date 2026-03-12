@@ -15,6 +15,8 @@ import Link from "next/link";
 
 import Instructions from "@/components/Instructions";
 
+const MAX_USEFUL_LIFE = 35;
+
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
     county: "",
@@ -28,7 +30,7 @@ export default function ProjectForm() {
     userCapacityFactor: 0,
     pilotAgreement: false,
     pilotPayment: 0,
-    inflationRate: 0.027,
+    inflationRate: 0.024,
     previousPropertyClass: "RuralLand",
     newPropertyClass: "Agriculture",
     newAgriculturalType: "Homestead",
@@ -41,6 +43,7 @@ export default function ProjectForm() {
     schoolDistrictTaxRates: { ag_homestead_effective_rate: 0.01, ag_non_homestead_effective_rate: 0.01, commercial_effective_rate: 0.01},
     discountRate: 0.03,
     auto_calculate_costs: true,
+    expected_useful_life: 30,
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
@@ -57,23 +60,26 @@ export default function ProjectForm() {
       if (type === "checkbox") {
         newData[name] = (e.target as HTMLInputElement).checked;
       } else if (type === "number") {
-        newData[name] = Number(value);
-      } else {
+        let num = Number(value);
+
+        if (name === "expected_useful_life") {
+          num = Math.min(Math.max(num, 1), MAX_USEFUL_LIFE);
+        }
+
+        newData[name] = num;
+      }
+      else {
         newData[name] = value;
       }
 
       if (name === "previousPropertyClass") {
-        if (value === "Agriculture") {
-          newData.agriculturalType = newData.agriculturalType || "Homestead";
-        } else {
+        if (value === "Agriculture" && !newData.agriculturalType) {
           newData.agriculturalType = "Homestead";
         }
       }
 
       if (name === "newPropertyClass") {
-        if (value === "Agriculture") {
-          newData.newAgriculturalType = newData.newAgriculturalType || "Homestead";
-        } else {
+        if (value === "Agriculture" && !newData.newAgriculturalType) {
           newData.newAgriculturalType = "Homestead";
         }
       }
@@ -99,7 +105,7 @@ export default function ProjectForm() {
         projectData.landArea,
         landValuePerAcre,
         projectData.newPropertyClass,
-        projectData.agriculturalType,
+        projectData.newAgriculturalType,
         projectData.countyTaxRates
       )
     : 0;
@@ -124,7 +130,7 @@ export default function ProjectForm() {
         projectData.landArea,
         landValuePerAcre,
         projectData.newPropertyClass,
-        projectData.agriculturalType,
+        projectData.newAgriculturalType,
         projectData.cityTaxRates
       )
     : 0;
@@ -150,7 +156,7 @@ export default function ProjectForm() {
           projectData.landArea,
           landValuePerAcre,
           projectData.newPropertyClass,
-          projectData.agriculturalType,
+          projectData.newAgriculturalType,
           projectData.schoolDistrictTaxRates
         )
       : 0;
@@ -160,7 +166,7 @@ export default function ProjectForm() {
     projectData.approvedLandValuation
       ? schoolDistrictRealPropertyTaxRevenue
       : projectData.schoolDistrictTaxRates
-          ? calculateFormerCityRealPropertyTax(
+          ? calculateFormerSchoolDistrictRealPropertyTax(
               projectData.landArea,
               landValuePerAcre,
               projectData.previousPropertyClass,
@@ -213,10 +219,13 @@ export default function ProjectForm() {
         {/* Results Section */}
         <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} formerRealPropertyTaxRevenue={formerRealPropertyTaxRevenue}
         cityRealPropertyTaxRevenue={cityRealPropertyTaxRevenue} formerCityRealPropertyTaxRevenue={formerCityRealPropertyTaxRevenue}
-        schoolDistrictRealPropertyTaxRevenue={schoolDistrictRealPropertyTaxRevenue} formerSchoolDistrictRealPropertyTaxRevenue={formerSchoolDistrictRealPropertyTaxRevenue}/>
+        schoolDistrictRealPropertyTaxRevenue={schoolDistrictRealPropertyTaxRevenue} formerSchoolDistrictRealPropertyTaxRevenue={formerSchoolDistrictRealPropertyTaxRevenue}
+        discountRate={projectData.discountRate} expectedUsefulLife={projectData.expected_useful_life}
+        inflationRate={projectData.inflationRate}/>
 
       </form>
       </div>
     </div>
+
   );
 }

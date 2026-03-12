@@ -16,7 +16,9 @@ interface Props {
   onSelectCounty?: (county: County | null) => void
 }
 
-console.log("MNSolarProjectLocationSection rendered");
+// console.log("MNSolarProjectLocationSection rendered");
+
+const MAX_USEFUL_LIFE = 35;
 
 
 export default function MNSolarProjectLocationSection({
@@ -65,10 +67,12 @@ export default function MNSolarProjectLocationSection({
 
     setProjectData((prev) => ({
       ...prev,
-      userLandValue: countyAvgValue, // default land value
-      solarEstimatedCapacityFactor: selectedCounty.solar_estimated_capacity_factor ?? prev.solarEstimatedCapacityFactor,
+      userLandValue: selectedCounty.avg_solar_irradiance ?? prev.userLandValue,
+      solarEstimatedCapacityFactor:
+        selectedCounty.solar_estimated_capacity_factor ?? prev.solarEstimatedCapacityFactor,
     }));
   };
+
 
 
   return (
@@ -214,15 +218,15 @@ export default function MNSolarProjectLocationSection({
                 }
                 className="basicInputBox"
             />
-            
 
             <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                 <div className="infoBubble">
-                    The default number (2.7%) represents the average 
-                    annual inflation rate multiplier from 1995-2025 as calculated by 
-                    the State Tax Commission. 
-                    The default multiplier translates to a 2.7% average annual inflation rate. 
+                    The default number (2.4%) represents the average 
+                    annual inflation rate multiplier from the {" "}
+                    <a style={{textDecoration: "underline"}} target="_blank" href="https://www.revenue.state.mn.us/press-release/2025-12-16/minnesota-income-tax-brackets-standard-deduction-and-dependent-exemption#:~:text=For%20tax%20year%202026%2C%20the,inflationary%20changes%20in%20their%20income">Minnesota Department of 
+                    Revenue</a>.
+                    The default multiplier translates to a 2.4% average annual inflation rate. 
                     Users can override this default number and enter their own estimated 
                     average annual inflation rate multiplier if they prefer.
                 </div>
@@ -276,13 +280,13 @@ export default function MNSolarProjectLocationSection({
                     type="number"
                     step="1"
                     min={1}
-                    max={35}
+                    max={MAX_USEFUL_LIFE}
                     value={projectData.expected_useful_life ?? 30}
                    onChange={(e) => {
                       let value = parseInt(e.target.value, 10) || 1;
 
                       // Cap value at 35
-                      if (value > 35) value = 35;
+                      if (value > MAX_USEFUL_LIFE) value = MAX_USEFUL_LIFE;
 
                       setProjectData((prev) => ({
                         ...prev,

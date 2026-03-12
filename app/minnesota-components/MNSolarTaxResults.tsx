@@ -18,6 +18,10 @@ interface Props {
 
   discountRate: number;
 
+  expectedUsefulLife: number;
+
+  inflationRate: number;
+
 }
 // Adding inflation.
 export function inflationRevenues(
@@ -57,7 +61,7 @@ export function calculateNPV(rate: number, cashFlows: number[]): number {
 
 export default function TaxResults({ totalProductionRevenue, realPropertyTaxRevenue, formerRealPropertyTaxRevenue,
   cityRealPropertyTaxRevenue, formerCityRealPropertyTaxRevenue, schoolDistrictRealPropertyTaxRevenue,
-  formerSchoolDistrictRealPropertyTaxRevenue, discountRate = 0.03,
+  formerSchoolDistrictRealPropertyTaxRevenue, discountRate = 0.03, inflationRate, expectedUsefulLife,
  }: Props) {
 
   // Variables for storing calculation information.
@@ -70,10 +74,9 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   const totalNetTaxRevenue = totalProductionRevenue + totalNetRevenue;
 
   // Variables for temporal display.
-  const startYear = 2026;
-  const endYear = 2056;
-  const years = endYear - startYear + 1;
-  const inflationRate = 0.03; // Standard
+  const startYear = new Date().getFullYear();
+  const years = expectedUsefulLife;
+  const endYear = startYear + years - 1;
 
   // Set variable arrays.
   const netRevenues = {
@@ -125,10 +128,24 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   const schoolPerYear = [...revenueSeries.netSchool];
 
 
+  const countyGrossPerYear = countyPerYear;
+  const cityGrossPerYear = cityPerYear;
+  const schoolGrossPerYear = schoolPerYear;
+
+
+  const totalGrossPerYear = countyPerYear.map((_, i) =>
+    countyPerYear[i] +
+    cityPerYear[i] +
+    schoolPerYear[i]
+  );
+
+
+
   // Gross and NPV results.
-  const grossCounty = countyBase * years;
-  const grossCity = cityBase * years;
-  const grossSchool = schoolBase * years;
+  const grossCounty = calculateGrossTotal(countyPerYear);
+  const grossCity = calculateGrossTotal(cityPerYear);
+  const grossSchool = calculateGrossTotal(schoolPerYear);
+
 
 
   const npvCounty = calculateNPV(discountRate, countyPerYear);
@@ -138,8 +155,6 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   // Gross and NPV totals.
   const grossTotal = grossCounty + grossCity + grossSchool;
   const npvTotal = npvCounty + npvCity + npvSchool;
-
-
 
 
   // Creates formatting for the results, adding $ and separating commas.
@@ -278,10 +293,12 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
       <br></br>
 
+      <h3>Total Net Tax Revenue (Year 1)</h3>
+
       <table className="basicTable">
         <thead>
           <tr>
-            <th colSpan={2}>Total Net Tax Revenue (Year 1)</th>
+            <th colSpan={2}>Total Revenue</th>
           </tr>
         </thead>
         <tbody>
@@ -362,9 +379,64 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
 
     <br></br>
+    
     <section>
-      <h3>Projected Revenue [2026-2056]</h3>
       <table className="basicTable">
+        <thead>
+          <tr>
+            <th></th>
+            {Array.from({ length: years }, (_, i) => (
+              <th key={i}>{startYear + i}</th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Gross Per Year - County</td>
+            {countyGrossPerYear.map((value, i) => (
+              <td key={i}>{formatCurrency(value)}</td>
+            ))}
+          </tr>
+
+          <tr>
+            <td>Gross Per Year - City/Township</td>
+            {cityGrossPerYear.map((value, i) => (
+              <td key={i}>{formatCurrency(value)}</td>
+            ))}
+          </tr>
+
+          <tr>
+            <td>Gross Per Year - School District</td>
+            {schoolGrossPerYear.map((value, i) => (
+              <td key={i}>{formatCurrency(value)}</td>
+            ))}
+          </tr>
+
+          <tr className="rowBold">
+            <td>Total Gross Per Year (All Jurisdictions)</td>
+            {totalGrossPerYear.map((value, i) => (
+              <td key={i}>{formatCurrency(value)}</td>
+            ))}
+          </tr>
+
+          <tr><th></th></tr>
+
+          <tr className="rowHighlight">
+            <td>Gross Over the Life of the Project</td>
+            <td colSpan={years}>{formatCurrency(grossTotal)}</td>
+          </tr>
+
+          <tr className="rowHighlight">
+            <td>NPV Over the Life of the Project</td>
+            <td colSpan={years}>{formatCurrency(npvTotal)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      
+      {/* <h3>Projected Revenue [2026-2056]</h3> */}
+      {/* <table className="basicTable">
         <thead>
           <tr>
             <th></th>
@@ -395,10 +467,10 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               </tr>
             ))}
 
-            <tr><th></th></tr>
+            <tr><th></th></tr> */}
 
              {/* Total County Net Revenue */}
-            <tr>
+            {/* <tr>
               <td>Total County Net Revenue</td>
               {Array.from({ length: years }, (_, i) => {
                 const totalRevenue =
@@ -428,10 +500,10 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
               })}
             </tr>
 
-            <tr><th></th></tr>
+            <tr><th></th></tr> */}
 
           {/* Total Net Revenue Across All Jurisdictions */}
-          <tr className="rowHighlight">
+          {/* <tr className="rowHighlight">
             <td>Total Project Net Revenue</td>
             {Array.from({ length: years }, (_, i) => {
               const totalRevenue =
@@ -445,10 +517,58 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
             })}
 
           </tr>
-
-
           </tbody>
-        </table>
+        </table> */}
+
+        <br></br>
+        <br></br>
+
+        <h1>Community Benefits Table</h1>
+        <br></br>
+
+        <p>
+          Below is an estimate of real-world community benefits from your 
+          planned renewable project over the course of its lifespan.
+        </p>
+
+        <table className="basicTable">
+          <thead>
+              <th></th>
+              <th>Expenditure</th>
+              <th>Jurisdiction</th>
+              <th>Unit Cost</th>
+              <th>Total Lifetime Benefit</th>
+          </thead>
+
+          <tbody>
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
+                  <td>Roadway Maintenance</td>
+                  <td>County</td>
+                  <td>~$3,308 per mile</td>
+                  <td>
+                      ~{Math.round((npvCounty) / 1152)} miles
+                  </td>
+              </tr>
+
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a fire truck"></img></td>
+                  <td>Fire Trucks</td>
+                  <td>City/Township</td>
+                  <td>~$1,100,000 per unit</td>
+                  <td>~{Math.round((npvCity) / 2100000)} fire truck(s)</td>
+              </tr>
+
+
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/teacher.png" alt="Vector graphic of a firefighter"></img></td>
+                  <td>Public School Teachers</td>
+                  <td>School District</td>
+                  <td>~$97,056 per annual salary</td>
+                  <td>~{Math.round((npvSchool) / 71835)} FTE (full-time employee) annual salaries</td>
+              </tr>
+          </tbody>
+      </table>
 
     </section>
     </div>
