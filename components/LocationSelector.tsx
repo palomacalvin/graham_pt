@@ -10,6 +10,7 @@ export interface County {
 
   // Wind fetching.
   est_capacity_factor?: number;
+  avg_land_value?: number;
 
   // Solar fetching.
   solar_estimated_capacity_factor?: number;

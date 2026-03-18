@@ -20,7 +20,6 @@ interface Props {
 
 const MAX_USEFUL_LIFE = 35;
 
-
 export default function MNSolarProjectLocationSection({
   projectData,
   handleChange,
@@ -93,7 +92,7 @@ export default function MNSolarProjectLocationSection({
         onSelectCounty={(county) => {
           setSelectedCounty(county);
           setProjectData((prev) => ({
-            ...prev, // keep all other fields
+            ...prev,
             county: county?.county_name || "",
 
             solarEstimatedCapacityFactor:
@@ -153,6 +152,7 @@ export default function MNSolarProjectLocationSection({
       </p>
 
       <br></br>
+
       <label>
         County Average Land Market Value ($/acre):
         <input
@@ -184,7 +184,7 @@ export default function MNSolarProjectLocationSection({
         </button>
       </label>
 
-
+    
       {projectData.pilotAgreement && (
         <label>
           Enter the PILOT Annual Payment amount ($):
@@ -197,6 +197,7 @@ export default function MNSolarProjectLocationSection({
           />
         </label>
       )}
+      
 
       <br></br>
 

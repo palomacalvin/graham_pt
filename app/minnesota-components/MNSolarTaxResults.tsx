@@ -92,6 +92,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     netSchool: "Net School District Property Tax Revenue",
   };
 
+  // Arrays of values for revenue with inflation //
   const revenueSeries = {
     netCounty: inflationRevenues(netCounty, years, inflationRate),
     netCity: inflationRevenues(netCity, years, inflationRate),
@@ -111,6 +112,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     cityProduction: "City/Township Production Tax Revenue",
   }
 
+  // Base values for production revenue calculations.
   const countyBase = netCounty + productionRevenues.countyProduction;
   const cityBase = netCity + productionRevenues.cityProduction;
   const schoolBase = netSchool;
@@ -145,8 +147,6 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   const grossCounty = calculateGrossTotal(countyPerYear);
   const grossCity = calculateGrossTotal(cityPerYear);
   const grossSchool = calculateGrossTotal(schoolPerYear);
-
-
 
   const npvCounty = calculateNPV(discountRate, countyPerYear);
   const npvCity = calculateNPV(discountRate, cityPerYear);
@@ -340,7 +340,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
     <br></br>
 
-    {/* Jurisdictional Gross/NPV Totals */}
+    {/* Jurisdictional Gross & NPV Totals */}
     <table className="basicTable">
       <thead>
         <tr>

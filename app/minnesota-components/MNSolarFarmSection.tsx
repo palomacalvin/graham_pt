@@ -5,6 +5,7 @@ import { useState } from "react";
 interface Props {
   projectData: ProjectData;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  
 }
 
 export default function SolarFarmSection({ projectData, handleChange }: Props) 

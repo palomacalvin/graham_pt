@@ -25,7 +25,7 @@ export interface ProjectData {
   useCountyAvgLandValue: boolean;
   userLandValue: number;
   useEstimatedCapacityFactor: number;
-  solarEstimatedCapacityFactor: number;
+  estimatedCapacityFactor: number;
   userCapacityFactor: number;
   pilotAgreement: boolean;
   pilotPayment: number;
@@ -36,6 +36,9 @@ export interface ProjectData {
   landArea: number;
   numberOfTurbines: number;
   acreageUnderTurbine: number;
+  discountRate: number;
+  auto_calculate_costs: boolean;
+  expected_useful_life: number;
 
   taxRates?: {
     homestead: number;

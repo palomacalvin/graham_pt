@@ -22,16 +22,19 @@ export default function ProjectForm() {
     useCountyAvgLandValue: true,
     userLandValue: 10000,
     useEstimatedCapacityFactor: 0,
-    solarEstimatedCapacityFactor: 0,
+    estimatedCapacityFactor: 0,
+    expected_useful_life: 30,
     userCapacityFactor: 0,
     pilotAgreement: false,
     pilotPayment: 0,
-    inflationRate: 3.0,
+    inflationRate: 0.024,
+    discountRate: 0.03,
+    auto_calculate_costs: true,
     propertyClass: "Agriculture",
     agriculturalType: "Homestead",
     nameplateCapacity: 100,
     landArea: 700,
-    numberOfTurbines: 0,
+    numberOfTurbines: 50,
     acreageUnderTurbine: 0,
     taxRates: { homestead: 0.01, nonHomestead: 0.01, commercial: 0.01 },
     cityTaxRates: { ag_homestead_effective_rate: 0.01, ag_non_homestead_effective_rate: 0.01, commercial_effective_rate: 0.01},
@@ -118,14 +121,15 @@ export default function ProjectForm() {
 
         {/* Wind Farm Section */}
         <br></br>
-        <WindFarmSection projectData={projectData} handleChange={handleChange} />
+        <WindFarmSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData}/>
 
         <br></br>
 
         {/* Results Section */}
         <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={0} formerRealPropertyTaxRevenue={0}
         cityRealPropertyTaxRevenue={0} formerCityRealPropertyTaxRevenue={0}
-        schoolDistrictRealPropertyTaxRevenue={0} formerSchoolDistrictRealPropertyTaxRevenue={0}/>
+        schoolDistrictRealPropertyTaxRevenue={0} formerSchoolDistrictRealPropertyTaxRevenue={0} discountRate={projectData.discountRate}
+        inflationRate={projectData.inflationRate} expectedUsefulLife={projectData.expected_useful_life}/>
 
       </form>
       </div>

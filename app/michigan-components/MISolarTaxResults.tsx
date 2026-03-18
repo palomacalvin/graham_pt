@@ -1168,9 +1168,9 @@ export default function MISolarTaxResults( {projectData}: Props) {
                             <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/firefighter.png" alt="Vector graphic of a firefighter"></img></td>
                             <td>Firefighters</td>
                             <td>Township</td>
-                            <td>~$71,835 per full-time employee (FTE)</td>
-                            <td>~{Math.round((local_unit.npv) / 71835)} FTEs</td>
-                            <td>~{Math.round((piltLocalUnit.npv / 71835))} FTEs</td>
+                            <td>~$71,835 per annual salary</td>
+                            <td>~{Math.round((local_unit.npv) / 71835)} full-time employee (FTE) annual salaries</td>
+                            <td>~{Math.round((piltLocalUnit.npv / 71835))} full-time employee (FTE) annual salaries</td>
                         </tr>
 
                         <tr>
