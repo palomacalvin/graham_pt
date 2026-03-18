@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import Navbar from "@/components/Navbar";
@@ -33,6 +33,12 @@ export default function MichiganSolar() {
 
   });
 
+  const [showResults, setShowResults] = useState(false);
+
+  useEffect(() => {
+    setShowResults(false);
+  }, [projectData]);
+
   return (
     <div>
       <Navbar />
@@ -54,13 +60,26 @@ export default function MichiganSolar() {
           <MISolarProjectDetailsSection projectData={projectData} setProjectData={setProjectData} />
         </div>
 
-        <div style={{ margin: "3rem" }}>
+        <div style={{ marginLeft: "3rem", marginTop: "3rem" }}>
           <MISolarRealPropertyCalculator projectData={projectData} setProjectData={setProjectData} />
         </div>
 
-        <div style={{ margin: "3rem" }}>
-          <MISolarTaxResults projectData={projectData} />
+        <div style={{ marginLeft: "3rem" }}>
+          <button
+            type="button"
+            onClick={() => setShowResults(true)}
+            className="basicButton"
+          >
+            Calculate
+          </button>
         </div>
+      
+        {showResults && (
+          <div style={{ marginLeft: "3rem", marginRight: "3rem" }}>
+          <MISolarTaxResults projectData={projectData} />
+          </div>
+        )}
+
 
 
     </div>

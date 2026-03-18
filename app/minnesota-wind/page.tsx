@@ -13,6 +13,7 @@ import { calculateCityRealPropertyTax } from "@/utils/MNCityCalculations";
 import { calculateSchoolDistrictRealPropertyTax } from "@/utils/MNSchoolDistrictCalculations";
 import Link from "next/link";
 import Instructions from "@/components/Instructions";
+import { useEffect } from "react";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -45,9 +46,17 @@ export default function ProjectForm() {
 
   const { countyAvgValue } = useCountyData(projectData, setProjectData);
 
+  const [showResults, setShowResults] = useState(false);
+
+  useEffect(() => {
+    setShowResults(false);
+  }, [projectData]);
+
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
+
+    setShowResults(false);
 
     setProjectData(prev => {
       let newData: any = { ...prev };
@@ -64,13 +73,16 @@ export default function ProjectForm() {
   });
 };
 
-  // console.log(projectData.countyTaxRates)
-
   // Calculate production revenue
   const productionRate = getProductionRate(projectData.nameplateCapacity);
   const annualMWh = getAnnualEnergyMWh(projectData);
   const modProdTaxRevenue = productionRate * annualMWh;
-  const totalProductionRevenue = (projectData.pilotAgreement ? projectData.pilotPayment : modProdTaxRevenue) / 10;
+
+  // Use pilotPayment **if the user entered any number**, otherwise use the calculated production revenue
+  const totalProductionRevenue =
+  projectData.pilotPayment != null && projectData.pilotPayment !== 0
+    ? projectData.pilotPayment // user-entered, use as-is
+    : modProdTaxRevenue / 10;  // calculated, apply scaling
 
   const landValuePerAcre = (userEditedLandValue || countyAvgValue === 0) ? projectData.userLandValue : countyAvgValue;
 
@@ -103,6 +115,7 @@ export default function ProjectForm() {
           countyAvgValue={countyAvgValue}
           userEditedLandValue={userEditedLandValue}
           onSelectCounty={(county: County | null) => {
+            setShowResults(false);
             setProjectData(prev => ({
               ...prev,
               county: county?.county_name || "",
@@ -122,14 +135,30 @@ export default function ProjectForm() {
         {/* Wind Farm Section */}
         <br></br>
         <WindFarmSection projectData={projectData} handleChange={handleChange} setProjectData={setProjectData}/>
-
+        
         <br></br>
 
-        {/* Results Section */}
-        <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={0} formerRealPropertyTaxRevenue={0}
-        cityRealPropertyTaxRevenue={0} formerCityRealPropertyTaxRevenue={0}
-        schoolDistrictRealPropertyTaxRevenue={0} formerSchoolDistrictRealPropertyTaxRevenue={0} discountRate={projectData.discountRate}
-        inflationRate={projectData.inflationRate} expectedUsefulLife={projectData.expected_useful_life}/>
+        <button
+          type="button"
+          onClick={() => setShowResults(true)}
+          className="basicButton"
+        >
+          Calculate
+        </button>
+          {showResults && (
+            <TaxResults
+              totalProductionRevenue={totalProductionRevenue}
+              realPropertyTaxRevenue={0}
+              formerRealPropertyTaxRevenue={0}
+              cityRealPropertyTaxRevenue={0}
+              formerCityRealPropertyTaxRevenue={0}
+              schoolDistrictRealPropertyTaxRevenue={0}
+              formerSchoolDistrictRealPropertyTaxRevenue={0}
+              discountRate={projectData.discountRate}
+              inflationRate={projectData.inflationRate}
+              expectedUsefulLife={projectData.expected_useful_life}
+            />
+          )}
 
       </form>
       </div>

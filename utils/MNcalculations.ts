@@ -22,7 +22,7 @@ export function getAnnualSolarEnergyMWh(projectData: ProjectData): number {
   const capacityFactor =
     projectData.userCapacityFactor && projectData.userCapacityFactor > 0
       ? projectData.userCapacityFactor
-      : projectData.solarEstimatedCapacityFactor;
+      : projectData.estimatedCapacityFactor;
 
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }

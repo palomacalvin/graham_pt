@@ -230,24 +230,24 @@ label {
 
 .inputWithInfo {
   display: flex;
-  align-items: center; /* vertically center input and icon */
+  align-items: center;
   gap: 0.5rem;
-  position: relative;  /* needed for tooltip positioning */
+  position: relative;
 }
 
 
 
 .infoWrapper {
-  display: inline-flex;  /* keep inline for flex layout, allows hover to work */
-  align-items: center;   /* vertically center the image inside wrapper */
+  display: inline-flex;
+  align-items: center;
   position: relative;
   cursor: pointer;
 }
 
 .infoWrapper img {
-  width: 30px;   /* adjust to match input height */
+  width: 30px;
   height: 30px;
-  display: block; /* can stay block now because wrapper uses flex */
+  display: block;
 }
 
 .infoBubble {

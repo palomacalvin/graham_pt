@@ -378,49 +378,6 @@ export default function MIWindProjectDetailsSection({
       <h1>Acreage and Turbines</h1>
 
       <br></br>
-
-      <label>
-          <div className="inputWithInfo">
-          Project acreage under turbines:
-          <input
-                type="number"
-                value={projectData.project_acreage ?? 0}
-                onChange={(e) =>
-                  setProjectData(prev => ({
-                    ...prev!,
-                    auto_calculate_acreage: false,
-                    project_acreage: parseFloat(e.target.value) || 0,
-                  }))
-                }
-                className="basicInputBox"
-              />
-
-              <div className="infoWrapper">
-                  <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                  <div className="infoBubble">
-                      We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
-                  </div>
-              </div>
-          </div>
-      </label>
-
-      {!projectData.auto_calculate_acreage && (
-          <>
-            <br />
-            <p className="warning">
-              <img
-                src="/photos-logos/warning-alert.svg"
-                alt="Warning sign logo."
-                className="warningImg"
-              />
-              <span>
-                WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
-                below to restore automatic calculation from turbine totals.
-              </span>
-            </p>
-            <br />
-          </>
-        )}
         
 
       <label>
@@ -498,14 +455,67 @@ export default function MIWindProjectDetailsSection({
         />
       </label>
 
-      <button
-        type="button"
-        onClick={handleResetTurbines}
-        className="inPageButton"
-      >
-        Reset Turbines to Default
-      </button>
+      <label>
+          <div className="inputWithInfo">
+          Project acreage under turbines:
+          <input
+                type="number"
+                value={projectData.project_acreage ?? 0}
+                onChange={(e) =>
+                  setProjectData(prev => ({
+                    ...prev!,
+                    auto_calculate_acreage: false,
+                    project_acreage: parseFloat(e.target.value) || 0,
+                  }))
+                }
+                className="basicInputBox"
+              />
 
+              <div className="infoWrapper">
+                  <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                  <div className="infoBubble">
+                      We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                  </div>
+              </div>
+          </div>
+      </label>
+
+      {!projectData.auto_calculate_acreage && (
+          <>
+            <br />
+            <p className="warning">
+              <img
+                src="/photos-logos/warning-alert.svg"
+                alt="Warning sign logo."
+                className="warningImg"
+              />
+              <span>
+                WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
+                below to restore automatic calculation from turbine totals.
+              </span>
+            </p>
+            <br />
+          </>
+        )}
+
+      <div className="inputWithInfo">
+        <button
+          type="button"
+          onClick={handleResetTurbines}
+          className="inPageButton"
+        >
+          Reset Turbines/Acreage to Default
+        </button>
+        <div className="infoWrapper">
+          <div style={{ marginBottom: "25px" }}>
+            <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+          </div>
+          <div className="infoBubble">
+              Press this button if you have made any changes to the total project acreage, but would like to keep the default 
+              relationship (1 acre/turbine). You may also use this button to reset the number of turbines to default.
+          </div>
+        </div>
+      </div>
 
     </section>
 

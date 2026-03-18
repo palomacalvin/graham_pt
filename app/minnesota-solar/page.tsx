@@ -12,6 +12,7 @@ import { calculateFormerSchoolDistrictRealPropertyTax, calculateSchoolDistrictRe
 import SolarFarmSection from "@/app/minnesota-components/MNSolarFarmSection";
 import TaxResults from "@/app/minnesota-components/MNSolarTaxResults";
 import Link from "next/link";
+import { useEffect } from "react";
 
 import Instructions from "@/components/Instructions";
 
@@ -49,6 +50,12 @@ export default function ProjectForm() {
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
 
   const { countyAvgValue } = useCountyData(projectData, setProjectData);
+
+  const [showResults, setShowResults] = useState(false);
+
+  useEffect(() => {
+    setShowResults(false);
+  }, [projectData]);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -216,12 +223,31 @@ export default function ProjectForm() {
 
         <br></br>
 
+        <button
+          type="button"
+          onClick={() => setShowResults(true)}
+          className="basicButton"
+        >
+          Calculate
+        </button>
+
+        <br></br>
+
         {/* Results Section */}
-        <TaxResults totalProductionRevenue={totalProductionRevenue} realPropertyTaxRevenue={realPropertyTaxRevenue} formerRealPropertyTaxRevenue={formerRealPropertyTaxRevenue}
-        cityRealPropertyTaxRevenue={cityRealPropertyTaxRevenue} formerCityRealPropertyTaxRevenue={formerCityRealPropertyTaxRevenue}
-        schoolDistrictRealPropertyTaxRevenue={schoolDistrictRealPropertyTaxRevenue} formerSchoolDistrictRealPropertyTaxRevenue={formerSchoolDistrictRealPropertyTaxRevenue}
-        discountRate={projectData.discountRate} expectedUsefulLife={projectData.expected_useful_life}
-        inflationRate={projectData.inflationRate}/>
+        {showResults && (
+          <TaxResults
+            totalProductionRevenue={totalProductionRevenue}
+            realPropertyTaxRevenue={realPropertyTaxRevenue}
+            formerRealPropertyTaxRevenue={formerRealPropertyTaxRevenue}
+            cityRealPropertyTaxRevenue={cityRealPropertyTaxRevenue}
+            formerCityRealPropertyTaxRevenue={formerCityRealPropertyTaxRevenue}
+            schoolDistrictRealPropertyTaxRevenue={schoolDistrictRealPropertyTaxRevenue}
+            formerSchoolDistrictRealPropertyTaxRevenue={formerSchoolDistrictRealPropertyTaxRevenue}
+            discountRate={projectData.discountRate}
+            expectedUsefulLife={projectData.expected_useful_life}
+            inflationRate={projectData.inflationRate}
+          />
+        )}
 
       </form>
       </div>
