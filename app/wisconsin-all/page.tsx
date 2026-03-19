@@ -7,6 +7,7 @@ import Link from "next/link";
 import WIUserSelections from "@/app/wisconsin-components/WIUserSelections";
 import { County } from "@/components/WILocationSelector";
 import WIResults from "@/app/wisconsin-components/WIResults";
+import Instructions from "@/components/Instructions";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -39,9 +40,10 @@ export default function ProjectForm() {
     number_of_turbines: 70,
 
     land_area: 700,
-    inflation_rate: 3.0,
+    inflation_rate: 0.027,
+    discount_rate: 0.03,
     nameplate_capacity: 100,
-
+    expected_useful_life: 30,
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
@@ -98,17 +100,7 @@ export default function ProjectForm() {
 
       </div>
 
-      <p className="basicBox">
-          Fill in the fields below with values relevant to your project. Default values
-          are available for each county, city/township, and school district; these values
-          have been compiled from state-by-state research. See the{" "}
-            <Link className="boxLinkText" href="references">
-              References
-            </Link>{" "}
-            page for more details.
-
-          Hover over the information icons next to each field to learn more about individual inputs.
-      </p>
+      <Instructions state="Wisconsin" />
 
 
       <div style={{ margin: "3rem" }}>

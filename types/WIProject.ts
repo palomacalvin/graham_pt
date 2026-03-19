@@ -38,6 +38,8 @@ export interface ProjectData {
   // Other.
   inflation_rate: number;
   nameplate_capacity: number;
+  discount_rate: number;
+  expected_useful_life: number;
 
 }
 

@@ -82,20 +82,35 @@ export default function WindFarmSection({ projectData, handleChange, setProjectD
         className="basicInputBox" />
       </label>
 
-      <label>
-        Land Area of Project (acres):
+      <label className="inputWithInfo">
+        Project acreage under turbines:
         <input 
         type="number" 
         name="landArea" 
         value={projectData.landArea} 
         onChange={handleLandChange}
         className="basicInputBox" />
+
+        <div className="infoWrapper">
+          <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+          <div className="infoBubble">
+              We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+          </div>
+        </div>
       </label>
 
       {isBroken && (
         <p className="warning">
-          Warning: Land area no longer matches the number of turbines (1 acre/turbine). 
-        </p>
+              <img
+                src="/photos-logos/warning-alert.svg"
+                alt="Warning sign logo."
+                className="warningImg"
+              />
+              <span>
+                WARNING: Acreage is manually overridden. Click "Reset Turbines/Acreage to Default"
+                below to restore automatic calculation from turbine totals.
+              </span>
+          </p>
       )}
 
       <br></br>
