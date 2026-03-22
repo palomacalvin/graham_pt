@@ -8,8 +8,13 @@ import WIUserSelections from "@/app/wisconsin-components/WIUserSelections";
 import { County } from "@/components/WILocationSelector";
 import WIResults from "@/app/wisconsin-components/WIResults";
 import Instructions from "@/components/Instructions";
+import { useEffect } from "react";
 
 export default function ProjectForm() {
+
+  const [showResults, setShowResults] = useState(false);
+
+
   const [projectData, setProjectData] = useState<ProjectData>({
     county_name: "",
     project_type: "Solar",
@@ -90,6 +95,10 @@ export default function ProjectForm() {
       alert("Project saved!");
     };
 
+  useEffect(() => {
+    setShowResults(false);
+  }, [projectData]);
+
   return (
     <div>
       <Navbar />
@@ -112,7 +121,17 @@ export default function ProjectForm() {
             setProjectData={setProjectData}
           />
 
-          <WIResults projectData={projectData} />
+          <button
+              type="button"
+              onClick={() => setShowResults(true)}
+              className="basicButton"
+            >
+              Calculate
+          </button>
+
+          {showResults && (
+            <WIResults projectData={projectData} />
+          )}
 
         </form>
       </div>

@@ -352,3 +352,25 @@ label {
     top: 7px;
     left: 7px
 }
+
+h2.contact {
+  margin: 0rem;
+}
+
+.mailto {
+  color: #0075bc;
+}
+
+.mailto:hover {
+  color: #00aa4c;
+  transition: 0.3s
+}
+
+.contactPageLink {
+  color: #0075bc;
+}
+
+.contactPageLink:hover {
+  color: #00aa4c;
+  transition: 0.3s
+}
