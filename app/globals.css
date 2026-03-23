@@ -374,3 +374,8 @@ h2.contact {
   color: #00aa4c;
   transition: 0.3s
 }
+
+.ref-list {
+  list-style: circle;
+  margin-left: 1rem;
+}
