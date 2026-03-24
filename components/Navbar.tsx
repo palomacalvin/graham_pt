@@ -9,6 +9,7 @@ import clsx from 'clsx';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/contact', label: 'Contact' },
+  { href: '/references', label: 'References'},
 ];
 
 const calculatorLinks = [
@@ -16,10 +17,10 @@ const calculatorLinks = [
   { href: '/indiana', label: 'Indiana [TBA]' },
   { href: '/iowa', label: 'Iowa [TBA]' },
   { href: '/michigan', label: 'Michigan' },
-  { href: '/minnesota', label: 'Minnesota [TBA]' },
+  { href: '/minnesota', label: 'Minnesota' },
   { href: '/nebraska', label: 'Nebraska [TBA]' },
   { href: '/ohio', label: 'Ohio [TBA]' },
-  { href: '/wisconsin', label: 'Wisconsin [TBA]' },
+  { href: '/wisconsin', label: 'Wisconsin' },
 ];
 
 export default function Navbar() {

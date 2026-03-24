@@ -16,7 +16,7 @@ export default function WIHome() {
       <Navbar />
       <div className="">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <header>Wisconsin [UNDER CONSTRUCTION]</header>
+          <header>Wisconsin</header>
             <img
               src="/photos-logos/EPCstacked.png"
               alt="EPC Logo"

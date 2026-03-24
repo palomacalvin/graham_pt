@@ -24,17 +24,13 @@ export default function ContactPage() {
 
         <h2 className="contact">For our full reference list, please visit the <a href="references" className="contactPageLink">References</a> page.</h2>
 
-        <h2 className="contact">To learn more about the project, click to 
-          <a target="_blank" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" className="contactPageLink">visit the project's landing page</a> 
+        <h2 className="contact">To learn more about the project, click to {" "}
+          <a target="_blank" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" className="contactPageLink">visit the project's landing page </a> 
           on the Graham Sustainability Institute website. On this page, you can find
           a webinar recording from August 2025 with helpful information about the project.
+          You can also learn more about the Center for EmPowering Communities on this page.
         </h2>
-
-        <h2 className="contact">
-          You may also learn more about the Center for EmPowering Communities by clicking to <a target="_blank" href="https://graham.umich.edu/empowering-communities" className="contactPageLink">
-          visit the program's landing page</a>.
-        </h2>
-
+        
         <br></br>
 
         <h1>Acknowledgements</h1>

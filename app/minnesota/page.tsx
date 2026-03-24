@@ -19,7 +19,7 @@ export default function Home() {
       <Navbar />
       <div className="">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <header>Minnesota [UNDER CONSTRUCTION]</header>
+          <header>Minnesota</header>
             <img
               src="/photos-logos/EPCstacked.png"
               alt="EPC Logo"

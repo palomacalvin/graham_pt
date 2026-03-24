@@ -177,13 +177,14 @@ label {
 }
 
 .boxLinkText {
-  color: #004067;
-  text-decoration: underline;
+  color: #0075bc;
+  text-decoration: none;
 }
 
 .boxLinkText:hover {
   color: #00aa4c;
   text-decoration: underline;
+  transition: 0.3s;
 }
 
 .rowHighlight {

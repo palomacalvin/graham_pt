@@ -22,7 +22,8 @@ export default function Instructions ( {state}: { state: string } ) {
             </p>
 
             <p style={{ marginTop: "1rem" }}>
-                Please contact Vamika Jain at vamikaj@umich.edu for any questions or feedback.
+                Please contact us by emailing <a href="mailto:empoweringcommunities@umich.edu" className="mailto">empoweringcommunities@umich.edu</a> with any questions,
+                comments, or feedback.
             </p>
 
             <br></br>
