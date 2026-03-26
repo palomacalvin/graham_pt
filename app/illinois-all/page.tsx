@@ -8,6 +8,8 @@ import ILUserSelections from "../illinois-components/ILUserSelections";
 import WIResults from "@/app/wisconsin-components/WIResults";
 import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
+import { generateNetAssessedValues } from "@/utils/ILCalculations";
+
 
 export default function ProjectForm() {
 
@@ -61,6 +63,22 @@ export default function ProjectForm() {
     unit13_name: "",
     unit14_name: "",
     unit15_name: "",
+
+    unit1_label: "County",
+    unit2_label: "Township",
+    unit3_label: "School District",
+    unit4_label: "All other special units",
+    unit5_label: "",
+    unit6_label: "",
+    unit7_label: "",
+    unit8_label: "",
+    unit9_label: "",
+    unit10_label: "",
+    unit11_label: "",
+    unit12_label: "",
+    unit13_label: "",
+    unit14_label: "",
+    unit15_label: "",
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
@@ -84,6 +102,13 @@ export default function ProjectForm() {
   });
 };
 
+  const rows = generateNetAssessedValues(
+    21800000, // Base cost
+    projectData.inflation_rate,
+    2026,
+    projectData.expected_useful_life
+  );
+
 
   useEffect(() => {
     setShowResults(false);
@@ -104,7 +129,6 @@ export default function ProjectForm() {
 
       <div style={{ margin: "3rem" }}>
         <form>
-          Project Selections / User Inputs
           <ILUserSelections
             projectData={projectData}
             handleChange={handleChange}
@@ -122,6 +146,39 @@ export default function ProjectForm() {
           {/* {showResults && (
             <WIResults projectData={projectData} />
           )} */}
+
+          <div style={{ margin: "3rem" }}>
+  <h2>Depreciation Schedule</h2>
+
+  <table className="basicTable">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Age</th>
+        <th>Dep Factor</th>
+        <th>Trend Factor</th>
+        <th>Trended Cost</th>
+        <th>Depreciation</th>
+        <th>FCV</th>
+        <th>Assessed Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr key={row.year}>
+          <td>{row.year}</td>
+          <td>{row.age}</td>
+          <td>{row.depreciationFactor.toFixed(3)}</td>
+          <td>{row.trendingFactor.toFixed(2)}</td>
+          <td>${row.trendedCost.toLocaleString()}</td>
+          <td>${row.depreciation.toLocaleString()}</td>
+          <td>${row.fcv.toLocaleString()}</td>
+          <td>${row.assessedValue.toLocaleString()}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
         </form>
       </div>

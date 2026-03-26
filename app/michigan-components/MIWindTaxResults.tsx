@@ -493,15 +493,13 @@ export default function MIWindTaxResults( {projectData}: Props) {
             </p>
             <br></br>
 
-            <p>The gross value represents revenue over the life of the project without adjustments
-                for future inflation or risk over the life of the project.
+            <p>
+                The gross value represents the total dollar value of tax revenue over the life of the project. Underlying property values are adjusted for inflation on an annual basis. 
             </p>
             <br></br>
             
             <p>
-                The net present value represents revenue over the life of the project that has been
-                adjusted for inflation and risk over the life of the project. This is calculated
-                by accounting for the difference between the annual inflation and discount rate.
+                The net present value adjusts this dollar value using the discount factor to represent what the future money is expected to be worth today (accounting for inflation and risk).
             </p>
             <br></br>
 
@@ -531,9 +529,9 @@ export default function MIWindTaxResults( {projectData}: Props) {
                         <thead>
                             <tr>
                                 <th>Jurisdiction</th>
-                                <th>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</th>
-                                <th>Net Present Value [Adjusted for future inflation and risk
-                                    over the life of the project]
+                                <th>Gross Over the Life of the Project (Total Dollar Value)</th>
+                                <th>
+                                    Net Present Value Over the Life of the Project (Discounted for future inflation and risk)
                                 </th>
                             </tr>
                         </thead>
@@ -674,12 +672,12 @@ export default function MIWindTaxResults( {projectData}: Props) {
                                 </tr>
 
                                 <tr className="rowHighlight">
-                                    <td colSpan={3}>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(total_gross_all_units_final)}</td>
                                 </tr>
 
                                 <tr className="rowHighlight">
-                                    <td colSpan={3}>Net Present Value [Adjusted for future inflation and risk over the life of the project]</td>
+                                    <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
                                     <td colSpan={projectData.expected_useful_life}>{formatCurrency(total_npv_all_units_final)}</td>
                                 </tr>
 

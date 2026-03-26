@@ -17,6 +17,27 @@ interface Props {
 
 const MAX_USEFUL_LIFE = 35;
 
+const createDefaultTaxUnits = (): TaxUnit[] =>
+  Array.from({ length: 15 }, (_, i) => ({
+    unitNumber: i + 1,
+    type:
+      i === 0 ? "County" :
+      i === 1 ? "Township" :
+      i === 2 ? "School District" :
+      i === 3 ? "Special Taxing Unit" : "",
+    rate:
+      i === 0 ? 0.76473 :
+      i === 1 ? 0.33223 :
+      i === 2 ? 3.50119 :
+      i === 3 ? 1.43 : 0,
+    name:
+      i === 0 ? "Adams" :
+      i === 1 ? "Clayton" :
+      i === 2 ? "Camp Point" :
+      i === 3 ? "Special Taxing Unit" : "",
+  }));
+
+
 export default function ILUserSelections({
   projectData,
   handleChange,
@@ -63,14 +84,11 @@ export default function ILUserSelections({
         }));
     }, [projectData.nameplate_capacity, projectData.project_type, userEditedSolarRelation]);
     
-    const [taxUnits, setTaxUnits] = useState<TaxUnit[]>(
-        Array.from({ length: 15 }, (_, i) => ({
-            unitNumber: i + 1,
-            type: i === 0 ? "County" : i === 1 ? "Township" : i === 2 ? "School District" : "",
-            rate: i === 0 ? 0.76473 : i === 1 ? 0.33223 : i === 2 ? 3.50119 : i === 3 ? 1.43 : 0,
-            name: i === 0 ? "Adams" : i === 1 ? "Clayton" : i === 2 ? "Camp Point" : "",
-        }))
-    );
+    const [taxUnits, setTaxUnits] = useState<TaxUnit[]>(createDefaultTaxUnits());
+
+    const handleResetTaxUnits = () => {
+        setTaxUnits(createDefaultTaxUnits());
+    };
 
   return (
     <>
@@ -407,11 +425,30 @@ export default function ILUserSelections({
                 Illinois does not publish statewide data on local tax rates.
                 Check county website or contact local jurisdictions for all applicable rates.
             </p>
+
+            <br></br>
+
+            <p>
+                Below are defaults provided as an example. You may choose to change the {" "}
+                <strong>Taxing Unit Type</strong> label, {" "}<strong>Unit Name</strong>, and <strong>Rate</strong>.
+                We recommend to always include rates for the County, Township, and School District,
+                but special units may not apply to your jurisdiction.
+            </p>
             
 
             <br></br>
 
             <TaxTable taxUnits={taxUnits} setTaxUnits={setTaxUnits} />
+
+            <br></br>
+            <br></br>
+            <button
+                type="button"
+                onClick={handleResetTaxUnits}
+                className="inPageButton"
+                >
+                Reset Tax Units to Defaults
+            </button>
         </section>
 
     </>

@@ -325,17 +325,15 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     <br></br>
 
     <p>
-      The gross value represents revenue over the life of the project without 
-      adjustments for future inflation or risk over the life of the project.
+      The gross value represents the total dollar value of tax revenue over the life of the 
+      project. Underlying property values are adjusted for inflation on an annual basis.
     </p>
 
     <br></br>
 
     <p>
-      The net present value represents revenue over the life of the project that has 
-      been adjusted for inflation and risk over the life of the project. 
-      This is calculated by accounting for the difference between the annual 
-      inflation and discount rate.
+      The net present value adjusts this dollar value using the discount factor to represent what 
+      the future money is expected to be worth today (accounting for inflation and risk).
     </p>
 
     <br></br>
@@ -345,8 +343,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       <thead>
         <tr>
           <th>Jurisdiction</th>
-          <th>Gross Over the Life of the Project [Before adjustment for future inflation and risk over the life of the project]</th>
-          <th>Net Present Value [Adjusted for future inflation and risk over the life of the project]</th>
+          <th>Gross Over the Life of the Project (Total Dollar Value)</th>
+          <th>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</th>
         </tr>
       </thead>
 
@@ -423,102 +421,16 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
           <tr><th></th></tr>
 
           <tr className="rowHighlight">
-            <td>Gross Over the Life of the Project</td>
+            <td>Gross Over the Life of the Project (Total Dollar Value)</td>
             <td colSpan={years}>{formatCurrency(grossTotal)}</td>
           </tr>
 
           <tr className="rowHighlight">
-            <td>NPV Over the Life of the Project</td>
+            <td>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
             <td colSpan={years}>{formatCurrency(npvTotal)}</td>
           </tr>
         </tbody>
       </table>
-
-      
-      {/* <h3>Projected Revenue [2026-2056]</h3> */}
-      {/* <table className="basicTable">
-        <thead>
-          <tr>
-            <th></th>
-            {Array.from({ length: years }, (_, i) => (
-              <th key={i}>{startYear + i}</th>
-            ))}
-          </tr>
-        </thead>
-          <tbody>
-            {Object.entries(netRevenues).map(([key]) => (
-              <tr key={key}>
-                <td>{netRevenueNames[key] || key}</td>
-                {revenueSeries[key as keyof typeof revenueSeries].map((revenue, i) => (
-                  <td key={i}>{formatCurrency(revenue)}</td>
-                ))}
-              </tr>
-            ))}
-            <tr><th></th></tr>
-          </tbody>
-
-          <tbody>
-            {Object.entries(productionRevenues).map(([key, baseValue]) => (
-              <tr key={key}>
-                <td>{productionRevenueNames[key] || key}</td>
-                {Array.from({ length: years }, (_, i) => 
-                  <td key={i}>{formatCurrency(baseValue)}</td>
-                )}
-              </tr>
-            ))}
-
-            <tr><th></th></tr> */}
-
-             {/* Total County Net Revenue */}
-            {/* <tr>
-              <td>Total County Net Revenue</td>
-              {Array.from({ length: years }, (_, i) => {
-                const totalRevenue =
-                  revenueSeries.netCounty[i] +
-                  productionRevenues.countyProduction;
-                return <td key={i}>{formatCurrency(totalRevenue)}</td>;
-              })}
-            </tr>
-
-
-            <tr>
-              <td>Total City/Township Net Revenue</td>
-              {Array.from({ length: years }, (_, i) => {
-                const totalRevenue =
-                  revenueSeries.netCity[i] +
-                  productionRevenues.cityProduction;
-
-                return <td key={i}>{formatCurrency(totalRevenue)}</td>;
-              })}
-            </tr>
-
-            <tr>
-              <td>Total School District Net Revenue</td>
-              {Array.from({ length: years }, (_, i) => {
-                const totalRevenue = revenueSeries.netSchool[i];
-                return <td key={i}>{formatCurrency(totalRevenue)}</td>;
-              })}
-            </tr>
-
-            <tr><th></th></tr> */}
-
-          {/* Total Net Revenue Across All Jurisdictions */}
-          {/* <tr className="rowHighlight">
-            <td>Total Project Net Revenue</td>
-            {Array.from({ length: years }, (_, i) => {
-              const totalRevenue =
-                revenueSeries.netCounty[i] +
-                productionRevenues.countyProduction +
-                revenueSeries.netCity[i] +
-                productionRevenues.cityProduction +
-                revenueSeries.netSchool[i];
-
-              return <td key={i}>{formatCurrency(totalRevenue)}</td>;
-            })}
-
-          </tr>
-          </tbody>
-        </table> */}
 
         <br></br>
         <br></br>
@@ -545,9 +457,9 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                   <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
                   <td>Roadway Maintenance</td>
                   <td>County</td>
-                  <td>~$3,308 per mile</td>
+                  <td>~$12,492 per mile</td>
                   <td>
-                      ~{Math.round((npvCounty) / 1152)} miles
+                      ~{Math.round((npvCounty) / 12492)} miles
                   </td>
               </tr>
 
@@ -556,7 +468,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                   <td>Fire Trucks</td>
                   <td>City/Township</td>
                   <td>~$1,100,000 per unit</td>
-                  <td>~{Math.round((npvCity) / 2100000)} fire truck(s)</td>
+                  <td>~{Math.round((npvCity) / 1100000)} fire truck(s)</td>
               </tr>
 
 
@@ -565,7 +477,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
                   <td>Public School Teachers</td>
                   <td>School District</td>
                   <td>~$97,056 per annual salary</td>
-                  <td>~{Math.round((npvSchool) / 71835)} FTE (full-time employee) annual salaries</td>
+                  <td>~{Math.round((npvSchool) / 97056)} FTE (full-time employee) annual salaries</td>
               </tr>
           </tbody>
       </table>

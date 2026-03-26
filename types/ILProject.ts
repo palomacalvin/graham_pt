@@ -52,6 +52,23 @@ export interface ProjectData {
   wind_trending_factor: number;
   solar_trending_factor: number;
   county_avg_soil_productivity: number;
+
+  // Units
+  unit1_label: string,
+  unit2_label: string,
+  unit3_label: string,
+  unit4_label: string,
+  unit5_label: string,
+  unit6_label: string,
+  unit7_label: string,
+  unit8_label: string,
+  unit9_label: string,
+  unit10_label: string,
+  unit11_label: string,
+  unit12_label: string,
+  unit13_label: string,
+  unit14_label: string,
+  unit15_label: string,
 }
 
 

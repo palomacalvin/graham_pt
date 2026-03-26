@@ -34,8 +34,8 @@ export default function TaxTable({ taxUnits, setTaxUnits }: Props) {
         <tr>
           <th>Unit #</th>
           <th>Taxing Unit Type</th>
-          <th>Rate (%)</th>
           <th>Unit Name</th>
+          <th>Rate (%)</th>
         </tr>
       </thead>
       <tbody>
@@ -69,11 +69,11 @@ export default function TaxTable({ taxUnits, setTaxUnits }: Props) {
             </td>
           </tr>
         ))}
-        <tr>
+        <tr className="rowHighlight">
           <td>Total</td>
           <td></td>
-          <td>{totalRate.toFixed(5)}%</td>
           <td></td>
+          <td>{totalRate.toFixed(5)}%</td>
         </tr>
       </tbody>
     </table>
