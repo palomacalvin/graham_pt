@@ -26,6 +26,9 @@ interface YearResults {
 // Creates formatting for the currency results, adding $ and separating commas.
 const formatCurrency = (value: number) => {
   const rounded = Math.round(value);
+
+  if (rounded === 0) return "$0";
+
   if (rounded < 0) {
     return `($${Math.abs(rounded).toLocaleString()})`;
   }
@@ -121,10 +124,10 @@ export default function WIResults({ projectData }: Props) {
     const conversion_charge_to_county = total_conversion_charge * CONVERSION_CHARGE_SPLIT.to_county;
 
     
-
+    const selected_grade = Number(projectData.selected_grade);
 
     const getAgUseValue = (projectData: ProjectData) => {
-    switch (projectData.selected_grade) {
+    switch (selected_grade) {
       case 1:
         return projectData.grade_1;
       case 2:
@@ -164,23 +167,9 @@ export default function WIResults({ projectData }: Props) {
 
     const use_value_ag = getAgUseValue(projectData);
 
-    let converted_acres = 0;
-    switch (projectData.selected_grade) {
-      case 1:
-        converted_acres = Number(projectData.grade_1);
-        break;
-      case 2:
-        converted_acres = Number(projectData.grade_2);
-        break;
-      case 3:
-        converted_acres = Number(projectData.grade_3);
-        break;
-      case 4:
-        converted_acres = Number(projectData.pasture);
-        break;
-    }
+    const converted_acres = acres_converted;
 
-    const totalToSchool = Number(projectData.school_tax) * converted_acres / acres_converted;
+    const totalToSchool = Number(projectData.school_tax);
     const totalToCollege = Number(projectData.college_tax) * converted_acres / acres_converted;
 
     const reduction_in_local_pt = acres_converted * Number(projectData.gross_rate) * use_value_ag;
@@ -369,9 +358,13 @@ export default function WIResults({ projectData }: Props) {
     // Helper component for formatting negative value cells.
     const CurrencyCell = ({ value }: { value: number }) => {
       const isNegative = value < 0;
+      const isZero = Math.round(value) === 0;
+    
       return (
         <span style={{ color: isNegative ? "red" : "inherit" }}>
-          -{formatCurrency(value)}
+          {isNegative && !isZero
+            ? `-${formatCurrency(value)}`
+            : formatCurrency(value)}
         </span>
       );
     };

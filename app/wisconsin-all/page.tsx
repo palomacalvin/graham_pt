@@ -121,6 +121,7 @@ export default function ProjectForm() {
             setProjectData={setProjectData}
           />
 
+          <br></br>
           <button
               type="button"
               onClick={() => setShowResults(true)}
