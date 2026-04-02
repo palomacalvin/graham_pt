@@ -139,17 +139,22 @@ export default function ProjectForm() {
     const dollarEAV = lookupRow ? Number(lookupRow.certified_value) : targetPI;
 
     // Compute the base cost and trending factor.
-    const baseCost =
-      projectData.project_type === "Solar"
-        ? projectData.per_mw_value_solar * projectData.nameplate_capacity
-        : projectData.per_mw_value_wind * projectData.nameplate_capacity;
+    // const baseCost =
+    //   projectData.project_type === "Solar"
+    //     ? projectData.per_mw_value_solar * projectData.nameplate_capacity
+    //     : projectData.per_mw_value_wind * projectData.nameplate_capacity;
 
-    const baseTrendingFactor =
-      projectData.project_type === "Solar"
-        ? projectData.solar_trending_factor
-        : projectData.wind_trending_factor;
+    const baseCost = projectData.project_type === "Solar"
+      ? projectData.per_mw_value_solar * projectData.nameplate_capacity
+      : projectData.per_mw_value_wind * projectData.nameplate_capacity;
 
-    const trending = baseTrendingFactor > 0 ? baseTrendingFactor : 1;
+    // const trending = baseTrendingFactor > 0 ? baseTrendingFactor : 1;
+
+    const trending = projectData.project_type === "Solar"
+      ? projectData.solar_trending_factor
+      : projectData.wind_trending_factor;
+
+
 
     // Generate the net assessed values table.
     return generateNetAssessedValues(
@@ -230,12 +235,12 @@ export default function ProjectForm() {
 
           <br></br>
           <button
-                type="button"
-                onClick={() => setShowResults(true)}
-                className="basicButton"
-              >
-                Calculate
-            </button>
+            type="button"
+            onClick={() => setShowResults(true)}
+            className="basicButton"
+          >
+            Calculate
+          </button>
 
           <div>
             {showResults && (

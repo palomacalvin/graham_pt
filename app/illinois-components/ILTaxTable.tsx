@@ -14,17 +14,17 @@ interface Props {
 }
 
 export default function TaxTable({ taxUnits, setTaxUnits }: Props) {
-    const handleChange = (index: number, field: "type" | "name", value: string) => {
+  const handleChange = (index: number, field: "type" | "name", value: string) => {
     const newUnits = [...taxUnits];
     newUnits[index][field] = value;
     setTaxUnits(newUnits);
-};
+  };
 
     const handleRateChange = (index: number, value: string) => {
     const newUnits = [...taxUnits];
     newUnits[index].rate = parseFloat(value) || 0;
     setTaxUnits(newUnits);
-};
+  };
 
   const totalRate = taxUnits.reduce((sum, u) => sum + (u.rate || 0), 0);
 

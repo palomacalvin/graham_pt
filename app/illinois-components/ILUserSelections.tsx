@@ -41,6 +41,27 @@ export const createDefaultTaxUnits = (): TaxUnit[] =>
   }));
 
 
+export const createClearedTaxUnits = (): TaxUnit[] =>
+  Array.from({ length: 15 }, (_, i) => ({
+    unitNumber: i + 1,
+    type:
+      i === 0 ? "" :
+      i === 1 ? "" :
+      i === 2 ? "" :
+      i === 3 ? "" : "",
+    rate:
+      i === 0 ? 0 :
+      i === 1 ? 0 :
+      i === 2 ? 0 :
+      i === 3 ? 0 : 0,
+    name:
+      i === 0 ? "" :
+      i === 1 ? "" :
+      i === 2 ? "" :
+      i === 3 ? "" : "",
+  }));
+
+
 export default function ILUserSelections({
   projectData,
   handleChange,
@@ -98,6 +119,11 @@ export default function ILUserSelections({
     // Resets the tax unit table to default if the user clicks the reset button.
     const handleResetTaxUnits = () => {
         setTaxUnits(createDefaultTaxUnits());
+    };
+
+    // Sets the tax unit table to cleared. Can be restored using reset to default button.
+    const handleClearTaxUnits = () => {
+        setTaxUnits(createClearedTaxUnits());
     };
 
   return (
@@ -467,6 +493,14 @@ export default function ILUserSelections({
                 className="inPageButton"
                 >
                 Reset Tax Units to Defaults
+            </button>
+
+            <button
+                type="button"
+                onClick={handleClearTaxUnits}
+                className="inPageButton"
+                >
+                Clear All Tax Units
             </button>
         </section>
 
