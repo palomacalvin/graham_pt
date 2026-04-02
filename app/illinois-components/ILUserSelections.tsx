@@ -9,22 +9,25 @@ import TaxTable, { TaxUnit } from "./ILTaxTable";
 
 
 interface Props {
-  projectData: ProjectData;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>;
-  onSelectCounty?: (county: County | null) => void;
+    projectData: ProjectData;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>;
+    onSelectCounty?: (county: County | null) => void;
+    taxUnits: TaxUnit[];
+    setTaxUnits: React.Dispatch<React.SetStateAction<TaxUnit[]>>;
 }
 
 const MAX_USEFUL_LIFE = 35;
 
-const createDefaultTaxUnits = (): TaxUnit[] =>
+// Default tax unit definition; example for users.
+export const createDefaultTaxUnits = (): TaxUnit[] =>
   Array.from({ length: 15 }, (_, i) => ({
     unitNumber: i + 1,
     type:
       i === 0 ? "County" :
       i === 1 ? "Township" :
       i === 2 ? "School District" :
-      i === 3 ? "Special Taxing Unit" : "",
+      i === 3 ? "All other special units" : "",
     rate:
       i === 0 ? 0.76473 :
       i === 1 ? 0.33223 :
@@ -34,7 +37,7 @@ const createDefaultTaxUnits = (): TaxUnit[] =>
       i === 0 ? "Adams" :
       i === 1 ? "Clayton" :
       i === 2 ? "Camp Point" :
-      i === 3 ? "Special Taxing Unit" : "",
+      i === 3 ? "Special units" : "",
   }));
 
 
@@ -42,17 +45,22 @@ export default function ILUserSelections({
   projectData,
   handleChange,
   setProjectData,
+  taxUnits,
+  setTaxUnits,
 }: Props) {
 
+    // Define inflation and discount rate using project data inputs.
     const inflation = (projectData.inflation_rate?? 0) * 100;
     const discount = (projectData.discount_rate ?? 0) * 100;
 
+    // Default details.
     const DEFAULT_PROJECT_DETAILS = {
       inflation_rate: 0.029, 
       discount_rate: 0.03,
       auto_calculate_costs: true,
     };
 
+    // Handle resetting to default.
     const handleResetDefaults = () => {
       setProjectData((prev) => ({
           ...prev,
@@ -64,6 +72,8 @@ export default function ILUserSelections({
     const [userEditedAcreage, setUserEditedAcreage] = useState(false);
     const [userEditedSolarRelation, setUserEditedSolarRelation] = useState(false);
 
+
+    // Wind and solar specifics.
     useEffect(() => {
         if (projectData.project_type !== "Wind") return;
         if (userEditedAcreage) return;
@@ -84,8 +94,8 @@ export default function ILUserSelections({
         }));
     }, [projectData.nameplate_capacity, projectData.project_type, userEditedSolarRelation]);
     
-    const [taxUnits, setTaxUnits] = useState<TaxUnit[]>(createDefaultTaxUnits());
 
+    // Resets the tax unit table to default if the user clicks the reset button.
     const handleResetTaxUnits = () => {
         setTaxUnits(createDefaultTaxUnits());
     };
@@ -335,7 +345,8 @@ export default function ILUserSelections({
                     <div className="infoBubble">
                         The default number (2.9%) represents the average 
                         annual inflation rate multiplier from the {" "}
-                        <a style={{textDecoration: "underline"}} target="_blank" href="https://tax.illinois.gov/localgovernments/property/cpihistory.html">Illinois Department of 
+                        <a style={{textDecoration: "underline"}} target="_blank" 
+                        href="https://tax.illinois.gov/localgovernments/property/cpihistory.html">Illinois Department of 
                         Revenue</a>.
                         The default multiplier translates to a 2.9% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
@@ -364,7 +375,9 @@ export default function ILUserSelections({
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
                         The default discount rate of 3.0% comes from {" "}
-                        <a style={{ textDecoration: "underline" }} target="_blank" href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
+                        <a style={{ textDecoration: "underline" }} 
+                        target="_blank" 
+                        href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
                         Users can override this default rate and enter their own estimated 
                         discount rate if they prefer.
                     </div>
@@ -396,7 +409,7 @@ export default function ILUserSelections({
                     onChange={(e) => {
                         let value = parseInt(e.target.value, 10) || 1;
 
-                        // Cap value at 35
+                        // Cap value at 35.
                         if (value > MAX_USEFUL_LIFE) value = MAX_USEFUL_LIFE;
 
                         setProjectData((prev) => ({
@@ -433,6 +446,12 @@ export default function ILUserSelections({
                 <strong>Taxing Unit Type</strong> label, {" "}<strong>Unit Name</strong>, and <strong>Rate</strong>.
                 We recommend to always include rates for the County, Township, and School District,
                 but special units may not apply to your jurisdiction.
+            </p>
+
+            <br></br>
+
+            <p>
+                You can add up to 15 units to this calculator.
             </p>
             
 

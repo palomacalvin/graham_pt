@@ -5,12 +5,12 @@ export interface TaxUnit {
   unitNumber: number;
   type: string;
   rate: number;
-  name?: string;
+  name: string;
 }
 
 interface Props {
   taxUnits: TaxUnit[];
-  setTaxUnits: (units: TaxUnit[]) => void;
+  setTaxUnits: React.Dispatch<React.SetStateAction<TaxUnit[]>>;
 }
 
 export default function TaxTable({ taxUnits, setTaxUnits }: Props) {

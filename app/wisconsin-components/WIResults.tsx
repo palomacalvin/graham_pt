@@ -174,47 +174,6 @@ export default function WIResults({ projectData }: Props) {
 
     const reduction_in_local_pt = acres_converted * Number(projectData.gross_rate) * use_value_ag;
 
-    // const yearlyResults = Array.from({ length: YEARS }, (_, i) => {
-    //   const year = i + 1;
-
-    //   const utility_aid = utility_aid_total;
-    //   const conversion_charge =
-    //     year === 1 ? base_conversion_charge : 0;
-
-    //   const net_benefit =
-    //     utility_aid +
-    //     conversion_charge -
-    //     reduction_in_local_pt;
-
-    //   return {
-    //     year,
-    //     utility_aid,
-    //     conversion_charge,
-    //     reduction_in_local_pt: -reduction_in_local_pt,
-    //     net_benefit,
-
-    //     total_to_school:
-    //       -reduction_in_local_pt * school_pct,
-
-    //     total_to_college:
-    //       -reduction_in_local_pt * college_pct,
-
-    //     total_to_county:
-    //       utility_aid_to_county +
-    //       (year === 1 ? conversion_charge_to_county : 0),
-
-    //     total_to_tvc:
-    //       utility_aid_to_tvc +
-    //       (year === 1 ? conversion_charge_to_tvc : 0),
-
-
-    //     total_to_other:
-    //       -reduction_in_local_pt * other_pct,
-    //   };
-    // });
-
-    // Building Yearly Arrays
-
     // Utility aid (no inflation)
     const utility_aid_array = Array(YEARS).fill(utility_aid_total);
 
@@ -234,8 +193,6 @@ export default function WIResults({ projectData }: Props) {
     console.log("inflation rate", projectData.inflation_rate);
     console.log("use value ag", use_value_ag);
     console.log("inflated_reduction_array", inflated_reduction_array);
-
-    
 
     // Net cash flow array (total)
     const net_cash_flows = utility_aid_array.map((val, i) =>
@@ -315,10 +272,7 @@ export default function WIResults({ projectData }: Props) {
       total_to_other: -inflated_reduction_array[i] * other_pct,
     }));
 
-    // Convert into row-based arrays for output table.
-
     // Row arrays for table formatting
-    
     const utility_aid_row = yearlyResults.map(r => r.utility_aid);
     const conversion_row = yearlyResults.map(r => r.conversion_charge);
     const reduction_row = yearlyResults.map(r => r.reduction_in_local_pt);
@@ -415,7 +369,7 @@ export default function WIResults({ projectData }: Props) {
             <td>Total to {tvc}</td>
             <td>{formatCurrency(year_one.total_to_tvc)}</td>
           </tr>
-          <tr>
+          <tr className="rowHighlight">
             <td>Total to Other</td>
             <td><CurrencyCell value={year_one.total_to_other}></CurrencyCell></td>
           </tr>

@@ -380,3 +380,7 @@ h2.contact {
   list-style: circle;
   margin-left: 1rem;
 }
+
+.spaced {
+  margin: 3rem;
+}
