@@ -35,20 +35,35 @@ export default function WIHome() {
           </div>
 
           <h2>
-          Agricultural land values for Illinois property taxes are determined by the land’s expected contribution to farm
-          income based on the productivity of the soil.In a parallel sense, Illinois bases the assessed value (property
-          value for tax purposes) of large-scale renewable energy projects on their electricity-generating potential, called
-          nameplate capacity. The assessed value for these projects is determined by a per-megawatt rate that is set
-          at the state-level, which is then adjusted annually to account for inflation. The per-megawatt rate for solar
-          energy is $218,000 per megawatt (MW) of nameplate capacity, while the rate for wind is $360,000 per MW.
-          As the property ages, depreciation is also subtracted from the value.
+          In Wisconsin, large-scale wind and solar projects are exempt from local property taxes. Instead, projects pay
+          taxes and fees to the Department of Revenue. The state then reimburses local governments via utility aid
+          payments. Utility aid payments are split between the municipalities and counties hosting the project. The
+          amount paid to each local unit is based on the type and size of the energy facility, and whether the project is
+          located in a township or city/village. 
           </h2>
 
           <h2>
-          In Illinois, most real property (land and buildings) is taxed at one-third of its assessed value, including renewable
-          energy projects and agricultural land. If a property is used for both agriculture and renewable energy, it is
-          valued according to the proportion of each use. Wind and solar projects then pay taxes to local government
-          units—like counties, townships, and schools—according to local tax rates.
+          When farmland is converted, counties and municipalities gain substantial tax revenue from utility aid payments
+          and a one-time conversion fee. While schools and other units lose a small amount of revenue from the elimination
+          of agricultural property taxes, developers may agree to reimburse units for the loss.
+          </h2>
+
+          <h2>
+            <ul>
+              <li>
+                <strong>Annual utility aid payments:</strong>Utility aid payments typically total $5,000/per megawatt (MW) of project
+                capacity per year, split between counties and municipalities in proportions dictated by state law.
+              </li>
+              <li>
+                <strong>One-time conversion fee (Year 1):</strong> Counties charge a fee for converting farmland, averaging $283/acre
+                for 30+ acres, though fees vary widely based on agricultural land value.
+              </li>
+              <li>
+                <strong>Loss of farmland property taxes:</strong> Farm property taxes, based on current land use, no longer apply. Since
+                schools and some local units do not receive utility aid or conversion payments, they may lose a small
+                amount of annual revenue. 
+              </li>
+            </ul>
           </h2>
 
           <h2>
