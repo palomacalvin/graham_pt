@@ -4,6 +4,7 @@ import { ProjectData } from "@/types/OHProject";
 import LocationSelector, { TaxData } from "../../components/OHLocationSelector";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Jurisdiction } from "@/types/OHProject";
 
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
     setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>;
     onSelectLocation?: (location: TaxData | null) => void;
 }
+
 
 const MAX_USEFUL_LIFE = 35;
 
@@ -81,6 +83,20 @@ export default function OHUserSelections({
         }));
     }, [projectData.nameplate_capacity, projectData.project_type, userEditedSolarRelation]);
     
+    const isQEPEligible = 
+        projectData.pct_employed_construction_workers === "from_70_to_74" ||
+        projectData.pct_employed_construction_workers ==="more_than_75";
+
+    useEffect(() => {
+        if (!isQEPEligible && projectData.is_project_status_qep === "yes") {
+            setProjectData(prev => ({
+                ...prev,
+                is_project_status_qep: "no",
+                user_specified_project_status: "",
+            }));
+        }
+    }, [projectData.pct_employed_construction_workers, isQEPEligible, setProjectData]);
+    
 
   return (
     <>
@@ -97,11 +113,39 @@ export default function OHUserSelections({
       <br></br>
       <LocationSelector
         stateName="OHIO"
+        projectData={projectData}
+        setProjectData={setProjectData}
         onSelectLocation={(location) => {
-            console.log("Selected district:", location)
+
+            if (!location) return;
+
+            // DEBUGGING //
+            console.log("DEBUG - Full Location Keys:", Object.keys(location || {}));
+                if (location?.jurisdictions) {
+                    console.log("DEBUG - First Jurisdiction:", location.jurisdictions[0]);
+            }
+
+            // DEBUG: This will show you EVERY property available on the jurisdiction object
+            console.log("DATABASE CHECK - Jurisdiction Keys:", Object.keys(location.jurisdictions[0]));
+            console.log("DATABASE CHECK - Class II Value:", location.jurisdictions[0].class_ii_tax_rate);
+
+            const mappedJurisdictions: Jurisdiction[] = (location?.jurisdictions || []).map((j: any) => ({
+                political_unit_name: j.political_unit_name,
+                previous_farmland: j.previous_farmland || 0,
+                qep_base_revenue: j.qep_base_revenue || 0,
+                qep_discretionary_revenue: j.qep_discretionary_revenue || 0,
+                class_i_tax_rate: j.class_i_tax_rate || 0,
+                class_ii_tax_rate: j.class_ii_tax_rate || 0,
+                gross_tax_rate: j.gross_tax_rate || 0,
+            }));
+
             setProjectData((prev) => ({
-            ...prev,
-            location_name: location?.taxing_district_name || "",
+                ...prev,
+                taxing_district: location?.taxing_district_name || "",
+                // location_name: location?.taxing_district_name || "",
+                // avg_land_market_value: location?.avg_land_market_value || prev.avg_land_market_value,
+                // jurisdictions: location?.jurisdictions || []
+                jurisdictions: mappedJurisdictions
             }));
         }}
         />
@@ -412,34 +456,6 @@ export default function OHUserSelections({
             )}
 
             <label>
-                Project Status is Qualified Energy Project (QEP):
-                <select
-                    name="is_project_status_qep"
-                    value={projectData.is_project_status_qep}
-                    onChange={handleChange}
-                    className="basicInputBox"
-                >
-                    <option value="">Select</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </label>
-
-            {projectData.is_project_status_qep === "yes" && (
-                <div>
-                    <label>Enter the additional QEP payment:</label>
-                    <input 
-                        type="number"
-                        name="user_specified_project_status"
-                        value={projectData.user_specified_project_status || ""}
-                        onChange={handleChange}
-                        className="basicInputBox"
-                    />
-                    <p className="required">Required</p>
-                </div>
-            )}
-
-            <label>
                 Percentage of Employed Construction Workers from Ohio:
                 <select
                     name="pct_employed_construction_workers"
@@ -455,6 +471,39 @@ export default function OHUserSelections({
                     <option value="more_than_75">Greater than 75%</option>
                 </select>
             </label>
+
+            <label>
+                Project Status is Qualified Energy Project (QEP):
+                <select
+                    name="is_project_status_qep"
+                    value={projectData.is_project_status_qep}
+                    onChange={handleChange}
+                    className="basicInputBox"
+                    disabled={!isQEPEligible} 
+                    style={{ backgroundColor: !isQEPEligible ? "#f0f0f0" : "white", cursor: !isQEPEligible ? "not-allowed" : "pointer" }}
+                >
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </label>
+
+
+            {projectData.is_project_status_qep === "yes" && (
+                <div>
+                    <label>Enter the additional QEP payment:</label>
+                    <input 
+                        type="number"
+                        name="user_specified_project_status"
+                        value={projectData.user_specified_project_status || ""}
+                        onChange={handleChange}
+                        className="basicInputBox"
+                        disabled={!isQEPEligible}
+                        style={{backgroundColor: !isQEPEligible ? "#f0f0f0" : "white"}}
+                    />
+                    <p className="required">Required</p>
+                </div>
+            )}
 
             {projectData.uses_assumed_personal_property_valuation === "yes" && (
                 <div>

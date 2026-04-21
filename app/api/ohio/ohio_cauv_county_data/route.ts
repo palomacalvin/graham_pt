@@ -13,7 +13,7 @@ export async function GET(request: Request) {
         avg_market_value_by_total_acres,
         avg_market_value_35_percent,
         cauv_100_percent_valuation_total_acres,
-        cauv_35_percent_valuation,
+        cauv_35_percent_valuation
        FROM ohio_cauv_county_data
        ORDER BY county_name`
     );

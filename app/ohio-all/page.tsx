@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { ProjectData } from "@/types/OHProject";
 import Link from "next/link";
+import OHTaxResults from "../ohio-components/OHTaxResults";
 
 import OHUserSelections from "../ohio-components/OHUserSelections";
 import Instructions from "@/components/Instructions";
@@ -35,6 +36,9 @@ export default function ProjectForm() {
     assumed_personal_property_valuation: 1000000, 
     calculated_valuation: 0,
     avg_land_market_value: 0,
+    cauv_100_percent_valuation_total_acres: 0,
+    jurisdictions: [],
+    use_county_avg: "",
   });
 
 
@@ -69,7 +73,7 @@ export default function ProjectForm() {
 
       <div className="spaced">
 
-          <h1>Illinois Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
+          <h1>Ohio Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
 
       </div>
 
@@ -94,14 +98,11 @@ export default function ProjectForm() {
           </button>
 
           <div>
-            {/* {showResults && (
-              <TaxResults 
+            {showResults && (
+              <OHTaxResults 
                 projectData={projectData} 
-                rows={rows} 
-                taxUnits={taxUnits}
-                setTaxUnits={setTaxUnits}
               />
-            )} */}
+            )}
           </div>
 
         </form>
