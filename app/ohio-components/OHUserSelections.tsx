@@ -83,9 +83,32 @@ export default function OHUserSelections({
         }));
     }, [projectData.nameplate_capacity, projectData.project_type, userEditedSolarRelation]);
     
-    const isQEPEligible = 
-        projectData.pct_employed_construction_workers === "from_70_to_74" ||
-        projectData.pct_employed_construction_workers ==="more_than_75";
+    const isQEPEligible = (() => {
+        const level = projectData.pct_employed_construction_workers;
+
+        if (projectData.project_type === "Wind") {
+            return [
+                "from_50_to_59",
+                "from_60_to_69",
+                "from_70_to_74",
+                "more_than_75"
+            ].includes(level);
+        }
+
+        if (projectData.project_type === "Solar") {
+            return [
+                "from_70_to_74",
+                "more_than_75"
+            ].includes(level);
+        }
+
+        return false;
+
+        // projectData.pct_employed_construction_workers === "from_70_to_74" ||
+        // projectData.pct_employed_construction_workers ==="more_than_75";
+
+    }) ();
+    
 
     useEffect(() => {
         if (!isQEPEligible && projectData.is_project_status_qep === "yes") {
@@ -95,7 +118,7 @@ export default function OHUserSelections({
                 user_specified_project_status: "",
             }));
         }
-    }, [projectData.pct_employed_construction_workers, isQEPEligible, setProjectData]);
+    }, [projectData.pct_employed_construction_workers, projectData.project_type, isQEPEligible, setProjectData]);
     
 
   return (
@@ -441,6 +464,7 @@ export default function OHUserSelections({
             </label>
 
             {projectData.uses_assumed_personal_property_valuation === 'no' && (
+                <>
                 <div>
                     <label>Enter Custom Personal Property Valuation of System ($/MW):</label>
                     <input 
@@ -452,11 +476,41 @@ export default function OHUserSelections({
                         placeholder=""
                     />
                     <p className="required">Required</p>
+                    <br></br>
                 </div>
+
+
+                    <label>Total Calculated Personal Property Valuation:
+                        <div className="inputWithInfo">
+                    
+                    <input 
+                        type="number"
+                        name="assumed_personal_property_valuation"
+                        value={projectData.calculated_valuation}
+                        className="basicDataBox"
+                        readOnly
+                    />
+        
+                    <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            Calculation: {projectData.nameplate_capacity || 0} MW (Nameplate Capacity) × 
+                            ${projectData.uses_assumed_personal_property_valuation === "no" 
+                                ? (projectData.user_specified_personal_property_valuation || 0) 
+                                : projectData.assumed_personal_property_valuation} (Personal Property Valuation)
+                        </div>
+                    </div>
+                </div>
+                </label>
+                <br></br>
+            </>
+                
             )}
 
+
             <label>
-                Percentage of Employed Construction Workers from Ohio:
+                Percentage of Employed Construction Workers that are from Ohio:
+                <div className="inputWithInfo">
                 <select
                     name="pct_employed_construction_workers"
                     value={projectData.pct_employed_construction_workers}
@@ -470,7 +524,16 @@ export default function OHUserSelections({
                     <option value="from_70_to_74">70 to 74%</option>
                     <option value="more_than_75">Greater than 75%</option>
                 </select>
+                <div className="infoWrapper">
+                  <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                  <div className="infoBubble">
+                      Note that to qualify for QEP projects, a minimum of 70% of employed Construction
+                      workers must be residents of Ohio.
+                  </div>
+                </div>
+                </div>
             </label>
+
 
             <label>
                 Project Status is Qualified Energy Project (QEP):
@@ -480,7 +543,7 @@ export default function OHUserSelections({
                     onChange={handleChange}
                     className="basicInputBox"
                     disabled={!isQEPEligible} 
-                    style={{ backgroundColor: !isQEPEligible ? "#f0f0f0" : "white", cursor: !isQEPEligible ? "not-allowed" : "pointer" }}
+                    style={{ backgroundColor: !isQEPEligible ? "#bababa" : "white", cursor: !isQEPEligible ? "not-allowed" : "pointer" }}
                 >
                     <option value="">Select</option>
                     <option value="yes">Yes</option>
@@ -488,9 +551,9 @@ export default function OHUserSelections({
                 </select>
             </label>
 
-
             {projectData.is_project_status_qep === "yes" && (
                 <div>
+                    <br></br>
                     <label>Enter the additional QEP payment:</label>
                     <input 
                         type="number"
@@ -501,12 +564,13 @@ export default function OHUserSelections({
                         disabled={!isQEPEligible}
                         style={{backgroundColor: !isQEPEligible ? "#f0f0f0" : "white"}}
                     />
-                    <p className="required">Required</p>
                 </div>
             )}
+    
 
             {projectData.uses_assumed_personal_property_valuation === "yes" && (
                 <div>
+                    <br></br>
                     <label>Assumed Personal Property Valuation:</label>
                     <input 
                         type="number"
@@ -523,8 +587,9 @@ export default function OHUserSelections({
 
             {(projectData.uses_assumed_personal_property_valuation === "yes" || 
               projectData.uses_assumed_personal_property_valuation === "no") && (
-                <div>
-                    <label>Total Calculated Personal Property Valuation:</label>
+                    <label>Total Calculated Personal Property Valuation:
+                        <div className="inputWithInfo">
+                    
                     <input 
                         type="number"
                         name="assumed_personal_property_valuation"
@@ -532,18 +597,22 @@ export default function OHUserSelections({
                         className="basicDataBox"
                         readOnly
                     />
-                    <p style={{marginLeft: "10px", fontSize: "0.8rem", color: "#666" }}>
-                        Calculation: {projectData.nameplate_capacity || 0} MW (Nameplate Capacity) × 
-                        ${projectData.uses_assumed_personal_property_valuation === "no" 
-                            ? (projectData.user_specified_personal_property_valuation || 0) 
-                            : projectData.assumed_personal_property_valuation} (Personal Property Valuation)
-                    </p>
+        
+                    <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            Calculation: {projectData.nameplate_capacity || 0} MW (Nameplate Capacity) × 
+                            ${projectData.uses_assumed_personal_property_valuation === "no" 
+                                ? (projectData.user_specified_personal_property_valuation || 0) 
+                                : projectData.assumed_personal_property_valuation} (Personal Property Valuation)
+                        </div>
+                    </div>
                 </div>
+                </label>
             )}
         </section>
 
         <br></br>
-
     </>
     
   );

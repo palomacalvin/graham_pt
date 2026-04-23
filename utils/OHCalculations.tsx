@@ -2,6 +2,12 @@ import { ProjectData } from "@/types/OHProject";
 
 const OH_ASSESSMENT_RATIO = 0.35; // 35% standard for Ohio Real Property.
 
+export interface OHYearlyResult {
+  year: number;
+  revenue: number;
+}
+
+
 export interface OHCalculationResult {
   name: string;
   previousFarmland: number;
@@ -10,6 +16,29 @@ export interface OHCalculationResult {
   qepBaseRevenue: number;
   qepDiscretionaryRevenue: number;
   // Add additional outputs here (if needed).
+
+  yearlyCashFlows: number[];
+  grossTotal: number;
+  npvTotal: number;
+}
+
+const getMandatoryPaymentRate = (type: string, level: string): number => {
+  if (type === "Wind") {
+    switch (level) {
+      case "less_than_50": return 0;
+      case "from_50_to_59": return 8000;
+      case "from_60_to_69": return 7000;
+      case "from_70_to_74": return 7000;
+      case "more_than_75": return 6000;
+      default: return 7000;
+    }
+  } else {
+    switch (level) {
+      case "more_than_75": return 7000;
+      case "from_70_to_74": return 7000;
+      default: return 0;
+    }
+  }
 }
 
 /* Manages table output for Wind & Solar, QEP and Non-QEP, for Year 1 Summaries */
@@ -23,6 +52,11 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     is_project_status_qep,
     user_specified_project_status,
     project_type,
+
+    expected_useful_life = 30,
+    inflation_rate = 0.029, //todo: check default
+    discount_rate = 0.03,
+    pct_employed_construction_workers = "70% to 74%" // TODO: DEFAULT HERE?
   } = projectData;
 
   // console.log("--- OH Calculation Debug Start ---");
@@ -38,7 +72,9 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
   const marketValuePerAcre = avg_land_market_value || 0;
 
   // QEP Base Payment Revenues.
-  const MANDATORY_PAYMENT_RATE = 7000; // This is the value for Solar QEP; TODO: CHECK OUTPUT FOR ALL WIND QEP VALUES
+  // const MANDATORY_PAYMENT_RATE = 7000; // This is the value for Solar QEP; TODO: CHECK OUTPUT FOR ALL WIND QEP VALUES
+
+  const MANDATORY_PAYMENT_RATE = getMandatoryPaymentRate(project_type, pct_employed_construction_workers)
   const totalMandatoryPayment = (nameplate_capacity || 0) * MANDATORY_PAYMENT_RATE;
   const totalGrossRateSum = jurisdictions.reduce((sum, unit) => sum + Number(unit.gross_tax_rate || 0), 0);
 
@@ -49,6 +85,7 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     // Previous Farmland.
     let previousFarmland = 0;
       const classIRate = (unit.class_i_tax_rate || 0) / 1000; // Millage conversion.
+      const classIIRate = (unit.class_ii_tax_rate || 0) / 1000; // Millage conversion.
 
 
     if (project_type === "Wind") {
@@ -61,7 +98,6 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     }
 
     // Calculates the land revenue for both solar and wind.
-    const classIIRate = (unit.class_ii_tax_rate || 0) / 1000;
     let landRevenue = 0;
 
     // ============ TODO: CHECK THIS WHOLE IF/ELSE =============== */
@@ -115,6 +151,28 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     // console.log(` -> Class II: ${unit.class_ii_tax_rate}`);
     // console.log(` -> Gross Tax: ${unit.gross_tax_rate}`)
 
+    let yearOneNet = 0;
+    if (is_project_status_qep === "yes") {
+      yearOneNet = (qepBaseRevenue + qepDiscretionaryRevenue) - previousFarmland;
+    } else {
+      yearOneNet = (landRevenue + totalEquipmentRevenue) - previousFarmland;
+    }
+
+    const yearlyCashFlows: number[] = [];
+    let runningRevenue = yearOneNet;
+
+    for (let i = 0; i < expected_useful_life; i++) {
+      if (i === 0) {
+        yearlyCashFlows.push(runningRevenue);
+      } else {
+        runningRevenue = runningRevenue * (1 + Number(inflation_rate));
+        yearlyCashFlows.push(runningRevenue);
+      }
+    }
+
+    const grossTotal = yearlyCashFlows.reduce((a, b) => a + b, 0);
+    const npvTotal = calculateNPV(Number(discount_rate), yearlyCashFlows);
+
     return {
       name: unit.political_unit_name,
       previousFarmland: previousFarmland,
@@ -122,6 +180,18 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
       equipmentRevenue: totalEquipmentRevenue,
       qepBaseRevenue: qepBaseRevenue,
       qepDiscretionaryRevenue: qepDiscretionaryRevenue,
+
+      yearlyCashFlows,
+      grossTotal,
+      npvTotal,
     };
   });
+}
+
+export function calculateNPV(rate: number, cashFlows: number[]): number {
+  const firstYear = cashFlows[0] ?? 0;
+  const discounted = cashFlows.slice(1).reduce((sum, cf, i) => {
+    return sum + cf / Math.pow(1 + rate, i + 1);
+  }, 0);
+  return firstYear + discounted;
 }

@@ -60,35 +60,6 @@ export default function LocationSelector({
     });
   }, []);
 
-
-    // TODO: Check if needed?
-    const calculateFarmlandTax = (unit: any) => {
-      // Inputs!B5 (Land Area)
-      const B5 = Number(projectData.land_area) || 0;
-      
-      // Inputs!G2 or Inputs!C12 (Value per acre)
-      const isUsingCountyAvg = projectData.use_county_avg === "yes";
-      const perAcreValue = isUsingCountyAvg 
-        ? (Number(projectData.cauv_100_percent_valuation_total_acres) || 0)
-        : (Number(projectData.avg_land_market_value) || 0);
-
-      // I18 = Base Value * Land Area
-      const I18 = perAcreValue * B5;
-
-      // J18 = 0.35 * I18 (Assessed Value)
-      const J18 = 0.35 * I18;
-
-      // D22 = class_i_tax_rate / 1000 (Converting Mills to decimal)
-      const D22 = (Number(unit.class_i_tax_rate) || 0) / 1000;
-
-      // C40 = D22 * J18
-      const C40 = D22 * J18;
-
-      return C40;
-    };
-
-
-
     const handleCountyChange = (countyName: string) => {
       setSelectedCounty(countyName);
       setSelectedDistrictNum("");
@@ -116,57 +87,55 @@ export default function LocationSelector({
     };
 
     const handleDistrictChange = (val: string) => {
-    const selectedId = String(val).trim();
-    setSelectedDistrictNum(selectedId);
+      const selectedId = String(val).trim();
+      setSelectedDistrictNum(selectedId);
 
-    if (!selectedCounty) return;
+      if (!selectedCounty) return;
 
   
-    const districtInfo = allDistricts.find(
-      (d) => 
-        String(d.taxing_district_number).trim() === selectedId &&
-        d.county_name?.toLowerCase() === selectedCounty.toLowerCase()
-    );
+      const districtInfo = allDistricts.find(
+        (d) => 
+          String(d.taxing_district_number).trim() === selectedId &&
+          d.county_name?.toLowerCase() === selectedCounty.toLowerCase()
+      );
 
 
-    const componentUnits = taxDataRef.current.filter(
-      (unit) => 
-        String(unit.taxing_district_number).trim() === selectedId &&
-        unit.county_name?.toLowerCase() === selectedCounty.toLowerCase()
-    );
+      const componentUnits = taxDataRef.current.filter(
+        (unit) => 
+          String(unit.taxing_district_number).trim() === selectedId &&
+          unit.county_name?.toLowerCase() === selectedCounty.toLowerCase()
+      );
 
-    if (componentUnits.length === 0) {
-      console.warn("No units found for this specific county/district combination.");
-      return; 
-    }
+      if (componentUnits.length === 0) {
+        console.warn("No units found for this specific county/district combination.");
+        return; 
+      }
 
-    const jurisdictions: Jurisdiction[] = componentUnits.map((unit) => ({
-      political_unit_name: unit.political_unit_name,
-      class_i_tax_rate: unit.class_i_tax_rate,
-      class_ii_tax_rate: unit.class_ii_tax_rate,
-      gross_tax_rate: unit.gross_tax_rate,
-      previous_farmland: calculateFarmlandTax(unit),
-      qep_base_revenue: 0,
-      qep_discretionary_revenue: 0,
-    }));
+      const jurisdictions: Jurisdiction[] = componentUnits.map((unit) => ({
+        political_unit_name: unit.political_unit_name,
+        class_i_tax_rate: unit.class_i_tax_rate,
+        class_ii_tax_rate: unit.class_ii_tax_rate,
+        gross_tax_rate: unit.gross_tax_rate,
+        previous_farmland: 0,
+        qep_base_revenue: 0,
+        qep_discretionary_revenue: 0,
+      }));
 
-    if (onSelectLocation && districtInfo) {
-      onSelectLocation({
-        ...districtInfo,
-        jurisdictions: jurisdictions,
-      });
-    }
-  };
+      if (onSelectLocation && districtInfo) {
+        onSelectLocation({
+          ...districtInfo,
+          jurisdictions: jurisdictions,
+        });
+      }
+    };
 
-
-
-    // Reset handler for resetting location details to the default from the selected location.
-    const handleResetCountyDefaults = () => {
-      if (!selectedCounty) return;
+  // Reset handler for resetting location details to the default from the selected location.
+  const handleResetCountyDefaults = () => {
+    if (!selectedCounty) return;
 
     const countyLandInfo = cauvData.find(
       c => c.county_name?.toLowerCase() === selectedCounty?.toLowerCase());
-      
+        
       if (countyLandInfo) {
         const val = countyLandInfo.avg_market_value_by_total_acres || countyLandInfo.avg_land_market_value;
         const cauv_val = countyLandInfo.cauv_100_percent_valuation_total_acres || countyLandInfo.cauv_100_percent_valuation_total_acres;
@@ -212,14 +181,13 @@ export default function LocationSelector({
       <br />
     </>
   );
-
     return (
       <div>
         {console.log("DROPDOWN CHECK:", {
-    currentValue: selectedDistrictNum,
-    availableOptions: districts.map(d => d.taxing_district_number)
-  })}
-    <div>
+          currentValue: selectedDistrictNum,
+          availableOptions: districts.map(d => d.taxing_district_number)
+        })}
+      <div>
 
       <select
         value={selectedCounty}
@@ -254,6 +222,7 @@ export default function LocationSelector({
           </option>
         ))}
       </select>
+      <div className="required">Required</div>
     </div>
 
     <br></br>
