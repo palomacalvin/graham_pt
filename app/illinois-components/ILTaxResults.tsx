@@ -31,17 +31,19 @@ interface ILTaxResultsProps {
 export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResultsProps) {
   // Helper functions.
   const formatCurrency = (value: number) => {
-  const rounded = Math.round(value);
-    if (rounded === 0) return "$0";
-    return rounded < 0 
-      ? `($${Math.abs(rounded).toLocaleString()})` 
-      : `$${rounded.toLocaleString()}`;
-  };
+    const rounded = Math.round(value);
+      if (rounded === 0) return "$0";
+      return rounded < 0 
+        ? `($${Math.abs(rounded).toLocaleString()})` 
+        : `$${rounded.toLocaleString()}`;
+    };
+
   function calculateNPV(rate: number, cash_flows: number[]) {
     return cash_flows.reduce((sum, cf, i) => {
       return sum + cf / Math.pow(1 + rate, i);
     }, 0);
   }
+  
   function calculateGrossTotal(values: number[]) {
     return values.reduce((sum, v) => sum + v, 0);
   }

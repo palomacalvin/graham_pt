@@ -56,7 +56,7 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     expected_useful_life = 30,
     inflation_rate = 0.029, //todo: check default
     discount_rate = 0.03,
-    pct_employed_construction_workers = "70% to 74%" // TODO: DEFAULT HERE?
+    pct_employed_construction_workers = "from_70_to_74"
   } = projectData;
 
   // console.log("--- OH Calculation Debug Start ---");

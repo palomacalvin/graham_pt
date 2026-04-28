@@ -336,6 +336,21 @@ label {
   font-weight: 550;
 }
 
+.altBasicBox {
+  margin: 1rem;
+  background-color: #c4e8ff;
+  color: #231f20;
+  padding-right: 10vh;
+  padding-left: 10vh;
+  padding-bottom: 3vh;
+  padding-top: 3vh;
+  border-radius: 4px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  font-weight: 550;
+}
+
 
 
 .warning {
