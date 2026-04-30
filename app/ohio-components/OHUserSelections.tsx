@@ -14,7 +14,6 @@ interface Props {
     onSelectLocation?: (location: TaxData | null) => void;
 }
 
-
 const MAX_USEFUL_LIFE = 35;
 
 export default function OHUserSelections({
@@ -104,9 +103,6 @@ export default function OHUserSelections({
 
         return false;
 
-        // projectData.pct_employed_construction_workers === "from_70_to_74" ||
-        // projectData.pct_employed_construction_workers ==="more_than_75";
-
     }) ();
     
 
@@ -165,9 +161,6 @@ export default function OHUserSelections({
             setProjectData((prev) => ({
                 ...prev,
                 taxing_district: location?.taxing_district_name || "",
-                // location_name: location?.taxing_district_name || "",
-                // avg_land_market_value: location?.avg_land_market_value || prev.avg_land_market_value,
-                // jurisdictions: location?.jurisdictions || []
                 jurisdictions: mappedJurisdictions
             }));
         }}
@@ -360,6 +353,38 @@ export default function OHUserSelections({
 
             </>
             )}
+
+            <label>
+                Expected useful economic life of project (years):
+                <div className="inputWithInfo">
+                    <input
+                        type="number"
+                        step="1"
+                        min={1}
+                        max={MAX_USEFUL_LIFE}
+                        value={projectData.expected_useful_life ?? 30}
+                    onChange={(e) => {
+                        let value = parseInt(e.target.value, 10) || 1;
+
+                        // Cap value at 35
+                        if (value > MAX_USEFUL_LIFE) value = MAX_USEFUL_LIFE;
+
+                        setProjectData((prev) => ({
+                            ...prev,
+                            expected_useful_life: value,
+                        }));
+                        }}
+                    className="basicInputBox"
+                    />
+
+                    <div className="infoWrapper">
+                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            Note: This calculator can only calculate revenues up to 35 years.
+                        </div>
+                    </div>
+                </div>
+            </label>
 
             <h1>Inflation Factors</h1>
             <br></br>

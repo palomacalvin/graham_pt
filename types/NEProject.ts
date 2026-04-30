@@ -1,5 +1,6 @@
 export interface ProjectData {
   county: string;
+  region: string;
 
   // Project type.
   project_type: "Solar" | "Wind" | "";
@@ -25,6 +26,7 @@ export interface ProjectData {
   manual_market_value: number;
   is_public_power: string;
   pilot_value: number;
+  is_using_avg: string;
 
 }
 

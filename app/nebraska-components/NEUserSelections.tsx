@@ -21,7 +21,6 @@ interface Props {
 
 const MAX_USEFUL_LIFE = 35;
 
-
 // Default tax unit definition; example for users.
 export const createDefaultTaxUnits = (): TaxUnit[] =>
   Array.from({ length: 15 }, (_, i) => ({
@@ -149,6 +148,8 @@ export default function NEUserSelections({
             setProjectData((prev) => ({
             ...prev,
             county_name: county?.county_name || "",
+            region: county?.region || "",
+            avg_land_market_value: county?.regional_avg_for_market_value_of_ag_land || 0,
             }));
         }}
         />
@@ -465,41 +466,41 @@ export default function NEUserSelections({
             <br />
 
             <label>Anticipated start date of project:</label>
-            <div style={{ display: "flex", gap: "30px", marginBottom: "20px" }}>
-                <select
-                name="project_start_month"
-                value={projectData.project_start_month}
-                onChange={handleChange}
-                className="basicInputBox"
-                style={{ flex: 1 }}
-                >
-                <option value="">Month</option>
-                    {Array.from({ length: 12 }, (_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                        {new Date(0, i).toLocaleString("en-US", { month: "long" })}
-                        </option>
-                    ))}
-                </select>
-
-                <select
-                    name="project_start_day"
-                    value={projectData.project_start_day}
+                <div style={{ display: "flex", gap: "30px", marginBottom: "20px" }}>
+                    <select
+                    name="project_start_month"
+                    value={projectData.project_start_month}
                     onChange={handleChange}
                     className="basicInputBox"
                     style={{ flex: 1 }}
                     >
-                    <option value="">Day</option>
-                    {/* Limits the date to real dates based on the selected month */}
-                    {Array.from(
-                        { length: new Date(2024, Number(projectData.project_start_month) || 0, 0).getDate() || 31 },
-                        (_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                            {i + 1}
-                        </option>
-                        )
-                    )}
-                </select>
-            </div>
+                    <option value="">Month</option>
+                        {Array.from({ length: 12 }, (_, i) => (
+                            <option key={i + 1} value={i + 1}>
+                            {new Date(0, i).toLocaleString("en-US", { month: "long" })}
+                            </option>
+                        ))}
+                    </select>
+
+                    <select
+                        name="project_start_day"
+                        value={projectData.project_start_day}
+                        onChange={handleChange}
+                        className="basicInputBox"
+                        style={{ flex: 1 }}
+                        >
+                        <option value="">Day</option>
+                        {/* Limits the date to real dates based on the selected month */}
+                        {Array.from(
+                            { length: new Date(2024, Number(projectData.project_start_month) || 0, 0).getDate() || 31 },
+                            (_, i) => (
+                            <option key={i + 1} value={i + 1}>
+                                {i + 1}
+                            </option>
+                            )
+                        )}
+                    </select>
+                </div>
 
             <br></br>
 
@@ -573,44 +574,64 @@ export default function NEUserSelections({
 
             <br></br>
 
-            <h1>Manual Taxing Units</h1>
+            <h1>Taxing Units</h1>
 
             <br></br>
 
-            <div className="altBasicBox">
-                <p>
-                    Above, you selected "no" to the question "Use County Average for Total District Tax Rates".
-                    Now, please identify your taxing district {" "}
-                    <Link className="boxLinkText" href="https://revenue.nebraska.gov/PAD/research-statistical-reports/consolidated-tax-districts-and-rates-county-reports">
-                        at this link
-                    </Link>{" "}
-                    and copy/paste all taxing units and rates in the boxes below. Use the drop-down to indicate
-                    which units are school bonds.
-                </p>
-            </div>
-
-            <br></br>
-
-            <TaxTable taxUnits={taxUnits} setTaxUnits={setTaxUnits} />
-
-            <br></br>
-            <br></br>
-            <button
-                type="button"
-                onClick={handleResetTaxUnits}
-                className="inPageButton"
+            <label>
+                Use County Average for Total District Tax Rate:
+                <select
+                    name="is_using_avg"
+                    value={projectData.is_using_avg}
+                    onChange={handleChange}
+                    className="basicInputBox"
                 >
-                Reset Tax Units to Defaults
-            </button>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </label>
 
-            <button
-                type="button"
-                onClick={handleClearTaxUnits}
-                className="inPageButton"
-                >
-                Clear All Tax Units
-            </button>
-            
+            {projectData.is_using_avg === "no" && (
+                <>
+                    <div className="altBasicBox">
+                        Identify your taxing district {" "}
+                        <Link className="boxLinkText" href="https://revenue.nebraska.gov/PAD/research-statistical-reports/consolidated-tax-districts-and-rates-county-reports">
+                            at this link
+                        </Link>{" "}
+                        and copy/paste all taxing units and rates in the boxes below. The boxes that 
+                        are currently filled in can be used as an example, or cleared. Use the drop-down to indicate
+                        which units are school bonds.
+                    </div>
+
+                    <br></br>
+
+                    <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
+                        <button
+                            type="button"
+                            onClick={handleResetTaxUnits}
+                            className="inPageButton"
+                            style={{ margin: 0 }}
+                        >
+                            Reset Tax Units to Default
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={handleClearTaxUnits}
+                            className="inPageButton"
+                            style={{ margin: 0 }}
+                        >
+                            Clear All Tax Units
+                        </button>
+                    </div>
+
+                    <br></br>
+
+                    <TaxTable taxUnits={taxUnits} setTaxUnits={setTaxUnits} />
+
+                </>
+            )}
         </section>
 
     </>

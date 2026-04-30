@@ -20,6 +20,7 @@ export default function ProjectForm() {
   // Project data definitions.
   const [projectData, setProjectData] = useState<ProjectData>({
     county: "",
+    region: "",
     project_type: "Solar",
 
     number_of_turbines: 50,
@@ -36,10 +37,12 @@ export default function ProjectForm() {
     manual_market_value: 0,
     is_public_power: "",
     pilot_value: 0,
+    is_using_avg: "",
+
   });
 
   // Sets the defaults for the tax unit table which users may manually edit.
-    const [taxUnits, setTaxUnits] = useState<TaxUnit[]>(createDefaultTaxUnits());
+  const [taxUnits, setTaxUnits] = useState<TaxUnit[]>(createDefaultTaxUnits());
 
 
   // Handle input changes.
@@ -108,7 +111,6 @@ export default function ProjectForm() {
               />
             )}
           </div>
-
         </form>
       </div>
     </div>

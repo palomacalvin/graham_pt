@@ -340,8 +340,8 @@ label {
   margin: 1rem;
   background-color: #c4e8ff;
   color: #231f20;
-  padding-right: 10vh;
-  padding-left: 10vh;
+  padding-right: 3vh;
+  padding-left: 3vh;
   padding-bottom: 3vh;
   padding-top: 3vh;
   border-radius: 4px;
@@ -405,4 +405,8 @@ h2.contact {
 
 .spaced {
   margin: 3rem;
+}
+
+.subtractive-text {
+  color: red;
 }

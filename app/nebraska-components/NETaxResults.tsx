@@ -4,6 +4,7 @@ import { ProjectData } from "@/types/NEProject";
 // import { calculateNERevenue } from "@/utils/NECalculations";
 import { useState, useMemo } from "react";
 import { TaxUnit } from "./NETaxTable";
+import { calculateNEResults } from "@/utils/NECalculations";
 
 interface NETaxResultsProps {
   projectData: ProjectData;
@@ -29,6 +30,9 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
             : `$${rounded.toLocaleString()}`;
         };
 
+    const formatPercent = (decimal: number) => 
+      (decimal * 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 3 }) + "%";
+
     const currentYear = new Date().getFullYear();
   
     function calculateNPV(rate: number, cash_flows: number[]) {
@@ -41,97 +45,46 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
         return values.reduce((sum, v) => sum + v, 0);
     }
 
-    // const calculatedUnits = useMemo(() => calculateNERevenue(projectData), [projectData]);
-  
+    const results = calculateNEResults(projectData, taxUnits);
+
+
   return (
     <div>
       <br></br>
       <h1>Your Results</h1>
-        <>
-          <h3>Year 1 Summary (Solar, QEP)</h3>
-          <table className="basicTable">
-            <thead>
-              <tr>
-                <th>Political Unit</th>
-                <th>Previous Farmland</th>
-                <th>QEP Base Revenue</th>
-                <th>QEP Discretionary Revenue</th>
-                <th>Total {currentYear} Net Revenue</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-              <tr className="rowHighlight">
-              </tr>
-            </tfoot>
-          </table>
-        </>
 
       <br></br>
-
         <>
-          <h3>Year 1 Summary (Solar, Non-QEP)</h3>
+          <h3>Year 1 Summary</h3>
           <table className="basicTable">
             <thead>
               <tr>
-                <th>Political Unit</th>
-                <th>Previous Farmland</th>
-                <th>Solar Land</th>
-                <th>Net Land Revenue</th>
-                <th>Solar Equipment Tax Revenue</th>
-                <th>Total {currentYear} Net Revenue</th>
+                <th>Taxing Unit Name</th>
+                <th>Tax Rate</th>
+                <th>Proportional Tax Rate</th>
+                <th>Capacity Tax Revenue</th>
+                <th>Project Real Tax Revenue</th>
+                <th>Previous Farmland Tax Revenue</th>
+                <th>Net Real Property Revenue</th>
+                <th>Net {currentYear} Tax Revenue</th>
               </tr>
             </thead>
             <tbody>
+              {results.map((result, index) => (
+                <tr key={index}>
+                  <td>{result.name}</td>
+                  <td>{result.unitRate}%</td>
+                  <td>{formatPercent(result.proportionalTaxRate)}</td>
+                  <td>{formatCurrency(result.capacityTaxRevenue)}</td>
+                  <td>{formatCurrency(result.projectRealTaxRevenue)}</td>
+                  <td className="subtractive-text">{formatCurrency(result.previousFarmlandTaxRevenue)}</td>
+                  <td>{formatCurrency(result.netRealPropertyRevenue)}</td>
+                  <td>{formatCurrency(result.netTaxRevenue)}</td>
+                </tr>
+              ))}
             </tbody>
             <tfoot>
               <tr className="rowHighlight">
-                <td>Total All Units</td>
-              </tr>
-            </tfoot>
-          </table>
-        </>
-
-        <>
-          <h3>Year 1 Summary (Wind, Non-QEP)</h3>
-          <table className="basicTable">
-            <thead>
-              <tr>
-                <th>Political Unit</th>
-                <th>Previous Farmland</th>
-                <th>Wind Land</th>
-                <th>Net Land Revenue</th>
-                <th>Wind Equipment Tax Revenue</th>
-                <th>Total {currentYear} Net Revenue</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-              <tr className="rowHighlight">
-              </tr>
-            </tfoot>
-          </table>
-        </>
-
-        <>
-          <h3>Year 1 Summary (Wind, QEP)</h3>
-          <table className="basicTable">
-            <thead>
-              <tr>
-                <th>Political Unit</th>
-                <th>Previous Farmland</th>
-                <th>QEP Base Revenue</th>
-                <th>QEP Discretionary Revenue</th>
-                <th>Total {currentYear} Net Revenue</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-              <tr className="rowHighlight">
-                <td>Total All Units</td>
               </tr>
             </tfoot>
           </table>
