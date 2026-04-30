@@ -25,7 +25,7 @@ export default function ProjectForm() {
 
     number_of_turbines: 50,
     land_area: 700,
-    inflation_rate: 0.029,
+    inflation_rate: 0.03,
     discount_rate: 0.03,
     nameplate_capacity: 100,
     expected_useful_life: 30,

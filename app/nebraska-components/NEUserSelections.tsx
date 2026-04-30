@@ -372,11 +372,11 @@ export default function NEUserSelections({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default number (2.7%) represents the average 
+                        The default number (3.0%) represents the average 
                         annual inflation rate multiplier from the {" "}
-                        <a style={{textDecoration: "underline"}} target="_blank" href="https://www.revenue.wi.gov/Pages/SLF/COTVC-News/2025-09-24.aspx">Wisconsin Department of 
-                        Revenue</a>.
-                        The default multiplier translates to a 2.7% average annual inflation rate. 
+                        <a style={{textDecoration: "underline"}} target="_blank" href="https://dwee.nebraska.gov/state-energy-information/energy-statistics/key-indicators/consumer-price-index">
+                        Nebraska Department of Water, Energy, and Environment</a> Consumer Price Index from 2023-2024..
+                        The default multiplier translates to a 3.0% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
                     </div>
@@ -520,17 +520,21 @@ export default function NEUserSelections({
             </label>
 
             {projectData.market_value_source === "Manual" && (
-                <label>
-                Enter manual market value ($/acre):
-                <input
-                    type="number"
-                    name="manual_market_value"
-                    value={projectData.manual_market_value}
-                    onChange={handleChange}
-                    placeholder="e.g. 5000"
-                    className="basicInputBox"
-                />
-                </label>
+                <>
+                    <br></br>
+                    <label>
+                        
+                    Enter manual market value ($/acre):
+                    <input
+                        type="number"
+                        name="manual_market_value"
+                        value={projectData.manual_market_value}
+                        onChange={handleChange}
+                        placeholder="e.g. 5000"
+                        className="basicInputBox"
+                    />
+                    </label>
+                </>
             )}
 
             <br />
