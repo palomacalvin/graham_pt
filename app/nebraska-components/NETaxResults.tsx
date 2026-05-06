@@ -83,6 +83,26 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
   const totalGrossAllUnits = results.reduce((sum, r) => sum + r.grossTotal, 0);
   const totalNPVAllUnits = results.reduce((sum, r) => sum + r.npvTotal, 0);
 
+
+  // Group NPV by type for the Community Benefits table
+  const totalsByType = useMemo(() => {
+    return results.reduce((acc, curr) => {
+      let category = curr.type;
+
+      // Group both school types into one "School District" key
+      if (category === "School District (non-bond)" || category === "School District (bond)") {
+        category = "School District";
+      }
+
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+      
+      acc[category] += curr.npvTotal;
+      return acc;
+    }, {} as Record<string, number>);
+  }, [results]);
+
   return (
     <div>
       <br></br>
@@ -181,6 +201,7 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
         </table>
         <br></br>
 
+        <div className="table-container">
         <table className="basicTable">
           <thead>
             <tr>
@@ -215,14 +236,66 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
               </td>
             </tr>
 
-            <td className="rowHighlight">Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
-              <td colSpan={Number(years)} className="rowHighlight">
-                <strong>{formatCurrency(totalNPVAllUnits)}</strong>
-              </td>
-          
+            <tr className="rowHighlight">
+              <td>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
+                <td colSpan={Number(years)}>
+                  <strong>{formatCurrency(totalNPVAllUnits)}</strong>
+                </td>
+            </tr>
           </tbody>
         </table>
+        </div>
 
+        <br></br>
+        <br></br>
+
+        <h1>Community Benefits Table</h1>
+        <br></br>
+
+        <p>
+          Below is an estimate of real-world community benefits from your 
+          planned renewable project over the course of its lifespan.
+        </p>
+
+        <br></br>
+
+        <table className="basicTable">
+          <thead>
+              <th></th>
+              <th>Expenditure</th>
+              <th>Jurisdiction</th>
+              <th>Unit Cost</th>
+              <th>Total Lifetime Benefit</th>
+          </thead>
+
+          <tbody>
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
+                  <td>Roadway Maintenance</td>
+                  <td>County</td>
+                  <td>~$11,908 per mile</td>
+                  <td>
+                      ~{Math.round((totalsByType["County"]) / 11908)} miles
+                  </td>
+              </tr>
+
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a firefighter"></img></td>
+                  <td>Fire Trucks</td>
+                  <td>Township</td>
+                  <td>~$1,750,000 per regular fire truck</td>
+                  <td>~{Math.round((totalsByType["Township"] || 0) / 1750000)} fire truck(s)</td>
+              </tr>
+
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/teacher.png" alt="Vector graphic of a fire truck"></img></td>
+                  <td>Public School Teachers</td>
+                  <td>School District</td>
+                  <td>~$80,270 per annual salary</td>
+                  <td>~{Math.round((totalsByType["School District"] || 0) / 80270)} full-time employee annual salaries</td>
+              </tr>
+          </tbody>
+      </table>
     </div>
   );
 }

@@ -625,6 +625,357 @@ export default function ReferencesPage() {
         Click to download the Nebraska policy brief
       </a>
 
+      <br></br>
+
+      <div>
+        <ol className="ref-list">
+
+          <li>
+            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” accessed Dec. 22, 2024, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
+            https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Nebraska Revised Statute 77-103,” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.nebraskalegislature.gov/laws/statutes.php?statute=77-103">
+            https://www.nebraskalegislature.gov/laws/statutes.php?statute=77-103</a>.
+          </li>
+
+          <li>
+            David C. Levy & Lee E. Greenwald, “Impacts of Wind and Solar Energy Development on Property Taxes and Rural Economies in Nebraska,” Baird
+            Holm LLP (2023), {" "} <a target="_blank" className="contactPageLink" href="https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ">
+            https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ</a>, p. 5, Accessed
+            Mar. 9, 2025.
+          </li>
+
+          <li>
+            NMPP Energy, “Understanding Energy Capacity and Capacity Factor,” Published Jan. 29, 2021, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.nmppenergy.org/energy-education/understanding-energy-capacity-and-capacity-factor">
+            https://www.nmppenergy.org/energy-education/understanding-energy-capacity-and-capacity-factor</a>.
+          </li>
+
+          <li>
+            Interview with John Hansen, Nebraska Farmers Union President, Dec. 20, 2024; and Nebraska Legislature, “Nebraska Revised Statute 77-6201,”
+            Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-6201">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-6201</a>.
+          </li>
+
+          <li>
+            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” Accessed Dec. 22, 2024, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
+            https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
+          </li>
+
+          <li>
+            REVE, “Ørsted starts construction of 298 MW Nebraska wind power project,” Published Oct. 28, 2020, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.evwind.es/2020/10/28/orsted-starts-construction-of-298-mw-nebraska-wind-power-project/77908">
+            https://www.evwind.es/2020/10/28/orsted-starts-construction-of-298-mw-nebraska-wind-power-project/77908</a>.
+          </li>
+
+          <li>
+            2024 Nebraska Revised Statutes, “Chapter 77 - Revenue and Taxation
+            77-6203 - Nameplate capacity tax; annual payment; exemptions; Department of Revenue; duties; owner; file report; interest; penalties,” {" "}
+            <a target="_blank" className="contactPageLink" href="https://law.justia.com/codes/nebraska/chapter-77/statute-77-6203/">
+            https://law.justia.com/codes/nebraska/chapter-77/statute-77-6203/</a>.
+          </li>
+
+          <li>
+            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” accessed Dec. 22, 2024, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
+            https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-6204(3),” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-6204">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-6204</a>.
+          </li>
+
+          <li>
+            Directive 24-3: Assessment of Renewable Energy Generation Facilities, Nebraska Department of Revenue, Published Sep. 30, 2024, Accessed
+            Mar. 9, 2025, {" "} <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf</a>.
+          </li>
+
+          <li>
+            Nebraska Department of Revenue, “Nebraska Property Assessment FAQs,” {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nebraska-property-assessment-faqs">
+            https://revenue.nebraska.gov/about/frequently-asked-questions/nebraska-property-assessment-faqs</a>, Accessed June 2, 2025.
+          </li>
+
+          <li>
+            Ruth A. Sorensen, “2022 Annual Report,” Nebraska Department of Revenue Property Assessment Division. Published March 28 2023. {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/FloorDocs/108/PDF/Agencies/Revenue__Department_of/476_20230330-154956.pdf">
+            https://nebraskalegislature.gov/FloorDocs/108/PDF/Agencies/Revenue__Department_of/476_20230330-154956.pdf</a>.
+          </li>
+
+          <li>
+            Nebraska Department of Revenue, “Special Valuation of Agricultural or Horticultural Land,” June 2021, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/info/Special_Valuation_of_Agri_and_Hort_Land.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/pad/info/Special_Valuation_of_Agri_and_Hort_Land.pdf</a>.
+          </li>
+
+          <li>
+            Nebraska Administrative Code, “Title 350 - Nebraska Department of Revenue, Property Assessment Division; Chapter14 – Agricultural Land
+            and Horticultural Land Assessment Regulations.” Published March 25 2009. {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/legal/regs/pad/Chapter14_Agricultural_Land_Assessment_3-15-2009.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/legal/regs/pad/Chapter14_Agricultural_Land_Assessment_3-15-2009.pdf</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-201(2),” Accessed June 3, 2025 {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-201">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-201</a>.
+          </li>
+
+          <li>
+            Nebraska Department of Revenue, “Directive 24-1: Real Property Tax Credit and Tax Statements Calculations,” Published Sep. 13, 2024, Accessed
+            Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-1_Real_Property_Tax_Credit.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-1_Real_Property_Tax_Credit.pdf</a>; and Nebraska Department of
+            Revenue, “Directive 24-2: School District Property Tax Relief Credit (SDPTRC) and Tax Statement Calculations,” Published Sep. 12, 2024, Accessed
+            Mar. 9, 2025, <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-2_School_District_Property_Tax_Relief_Credit.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-2_School_District_Property_Tax_Relief_Credit.pdf</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-4212(4)(a),” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-4212">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-4212</a>
+            and Nebraska Legislature, “Neb. Rev. Stat. § 77-7305(5),” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-7305">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-7305</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-6203(2)(a),” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-6203">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-6203</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-202(1)(a),” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-202">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=77-202</a>.
+          </li>
+
+          <li>
+            Nebraska Legislature, “Neb. Rev. Stat. § 70-601,” Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=70-601">
+            https://nebraskalegislature.gov/laws/statutes.php?statute=70-601</a>.
+          </li>
+
+          <li>
+            See also David C. Levy, “Public Power District Was Not Liable,” Baird Holm LLP, Published Aug. 26, 2014, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" 
+            href="https://www.bairdholm.com/blog/public-power-district-was-not-liable-for-property-taxes-on-land-it-leased-for-commercial-and-residential-uses-because-it-paid-in-lieu-of-taxes/">
+            https://www.bairdholm.com/blog/public-power-district-was-not-liable-for-property-taxes-on-land-it-leased-for-commercial-and-residential-uses-because-it-paid-in-lieu-of-taxes/</a>.
+          </li>
+
+          <li>
+            Nebraska Legislative Research Office, “Payments in Lieu of Taxes: Who Pays and How Much?”, LRO Snapshot, Published April 2022, Accessed
+            Mar. 9, 2025, {" "} <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/pdf/reports/research/snapshot_payments_2022.pdf">
+            https://nebraskalegislature.gov/pdf/reports/research/snapshot_payments_2022.pdf</a>.
+          </li>
+
+          <li>
+            U.S. Energy Information Administration, “Nebraska: State Profile and Energy Estimates,” Updated Aug. 15, 2024, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.eia.gov/state/analysis.php?sid=NE">
+            https://www.eia.gov/state/analysis.php?sid=NE</a>.
+          </li>
+
+          <li>
+            Peter F. Biedenweg, “Propelling Nebraska’s Wind Power,” Nebraska Law Review, Published Jun. 15, 2024, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://lawreview.unl.edu/propelling-nebraskas-wind-power/">
+            https://lawreview.unl.edu/propelling-nebraskas-wind-power/</a>.
+          </li>
+
+          <li>
+            Eric Thompson, “The Economic and Tax Revenue Impact of the Nebraska Wind Energy Industry,” Bureau of Business Research at the University of
+            Nebraska - Lincoln, Published Dec. 30, 2014, Accessed Mar. 9, 2025, {" s"}
+            <a target="_blank" className="contactPageLink" href="https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1048&context=bbrpub">
+            https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1048&context=bbrpub</a>.
+          </li>
+
+          <li>
+            Eric Thompson, “The Economic and Tax Revenue Impact of the Pierce County Energy Center,” Bureau of Business Research at the University of
+            Nebraska - Lincoln, Published Jul. 6, 2024, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://business.unl.edu/research/bureau-of-business-research/bureau-reports/documents/Pierce_County_Solar_Economic_Impact_Memo_07062024.pdf">
+            https://business.unl.edu/research/bureau-of-business-research/bureau-reports/documents/Pierce_County_Solar_Economic_Impact_Memo_07062024.pdf</a>.
+          </li>
+
+          <li>
+            Directive 24-3: Assessment of Renewable Energy Generation Facilities, Nebraska Department of Revenue, Published Sep. 30, 2024, Accessed
+            Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf</a>.
+          </li>
+
+          <li>
+            Interviews with Jane Klassen, Deputy Assessor of Boone County, Nebraska (Jan. 8, 2025) and Kamisah O’Donnell, Senior Tax Specialist, Property
+            Assessment Division, Nebraska Department of Revenue (Jan. 8, 2025).
+          </li>
+
+          <li>
+            Neb. Rev. Stat. § 77-6203(4).
+          </li>
+
+          <li>
+            Nameplate Capacity Tax FAQ, Nebraska Department of Revenue, accessed June 10, 2025. {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
+            https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
+          </li>
+
+          <li>
+            Neb. Rev. Stat. § 77-1359(1)(b).
+          </li>
+
+          <li>
+            David Levy, “Nebraska Department of Revenue’s Directive 24-3 Clarifies Taxation Updates for Renewable Energy Developers,” Baird Holm LLP,
+            Published Oct. 8, 2024, Accessed Mar. 9, 2025, {" s"}
+            <a target="_blank" className="contactPageLink" href="https://www.bairdholm.com/blog/nebraska-department-of-revenues-directive-24-3-clarifies-taxation-updates-for-renewable-energy-developers/">
+            https://www.bairdholm.com/blog/nebraska-department-of-revenues-directive-24-3-clarifies-taxation-updates-for-renewable-energy-developers/</a>.
+          </li>
+
+          <li>
+            Jim Jansen, “Nebraska Farm Real Estate Report,” University of Nebraska - Lincoln Center for Agricultural Profitability. Last updated March 12
+            2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://cap.unl.edu/realestate/">
+            https://cap.unl.edu/realestate/</a>.
+          </li>
+
+          <li>
+            David C. Levy & Lee E. Greenwald, “Impacts of Wind and Solar Energy Development on Property Taxes and Rural Economies in Nebraska,” Baird
+            Holm LLP, Published 2023, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ">
+            https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ</a>.
+          </li>
+
+          <li>
+            Elizabeth Rembert, “Here’s how Nebraska funds its public schools. It involves a lot of ‘bells and whistles,’” Nebraska Public Radio, Published May 2,
+            2023, Accessed Mar. 9, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://nebraskapublicmedia.org/en/news/news-articles/heres-how-nebraska-funds-its-public-schools-it-involves-a-lot-of-bells-and-whistles/">
+            https://nebraskapublicmedia.org/en/news/news-articles/heres-how-nebraska-funds-its-public-schools-it-involves-a-lot-of-bells-and-whistles/</a>.
+          </li>
+
+          <li>
+            Educational Service Unit #2, “Nebraska ESUs”, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.esu2.org/about-educational-service-unit-2/nebraska-esus/">
+            https://www.esu2.org/about-educational-service-unit-2/nebraska-esus/, Accessed June 1, 2025</a>.
+          </li>
+
+          <li>
+            Nebraska Department of Revenue, Property Assessment of Division, “SCHOOL DISTRICT REFERENCE LIST -- Effective for JULY 2020 - JUNE
+            2021,” June 12 2020, {" "}
+            <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/research/esu/School_District_Reference_List_2020-2021.pdf">
+            https://revenue.nebraska.gov/sites/default/files/doc/pad/research/esu/School_District_Reference_List_2020-2021.pdf</a>, Accessed
+            June 1, 2025.
+          </li>
+
+          <li>
+            GWorks, “Saunders County, Nebraska,” accessed Feb. 18, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://saunders.gworks.com/">
+            https://saunders.gworks.com/</a>.
+          </li>
+
+          <li>
+            Center for Agricultural Profitability, Department of Agricultural Economics, University of Nebraska, “Nebraska Farm Real Estate Report,” accessed
+            June 3, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://cap.unl.edu/realestate/">
+            https://cap.unl.edu/realestate/</a>.
+          </li>
+
+          <li>
+            Center for Agricultural Profitability, Department of Agricultural Economics, University of Nebraska, “Nebraska Farm Real Estate Report,” accessed
+            June 3, 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://cap.unl.edu/realestate/">
+            https://cap.unl.edu/realestate/</a>.
+          </li>
+
+          <li>
+            Bungaran, Y. (n.d.). Firefighter. In The Noun Project. Retrieved from https://thenounproject.com/search/icons/?q=firefighter; Hermawan. (n.d.). Road.
+            In The Noun Project. Retrieved from {" "}
+            <a target="_blank" className="contactPageLink" href="https://thenounproject.com/search/icons/?q=road">
+            https://thenounproject.com/search/icons/?q=road</a>; Hikami, E. (n.d.). Fire Truck. In The Noun Project. Retrieved
+            from 
+            <a target="_blank" className="contactPageLink" href="https://thenounproject.com/search/icons/?q=firetruck">
+            https://thenounproject.com/search/icons/?q=firetruck</a>.
+          </li>
+
+          <li>
+            Bungaran, Y. (n.d.). Firefighter. In The Noun Project. Retrieved from {" "}
+            <a target="_blank" className="contactPageLink" href=" https://thenounproject.com/search/icons/?q=firefighter">
+            https://thenounproject.com/search/icons/?q=firefighter</a>; Hermawan. (n.d.). Road.
+            In The Noun Project. Retrieved from {" "}
+            <a target="_blank" className="contactPageLink" href="https://thenounproject.com/search/icons/?q=road">
+            https://thenounproject.com/search/icons/?q=road</a>; Hikami, E. (n.d.). Fire Truck. In The Noun Project. Retrieved
+            from {" "}
+            <a target="_blank" className="contactPageLink" href="https://thenounproject.com/search/icons/?q=firetruck">
+            https://thenounproject.com/search/icons/?q=firetruck</a>.
+          </li>
+
+          <li>
+            Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
+            <a target="_blank" className="contactPageLink" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf">
+            https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+          </li>
+
+          <li>
+            Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
+            <a target="_blank" className="contactPageLink" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf">
+            https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+          </li>
+
+          <li>
+            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Michigan,” May 2023. {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.bls.gov/oes/2023/may/oes_wi.htm">
+            https://www.bls.gov/oes/2023/may/oes_wi.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
+            September 12 2025, 
+            <a target="_blank" className="contactPageLink" href="https://www.bls.gov/news.release/pdf/ecec.pdf">
+            https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+          </li>
+
+          <li>
+            Lincoln (NE) Fire & Rescue Welcomes New $1.08M Ladder Truck,” Fire Apparatus Magazine, April 10 2023, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.fireapparatusmagazine.com/fire-apparatus/ladder-trucks/lincoln-ne-fire-rescue-welcomes-new-1-08m-ladder-truck/">
+            https://www.fireapparatusmagazine.com/fire-apparatus/ladder-trucks/lincoln-ne-fire-rescue-welcomes-new-1-08m-ladder-truck/</a>; Jartavius Edmond, “City Council approves new
+            upgrades for Kearney Volunteer Fire Department,” June 11 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.ksnblocal4.com/2025/06/11/city-council-approves-new-upgrades-kearney-volunteer-fire-department/">
+            https://www.ksnblocal4.com/2025/06/11/city-council-approves-new-upgrades-kearney-volunteer-fire-department/</a>.
+          </li>
+
+          <li>
+            National Education Association, “Educator Pay Data 2025,” {" "}
+            <a target="_blank" href="https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank"
+            className="contactPageLink">
+            https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank</a>; 
+            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12
+            2025, {" "}
+            <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
+            className="contactPageLink">https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+          </li>
+
+          <li>
+            United States Bureau of Labor Statistics, “25-4022 Librarians and Media Collections Specialists,” Occupational Employment and Wages, May 2023, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.bls.gov/oes/2023/may/oes254022.htm.">
+            https://www.bls.gov/oes/2023/may/oes254022.htm.</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION
+            – JUNE 2025,” September 12 2025, {" "}
+            <a target="_blank" className="contactPageLink" href="https://www.bls.gov/news.release/pdf/ecec.pdf">
+            https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+          </li>
+
+          <li>
+            Carol Bryant, “G.I. Public Schools Superintendent Matt Fisher gives presentation about 3-phase facility plan,” Central Nebraska Today, Feb 13 {" "}
+            2026, <a target="_blank" className="contactPageLink" href="https://www.centralnebraskatoday.com/2026/02/13/g-i-public-schools-superintendent-matt-fisher-gives-presentation-about-3-phase-facility-plan/#:~:text=The%20first%20project%20for%20Phase,Phase%203">
+            https://www.centralnebraskatoday.com/2026/02/13/g-i-public-schools-superintendent-matt-fisher-gives-presentation-about-3-phase-facility-plan/#:~:text=The%20first%20project%20for%20Phase,Phase%203</a>.
+          </li>
+        </ol>
+      </div>
+
+      <br></br>
+
       <h1>Ohio</h1>
       <br></br>
   

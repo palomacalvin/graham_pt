@@ -20,7 +20,7 @@ export default function TaxTable({ taxUnits, setTaxUnits }: Props) {
     setTaxUnits(newUnits);
   };
 
-    const handleRateChange = (index: number, value: string) => {
+  const handleRateChange = (index: number, value: string) => {
     const newUnits = [...taxUnits];
     newUnits[index].rate = parseFloat(value) || 0;
     setTaxUnits(newUnits);
@@ -43,12 +43,17 @@ export default function TaxTable({ taxUnits, setTaxUnits }: Props) {
           <tr key={idx}>
             <td>{unit.unitNumber}</td>
             <td>
-              <input
-                type="text"
+              <select
                 value={unit.type}
                 onChange={(e) => handleChange(idx, "type", e.target.value)}
                 className="basicInputBox"
-                />
+              >
+                <option value="">-- Select Type --</option>
+                <option value="County">County</option>
+                <option value="Township">Township</option>
+                <option value="School District">School District</option>
+                <option value="Special Unit/Other">Special Unit/Other</option>
+              </select>
             </td>
             <td>
               <input

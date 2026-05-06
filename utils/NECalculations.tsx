@@ -8,6 +8,7 @@ export interface NEYearlyResult {
 
 export interface NECalculationResult {
   name: string;
+  type: string;
   unitRate: number;
   proportionalTaxRate: number;
   capacityTaxRevenue: number;
@@ -189,6 +190,7 @@ export function calculateNEResults(
 
     return {
       name: unit.name,
+      type: unit.type,
       unitRate,
       proportionalTaxRate,
       capacityTaxRevenue,

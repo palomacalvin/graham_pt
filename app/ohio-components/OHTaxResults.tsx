@@ -54,7 +54,23 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
     }
 
     const calculatedUnits = useMemo(() => calculateOHRevenue(projectData), [projectData]);
-  
+
+    const countyNPV = calculatedUnits.find(u => 
+      u.name.toUpperCase().includes("COUNTY") && !u.name.toUpperCase().includes("JVSD")
+    )?.npvTotal || 0;
+
+    const schoolNPV = calculatedUnits.find(u => 
+      u.name.toUpperCase().includes("CSD") || 
+      u.name.toUpperCase().includes("SCHOOL") || 
+      u.name.toUpperCase().includes(" SD")
+    )?.npvTotal || 0;
+
+    const townshipNPV = calculatedUnits.find(u => 
+      u.name.toUpperCase().includes("TWP") || 
+      u.name.toUpperCase().includes("TOWNSHIP")
+    )?.npvTotal || 0;
+
+
   return (
     <div>
       <br></br>
@@ -321,6 +337,58 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
           
           </tbody>
         </table>
+
+        <br></br>
+        <br></br>
+
+        <h1>Community Benefits Table</h1>
+        <br></br>
+
+        <p>
+          Below is an estimate of real-world community benefits from your 
+          planned renewable project over the course of its lifespan.
+        </p>
+
+        <br></br>
+
+        <table className="basicTable">
+          <thead>
+              <th></th>
+              <th>Expenditure</th>
+              <th>Jurisdiction</th>
+              <th>Unit Cost</th>
+              <th>Total Lifetime Benefit</th>
+          </thead>
+
+          <tbody>
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
+                  <td>Roadway Maintenance</td>
+                  <td>County</td>
+                  <td>~$18,948 per mile</td>
+                  <td>
+                      ~{Math.round((countyNPV) / 18948)} miles
+                  </td>
+              </tr>
+
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a firefighter"></img></td>
+                  <td>Fire Trucks</td>
+                  <td>Township</td>
+                  <td>~$2,100,000 per regular fire truck</td>
+                  <td>~{Math.round((townshipNPV) / 2100000)} fire truck(s)</td>
+              </tr>
+
+              <tr>
+                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/teacher.png" alt="Vector graphic of a fire truck"></img></td>
+                  <td>Public School Teachers</td>
+                  <td>School District</td>
+                  <td>~$94,585 per annual salary</td>
+                  <td>~{Math.round((schoolNPV) / 94585)} full-time employee annual salaries</td>
+              </tr>
+          </tbody>
+      </table>
+
 
     </div>
   );

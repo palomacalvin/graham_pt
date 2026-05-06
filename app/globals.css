@@ -152,13 +152,45 @@ h3 {
 .basicTable td {
   border: 1px solid #ccc;
   padding: 8px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .basicTable th {
   background: #f4f4f4;
   font-weight: bold;
   text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Table visual improvements */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+}
+
+.basicTable {
+  min-width: 800px; 
+}
+
+.basicTable td:first-child, 
+.basicTable th:first-child {
+  position: sticky;
+  left: 0;
+  background: white;
+  z-index: 10;
+  border-right: 2px solid #ccc;
+}
+
+.basicTable th:first-child {
+  background: #f4f4f4;
+}
+
+
+
+
 
 ul {
   list-style-type: disc;
@@ -208,10 +240,13 @@ label {
 
 .rowBold {
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .rowBold td {
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 

@@ -195,19 +195,30 @@ export default function NEUserSelections({
                         />
                     </label>
             
-                    <label>
-                        Fenceline Acres:
-                        <input
-                            type="number"
-                            name="land_area"
-                            value={projectData.land_area}
-                            onChange={(e) => {
-                                setUserEditedSolarRelation(true);
-                                handleChange(e);
-                            }}
-                            className="basicInputBox"
-                        />
-                    </label>
+                    
+                        <label className="inputWithInfo">
+                            Fenceline Acres:
+                            <input
+                                type="number"
+                                name="land_area"
+                                value={projectData.land_area}
+                                onChange={(e) => {
+                                    setUserEditedSolarRelation(true);
+                                    handleChange(e);
+                                }}
+                                className="basicInputBox"
+                            />
+
+                            <div className="infoWrapper">
+                                <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                                <div className="infoBubble">
+                                    For solar projects, we assume the fenceline acres are equivalent
+                                    to 7 acres per mega-watt.
+                                </div>
+                            </div>
+
+                        </label>
+
 
                     <br></br>
 
@@ -375,7 +386,7 @@ export default function NEUserSelections({
                         The default number (3.0%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" href="https://dwee.nebraska.gov/state-energy-information/energy-statistics/key-indicators/consumer-price-index">
-                        Nebraska Department of Water, Energy, and Environment</a> Consumer Price Index from 2023-2024..
+                        Nebraska Department of Water, Energy, and Environment</a> Consumer Price Index from 2023-2024.
                         The default multiplier translates to a 3.0% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
@@ -464,6 +475,14 @@ export default function NEUserSelections({
             <h1>Project Specifications</h1>
 
             <br />
+
+            <p style={{ color: "red", fontStyle: "italic"}}>
+                All fields in this section are required. You may choose to
+                use the defaults listed below, or override them with values relevant to
+                your project.
+            </p>
+
+            <br></br>
 
             <label>Anticipated start date of project:</label>
                 <div style={{ display: "flex", gap: "30px", marginBottom: "20px" }}>
@@ -579,6 +598,12 @@ export default function NEUserSelections({
             <br></br>
 
             <h1>Taxing Units</h1>
+
+            <br></br>
+
+            <p style={{ color: "red", fontStyle: "italic"}}>
+                This question is required.
+            </p>
 
             <br></br>
 

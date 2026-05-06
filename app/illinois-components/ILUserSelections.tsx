@@ -27,7 +27,7 @@ export const createDefaultTaxUnits = (): TaxUnit[] =>
       i === 0 ? "County" :
       i === 1 ? "Township" :
       i === 2 ? "School District" :
-      i === 3 ? "All other special units" : "",
+      i === 3 ? "Special Unit/Other" : "",
     rate:
       i === 0 ? 0.76473 :
       i === 1 ? 0.33223 :
@@ -485,25 +485,27 @@ export default function ILUserSelections({
 
             <br></br>
 
+            <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
+                <button
+                    type="button"
+                    onClick={handleResetTaxUnits}
+                    className="inPageButton"
+                    >
+                    Reset Tax Units to Defaults
+                </button>
+
+                <button
+                    type="button"
+                    onClick={handleClearTaxUnits}
+                    className="inPageButton"
+                    >
+                    Clear All Tax Units
+                </button>
+            </div>
+
             <TaxTable taxUnits={taxUnits} setTaxUnits={setTaxUnits} />
 
             <br></br>
-            <br></br>
-            <button
-                type="button"
-                onClick={handleResetTaxUnits}
-                className="inPageButton"
-                >
-                Reset Tax Units to Defaults
-            </button>
-
-            <button
-                type="button"
-                onClick={handleClearTaxUnits}
-                className="inPageButton"
-                >
-                Clear All Tax Units
-            </button>
         </section>
 
     </>
