@@ -192,7 +192,7 @@ export default function ILUserSelections({
                         />
                     </label>
             
-                    <label>
+                    <label className="inputWithInfo">
                         Fenceline Acres:
                         <input
                             type="number"
@@ -204,6 +204,14 @@ export default function ILUserSelections({
                             }}
                             className="basicInputBox"
                         />
+
+                        <div className="infoWrapper">
+                                <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                                <div className="infoBubble">
+                                    For solar projects, we assume the fenceline acres are equivalent
+                                    to 7 acres per mega-watt.
+                                </div>
+                        </div>
                     </label>
 
                     <br></br>
