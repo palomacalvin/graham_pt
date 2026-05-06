@@ -200,7 +200,7 @@ export default function ProjectForm() {
             setTaxUnits={setTaxUnits}
           /> 
 
-          {/* <div style={{ margin: "3rem" }}>
+          <div style={{ margin: "3rem" }}>
           <h2>Depreciation Schedule</h2>
 
           <table className="basicTable">
@@ -231,7 +231,7 @@ export default function ProjectForm() {
               ))}
             </tbody>
           </table>
-        </div> */}
+        </div>
 
           <br></br>
           <button

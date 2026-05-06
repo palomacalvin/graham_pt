@@ -32,19 +32,34 @@ export function generateNetAssessedValues(
     const age = i + 1;
     const year = startYear + i;
 
+    
+
     // Apply inflation starting from the second year.
     if (i > 0) {
-      currentTrendingFactor = Number((currentTrendingFactor * (1 + selectedInflationRate)).toFixed(2));
-      currentFarmlandEAV = Math.round(currentFarmlandEAV * (1 + selectedInflationRate));
+      // currentTrendingFactor = Number((currentTrendingFactor * (1 + selectedInflationRate)));
+      // currentFarmlandEAV = currentFarmlandEAV * (1 + selectedInflationRate);
+
+      // const currentTrendingFactor = countyTrendingFactor * Math.pow(1 + selectedInflationRate, i);
+      // const currentFarmlandEAV = countyFarmlandValue * Math.pow(1 + selectedInflationRate, i);
+
+      currentTrendingFactor = currentTrendingFactor * (1 + selectedInflationRate);
+      currentFarmlandEAV = currentFarmlandEAV * (1 + selectedInflationRate);
     }
 
     // Project related calculations (see net assessed value tab).
     const depreciationFactor = Math.min(0.04 * age, 0.70);
-    const trendedCost = Math.round(baseCost * currentTrendingFactor);
-    const depreciation = Math.round(trendedCost * depreciationFactor);
-    const fcv = Math.round(trendedCost - depreciation);
-    const assessedValue = Math.round(fcv * 0.3333);
-    const totalFarmlandAssessedValue = Math.round((currentFarmlandEAV * landArea));
+    const trendedCost = baseCost * currentTrendingFactor;
+    const depreciation = trendedCost * depreciationFactor;
+    const fcv = trendedCost - depreciation;
+    const assessedValue = fcv * 1/3;
+    const totalFarmlandAssessedValue = currentFarmlandEAV * landArea;
+
+    if (i === 0) { // Check Year 1
+      console.table({
+        "Step": ["Trending Factor", "Trended Cost", "Depreciation", "FCV", "Assessed Value"],
+        "JS Value": [currentTrendingFactor, trendedCost, depreciation, fcv, assessedValue]
+      });
+    }
 
     rows.push({
       year,

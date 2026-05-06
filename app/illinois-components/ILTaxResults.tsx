@@ -67,6 +67,13 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
       const grossLifetime = calculateGrossTotal(yearlyNetImpacts);
       const npvLifetime = calculateNPV(projectData.discount_rate || 0.03, yearlyNetImpacts);
 
+      if (unit.type === "County") {
+        console.log(`--- DEBUG: ${unit.name} (Year 1) ---`);
+        console.log("Assessed Value:", rows[0].assessedValue);
+        console.log("Tax Rate (Decimal):", decimalRate);
+        console.log("Calculated Project Tax:", rows[0].assessedValue * decimalRate);
+      }
+
       return {
         id: unit.unitNumber,
         name: unit.name || "",
@@ -104,13 +111,15 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
       <br></br>
 
       <h3>Year 1 Summary</h3>
+
+      <div className="table-container">
         <table className="basicTable">
         <thead>
           <tr>
             <th>Unit</th>
             <th>Jurisdiction Name</th>
             <th>Tax Rate</th>
-            <th>Year 1 Project Tax Payments</th>
+            <th>Project Tax Payments</th>
             <th>Previous Farmland Tax Payments</th>
             <th>Net Tax Impacts from Project</th>
           </tr>
@@ -134,6 +143,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
           </tr>
         </tbody>
       </table>
+      </div>
 
         <br></br>
         <br></br>
@@ -156,6 +166,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
         <br />
 
         <h3>Jurisdictional Gross & NPV Totals</h3>
+        <div className="table-container">
         <table className="basicTable">
           <thead>
             <tr>
@@ -179,8 +190,11 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
             </tr>
           </tbody>
         </table>
+        </div>
+
         <br></br>
 
+        <div className="table-container">
         <table className="basicTable">
           <thead>
             <tr>
@@ -230,6 +244,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
         
         </tbody>
         </table>
+        </div>
 
         <br></br>
         <br></br>
@@ -244,6 +259,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
 
         <br></br>
 
+        <div className="table-container">
         <table className="basicTable">
           <thead>
               <th></th>
@@ -281,6 +297,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
               </tr>
           </tbody>
       </table>
+      </div>
     </div>
   );
 }
