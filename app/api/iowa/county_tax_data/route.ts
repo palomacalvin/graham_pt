@@ -9,15 +9,18 @@ export async function GET(request: Request) {
   try {
     const res = await pool.query(
         `SELECT 
+            county_number,
             county_name,
-            productivity_per_acre,
-            five_yr_avg_market_value_per_acre,
-            ag_building_factor,
-            ag_land_adjustment,
-            number_of_ag_acres_in_county,
-            average_csr_in_county,
-            ag_rollback
-        FROM iowa_ag_land_value_data
+            urban_value,
+            urban_rate,
+            urban_levy,
+            rural_value,
+            rural_levy,
+            total_value,
+            special_levy,
+            total_levy,
+            rural_rate
+        FROM iowa_county_tax_data
         ORDER BY county_name`
     );
 

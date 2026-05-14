@@ -22,7 +22,7 @@ export default function ProjectForm() {
     school_district: "",
 
     land_area: 700,
-    inflation_rate: 0.029,
+    inflation_rate: 0.025,
     discount_rate: 0.03,
     nameplate_capacity: 100,
     expected_useful_life: 30,
@@ -67,11 +67,11 @@ export default function ProjectForm() {
 
       <div className="spaced">
 
-          <h1>Illinois Wind Renewable Energy Tax Impacts Calculator</h1>
+          <h1>Iowa Wind Renewable Energy Tax Impacts Calculator</h1>
 
       </div>
 
-      <Instructions state="Illinois" />
+      <Instructions state="Iowa" />
 
 
       <div className="spaced">

@@ -20,6 +20,15 @@ interface UtilityData {
     delivery_tax_rate_per_mwh: number;
 }
 
+interface CityData {
+    county_name: string;
+    city_name: string;
+    regular_without_ag: number;
+    debt_service: number;
+    employ_benefit: number;
+    capital_improve: number;
+}
+
 const MAX_USEFUL_LIFE = 35;
 
 
@@ -56,6 +65,10 @@ export default function IASolarUserSelections({
     const [utilities, setUtilities] = useState<UtilityData[]>([]);
     const [isLoadingUtilities, setIsLoadingUtilities] = useState(false);
 
+    // State to hold fetched city data.
+    const [allCities, setAllCities] = useState<CityData[]>([]);
+    const [filteredCities, setFilteredCities] = useState<CityData[]>([]);
+
     // Fetch utility data on component mount
     useEffect(() => {
         async function fetchUtilities() {
@@ -91,10 +104,36 @@ export default function IASolarUserSelections({
         setProjectData((prev) => ({
             ...prev,
             utility_service_area: selectedName,
-            delivery_tax_rate_per_kwh: selectedUtility?.delivery_tax_rate_per_kwh || 0,
-            delivery_tax_rate_per_mwh: selectedUtility?.delivery_tax_rate_per_mwh || 0,
+            // Save the rate directly to state.
+            delivery_tax_rate_per_kwh: selectedUtility?.delivery_tax_rate_per_kwh || 0, 
         }));
     };
+
+    useEffect(() => {
+        async function fetchCities() {
+            try {
+                const res = await fetch("/api/iowa/city_data"); 
+                if (!res.ok) throw new Error("Failed to fetch cities");
+                const data = await res.json();
+                setAllCities(data.cities || []);
+            } catch (err) {
+                console.error("Error fetching cities:", err);
+            }
+        }
+        fetchCities();
+    }, []);
+
+    // Update filtered cities whenever the county changes
+    useEffect(() => {
+        if (projectData.county_name) {
+            const filtered = allCities.filter(
+                (c) => c.county_name.toUpperCase() === projectData.county_name.toUpperCase()
+            );
+            setFilteredCities(filtered);
+        } else {
+            setFilteredCities([]);
+        }
+    }, [projectData.county_name, allCities]);
 
   return (
     <>
@@ -123,10 +162,11 @@ export default function IASolarUserSelections({
         onSelectSchoolDistrict={(schoolDistrict) => {
             console.log("Selected School District:", schoolDistrict);
             setProjectData((prev) => ({
-              ...prev,
-              school_district_name: schoolDistrict?.sd_name || "",
-              school_total_rate: schoolDistrict?.total_rate || 0,
-              school_voted_ppel: schoolDistrict?.voted_ppel || 0,
+                ...prev,
+                school_district: schoolDistrict?.sd_name || "",
+                school_district_name: schoolDistrict?.sd_name || "",
+                school_total_rate: schoolDistrict?.total_rate || 0,
+                school_voted_ppel: schoolDistrict?.voted_ppel || 0,
             }));
           }}
         />
@@ -245,12 +285,12 @@ export default function IASolarUserSelections({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default number (3.0%) represents the average 
+                        The default number (2.5%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" 
-                        href="https://tax.illinois.gov/localgovernments/property/cpihistory.html">Illinois Department of 
-                        Revenue</a>.
-                        The default multiplier translates to a 2.9% average annual inflation rate. 
+                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a>
+                        between 1995 and 2025.
+                        The default multiplier translates to a 2.5% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
                     </div>
@@ -340,21 +380,58 @@ export default function IASolarUserSelections({
                 city boundaries?
                 <select
                     value={projectData.city_rural_classification}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        const val = e.target.value;
                         setProjectData((prev) => ({
                             ...prev,
-                            city_rural_classification: e.target.value,
-                        }))
-                    }
+                            city_rural_classification: val,
+                            is_located_in_city: val === "city"
+                        }));
+                    }}
                     className="basicInputBox"
                 >
-                <option value="">-- Choose Option --</option>
-                <option value="city">City</option>
-                <option value="rural">Rural</option>
-                
-
+                    <option value="">-- Choose Option --</option>
+                    <option value="city">City</option>
+                    <option value="rural">Rural</option>
                 </select>
             </label>
+
+            {projectData.city_rural_classification === 'city' && (
+                <div>
+                    <label></label>
+                    <select 
+                        name="city_name"
+                        value={projectData.city_name || ""}
+                        onChange={(e) => {
+                            const selectedCity = filteredCities.find(c => c.city_name === e.target.value);
+                            
+                            // Sum all components for the fallback rate
+                            const totalCityRate = selectedCity 
+                                ? (selectedCity.regular_without_ag + 
+                                selectedCity.debt_service + 
+                                selectedCity.employ_benefit + 
+                                selectedCity.capital_improve)
+                                : 0;
+
+                            setProjectData(prev => ({
+                                ...prev,
+                                city_name: e.target.value,
+                                city_regular_rate: totalCityRate 
+                            }));
+                        }}
+                        className="basicInputBox"
+                    >
+                        <option value="">-- Select a City --</option>
+                        {filteredCities.map((city) => (
+                            <option key={city.city_name} value={city.city_name}>
+                                {city.city_name}
+                            </option>
+                        ))}
+                    </select>
+                    <p className="required">Required</p>
+                    <br />
+                </div>
+            )}
         </section>
 
         <br></br>
@@ -388,8 +465,8 @@ export default function IASolarUserSelections({
                         value={projectData.avg_solar_capacity_factor || ""}
                         onChange={handleChange}
                         className="basicInputBox"
-                        placeholder="Enter value"
-                    />
+                        placeholder="e.g. 23.4"
+                    /> %
                     <p className="required">Required</p>
                     <br></br>
                 </div>
@@ -406,13 +483,13 @@ export default function IASolarUserSelections({
                         value={projectData.avg_solar_capacity_factor}
                         className="basicDataBox"
                         readOnly
-                    />
+                    /> %
                 </div>
             </label>
 
             {/* CSR2s */}
 
-            <label>
+            <label className="inputWithInfo">
                 Use 2017 County Average CSR2s?
                 <select
                     name="use_county_avg_csr2s"
@@ -424,6 +501,17 @@ export default function IASolarUserSelections({
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
+
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        CSR2 refers to Iowa's updated corn suitability rating index, measuring
+                        soil productivity. These indices attempt to capture crop yield changes 
+                        over time, and factor into property tax calculations. {" "}
+                        <a target="_blank" style={{textDecoration: "underline"}} 
+                        href="https://www.fbn.com/community/blog/iowa-corn-suitability-rating-index-csr2">Read more</a>.
+                    </div>
+                </div>
             </label>
 
             {projectData.use_county_avg_csr2s === 'no' && (
@@ -437,7 +525,7 @@ export default function IASolarUserSelections({
                         onChange={handleChange}
                         className="basicInputBox"
                         placeholder="Enter value"
-                    />
+                    /> 
                     <p className="required">Required</p>
                     <br></br>
                 </div>
@@ -481,7 +569,7 @@ export default function IASolarUserSelections({
                         onChange={handleChange}
                         className="basicInputBox"
                         placeholder="Enter percentage"
-                    />
+                    /> %
 
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -599,9 +687,6 @@ export default function IASolarUserSelections({
             )}
 
         </section>
-
-
     </>
-    
   );
 }

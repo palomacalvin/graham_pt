@@ -174,6 +174,305 @@ export default function ReferencesPage() {
         Click to download the Iowa policy brief
       </a>
 
+      <div>
+        <ol className="ref-list">
+
+          <li>
+            “Tax Levy Calculation,” Story County Iowa, Accessed June 22, 2025, {" "}
+            <a target="_blank" href="https://www.storycountyiowa.gov/645/Tax-Levy-Calculation" className="contactPageLink">
+            https://www.storycountyiowa.gov/645/Tax-Levy-Calculation</a>.
+          </li>
+
+          <li>
+            “Windswept Fields of Opportunity: Iowa Wind Energy County Tax Impact Studies,” Center for Rural Affairs, Published Jun. 2023, {" "}
+            <a target="_blank" href="https://www.cfra.org/sites/default/files/publications/05-23-windswept-fields-of-opportunity-web.pdf" className="contactPageLink">
+            https://www.cfra.org/sites/default/files/publications/05-23-windswept-fields-of-opportunity-web.pdf</a>.
+          </li>
+
+          <li>
+            U.S. Energy Information Administration, “Glossary,” Accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://www.eia.gov/tools/glossary/index.php?id=Capacity_factor"
+            className="contactPageLink">https://www.eia.gov/tools/glossary/index.php?id=Capacity_factor</a>.
+          </li>
+
+          <li>
+            U.S. Energy Information Administration, “Electric Power Monthly,” Accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=table_6_07_b"
+            className="contactPageLink">
+            https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=table_6_07_b</a>.
+          </li>
+
+          <li>
+            U.S. Energy Information Administration, “What is the difference between electricity generation capacity and electricity generation?,” Accessed Apr.
+            28, 2025, {" "} <a target="_blank" href="https://www.eia.gov/tools/faqs/faq.php?id=101&t=3" className="contactPageLink">
+            https://www.eia.gov/tools/faqs/faq.php?id=101&t=3</a>.
+          </li>
+
+          <li>
+            Iowa Code 476.25. Accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://www.legis.iowa.gov/docs/code//476.pdf" className="contactPageLink">https://www.legis.iowa.gov/docs/code//476.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Utilities Commission, “Electric Service Area Boundary Map.” Accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://iuc.iowa.gov/regulated-industries/electric/electric-service-area-boundary-map" className="contactPageLink">
+            https://iuc.iowa.gov/regulated-industries/electric/electric-service-area-boundary-map</a>.
+          </li>
+
+          <li>
+            Iowa Code 427B.26. Accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://www.legis.iowa.gov/docs/code/427b.26.pdf" className="contactPageLink">
+            https://www.legis.iowa.gov/docs/code/427b.26.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Department of Revenue, “Utility Replacement Tax Basics,” accessed June 19, 2025. {" "}
+            <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics" className="contactPageLink">
+            https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics</a>.
+          </li>
+
+          <li>
+            “Rollback Information,” Story County, Iowa, Accessed Mar. 20, 2025, {" "}
+            <a target="_blank" href="https://www.storycountyiowa.gov/644/Rollback-Information"
+            className="contactPageLink">https://www.storycountyiowa.gov/644/Rollback-Information</a>.
+          </li>
+
+          <li>
+            Order Certifying Percentages for Assessment Limits,” Iowa Department of Revenue, Published Nov. 1, 2023, Accessed Mar. 20, 2025, {" "}
+            <a target="_blank" href="https://www.dubuquecountyiowa.gov/ArchiveCenter/ViewFile/Item/408" className="contactPageLink">
+            https://www.dubuquecountyiowa.gov/ArchiveCenter/ViewFile/Item/408</a>.
+          </li>
+
+          <li>
+            Iowa League of Cities, “Tax Increment Finance,” Published Jan. 2022, Accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://iowaleague.org/wp-content/uploads/TIF_FactSheet_jan22.pdf" className="contactPageLink">
+            https://iowaleague.org/wp-content/uploads/TIF_FactSheet_jan22.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Department of Revenue, “Iowa Property Tax Overview,” accessed Jan. 2025, {" "}
+            <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/iowa-property-tax-overview" className="contactPageLink">
+            https://revenue.iowa.gov/taxes/tax-guidance/property-tax/iowa-property-tax-overview</a>.
+          </li>
+
+          <li>
+            See “Utility-Scale Solar,” Linn County, IA, accessed Apr. 28, 2025, {" "}
+            <a target="_blank" href="https://www.linncountyiowa.gov/1525/Utility-Scale-Solar" className="contactPageLink">
+            https://www.linncountyiowa.gov/1525/Utility-Scale-Solar</a>.
+          </li>
+
+          <li>
+            Iowa Department of Revenue, “Utility Replacement Tax Basics,” accessed June 19, 2025 {" "}
+            <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics" 
+            className="contactPageLink">
+            https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics</a>.
+          </li>
+
+          <li>
+            “Resource Guide: Taxing Utility-Scale Solar Projects in Iowa,” Center for Rural Affairs, Accessed Mar. 20, 2025, {" "}
+            <a target="_blank" href="https://www.cfra.org/sites/default/files/publications/taxing-utility-scale-solar-in-iowa-resource-guide.pdf"
+            className="contactPageLink">
+            https://www.cfra.org/sites/default/files/publications/taxing-utility-scale-solar-in-iowa-resource-guide.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Code § 437A.18.
+          </li>
+
+          <li>
+            Iowa Code § 437A.8.1.
+          </li>
+
+          <li>
+            “Resource Guide: Taxing Utility-Scale Solar Projects in Iowa,” from {" "}
+            “Windswept Fields of Opportunity: Iowa Wind Energy County Tax Impact Studies,” Center for Rural Affairs, Published Jun. 2023, 
+            <a target="_blank" href="https://www.cfra.org/sites/default/files/publications/05-23-windswept-fields-of-opportunity-web.pdf"
+            className="contactPageLink">
+            https://www.cfra.org/sites/default/files/publications/05-23-windswept-fields-of-opportunity-web.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Code § 427B.26(2).
+          </li>
+
+          <li>
+            Iowa Code § 427B.26(3)(b).
+          </li>
+
+          <li>
+            “Windswept Fields of Opportunity: Iowa Wind Energy County Tax Impact Studies,” Center for Rural Affairs, Published Jun. 2023, {" "}
+            <a target="_blank" href="https://www.cfra.org/sites/default/files/publications/05-23-windswept-fields-of-opportunity-web.pdf"
+            className="contactPageLink">
+            https://www.cfra.org/sites/default/files/publications/05-23-windswept-fields-of-opportunity-web.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Code § 403.19.
+          </li>
+
+          <li>
+            “Windswept Fields of Opportunity: Iowa Wind Energy County Tax Impact Studies,” at p. 7.
+          </li>
+
+          <li>
+            Susan Crowley, “Legislative Guide to Urban Renewal and Tax Increment Financing,” Iowa Legislative Services Agency, Published December 2007,
+            Accessed Mar. 20, 2025, {" "}
+            <a target="_blank" href="https://www.legis.iowa.gov/docs/central/guides/urbannew.pdf" className="contactPageLink">
+            https://www.legis.iowa.gov/docs/central/guides/urbannew.pdf</a>.
+          </li>
+
+          <li>
+            “How is Your Property Tax Calculated?”, Iowa Treasurers, Published 2023, Accessed May 4, 2025, {" "}
+            <a target="_blank" href="https://www.iowatreasurers.org/kcfinder/upload/Guthrie/How%20Is%20Your%20Property%20Tax%20Calculated%202023.pdf"
+            className="contactPageLink">
+            https://www.iowatreasurers.org/kcfinder/upload/Guthrie/How%20Is%20Your%20Property%20Tax%20Calculated%202023.pdf</a>.
+          </li>
+
+          <li>
+            German Mandrini, “Understanding Iowa’s Corn Suitability Rating Index (CSR2),” Farmers Business Network, Published May 9, 2023, {" "}
+            <a target="_blank" href="https://www.fbn.com/community/blog/iowa-corn-suitability-rating-index-csr2?srsltid=AfmBOoowGT9PaMW5Y2F3DXeQb5KNFgYoDb9hG1RmfDCb4zkXGyuo_dVZ"
+            className="contactPageLink">
+            https://www.fbn.com/community/blog/iowa-corn-suitability-rating-index-csr2?srsltid=AfmBOoowGT9PaMW5Y2F3DXeQb5KNFgYoDb9hG1RmfDCb4zkXGyuo_dVZ</a>.
+          </li>
+
+          <li>
+            “Land Valuation,” Iowa Real Property Appraisal Manual, Iowa Department of Revenue, Accessed May 4, 2025, {" "}
+            <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/iowa-real-property-appraisal-manual" 
+            className="contactPageLink">
+            https://revenue.iowa.gov/taxes/tax-guidance/property-tax/iowa-real-property-appraisal-manual</a>.
+          </li>
+
+          <li>
+            “Rollback Rates & Levies,” Des Moines County, Accessed June 19, 2025, {" "}
+            <a target="_blank" href="https://desmoinescounty.iowa.gov/assessor/rollback_rate_levies/"
+            className="contactPageLink">
+            https://desmoinescounty.iowa.gov/assessor/rollback_rate_levies/</a>.
+          </li>
+
+          <li>
+            “Property Tax & Tax Replacement,” Iowa Department of Revenue, Accessed June 19, 2025, {" "}
+            <a target="_blank" href="https://dom.iowa.gov/local-government/property-tax-tax-replacement" className="contactPageLink">
+            https://dom.iowa.gov/local-government/property-tax-tax-replacement</a>.
+          </li>
+
+          <li>
+            “PV Capacity Factors,” Energy Markets & Policy, Berkeley Lab, Accessed June 8, 2025, {" "}
+            <a target="_blank" href="https://emp.lbl.gov/pv-capacity-factors" className="contactPageLink">
+            https://emp.lbl.gov/pv-capacity-factors</a>.
+          </li>
+
+          <li>
+            “AY 2023 Agricultural Productivity Per Acre Values,” Iowa Department of Revenue, Accessed Jun. 1, 2025, {" "}
+            <a target="_blank" href="https://revenue.iowa.gov/media/100/download?inline" className="contactPageLink">
+            https://revenue.iowa.gov/media/100/download?inline</a>.
+          </li>
+
+          <li>
+            “Iowa County Summary Highlights 2022,” Census of Agriculture, U.S. Department of Agriculture, Accessed Jun. 1, 2025, {" "}
+            <a target="_blank" href="https://www.nass.usdagov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf." className="contactPageLink">
+            https://www.nass.usdagov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf.</a>.
+          </li>
+
+          <li>
+            Bradley Miller, “County Weighted Average CSR2,” Iowa State University, Accessed Jun. 1, 2025, {" "}
+            <a target="_blank" href="https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/"
+            className="contactPageLink">
+            https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/</a>.
+          </li>
+
+          <li>
+            “Iowa County Summary Highlights 2022,” Census of Agriculture, U.S. Department of Agriculture, Accessed Jun. 1, 2025, {" "}
+            <a target="_blank" href="https://www.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf"
+            className="contactPageLink">
+            https://www.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf</a>.
+          </li>
+
+          <li>
+            Bradley Miller, “County Weighted Average CSR2,” Iowa State University, Accessed Jun. 1, 2025, {" "}
+            <a target="_blank" href="https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/"
+            className="contactPageLink">
+            https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/</a>.
+          </li>
+
+          <li>
+            “Iowa Property Tax Rollback Adjustments,” Iowa Department of Revenue, Accessed Jun. 1, 2025, {" "}
+            <a target="_blank" href="https://www.legis.iowa.gov/docs/publications/FCTA/1460458.pdf"
+            className="contactPageLink">
+            https://www.legis.iowa.gov/docs/publications/FCTA/1460458.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Administrative Bulletin, Vol. XLVII, Published Dec. 11, 2024, p. 5893, {" "}
+            <a target="_blank" href="https://www.legis.iowa.gov/docs/aco/bulletin/12-11-2024.pdf" className="contactPageLink">
+            https://www.legis.iowa.gov/docs/aco/bulletin/12-11-2024.pdf</a>.
+          </li>
+
+          <li>
+            Iowa Code § 437A.7.
+          </li>
+
+          <li>
+            Bungaran, Y. (n.d.). Firefighter. In The Noun Project. 
+            Retrieved from {" "}
+            <a target="_blank" href="https://thenounproject.com/search/icons/?q=firefighter" className="contactPageLink">
+            https://thenounproject.com/search/icons/?q=firefighter</a>; Hermawan. (n.d.). Road.
+            In The Noun Project. Retrieved from {" "}
+            <a target="_blank" href="https://thenounproject.com/search/icons/?q=road" className="contactPageLink">
+            https://thenounproject.com/search/icons/?q=road</a>; Hikami, E. (n.d.). Fire Truck. In The Noun Project. 
+            Retrieved from {" "}<a target="_blank" href="https://thenounproject.com/search/icons/?q=firetruck" className="contactPageLink">
+            https://thenounproject.com/search/icons/?q=firetruck</a>.
+          </li>
+
+          <li>
+            Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
+            <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
+            className="contactPageLink">
+            https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+          </li>
+
+          <li>
+            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Michigan,” May 2023. {" "}
+            <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes_wi.htm" className="contactPageLink">
+            https://www.bls.gov/oes/2023/may/oes_wi.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
+            September 12 2025, {" "}<a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+          </li>
+
+          <li>
+            Keegan Turnbough, “Dubuque Fire Department unveils new $1.4 million ladder truck,” Feb 3 2026, {" "}
+            <a target="_blank" href="https://www.kcrg.com/2026/02/03/dubuque-fire-department-unveils-new-14-million-ladder-truck/" 
+            className="contactPageLink">
+            https://www.kcrg.com/2026/02/03/dubuque-fire-department-unveils-new-14-million-ladder-truck/</a>.
+          </li>
+
+          <li>
+            National Education Association, “Educator Pay Data 2025,” {" "}
+            <a target="_blank" href="https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank"
+            className="contactPageLink">
+            https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank</a>; 
+            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12
+            2025, {" "}
+            <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
+            className="contactPageLink">https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+          </li>
+
+          <li>
+            United States Bureau of Labor Statistics, “25-4022 Librarians and Media Collections Specialists,” Occupational Employment and Wages, May 2023, {" "}
+            <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes254022.htm" className="contactPageLink">
+            https://www.bls.gov/oes/2023/may/oes254022.htm.</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION
+            – JUNE 2025,” September 12 2025, {" "}
+            <a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+          </li>
+
+          <li>
+            Libbie Randall, “Dozens of Iowa school districts asking voters to fund building updates this election,” KCRG ABC, Oct 27 2025, {" "}
+            <a target="_blank" href="https://www.kcrg.com/2025/10/27/dozens-iowa-school-districts-asking-voters-fund-building-updates-this-election/"
+            className="contactPageLink">
+            https://www.kcrg.com/2025/10/27/dozens-iowa-school-districts-asking-voters-fund-building-updates-this-election/</a>.
+          </li>
+
+        </ol>
+      </div>
+
       <section>
         <h1>Michigan</h1>
         <br></br>

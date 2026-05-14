@@ -193,38 +193,85 @@ export default function IAWindUserSelections({
             )}
             <br></br>
 
-            <button
-                type="button"
-                onClick={() => {
+            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                <button
+                    type="button"
+                    onClick={() => {
                     setUserEditedAcreage(false);
                     setProjectData(prev => ({
-                    ...prev,
-                    land_area: prev.number_of_turbines * 1
+                        ...prev,
+                        land_area: prev.number_of_turbines * 1
                     }));
-                }}
-                className="inPageButton"
+                    }}
+                    className="inPageButton"
                 >
-                Reset Acreage to Match Number of Turbines
-            </button>
-
-            <button
-                type="button"
-                onClick={() => {
-                    setUserEditedAcreage(false);
-
-                    setProjectData(prev => ({
-                    ...prev,
-                    nameplate_capacity: 100,
-                    number_of_turbines: 50,
-                    land_area: 50, // 1 turbine per acre
-                    }));
-                }}
-                className="inPageButton"
-                >
-                Reset All Inputs
+                    Reset Acreage to Match Turbines
                 </button>
 
+                <button
+                    type="button"
+                    onClick={() => {
+                    setUserEditedAcreage(false);
+                    setProjectData(prev => ({
+                        ...prev,
+                        nameplate_capacity: 100,
+                        number_of_turbines: 50,
+                        land_area: 50,
+                    }));
+                    }}
+                    className="inPageButton"
+                >
+                    Reset All Inputs
+                </button>
+                </div>
             </>
+
+            <br></br>
+
+            <label>
+                Use the estimated Wind Project Net Acquisition cost ($1,000,000/mega-watt)?
+                <select
+                    name="use_estimated_wind_net_acquisition_cost"
+                    value={projectData.use_estimated_wind_net_acquisition_cost}
+                    onChange={(e) =>
+                        setProjectData((prev) => ({
+                            ...prev,
+                            use_estimated_wind_net_acquisition_cost: e.target.value,
+                        }))
+                    }
+                    className="basicInputBox"
+                >
+                <option value="">-- Choose Option --</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                </select>
+            </label>
+
+            <br></br>
+
+            {projectData.use_estimated_wind_net_acquisition_cost === 'no' && (
+
+                <>
+                <div>
+                    <label>
+                        Enter a custom wind project net acquisition cost:
+                    </label>
+                    <input 
+                        type="number"
+                        name="wind_net_acquisition_cost"
+                        value={projectData.wind_net_acquisition_cost || ""}
+                        onChange={handleChange}
+                        className="basicInputBox"
+                        placeholder="Enter value"
+                    />
+                    <p className="required">Required</p>
+                    <br></br>
+                </div>
+            </>
+            )}
+        </section>
+
+
 
             <br></br>
 
@@ -309,7 +356,6 @@ export default function IAWindUserSelections({
                 >
                 Reset Inflation Factors
             </button>
-        </section>
 
         <section>
         <br></br>
