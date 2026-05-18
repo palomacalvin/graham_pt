@@ -29,6 +29,7 @@ export interface ProjectData {
 
     delivery_tax_rate_per_kwh?: number;
     school_total_rate: number;
+
 }
 
 export interface IowaAgValueCounty {

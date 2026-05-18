@@ -180,8 +180,8 @@ export function generateSolarTaxResults({
   const countyBaseMills = countyRow ? Number(countyRow.urban_rate || 0) : 0;
   const countyRuralMills = isRural ? Number((countyRow?.rural_rate || 0) - (countyRow?.urban_rate || 0)) : 0;
   const cityMills = isCity && cityRow 
-  ? Number(cityRow.regular_without_ag || 0) // Use ONLY the Ag levy column
-  : 0;
+    ? Number(cityRow.regular_without_ag || 0) // Use ONLY the Ag levy column
+    : 0;
   
   // Gets school district data from state.
   const schoolMills = Number((projectData as any).school_total_rate || 0);
@@ -336,45 +336,6 @@ const millageRows = [
 }
 
 
-
-
-// export function windModularizedCalculations(
-//   dbCounties: IowaWindAgValueCounty[], 
-//   projectData: WindProjectData
-// ): { allCounties: WindCalculatedAgCounty[]; selectedCountyData: WindCalculatedAgCounty | null } {
-
-//   const netAcquisitionCost = Number(projectData.wind_net_acquisition_cost || 0);
-
-//   // Map calculated values.
-//   const allCounties: CalculatedAgCounty[] = dbCounties.map((county) => {
-//     const acres = Number(county.number_of_ag_acres_in_county || 0);
-//     const productivity = Number(county.productivity_per_acre || 0);
-//     const avgCsr = Number(county.average_csr_in_county || 0);
-//     const rollback = Number(county.ag_rollback || 0);
-
-//     const targetValueAgLand = acres * productivity;
-//     const estimatedTotalCsrPoints = acres * avgCsr;
-    
-//     const dollarsPerCsrPoint = estimatedTotalCsrPoints > 0 
-//       ? targetValueAgLand / estimatedTotalCsrPoints 
-//       : 0;
-
-//     return {
-//       ...county,
-//       targetValueAgLand,
-//       estimatedTotalCsrPoints,
-//       dollarsPerCsrPoint,
-//     };
-//   });
-
-//   const selectedCountyData = allCounties.find(
-//     (c) => c.county_name.toUpperCase() === projectData.county_name?.toUpperCase()
-//   ) || null;
-
-//   return { allCounties, selectedCountyData };
-// }
-
-
 export function generateWindTaxResults({
   projectData,
   dbCounties = [],
@@ -389,7 +350,7 @@ export function generateWindTaxResults({
 
   const rows = [];
 
-  const netAcquisitionCost = Number(projectData.wind_net_acquisition_cost || 0);
+  const netAcquisitionCost = Number(projectData.wind_net_acquisition_cost || 0) * Number(projectData.nameplate_capacity);
 
   // ========================================================== //
    //               Millage Rates and Proportion                 //
@@ -397,7 +358,9 @@ export function generateWindTaxResults({
 
   // Gets selected county/city name.
   const userCounty = projectData.county_name?.trim().toUpperCase() || "";
+  const selectedCityName = projectData.city_name?.trim().toUpperCase() || "";
   const userCityOrDistrict = projectData.school_district?.trim().toUpperCase() || "";
+
 
   // Determines city/rural classification from selections.
   const isRural = projectData.city_rural_classification?.toLowerCase() === "rural" || projectData.is_located_in_city === false;
@@ -411,18 +374,18 @@ export function generateWindTaxResults({
 
   // Gets city data from state.
   const cityRow = dbCityData.find((c: any) => {
-    const cName = c.county_name || c.County;
-    const cityName = c.city_name || c.City;
-    return (
-      cName?.toString().trim().toUpperCase() === userCounty &&
-      cityName?.toString().trim().toUpperCase() === userCityOrDistrict
-    );
+    const dbCounty = (c.county_name || c.County || "").toString().trim().toUpperCase();
+    const dbCity = (c.city_name || c.City || "").toString().trim().toUpperCase();
+    
+    return dbCounty === userCounty && dbCity === selectedCityName;
   });
 
   // Calculates mills based on city/rural classification.
   const countyBaseMills = countyRow ? Number(countyRow.urban_rate || 0) : 0;
   const countyRuralMills = isRural ? Number((countyRow?.rural_rate || 0) - (countyRow?.urban_rate || 0)) : 0;
-  const cityMills = isCity && cityRow ? Number(cityRow.regular_without_ag || 0) : 0;
+  const cityMills = isCity && cityRow 
+    ? Number(cityRow.regular_without_ag || 0) // Use ONLY the Ag levy column
+    : 0;
   
   // Gets school district data from state.
   const schoolMills = Number((projectData as any).school_total_rate || 0);
@@ -455,8 +418,8 @@ const millageRows = [
     },
     {
       jurisdiction: "City",
-      name: isCity ? userCityOrDistrict : "",
-      mills: isCity ? cityMills : 0,
+      name: isCity ? selectedCityName : "—",
+      mills: cityMills,
       taxRate: cityMills / 10,
       distributionPercent: total_mills > 0 ? (cityMills / total_mills) * 100 : 0,
     },
@@ -486,10 +449,36 @@ const millageRows = [
     }))
   );
 
-   // ========================================================== //
-  //                 TAX REVENUE BY UNIT                        //
-  // ========================================================== //
+   // ============================================================= //
+   // Taxable Value Schedule for Special Valuation of Wind Projects //
+   // ============================================================= //
 
+
+  const lifespan = Number(projectData.expected_useful_life || 30);
+  
+  // Iowa Special Valuation multipliers.
+  const multipliers = [0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30];
+
+  const valuationSchedule = Array.from({ length: lifespan }, (_, i) => {
+    const year = i + 1;
+    // Use the hardcoded multiplier for years 1-7, then default to 30% (0.30)
+    const multiplier = i < multipliers.length ? multipliers[i] : 0.30;
+    const taxableValue = netAcquisitionCost * multiplier;
+
+    console.log("Net acquisition cost: ", netAcquisitionCost);
+
+    return {
+      year,
+      multiplier: `${(multiplier * 100).toFixed(0)}%`,
+      taxableValue
+    };
+  });
+
+  // Calculate the Year 1 Total Valuation (which is $0 based on your table)
+  const year1TaxableValue = valuationSchedule[0].taxableValue;
+
+  console.log("\n--- WIND SPECIAL VALUATION SCHEDULE ---");
+  console.table(valuationSchedule.slice(0, 10)); // Logs first 10 years to console
 
   return {
     millageRows,

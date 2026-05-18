@@ -196,7 +196,7 @@ export default function IASolarTaxResults({
                 <td>{formatCurrency(u.npvLifetime)}</td>
               </tr>
             ))}
-            <tr className="rowHighlight" style={{ fontWeight: "bold", background: "#f5f5f5" }}>
+            <tr className="rowHighlight">
               <td>All Jurisdictions</td>
               <td>{formatCurrency(grandGross)}</td>
               <td>{formatCurrency(grandNPV)}</td>
@@ -223,7 +223,6 @@ export default function IASolarTaxResults({
 
           <tbody>
           {fullLifetimeData.map((u, idx) => (
-              /* FIXED: Key assignment updated for stability */
               <tr key={`${u.jurisdiction}-${idx}`}>
                 <td style={{ fontWeight: "bold", minWidth: "180px" }}>
                   {u.jurisdiction}: {u.name || "—"}
@@ -243,15 +242,15 @@ export default function IASolarTaxResults({
               })}
             </tr>
 
-          {/* <tr className="rowHighlight">
+          <tr className="rowHighlight">
             <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
-            <td colSpan={rows.length}>{formatCurrency(grandGross)}</td>
-          </tr> */}
+            <td colSpan={projectData.expected_useful_life}>{formatCurrency(grandGross)}</td>
+          </tr>
 
-          {/* <tr className="rowHighlight">
+          <tr className="rowHighlight">
             <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
-            <td colSpan={rows.length}>{formatCurrency(grandNPV)}</td>
-          </tr> */}
+            <td colSpan={projectData.expected_useful_life}>{formatCurrency(grandNPV)}</td>
+          </tr>
         
         </tbody>
         </table>

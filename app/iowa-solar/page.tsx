@@ -16,9 +16,7 @@ import { AgCalculationVerificationTable } from "@/components/TempIADisplay";
 export default function ProjectForm() {
   const [showResults, setShowResults] = useState(false);
 
-  {/* TEMP */}
-
-  // 1. State to hold the raw county records from the database
+  // State to hold the raw county and city records from the database.
   const [dbCounties, setDbCounties] = useState<any[]>([]);
   const [dbCountyTaxData, setDbCountyTaxData] = useState<any[]>([]);
   const [dbCityData, setDbCityData] = useState<any[]>([]);
@@ -26,6 +24,7 @@ export default function ProjectForm() {
   // Project data definitions.
   const [projectData, setProjectData] = useState<ProjectData>({
     county_name: "Marshall",
+    city_name: "MARSHALLTOWN",
     school_district: "MARSHALLTOWN",
 
     land_area: 700,
@@ -53,14 +52,13 @@ export default function ProjectForm() {
 
   });
 
-  {/* TEMP */}
   useEffect(() => {
     fetch("/api/iowa/ag_land_value_data")
       .then((res) => res.json())
       .then((data) => setDbCounties(data.agLands || []))
       .catch((err) => console.error("Error loading verification data:", err));
 
-      // Fetching county, city, school district tax rates.
+    // Fetching county, city, school district tax rates.
     fetch("/api/iowa/county_tax_data")
       .then((res) => res.json())
       .then((data) => {
@@ -107,12 +105,6 @@ export default function ProjectForm() {
   useEffect(() => {
     setShowResults(false);
   }, [projectData]);
-
-
-
-
-
-
 
   return (
     <div>

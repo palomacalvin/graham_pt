@@ -20,6 +20,16 @@ interface UtilityData {
     delivery_tax_rate_per_mwh: number;
 }
 
+// Interface for the city data.
+interface CityData {
+    county_name: string;
+    city_name: string;
+    regular_without_ag: number;
+    debt_service: number;
+    employ_benefit: number;
+    capital_improve: number;
+}
+
 const MAX_USEFUL_LIFE = 35;
 
 
@@ -55,6 +65,10 @@ export default function IAWindUserSelections({
     // State to hold fetched utilities data.
     const [utilities, setUtilities] = useState<UtilityData[]>([]);
     const [isLoadingUtilities, setIsLoadingUtilities] = useState(false);
+
+    // State to hold fetched city data.
+    const [allCities, setAllCities] = useState<CityData[]>([]);
+    const [filteredCities, setFilteredCities] = useState<CityData[]>([]);
 
     // Fetch utility data on component mount
     useEffect(() => {
@@ -96,6 +110,34 @@ export default function IAWindUserSelections({
             land_area: prev.number_of_turbines * 1
         }));
     }, [projectData.number_of_turbines, userEditedAcreage]);
+
+
+
+    useEffect(() => {
+        async function fetchCities() {
+            try {
+                const res = await fetch("/api/iowa/city_data"); 
+                if (!res.ok) throw new Error("Failed to fetch cities");
+                const data = await res.json();
+                setAllCities(data.cities || []);
+            } catch (err) {
+                console.error("Error fetching cities:", err);
+            }
+        }
+        fetchCities();
+    }, []);
+
+    // Update filtered cities whenever the county changes
+    useEffect(() => {
+        if (projectData.county_name) {
+            const filtered = allCities.filter(
+                (c) => c.county_name.toUpperCase() === projectData.county_name.toUpperCase()
+            );
+            setFilteredCities(filtered);
+        } else {
+            setFilteredCities([]);
+        }
+    }, [projectData.county_name, allCities]);
 
   return (
     <>
@@ -232,18 +274,13 @@ export default function IAWindUserSelections({
                 Use the estimated Wind Project Net Acquisition cost ($1,000,000/mega-watt)?
                 <select
                     name="use_estimated_wind_net_acquisition_cost"
-                    value={projectData.use_estimated_wind_net_acquisition_cost}
-                    onChange={(e) =>
-                        setProjectData((prev) => ({
-                            ...prev,
-                            use_estimated_wind_net_acquisition_cost: e.target.value,
-                        }))
-                    }
+                    value={projectData.use_estimated_wind_net_acquisition_cost || ""}
+                    onChange={handleChange} // Let parent standard state handling process it cleanly
                     className="basicInputBox"
                 >
-                <option value="">-- Choose Option --</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                    <option value="">-- Choose Option --</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
                 </select>
             </label>
 
@@ -399,19 +436,58 @@ export default function IAWindUserSelections({
                 city boundaries?
                 <select
                     value={projectData.city_rural_classification}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        const val = e.target.value;
                         setProjectData((prev) => ({
                             ...prev,
-                            city_rural_classification: e.target.value,
-                        }))
-                    }
+                            city_rural_classification: val,
+                            is_located_in_city: val === "city"
+                        }));
+                    }}
                     className="basicInputBox"
                 >
-                <option value="">-- Choose Option --</option>
-                <option value="city">City</option>
-                <option value="rural">Rural</option>
+                    <option value="">-- Choose Option --</option>
+                    <option value="city">City</option>
+                    <option value="rural">Rural</option>
                 </select>
             </label>
+
+            {projectData.city_rural_classification === 'city' && (
+                <div>
+                    <label></label>
+                    <select 
+                        name="city_name"
+                        value={projectData.city_name || ""}
+                        onChange={(e) => {
+                            const selectedCity = filteredCities.find(c => c.city_name === e.target.value);
+                            
+                            // Sum all components for the fallback rate
+                            const totalCityRate = selectedCity 
+                                ? (selectedCity.regular_without_ag + 
+                                selectedCity.debt_service + 
+                                selectedCity.employ_benefit + 
+                                selectedCity.capital_improve)
+                                : 0;
+
+                            setProjectData(prev => ({
+                                ...prev,
+                                city_name: e.target.value,
+                                city_regular_rate: totalCityRate 
+                            }));
+                        }}
+                        className="basicInputBox"
+                    >
+                        <option value="">-- Select a City --</option>
+                        {filteredCities.map((city) => (
+                            <option key={city.city_name} value={city.city_name}>
+                                {city.city_name}
+                            </option>
+                        ))}
+                    </select>
+                    <p className="required">Required</p>
+                    <br />
+                </div>
+            )}
 
             <br></br>
 

@@ -25,13 +25,19 @@ export default function IAWindTaxResults({
   }
 
   // Helper functions.
-  const formatCurrency = (value: number) => {
-    const rounded = Math.round(value);
-      if (rounded === 0) return "$0";
-      return rounded < 0 
-        ? `($${Math.abs(rounded).toLocaleString()})` 
-        : `$${rounded.toLocaleString()}`;
-    };
+  const formatCurrency = (value: any) => {
+    if (value === "N/A" || value === undefined || value === null) return "N/A";
+    
+    const parsed = typeof value === "string" ? parseFloat(value) : Number(value);
+    if (isNaN(parsed)) return "$0";
+
+    const rounded = Math.round(parsed);
+    if (rounded === 0) return "$0";
+    
+    return rounded < 0 
+      ? `($${Math.abs(rounded).toLocaleString()})` 
+      : `$${rounded.toLocaleString()}`;
+  };
 
   const calcResults = generateWindTaxResults({
     projectData,
@@ -39,6 +45,15 @@ export default function IAWindTaxResults({
     dbCountyTaxData,
     dbCityData
   });
+
+  // // ----------- TEMP ------------- //
+  // console.log("CALC RESULTS CAPTURED:", calcResults);
+  // return (
+  //   <div style={{ padding: '20px', background: '#000', color: '#0f0' }}>
+  //     <h1>Check Console (F12)</h1>
+  //     <pre>{JSON.stringify(calcResults.totals, null, 2)}</pre>
+  //   </div>
+  // );
 
   const { millageRows } = calcResults;
 
@@ -51,53 +66,108 @@ export default function IAWindTaxResults({
 
   // Track project lifespan properties.
   const lifespanYears = Number(projectData.expected_useful_life || 30);
-  const startYear = 2026; // TODO: Fix start year
+  const startYear: number = new Date().getFullYear();
   const timelineYears = Array.from({ length: lifespanYears }, (_, idx) => startYear + idx);
 
-  // Create jurisdictional datasets over the lifespan of the project.
-  const fullLifetimeData = taxRevenueRows.map((u: any, index: number) => {
-    let matchingMillage = millageRows.find((m: any) => m.jurisdiction === u.jurisdiction);
-    
-    if (!matchingMillage && u.jurisdiction.toLowerCase().includes("county additional")) {
-      matchingMillage = millageRows.find((m: any) => m.jurisdiction === "County Additional Rural Rate");
-    }
+  // Parse TIF Variables
+  const isTif = projectData.is_project_tif?.toLowerCase() === "yes";
+  const tifReductionPercent = Number(projectData.tif_percentage || 0) / 100;
 
-    const previousRevenueBase = matchingMillage?.previousRevenue || 0;
-    
+  // Reconstruct Taxable Valuation multipliers.
+  const multipliers = [0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30];
+
+
+  const costPerMW = projectData.use_estimated_wind_net_acquisition_cost === "no" 
+    ? Number(projectData.wind_net_acquisition_cost || 0)
+    : 1000000;
+  const capacityMW = Number(projectData.nameplate_capacity || 0);
+  const netAcquisitionCost = costPerMW * capacityMW;
+
+  const totalMillageRate = millageRows.reduce((sum: number, r: any) => sum + r.mills, 0);
+
+  // const tifEffectiveMillage = totalMillageRate;
+
+  // Create jurisdictional datasets over the lifespan of the project.
+  const baseJurisdictionsData = millageRows.map((m: any) => {
+    const currentMills = Number(m.mills || 0);
+    const baselineFarmlandTaxYear1 = Number(m.previousRevenue || m.baselineRevenue || 0);
+
     const yearlyNetImpacts = Array.from({ length: lifespanYears }, (_, idx) => {
+      const multiplier = idx < multipliers.length ? multipliers[idx] : 0.30;
+      const baseProjectTax = (netAcquisitionCost * multiplier) * (m.mills / 1000);
+
+      // If TIF is active, this unit only receives its remaining portion
+      const projectTaxThisYear = isTif 
+        ? baseProjectTax * (1 - tifReductionPercent) 
+        : baseProjectTax;
+
       const inflationMultiplier = Math.pow(1 + inflationRate, idx);
-      const projectTaxThisYear = u.total;
-      const baselineFarmlandTaxThisYear = previousRevenueBase * inflationMultiplier;
+      const baselineFarmlandTaxThisYear = baselineFarmlandTaxYear1 * inflationMultiplier;
       
-      return projectTaxThisYear - baselineFarmlandTaxThisYear;
+      const netImpact = projectTaxThisYear - baselineFarmlandTaxThisYear;
+      return isNaN(netImpact) ? 0 : netImpact;
     });
 
     const grossLifetime = yearlyNetImpacts.reduce((sum, v) => sum + v, 0);
     const npvLifetime = calculateNPV(discountRate, yearlyNetImpacts);
 
+    const year1Multiplier = multipliers[0]; 
+    const year1BaseTax = (netAcquisitionCost * year1Multiplier) * (m.mills / 1000);
+    const year1ProjectTax = isTif ? year1BaseTax * (1 - tifReductionPercent) : year1BaseTax;
+
     return {
-      ...u,
-      previousRevenue: matchingMillage?.previousRevenue,
+      jurisdiction: m.jurisdiction,
+      name: m.name,
+      mills: currentMills,
+      year1ProjectTax: isNaN(year1ProjectTax) ? 0 : year1ProjectTax,
+      previousRevenue: baselineFarmlandTaxYear1,
+      year1NetImpact: (isNaN(year1ProjectTax) ? 0 : year1ProjectTax) - baselineFarmlandTaxYear1,
       yearlyNetImpacts,
-      grossLifetime,
-      npvLifetime
+      grossLifetime: isNaN(grossLifetime) ? 0 : grossLifetime,
+      npvLifetime: isNaN(npvLifetime) ? 0 : npvLifetime
     };
   });
 
+  let tifRow: any = null;
+  if (isTif) {
+    const yearlyNetImpacts = Array.from({ length: lifespanYears }, (_, idx) => {
+      const multiplier = idx < multipliers.length ? multipliers[idx] : 0.30;
+      const tifImpact = (netAcquisitionCost * multiplier) * (totalMillageRate / 1000) * tifReductionPercent;
+      return isNaN(tifImpact) ? 0 : tifImpact;
+    });
+
+    const grossLifetime = yearlyNetImpacts.reduce((sum, v) => sum + v, 0);
+    const npvLifetime = calculateNPV(discountRate, yearlyNetImpacts);
+    
+    const year1Multiplier = multipliers[0];
+    const year1ProjectTax = (netAcquisitionCost * year1Multiplier) * (totalMillageRate / 1000) * tifReductionPercent;
+
+  tifRow = {
+      jurisdiction: "TIF District",
+      name: "Collected by county for special projects",
+      mills: 0,
+      year1ProjectTax: isNaN(year1ProjectTax) ? 0 : year1ProjectTax,
+      previousRevenue: 0,
+      year1NetImpact: isNaN(year1ProjectTax) ? 0 : year1ProjectTax,
+      yearlyNetImpacts,
+      grossLifetime: isNaN(grossLifetime) ? 0 : grossLifetime,
+      npvLifetime: isNaN(npvLifetime) ? 0 : npvLifetime,
+      isTifRow: true
+    };
+  }
+  
+  const fullLifetimeData = [...baseJurisdictionsData];
+  if (isTif && tifRow) {
+    fullLifetimeData.push(tifRow);
+  }
+
   // Aggregated Totals across columns
-  const totalGenerationYear1 = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.generation || 0), 0);
-  const totalDeliveryYear1 = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.delivery || 0), 0);
-  const totalTransmissionYear1 = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.transmission || 0), 0);
-  const totalProjectYear1 = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.total || 0), 0);
-  const totalFarmlandYear1 = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.previousRevenue || 0), 0);
+  const totalProjectYear1 = fullLifetimeData.reduce((sum, r) => sum + r.year1ProjectTax, 0);
+  const totalFarmlandYear1 = fullLifetimeData.reduce((sum, r) => sum + r.previousRevenue, 0);
   const totalNetYear1 = totalProjectYear1 - totalFarmlandYear1;
 
-  const grandGross = fullLifetimeData.reduce((sum: number, r: any) => sum + r.grossLifetime, 0);
-  const grandNPV = fullLifetimeData.reduce((sum: number, r: any) => sum + r.npvLifetime, 0);
-
-  const combinedCountyGross = fullLifetimeData
-    .filter((f: any) => f.jurisdiction.toLowerCase().includes("county"))
-    .reduce((sum, r) => sum + r.grossLifetime, 0);
+  const grandGross = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.grossLifetime || 0), 0);
+  const grandNPV = fullLifetimeData.reduce((sum: number, r: any) => sum + (r.npvLifetime || 0), 0);
 
   const combinedCountyNPV = fullLifetimeData
     .filter((f: any) => f.jurisdiction.toLowerCase().includes("county"))
@@ -112,46 +182,51 @@ export default function IAWindTaxResults({
 
       <h3>Year 1 Summary</h3>
 
+      <p className="description-text">
+        Note: Under Iowa Special Valuation laws, wind energy properties are assessed at a 0% multiplier in Year 1. 
+        Net impacts reflect the subtraction of previous farmland baseline expectations.
+      </p>
+
       <div className="table-container">
         <table className="basicTable">
         <thead>
           <tr>
             <th>Unit</th>
-              <th>Jurisdiction Name</th>
-              <th>Generation Tax Revenue</th>
-              <th>Delivery Tax Revenue</th>
-              <th>Transmission Tax Revenue</th>
-              <th>Total Project Payments</th>
-              <th>Previous Farmland Tax</th>
-              <th>Net Tax Impact</th>
+            <th>Jurisdiction Name</th>
+            <th>Millage Rate</th>
+            <th>Year 1 Wind Project Tax Revenue</th>
           </tr>
         </thead>
         <tbody>
-          {fullLifetimeData.map((u, idx) => {
-              const netYear1 = u.total - u.previousRevenue;
-              return (
-                <tr key={`${u.jurisdiction}-${idx}`}>
-                  <td>{u.jurisdiction}</td>
-                  <td>{u.name || "—"}</td>
-                  <td>{formatCurrency(u.generation)}</td>
-                  <td>{formatCurrency(u.delivery)}</td>
-                  <td>{formatCurrency(u.transmission)}</td>
-                  <td>{formatCurrency(u.total)}</td>
-                  <td className="subtractive-text">-({formatCurrency(u.previousRevenue)})</td>
-                  <td className="rowBold">
-                    {formatCurrency(netYear1)}
-                  </td>
-                </tr>
-              );
-            })}
+          {baseJurisdictionsData.map((u, idx) => (
+              <tr key={`${u.jurisdiction}-${idx}`}>
+                <td>{u.jurisdiction}</td>
+                <td>{u.name || "—"}</td>
+                <td>{Number(u.mills || 0).toFixed(4)}</td>
+                <td>{formatCurrency(u.year1ProjectTax)}</td>
+              </tr>
+            ))}
+
+            {isTif && tifRow ? (
+              <tr key="tif-row-summary">
+                <td style={{ fontWeight: "bold" }}>{tifRow.jurisdiction}</td>
+                <td>{tifRow.name}</td>
+                <td>—</td>
+                <td>{formatCurrency(tifRow.year1ProjectTax)}</td>
+              </tr>
+            ) : (
+              <tr key="tif-row-summary-na">
+                <td style={{ fontWeight: "bold" }}>TIF District</td>
+                <td>Collected by county for special projects</td>
+                <td>—</td>
+                <td>N/A</td>
+              </tr>
+            )}
+
             <tr className="rowHighlight">
               <td colSpan={2}>Total Year 1 Impact</td>
-              <td>{formatCurrency(totalGenerationYear1)}</td>
-              <td>{formatCurrency(totalDeliveryYear1)}</td>
-              <td>{formatCurrency(totalTransmissionYear1)}</td>
+              <td>{baseJurisdictionsData.reduce((s, r) => s + (r.mills || 0), 0).toFixed(4)}</td>
               <td>{formatCurrency(totalProjectYear1)}</td>
-              <td>{formatCurrency(totalFarmlandYear1)}</td>
-              <td>{formatCurrency(totalNetYear1)}</td>
             </tr>
           </tbody>
       </table>
@@ -189,14 +264,13 @@ export default function IAWindTaxResults({
           </thead>
           <tbody>
             {fullLifetimeData.map((u, idx) => (
-              /* FIXED: Avoid DOM dropping via composite mapping key */
-              <tr key={`${u.jurisdiction}-${idx}`}>
+              <tr key={`gross-${u.jurisdiction}-${idx}`}>
                 <td>{u.jurisdiction}: {u.name || "—"}</td>
                 <td>{formatCurrency(u.grossLifetime)}</td>
                 <td>{formatCurrency(u.npvLifetime)}</td>
               </tr>
             ))}
-            <tr className="rowHighlight" style={{ fontWeight: "bold", background: "#f5f5f5" }}>
+            <tr className="rowHighlight">
               <td>All Jurisdictions</td>
               <td>{formatCurrency(grandGross)}</td>
               <td>{formatCurrency(grandNPV)}</td>
@@ -223,12 +297,11 @@ export default function IAWindTaxResults({
 
           <tbody>
           {fullLifetimeData.map((u, idx) => (
-              /* FIXED: Key assignment updated for stability */
-              <tr key={`${u.jurisdiction}-${idx}`}>
+              <tr key={`timeline-${u.jurisdiction}-${idx}`}>
                 <td style={{ fontWeight: "bold", minWidth: "180px" }}>
                   {u.jurisdiction}: {u.name || "—"}
                 </td>
-                {u.yearlyNetImpacts.map((val: number, idxY: number) => (
+                {u.yearlyNetImpacts?.map((val: number, idxY: number) => (
                   <td key={idxY}>{formatCurrency(val)}</td>
                 ))}
               </tr>
@@ -238,20 +311,20 @@ export default function IAWindTaxResults({
               Total Across Jurisdictions
             </td>
               {timelineYears.map((_, idx) => {
-                const yearTotal = fullLifetimeData.reduce((s: number, u: any) => s + u.yearlyNetImpacts[idx], 0);
+                const yearTotal = fullLifetimeData.reduce((s: number, u: any) => s + (u.yearlyNetImpacts?.[idx] || 0), 0);
                 return <td key={idx}>{formatCurrency(yearTotal)}</td>;
               })}
             </tr>
-
-          {/* <tr className="rowHighlight">
+            
+          <tr className="rowHighlight">
             <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
-            <td colSpan={rows.length}>{formatCurrency(grandGross)}</td>
-          </tr> */}
+            <td colSpan={projectData.expected_useful_life}>{formatCurrency(grandGross)}</td>
+          </tr> 
 
-          {/* <tr className="rowHighlight">
+          <tr className="rowHighlight">
             <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
-            <td colSpan={rows.length}>{formatCurrency(grandNPV)}</td>
-          </tr> */}
+            <td colSpan={projectData.expected_useful_life}>{formatCurrency(grandNPV)}</td>
+          </tr>
         
         </tbody>
         </table>

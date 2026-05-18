@@ -16,10 +16,17 @@ export default function ProjectForm() {
 
   const [showResults, setShowResults] = useState(false);
 
+  // State to hold the raw county and city records from the database.
+  const [dbCounties, setDbCounties] = useState<any[]>([]);
+  const [dbCountyTaxData, setDbCountyTaxData] = useState<any[]>([]);
+  const [dbCityData, setDbCityData] = useState<any[]>([]);
+  
+
   // Project data definitions.
   const [projectData, setProjectData] = useState<ProjectData>({
-    county_name: "",
-    school_district: "",
+    county_name: "Marshall",
+    city_name: "MARSHALLTOWN",
+    school_district: "MARSHALLTOWN",
 
     land_area: 700,
     inflation_rate: 0.025,
@@ -27,14 +34,42 @@ export default function ProjectForm() {
     nameplate_capacity: 100,
     expected_useful_life: 30,
 
-    is_located_in_city: true,
-    city_rural_classification: "",
+    is_located_in_city: false,
+    city_rural_classification: "rural",
+
+    school_total_rate: 15.95910,
 
     number_of_turbines: 50,
     is_project_tif: "",
     tif_percentage: 50.00,
 
+    use_estimated_wind_net_acquisition_cost: "yes", 
+    wind_net_acquisition_cost: 0,
+
   });
+
+  useEffect(() => {
+      fetch("/api/iowa/ag_land_value_data")
+        .then((res) => res.json())
+        .then((data) => setDbCounties(data.agLands || []))
+        .catch((err) => console.error("Error loading verification data:", err));
+  
+      // Fetching county, city, school district tax rates.
+      fetch("/api/iowa/county_tax_data")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("County Data Loaded:", data.counties?.length);
+          setDbCountyTaxData(data.counties || []);
+      });
+  
+  
+      fetch("/api/iowa/city_data")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("City Data Loaded:", data.cities?.length);
+          setDbCityData(data.cities || []);
+        });
+    }, []);
 
 
   // Handle input changes.
@@ -93,12 +128,14 @@ export default function ProjectForm() {
           </button>
 
           <div>
-            {/* {showResults && (
+            {showResults && (
               <TaxResults 
                 projectData={projectData} 
-                rows={rows} 
+                dbCounties={dbCounties}
+                dbCountyTaxData={dbCountyTaxData}
+                dbCityData={dbCityData}
               />
-            )} */}
+            )}
           </div>
 
         </form>

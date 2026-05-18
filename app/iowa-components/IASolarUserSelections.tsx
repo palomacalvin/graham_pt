@@ -20,6 +20,7 @@ interface UtilityData {
     delivery_tax_rate_per_mwh: number;
 }
 
+// Interface for the city data.
 interface CityData {
     county_name: string;
     city_name: string;
@@ -135,6 +136,10 @@ export default function IASolarUserSelections({
         }
     }, [projectData.county_name, allCities]);
 
+    const displayCapacityFactor = projectData.use_avg_solar_capacity_factor === "yes"
+        ? 23.4
+        : (projectData.avg_solar_capacity_factor || 0);
+
   return (
     <>
     <section>
@@ -152,11 +157,13 @@ export default function IASolarUserSelections({
         stateName="IOWA"
         onSelectCounty={(county) => {
             console.log("Selected county:", county)
+            setSelectedCounty(county);
             setProjectData((prev) => ({
                 ...prev,
                 county_name: county?.county_name || "",
                 productivity_per_acre: county?.productivity_per_acre || 0,
                 ag_rollback: county?.ag_rollback || 0,
+                average_csr_in_county: county?.average_csr_in_county || 0,
             }));
         }}
         onSelectSchoolDistrict={(schoolDistrict) => {
@@ -442,7 +449,7 @@ export default function IASolarUserSelections({
             <br></br>
 
             <label>
-                Use Average Solar Capacity Factor?
+                Use the Average Solar Capacity Factor?
                 <select
                     name="use_avg_solar_capacity_factor"
                     value={projectData.use_avg_solar_capacity_factor}
@@ -479,8 +486,8 @@ export default function IASolarUserSelections({
 
                     <input 
                         type="number"
-                        name="avg_solar_capacity_factor"
-                        value={projectData.avg_solar_capacity_factor}
+                        name="avg_solar_capacity_factor_display"
+                        value={displayCapacityFactor}
                         className="basicDataBox"
                         readOnly
                     /> %
@@ -505,7 +512,7 @@ export default function IASolarUserSelections({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        CSR2 refers to Iowa's updated corn suitability rating index, measuring
+                        CSR2 refers to Iowa's updated Corn Suitability Rating Index, measuring
                         soil productivity. These indices attempt to capture crop yield changes 
                         over time, and factor into property tax calculations. {" "}
                         <a target="_blank" style={{textDecoration: "underline"}} 
@@ -531,20 +538,6 @@ export default function IASolarUserSelections({
                 </div>
             </>
             )}
-
-            <label>
-                Total CSR2 Value:
-                    <div className="inputWithInfo">
-                    
-                    <input 
-                        type="number"
-                        name="county_avg_csr2s"
-                        value={projectData.county_avg_csr2s}
-                        className="basicDataBox"
-                        readOnly
-                    />
-                </div>
-            </label>
 
         </section>
 
@@ -574,7 +567,7 @@ export default function IASolarUserSelections({
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                         <div className="infoBubble">
-                            If the proportion is unknown, assume 100%.
+                            If the proportion is unknown, assume a proportion of 100%.
                         </div>
                     </div>
                 </div>
@@ -609,6 +602,8 @@ export default function IASolarUserSelections({
 
         <section>
             <h1>Electric Transmission Tax Inputs</h1>
+
+            <br></br>
 
             <label>
                 Assume all transmission infrastructure is owned by
