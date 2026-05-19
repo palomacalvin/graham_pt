@@ -14,7 +14,7 @@ interface Props {
     onSelectLocation?: (location: TaxData | null) => void;
 }
 
-const MAX_USEFUL_LIFE = 35;
+const MAX_USEFUL_LIFE = 30;
 
 export default function OHUserSelections({
   projectData,
@@ -28,7 +28,7 @@ export default function OHUserSelections({
 
     // Default details.
     const DEFAULT_PROJECT_DETAILS = {
-      inflation_rate: 0.029, 
+      inflation_rate: 0.025, 
       discount_rate: 0.03,
       auto_calculate_costs: true,
     };
@@ -366,7 +366,7 @@ export default function OHUserSelections({
                     onChange={(e) => {
                         let value = parseInt(e.target.value, 10) || 1;
 
-                        // Cap value at 35
+                        // Cap value at 30
                         if (value > MAX_USEFUL_LIFE) value = MAX_USEFUL_LIFE;
 
                         setProjectData((prev) => ({
@@ -380,7 +380,7 @@ export default function OHUserSelections({
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                         <div className="infoBubble">
-                            Note: This calculator can only calculate revenues up to 35 years.
+                            Note: This calculator can only calculate revenues up to 30 years.
                         </div>
                     </div>
                 </div>
@@ -416,12 +416,12 @@ export default function OHUserSelections({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default number (2.9%) represents the average 
+                        The default number (2.5%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" 
-                        href="https://tax.illinois.gov/localgovernments/property/cpihistory.html">Illinois Department of 
-                        Revenue</a>.
-                        The default multiplier translates to a 2.9% average annual inflation rate. 
+                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a>
+                        between 1995 and 2025.
+                        The default multiplier translates to a 2.5% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
                     </div>
@@ -471,6 +471,13 @@ export default function OHUserSelections({
 
         <section>
             <h1>Energy System Information</h1>
+            <br></br>
+
+            <p style={{ color: "red", fontStyle: "italic"}}>
+                All fields in this section are required. You may choose to
+                use the defaults listed below, or override them with values relevant to
+                your project.
+            </p>
 
             <br></br>
 
@@ -557,6 +564,7 @@ export default function OHUserSelections({
                   </div>
                 </div>
                 </div>
+                <div className="required">Required</div>
             </label>
 
 
@@ -579,7 +587,7 @@ export default function OHUserSelections({
             {projectData.is_project_status_qep === "yes" && (
                 <div>
                     <br></br>
-                    <label>Enter the additional QEP payment:</label>
+                    <label>Enter the additional QEP payment (if applicable):</label>
                     <input 
                         type="number"
                         name="user_specified_project_status"

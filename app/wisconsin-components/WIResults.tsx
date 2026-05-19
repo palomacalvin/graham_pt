@@ -590,7 +590,7 @@ export default function WIResults({ projectData }: Props) {
               <tr>
                   <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/firefighter.png" alt="Vector graphic of a firefighter"></img></td>
                   <td>Firefighters</td>
-                  <td>School District</td>
+                  <td>City/Township</td>
                   <td>~$68,421 per annual salary</td>
                   <td>~{Math.round((npv_tvc) / 68421)} FTE (full-time employee) annual salaries</td>
               </tr>

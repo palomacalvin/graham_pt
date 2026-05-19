@@ -45,7 +45,7 @@ export default function IAWindUserSelections({
 
     // Default details.
     const DEFAULT_PROJECT_DETAILS = {
-      inflation_rate: 0.03, 
+      inflation_rate: 0.025, 
       discount_rate: 0.03,
       auto_calculate_costs: true,
     };
@@ -342,12 +342,12 @@ export default function IAWindUserSelections({
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
-                        The default number (3.0%) represents the average 
+                        The default number (2.5%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" 
-                        href="https://tax.illinois.gov/localgovernments/property/cpihistory.html">Illinois Department of 
-                        Revenue</a>.
-                        The default multiplier translates to a 2.9% average annual inflation rate. 
+                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a>
+                        between 1995 and 2025.
+                        The default multiplier translates to a 2.5% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
                     </div>
