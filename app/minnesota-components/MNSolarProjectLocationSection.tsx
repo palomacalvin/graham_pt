@@ -5,6 +5,7 @@ import LocationSelector from "../../components/LocationSelector";
 import { County } from "@/components/LocationSelector";
 import { useEffect } from "react";
 import { useState } from "react";
+import AllFieldsRequired from "@/components/AllFieldsRequired";
 
 
 interface Props {
@@ -72,19 +73,13 @@ export default function MNSolarProjectLocationSection({
     }));
   };
 
-
-
   return (
     <>
     <section>
       <h1>Project Location Information</h1>
       <br></br>
 
-      <p style={{ color: "red", fontStyle: "italic"}}>
-        All fields in this section are required. You may choose to
-        use the defaults listed below, or override them with values relevant to
-        your project.
-      </p>
+      <AllFieldsRequired />
 
       <br></br>
       <LocationSelector

@@ -4,6 +4,7 @@ import { ProjectData } from "@/types/IAWindProject";
 import LocationSelector, { County, SchoolDistrict } from "../../components/IALocationSelector";
 import { useState } from "react";
 import { useEffect } from "react";
+import AllFieldsRequired from "@/components/AllFieldsRequired";
 
 
 interface Props {
@@ -145,11 +146,7 @@ export default function IAWindUserSelections({
       <h1>Project Information</h1>
       <br></br>
 
-      <p style={{ color: "red", fontStyle: "italic"}}>
-        All fields in this section are required. You may choose to
-        use the defaults listed below, or override them with values relevant to
-        your project.
-      </p>
+      <AllFieldsRequired />
 
       <br></br>
       <LocationSelector
@@ -315,11 +312,7 @@ export default function IAWindUserSelections({
             <h1>Inflation Factors</h1>
             <br></br>
 
-            <p style={{ color: "red", fontStyle: "italic"}}>
-                All fields in this section are required. You may choose to
-                use the defaults listed below, or override them with values relevant to
-                your project.
-            </p>
+            <AllFieldsRequired />
 
         <br></br>
 

@@ -4,6 +4,7 @@ import { ProjectData } from "@/types/IASolarProject";
 import LocationSelector, { County, SchoolDistrict } from "../../components/IALocationSelector";
 import { useState } from "react";
 import { useEffect } from "react";
+import AllFieldsRequired from "@/components/AllFieldsRequired";
 
 
 interface Props {
@@ -45,7 +46,7 @@ export default function IASolarUserSelections({
 
     // Default details.
     const DEFAULT_PROJECT_DETAILS = {
-      inflation_rate: 0.03, 
+      inflation_rate: 0.025, 
       discount_rate: 0.03,
       auto_calculate_costs: true,
     };
@@ -146,11 +147,7 @@ export default function IASolarUserSelections({
       <h1>Project Information</h1>
       <br></br>
 
-      <p style={{ color: "red", fontStyle: "italic"}}>
-        All fields in this section are required. You may choose to
-        use the defaults listed below, or override them with values relevant to
-        your project.
-      </p>
+      <AllFieldsRequired />
 
       <br></br>
       <LocationSelector
@@ -265,11 +262,7 @@ export default function IASolarUserSelections({
             <h1>Inflation Factors</h1>
             <br></br>
 
-            <p style={{ color: "red", fontStyle: "italic"}}>
-                All fields in this section are required. You may choose to
-                use the defaults listed below, or override them with values relevant to
-                your project.
-            </p>
+            <AllFieldsRequired />
 
         <br></br>
 

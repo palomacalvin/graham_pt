@@ -5,26 +5,40 @@ export default function ReferencesPage() {
 
   return (
     <>
-    <Navbar></Navbar>
-    <div style={{ margin: "3rem" }}>
-      <h1>References Page</h1>
-      <br></br>
+    <div className="home-page-wrapper">
+    <Navbar />
 
-      <h2 className="contact">
-        On this page, download updated information briefs for the project. You can also find
-        the same briefs by clicking to visit the 
-        <a target="_blank" href="https://graham.umich.edu/project/renewable-energy-tax-impacts"
-        className="contactPageLink"> project landing page</a>.
-      </h2>
+    <main className="landing-container">
 
-      <h2 className="contact">
-        Below are lists of all references and data sources, which can also be found on the briefs.
-      </h2>
+      <div className="intro-header-block">
+          <h1 className="page-main-title">References Page</h1>
+        </div>
 
-      <h2 className="contact">
-        If you have any questions or concerns please contact us by emailing {" "}
-        <a href="mailto:empoweringcommunities@umich.edu" className="mailto">empoweringcommunities@umich.edu</a>.
-      </h2>
+        <div className="landing-body-text">
+          <p>
+            On this page, download updated information briefs for the project. You can also find
+            the same briefs by clicking to visit the{" "}
+            <a 
+              target="_blank" 
+              rel="noopener noreferrer"
+              href="https://graham.umich.edu/project/renewable-energy-tax-impacts"
+              className="accent-link"
+            >
+              project landing page
+            </a>.
+          </p>
+
+          <p>
+            Below are lists of all references and data sources, which can also be found on the briefs.
+          </p>
+
+          <p>
+            If you have any questions or concerns, please contact us by emailing{" "}
+            <a href="mailto:empoweringcommunities@umich.edu" className="accent-link">
+              empoweringcommunities@umich.edu
+            </a>.
+          </p>
+        </div>
 
       <section>
         <h1>Illinois</h1>
@@ -1710,6 +1724,7 @@ export default function ReferencesPage() {
       </section>
       <br></br>
 
+    </main>
     </div>
     </>
   );

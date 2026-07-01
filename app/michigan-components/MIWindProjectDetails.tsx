@@ -3,6 +3,7 @@
 import React from "react";
 import { ProjectData } from "../../types/MIWindProject";
 import { useEffect } from "react";
+import AllFieldsRequired from "@/components/AllFieldsRequired";
 
 interface Props {
   projectData: ProjectData;
@@ -166,11 +167,7 @@ export default function MIWindProjectDetailsSection({
       <h1>Project Details</h1>
       <br></br>
 
-      <p style={{ color: "red", fontStyle: "italic"}}>
-        All fields in this section are required. You may choose to
-        use the defaults listed below, or override them with values relevant to
-        your project.
-      </p>
+      <AllFieldsRequired />
 
       <br></br>
 
@@ -378,7 +375,6 @@ export default function MIWindProjectDetailsSection({
       <h1>Acreage and Turbines</h1>
 
       <br></br>
-        
 
       <label>
         Number of 1.5 MW wind turbine towers in service:

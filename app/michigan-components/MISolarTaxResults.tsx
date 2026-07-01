@@ -17,7 +17,7 @@ interface Props {
 export default function MISolarTaxResults( {projectData}: Props) {
     const calculated_homestead_rate = (projectData?.homestead_rate ?? 0) - (projectData?.sd_comm_pers ?? 0);
 
-    // String for easily formatting currency.
+    // String for formatting currency.
     const formatCurrency = (value: number) => {
         const rounded = Math.round(value);
         if (rounded < 0) {
@@ -39,7 +39,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
     : null;
 
     const piltResults = useMemo(() => {
-        return calculatePILT(projectData, multiplicationFactors, projectData.original_cost_pre_inverter ?? 0); // your PILT engine does not use factors
+        return calculatePILT(projectData, multiplicationFactors, projectData.original_cost_pre_inverter ?? 0);
     }, [projectData, multiplicationFactors]);
 
     const {
@@ -538,7 +538,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         </td>
 
                         {/* UPP */}
-
                         <td>
                             {formatCurrency((uppRevenueResults?.county.totalPerYear[0] ?? 0) + 
                             (uppRevenueResults?.local_unit.totalPerYear[0] ?? 0) +
@@ -551,7 +550,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         </td>
 
                         {/* TOTAL */}
-
                         <td>
                             {formatCurrency(
                                 county.totalPerYear[0] + 
@@ -701,7 +699,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         </td>
 
                         {/* UPP */}
-
                         <td>
                             {formatCurrency((uppRevenueResults?.county.totalPerYear[0] ?? 0) + 
                             (uppRevenueResults?.local_unit.totalPerYear[0] ?? 0) +
@@ -714,7 +711,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                         </td>
 
                         {/* TOTAL */}
-
                         <td>
                             {formatCurrency(
                                 piltCounty.totalPerYear[0] + 

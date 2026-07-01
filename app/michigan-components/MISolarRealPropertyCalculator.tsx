@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { ProjectData } from "@/types/MISolarProject";
 import { useState } from "react";
+import AllFieldsRequired from "@/components/AllFieldsRequired";
 
 interface Props {
   projectData: ProjectData;
@@ -140,9 +141,6 @@ export default function MISolarRealPropertyCalculator ({
     return { school_district_millages, other_millages };
   };
 
-    
-  
-    //const post_solar_value = projectData.post_solar_taxable_value ?? pre_solar_taxable_value;
 
     const post_solar_value = hasManualPostSolarValue
         ? projectData.post_solar_taxable_value ?? pre_solar_taxable_value
@@ -158,11 +156,7 @@ export default function MISolarRealPropertyCalculator ({
 
             <br />
 
-            <p style={{ color: "red", fontStyle: "italic"}}>
-                All fields in this section are required. You may choose to
-                use the defaults listed below, or override them with values relevant to
-                your project.
-            </p>
+            <AllFieldsRequired />
 
             <br></br>
             <br></br>
@@ -420,31 +414,6 @@ export default function MISolarRealPropertyCalculator ({
                     </div>
                 </label>
             )}
-
-
-            {/* <label>
-                Real property's taxable value newly subject to the local school district's
-                operating millage as a result of the solar project:
-                <input
-                    type="number"
-                    value={projectData.real_property_school_district_millages}
-                    readOnly
-                    className="basicInputBox"
-                />
-            </label>
-
-            <br></br>
-
-            <label>
-                Real property's taxable value newly subject to other millages as a result
-                of the solar project:
-                <input
-                    type="number"
-                    value={projectData.real_property_other_millages}
-                    readOnly
-                    className="basicInputBox"
-                />
-            </label> */}
 
             </section>
 

@@ -48,7 +48,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
     return values.reduce((sum, v) => sum + v, 0);
   }
 
-  // Bulk calculations.
+  // Main calculations.
   const taxImpactRows = React.useMemo(() => {
     // Filter out units with no rate and no name/label.
     const activeUnits = taxUnits.filter((u) => u.rate > 0 || (u.name || "") !== "");

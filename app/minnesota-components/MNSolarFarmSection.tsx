@@ -1,6 +1,7 @@
 import React from "react";
 import { ProjectData } from "@/types/MNSolarProject";
 import { useState } from "react";
+import AllFieldsRequired from "@/components/AllFieldsRequired";
 
 interface Props {
   projectData: ProjectData;
@@ -54,11 +55,7 @@ export default function SolarFarmSection({ projectData, handleChange }: Props)
       <h1>Solar Farm Systems Information</h1>
       <br></br>
 
-      <p style={{ color: "red", fontStyle: "italic"}}>
-        All fields in this section are required. You may choose to
-        use the defaults listed below, or override them with values relevant to
-        your project.
-      </p>
+      <AllFieldsRequired />
 
       <br></br>
 

@@ -38,6 +38,8 @@ export default function TaxTable({ taxUnits, setTaxUnits }: Props) {
     "Other Special Unit"
   ];
 
+  
+
   return (
     <table className="basicTable">
       <thead>

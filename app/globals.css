@@ -445,3 +445,107 @@ h2.contact {
 .subtractive-text {
   color: red;
 }
+
+
+/* Improved formatting. */
+
+.home-page-wrapper {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+
+.intro-header-block {
+  border-bottom: 1px solid #555555;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.page-main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #231f20;
+  margin: 0;
+}
+
+.intro-logo {
+  height: auto;
+  max-height: 75px;
+  object-fit: contain;
+}
+
+.landing-body-text p {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: #231f20;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.about-section-divider {
+  border-top: 1px solid #555555;
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.page-section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #231f20;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.info-callout-box {
+  background-color: #e6f4fc;
+  border-left: 4px solid #0075bc;
+  padding: 1.25rem;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  color: #231f20;
+}
+
+.callout-disclaimer {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #555555;
+  font-style: italic;
+}
+
+.accent-link {
+  color: #0075bc;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.accent-link:hover {
+  color: #00aa4c;
+}
+
+@media (max-width: 640px) {
+  .intro-header-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .page-main-title {
+    font-size: 2rem;
+  }
+}

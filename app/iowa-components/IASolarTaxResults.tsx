@@ -46,7 +46,7 @@ export default function IASolarTaxResults({
   const rawInflation = Number(projectData.inflation_rate ?? 2.5);
   const inflationRate = rawInflation > 0.5 ? rawInflation / 100 : rawInflation;
 
-  const rawDiscount = Number(projectData.discount_rate ?? 6.0);
+  const rawDiscount = Number(projectData.discount_rate ?? 3.0);
   const discountRate = rawDiscount > 0.5 ? rawDiscount / 100 : rawDiscount;
 
   // Track project lifespan properties.
