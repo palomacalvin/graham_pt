@@ -109,10 +109,12 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
 
   return (
     <div>
-      <h1>Your Results</h1>
       <br></br>
+        <h1 className="page-section-title">Your Results</h1>
 
-      <h3>Year 1 Summary</h3>
+      <div className="about-section-divider">
+        <h1 className="page-section-title-med">Year 1 Summary</h1>
+      </div>
 
       <div className="table-container">
         <table className="basicTable">
@@ -151,9 +153,10 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
 
         <ProjectLifeBreakdown />
 
-        <br />
+        <div className="about-section-divider">
+          <h1 className="page-section-title-med">Jurisdictional Gross & NPV Totals</h1>
+        </div>
 
-        <h3>Jurisdictional Gross & NPV Totals</h3>
         <div className="table-container">
         <table className="basicTable">
           <thead>

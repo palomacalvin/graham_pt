@@ -144,8 +144,7 @@ export default function IASolarUserSelections({
   return (
     <>
     <section>
-      <h1>Project Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Information</h1>
 
       <AllFieldsRequired />
 
@@ -259,20 +258,19 @@ export default function IASolarUserSelections({
 
             <br></br>
 
-            <h1>Inflation Factors</h1>
-            <br></br>
+            <h1 className="page-section-title">Inflation Factors</h1>
 
             <AllFieldsRequired />
 
         <br></br>
 
         <label>
-            Average annual inflation rate (%):
+            Average annual inflation rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
                     step="0.01"
-                    value={Math.round(projectData.inflation_rate * 10000) / 100} // Displays as 2.7%
+                    value={Math.round(projectData.inflation_rate * 10000) / 100}
                     onChange={(e) =>
                     setProjectData((prev) => ({
                         ...prev,
@@ -280,7 +278,7 @@ export default function IASolarUserSelections({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
 
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -299,7 +297,7 @@ export default function IASolarUserSelections({
         </label>
 
         <label>
-            Annual discount rate (%):
+            Annual discount rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -312,7 +310,8 @@ export default function IASolarUserSelections({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
+
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
@@ -437,9 +436,7 @@ export default function IASolarUserSelections({
         <br></br>
 
         <section>
-            <h1>Electric Generation Tax Inputs</h1>
-
-            <br></br>
+            <h1 className="page-section-title">Electric Generation Tax Inputs</h1>
 
             <label>
                 Use the Average Solar Capacity Factor?
@@ -474,7 +471,7 @@ export default function IASolarUserSelections({
             )}
 
             <label>
-                Total Solar Capacity Factor:
+                Total Selected Solar Capacity Factor:
                     <div className="inputWithInfo">
 
                     <input 
@@ -537,9 +534,7 @@ export default function IASolarUserSelections({
         <br></br>
 
         <section>
-            <h1>Electricity Delivery Tax Inputs</h1>
-
-            <br></br>
+            <h1 className="page-section-title">Electricity Delivery Tax Inputs</h1>
 
                 <label>
                     Enter proportion of electricity 
@@ -594,9 +589,7 @@ export default function IASolarUserSelections({
         </section>
 
         <section>
-            <h1>Electric Transmission Tax Inputs</h1>
-
-            <br></br>
+            <h1 className="page-section-title">Electric Transmission Tax Inputs</h1>
 
             <label>
                 Assume all transmission infrastructure is owned by

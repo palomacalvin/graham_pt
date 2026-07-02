@@ -57,7 +57,7 @@ export default function Home() {
 
 
         <div className="about-section-divider">
-          <h2 className="page-section-title">About this page</h2>
+          <h1 className="page-section-title">About this page</h1>
 
           <div className="landing-body-text">
             <div className="info-callout-box">

@@ -170,15 +170,19 @@ export default function IAWindTaxResults({
 
   return (
     <div>
-      <h1>Your Results</h1>
       <br></br>
+        <h1 className="page-section-title">Your Results</h1>
 
-      <h3>Year 1 Summary</h3>
+      <div className="about-section-divider">
+        <h1 className="page-section-title-med">Year 1 Summary</h1>
+      </div>
 
-      <p className="description-text">
+      <div className="info-callout-box">
+        <p>
         Note: Under Iowa Special Valuation laws, wind energy properties are assessed at a 0% multiplier in Year 1. 
         Net impacts reflect the subtraction of previous farmland baseline expectations.
-      </p>
+        </p>
+      </div>
 
       <div className="table-container">
         <table className="basicTable">
@@ -229,9 +233,10 @@ export default function IAWindTaxResults({
 
         <ProjectLifeBreakdown />
 
-        <br />
+        <div className="about-section-divider">
+          <h1 className="page-section-title-med">Jurisdictional Gross & NPV Totals</h1>
+        </div>
 
-        <h3>Jurisdictional Gross & NPV Totals</h3>
         <div className="table-container">
         <table className="basicTable">
           <thead>

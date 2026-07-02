@@ -130,8 +130,7 @@ export default function ILUserSelections({
   return (
     <>
     <section>
-      <h1>Project Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Information</h1>
 
       <AllFieldsRequired />
 
@@ -344,8 +343,7 @@ export default function ILUserSelections({
             </>
             )}
 
-            <h1>Inflation Factors</h1>
-            <br></br>
+            <h1 className="page-section-title">Inflation Factors</h1>
 
             <AllFieldsRequired />
 
@@ -457,10 +455,10 @@ export default function ILUserSelections({
             </label>
         </section>
 
+        <br></br>
+
         <section>
-            <h1>Manual Taxing District Rates</h1>
-    
-            <br></br>
+            <h1 className="page-section-title">Manual Taxing District Rates</h1>
 
             <div className="info-callout-box">
                 <p>
@@ -479,7 +477,7 @@ export default function ILUserSelections({
 
                 <br></br>
 
-                <p>
+                <p className="callout-disclaimer">
                     You can add up to 15 units to this calculator.
                 </p>
 
@@ -511,6 +509,5 @@ export default function ILUserSelections({
         </section>
 
     </>
-    
   );
 }

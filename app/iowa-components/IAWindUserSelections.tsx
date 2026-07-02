@@ -143,8 +143,7 @@ export default function IAWindUserSelections({
   return (
     <>
     <section>
-      <h1>Project Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Information</h1>
 
       <AllFieldsRequired />
 
@@ -305,14 +304,9 @@ export default function IAWindUserSelections({
             )}
         </section>
 
+        <h1 className="page-section-title">Inflation Factors</h1>
 
-
-            <br></br>
-
-            <h1>Inflation Factors</h1>
-            <br></br>
-
-            <AllFieldsRequired />
+        <AllFieldsRequired />
 
         <br></br>
 
@@ -500,6 +494,7 @@ export default function IAWindUserSelections({
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 </select>
+                <p className="required">Required</p>
             </label>
 
             <br></br>

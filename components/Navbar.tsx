@@ -13,13 +13,13 @@ const navLinks = [
 ];
 
 const calculatorLinks = [
-  { href: '/illinois', label: 'Illinois [TBA]' },
+  { href: '/illinois', label: 'Illinois' },
   { href: '/indiana', label: 'Indiana [TBA]' },
-  { href: '/iowa', label: 'Iowa [TBA]' },
+  { href: '/iowa', label: 'Iowa' },
   { href: '/michigan', label: 'Michigan' },
   { href: '/minnesota', label: 'Minnesota' },
-  { href: '/nebraska', label: 'Nebraska [TBA]' },
-  { href: '/ohio', label: 'Ohio [TBA]' },
+  { href: '/nebraska', label: 'Nebraska' },
+  { href: '/ohio', label: 'Ohio' },
   { href: '/wisconsin', label: 'Wisconsin' },
 ];
 

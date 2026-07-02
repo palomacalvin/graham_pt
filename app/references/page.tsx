@@ -40,17 +40,23 @@ export default function ReferencesPage() {
           </p>
         </div>
 
-      <section>
-        <h1>Illinois</h1>
         <br></br>
 
-        <a
-          className="inPageButton"
-          href={`/illinois/Illinois-Property-Tax-Final.pdf`}
-          download={`Illinois-Policy-Brief.pdf`}
-        >
-          Click to download the Illinois policy brief
-        </a>
+      <section className="about-section-divider">
+
+        <div className="button-title">
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Illinois
+          </h1>
+
+          <a
+            className="inPageButton"
+            href="/illinois/Illinois-Property-Tax-Final.pdf"
+            download="Illinois-Policy-Brief.pdf"
+          >
+            Click to download the Illinois policy brief
+          </a>
+        </div>
 
         <div>
           <ol className="ref-list">
@@ -156,17 +162,20 @@ export default function ReferencesPage() {
       <br></br>
 
 
-      <section>
-        <h1>Indiana</h1>
-        <br></br>
+      <section className="about-section-divider">
+        <div className="button-title">
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Indiana
+          </h1>
 
-        <a
-          className="inPageButton"
-          href={`/indiana/Indiana-Property-Tax-Final.pdf`}
-          download={`Indiana-Policy-Brief.pdf`}
-        >
-          Click to download the Indiana policy brief
-        </a>
+          <a
+            className="inPageButton"
+            href="/indiana/Indiana-Property-Tax-Final.pdf"
+            download="Indiana-Policy-Brief.pdf"
+          >
+            Click to download the Indiana policy brief
+          </a>
+        </div>
 
         <div>
           <ol>
@@ -177,16 +186,21 @@ export default function ReferencesPage() {
         </div>
       </section>
 
-      <h1>Iowa</h1>
-      <br></br>
+      <section className="about-section-divider">
+      <div className="button-title"
+        >
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Iowa
+          </h1>
 
-      <a
-        className="inPageButton"
-        href={`/iowa/Iowa-Property-Tax-Final.pdf`}
-        download={`Iowa-Policy-Brief.pdf`}
-      >
-        Click to download the Iowa policy brief
-      </a>
+          <a
+            className="inPageButton"
+            href="/iowa/Iowa-Property-Tax-Final.pdf"
+            download="Iowa-Policy-Brief.pdf"
+          >
+            Click to download the Iowa policy brief
+          </a>
+      </div>
 
       <div>
         <ol className="ref-list">
@@ -483,21 +497,25 @@ export default function ReferencesPage() {
             className="contactPageLink">
             https://www.kcrg.com/2025/10/27/dozens-iowa-school-districts-asking-voters-fund-building-updates-this-election/</a>.
           </li>
-
         </ol>
       </div>
+      </section>
 
-      <section>
-        <h1>Michigan</h1>
-        <br></br>
-
-        <a
-          className="inPageButton"
-          href={`/michigan/Michigan-Property-Tax-Final.pdf`}
-          download={`Michigan-Policy-Brief.pdf`}
+      <section className="about-section-divider">
+        <div className="button-title"
         >
-          Click to download the Michigan policy brief
-        </a>
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Michigan
+          </h1>
+
+          <a
+            className="inPageButton"
+            href="/michigan/Michigan-Property-Tax-Final.pdf"
+            download="Michigan-Policy-Brief.pdf"
+          >
+            Click to download the Michigan policy brief
+          </a>
+      </div>
 
         <div>
           <ol className="ref-list">
@@ -761,17 +779,21 @@ export default function ReferencesPage() {
 
       <br></br>
 
-      <section>
-        <h1>Minnesota</h1>
-        <br></br>
-
-        <a
-          className="inPageButton"
-          href={`/minnesota/Minnesota-Property-Tax-Final.pdf`}
-          download={`Minnesota-Policy-Brief.pdf`}
+      <section className="about-section-divider">
+        <div className="button-title"
         >
-          Click to download the Minnesota policy brief
-        </a>
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Minnesota
+          </h1>
+
+          <a
+            className="inPageButton"
+            href="/minnesota/Minnesota-Property-Tax-Final.pdf"
+            download="Minnesota-Policy-Brief.pdf"
+          >
+            Click to download the Minnesota policy brief
+          </a>
+      </div>
 
         <div>
           <ol className="ref-list">
@@ -927,18 +949,21 @@ export default function ReferencesPage() {
 
       <br></br>
 
-      <h1>Nebraska</h1>
-      <br></br>
+      <section className="about-section-divider">
+      <div className="button-title"
+        >
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Nebraska
+          </h1>
 
-      <a
-        className="inPageButton"
-        href={`/nebraska/Nebraska-Property-Tax-Final.pdf`}
-        download={`Nebraska-Policy-Brief.pdf`}
-      >
-        Click to download the Nebraska policy brief
-      </a>
-
-      <br></br>
+          <a
+            className="inPageButton"
+            href="/nebraska/Nebraska-Property-Tax-Final.pdf"
+            download="Nebraska-Policy-Brief.pdf"
+          >
+            Click to download the Iowa policy brief
+          </a>
+      </div>
 
       <div>
         <ol className="ref-list">
@@ -1286,244 +1311,255 @@ export default function ReferencesPage() {
           </li>
         </ol>
       </div>
+    </section>
 
       <br></br>
 
-      <h1>Ohio</h1>
-      <br></br>
-  
-      <a
-        className="inPageButton"
-        href={`/ohio/Ohio-Property-Tax-Final.pdf`}
-        download={`Ohio-Policy-Brief.pdf`}
-      >
-        Click to download the Ohio policy brief
-      </a>
+      <section className="about-section-divider">
+        <div className="button-title"
+          >
+            <h1 className="page-section-title" style={{ margin: 0 }}>
+              Ohio
+            </h1>
 
-      <div>
-        <ol className="ref-list">
+            <a
+              className="inPageButton"
+              href="/ohio/Ohio-Property-Tax-Final.pdf"
+              download="Ohio-Policy-Brief.pdf"
+            >
+              Click to download the Ohio policy brief
+            </a>
+        </div>
 
-          <li>
-            Washburn, B, General Information. County Auditor Website, Pickaway County, Ohio {" "}
-            <a target="_blank" href="https://auditor.pickawaycountyohio.gov/Posts?category=Current%20Agricultural%20Use%20Valuation%20(CAUV)"
-            className="contactPageLink">
-            https://auditor.pickawaycountyohio.gov/Posts?category=Current%20Agricultural%20Use%20Valuation%20(CAUV)</a>. 
-          </li>
+        <div>
+          <ol className="ref-list">
 
-          <li>
-            Ohio Farm Bureau, “CAUV” (accessed Feb. 1, 2025), {" "} 
-            <a target="_blank" href="https://ofbf.org/tag/cauv/" className="contactPageLink">
-            https://ofbf.org/tag/cauv/</a>. 
-          </li>
+            <li>
+              Washburn, B, General Information. County Auditor Website, Pickaway County, Ohio {" "}
+              <a target="_blank" href="https://auditor.pickawaycountyohio.gov/Posts?category=Current%20Agricultural%20Use%20Valuation%20(CAUV)"
+              className="contactPageLink">
+              https://auditor.pickawaycountyohio.gov/Posts?category=Current%20Agricultural%20Use%20Valuation%20(CAUV)</a>. 
+            </li>
 
-          <li>
-            EXPLANATION OF THE CALCULATION OF VALUES FOR TAX YEAR 2024. July 25, 2024. Ohio Department of Taxation, “Current Agricultural Use
-            Value (CAUV)” (accessed Feb. 1, 2025), {" "}
-            <a target="_blank" href="https://tax.ohio.gov/government/real-state/cauv" className="contactPageLink">
-            https://tax.ohio.gov/government/real-state/cauv</a>. 
-          </li>
+            <li>
+              Ohio Farm Bureau, “CAUV” (accessed Feb. 1, 2025), {" "} 
+              <a target="_blank" href="https://ofbf.org/tag/cauv/" className="contactPageLink">
+              https://ofbf.org/tag/cauv/</a>. 
+            </li>
 
-          <li>
-            Ohio Laws and Administrative Rules, “Section 5727.01 | Public utilities definitions,” Ohio Revised Code, Title 57 Taxation, Chapter 5727 Public
-            Utilities, <a target="_blank" href="https://codes.ohio.gov/ohio-revised-code/section-5727.01" className="contactPageLink">
-            https://codes.ohio.gov/ohio-revised-code/section-5727.01</a>.
-          </li>
+            <li>
+              EXPLANATION OF THE CALCULATION OF VALUES FOR TAX YEAR 2024. July 25, 2024. Ohio Department of Taxation, “Current Agricultural Use
+              Value (CAUV)” (accessed Feb. 1, 2025), {" "}
+              <a target="_blank" href="https://tax.ohio.gov/government/real-state/cauv" className="contactPageLink">
+              https://tax.ohio.gov/government/real-state/cauv</a>. 
+            </li>
 
-          <li>
-            Dylan Borchers, Kara Herrnstein and William Liss, “Qualified Energy Project Tax Abatements for Ohio Solar Projects,” Brucker Graydon, November
-            2023, {" "}
-            <a target="_blank" href="https://www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf"
-            className="contactPageLink">
-            https://www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf</a>.
-          </li>
+            <li>
+              Ohio Laws and Administrative Rules, “Section 5727.01 | Public utilities definitions,” Ohio Revised Code, Title 57 Taxation, Chapter 5727 Public
+              Utilities, <a target="_blank" href="https://codes.ohio.gov/ohio-revised-code/section-5727.01" className="contactPageLink">
+              https://codes.ohio.gov/ohio-revised-code/section-5727.01</a>.
+            </li>
 
-          <li>
-            Dylan Borchers et al, “Qualified Energy Project Tax Abatements for Ohio Solar Projects,” Bricker Graydon (Nov. 2023), {" "}
-            <a target="_blank" href="www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf" className="contactPageLink">
-            www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf</a>.
-          </li>
+            <li>
+              Dylan Borchers, Kara Herrnstein and William Liss, “Qualified Energy Project Tax Abatements for Ohio Solar Projects,” Brucker Graydon, November
+              2023, {" "}
+              <a target="_blank" href="https://www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf"
+              className="contactPageLink">
+              https://www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf</a>.
+            </li>
 
-          <li>
-            ORC 5727.75(B)(1); Ohio Department of Development, “Qualified Energy Project Tax Exemption” (accessed Feb. 2, 2025), {" "}
-            <a target="_blank" href="https://development.ohio.gov/business/state-incentives/qualified-energy-project-tax-exemption"
-            className="contactPageLink">
-            https://development.ohio.gov/business/state-incentives/qualified-energy-project-tax-exemption</a>.
-          </li>
+            <li>
+              Dylan Borchers et al, “Qualified Energy Project Tax Abatements for Ohio Solar Projects,” Bricker Graydon (Nov. 2023), {" "}
+              <a target="_blank" href="www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf" className="contactPageLink">
+              www.brickergraydon.com/assets/htmldocuments/Resource-Center/Solar/QEP-White-Paper.pdf</a>.
+            </li>
 
-          <li>
-            County Commissioners Association of Ohio, “Commissioners’ Manual For Renewable Energy Generation Facilities: Siting And Taxation Of Certain
-            Wind And Solar Projects” (Dec. 2021), 
-            <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
-            https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
-          </li>
+            <li>
+              ORC 5727.75(B)(1); Ohio Department of Development, “Qualified Energy Project Tax Exemption” (accessed Feb. 2, 2025), {" "}
+              <a target="_blank" href="https://development.ohio.gov/business/state-incentives/qualified-energy-project-tax-exemption"
+              className="contactPageLink">
+              https://development.ohio.gov/business/state-incentives/qualified-energy-project-tax-exemption</a>.
+            </li>
 
-          <li>
-            Gilbert Michuad et al., “Impact Analysis of the Ohio Pilot Program,” Chambers for Innovation and Clean Energy, p. 7-8 (2024) {" "}
-            <a target="_blank" href="https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf"
-            className="contactPageLink">
-            https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf</a>.
-          </li>
+            <li>
+              County Commissioners Association of Ohio, “Commissioners’ Manual For Renewable Energy Generation Facilities: Siting And Taxation Of Certain
+              Wind And Solar Projects” (Dec. 2021), 
+              <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
+              https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
+            </li>
 
-          <li>
-            County Commissioners Association of Ohio, “Commissioners’ Manual For Renewable Energy Generation Facilities: Siting And Taxation Of Certain
-            Wind And Solar Projects” (Dec. 2021), {" "}
-            <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
-            https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
-          </li>
+            <li>
+              Gilbert Michuad et al., “Impact Analysis of the Ohio Pilot Program,” Chambers for Innovation and Clean Energy, p. 7-8 (2024) {" "}
+              <a target="_blank" href="https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf"
+              className="contactPageLink">
+              https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf</a>.
+            </li>
 
-          <li>
-            Michaud et. al., Chambers for Innovation and Clean Energy, IMPACT ANALYSIS OF THE OHIO PILOT PROGRAM, 2024 {" "}
-            <a target="_blank" href="https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf"
-            className="contactPageLink">
-            https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf</a>.
-          </li>
+            <li>
+              County Commissioners Association of Ohio, “Commissioners’ Manual For Renewable Energy Generation Facilities: Siting And Taxation Of Certain
+              Wind And Solar Projects” (Dec. 2021), {" "}
+              <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
+              https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
+            </li>
 
-          <li>
-            “Commissioners’ Manual For Renewable Energy Generation Facilities,” p. 23
-          </li>
+            <li>
+              Michaud et. al., Chambers for Innovation and Clean Energy, IMPACT ANALYSIS OF THE OHIO PILOT PROGRAM, 2024 {" "}
+              <a target="_blank" href="https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf"
+              className="contactPageLink">
+              https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf</a>.
+            </li>
 
-          <li>
-            Ohio Department of Taxation, “Annual Report Fiscal Year 2023,” {" "}
-            <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/annual_reports/2023annualreport.pdf (p. 135)"
-            className="contactPageLink">https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/annual_reports/2023annualreport.pdf (p. 135)</a>.
-          </li>
+            <li>
+              “Commissioners’ Manual For Renewable Energy Generation Facilities,” p. 23
+            </li>
 
-          <li>
-            3.06 Comparing Pilot Revenues To Property Taxes, Chapter 14 Local Property Taxes, Commissioners’ Manual For Renewable Energy Generation
-            Facilities: Siting And Taxation Of Certain Wind And Solar Projects {" "}
-            <a target="_blank" href="https://www.ccao.org/aws/CCAO/asset_manager/get_file/712778?ver=0"
-            className="contactPageLink">
-            https://www.ccao.org/aws/CCAO/asset_manager/get_file/712778?ver=0</a>.
-          </li>
+            <li>
+              Ohio Department of Taxation, “Annual Report Fiscal Year 2023,” {" "}
+              <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/annual_reports/2023annualreport.pdf (p. 135)"
+              className="contactPageLink">https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/annual_reports/2023annualreport.pdf (p. 135)</a>.
+            </li>
 
-          <li>
-            Id; Borchers et al., supra note 17. 
-          </li>
+            <li>
+              3.06 Comparing Pilot Revenues To Property Taxes, Chapter 14 Local Property Taxes, Commissioners’ Manual For Renewable Energy Generation
+              Facilities: Siting And Taxation Of Certain Wind And Solar Projects {" "}
+              <a target="_blank" href="https://www.ccao.org/aws/CCAO/asset_manager/get_file/712778?ver=0"
+              className="contactPageLink">
+              https://www.ccao.org/aws/CCAO/asset_manager/get_file/712778?ver=0</a>.
+            </li>
 
-          <li>
-            Ohio Department of Taxation, Real Property Taxation in Ohio (2009), 
-            <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_real_property.pdf"
-            className="contactPageLink">
-            https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_real_property.pdf</a>.
-          </li>
+            <li>
+              Id; Borchers et al., supra note 17. 
+            </li>
 
-          <li>
-            Ohio Department of Taxation, “Real Property Tax - General,” {" "}
-            <a target="_blank" href="https://tax.ohio.gov/help-center/faqs/real-property-tax-general/real-property-tax--general" className="contactPageLink">
-            https://tax.ohio.gov/help-center/faqs/real-property-tax-general/real-property-tax--general</a>. 
-          </li>
+            <li>
+              Ohio Department of Taxation, Real Property Taxation in Ohio (2009), 
+              <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_real_property.pdf"
+              className="contactPageLink">
+              https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_real_property.pdf</a>.
+            </li>
 
-          <li>
-            House Bill 920: Ohio’s Unique Method for Controlling Tax Increases (p. 3 footnote) {" "}
-            <a target="_blank" href="http://www.oepiohio.org/wp-content/uploads/2023/12/OEPIHB-920-Explanation-Revised.FINAL-SG.pdf" className="contactPageLink">
-            http://www.oepiohio.org/wp-content/uploads/2023/12/OEPIHB-920-Explanation-Revised.FINAL-SG.pdf</a>.
-          </li>
+            <li>
+              Ohio Department of Taxation, “Real Property Tax - General,” {" "}
+              <a target="_blank" href="https://tax.ohio.gov/help-center/faqs/real-property-tax-general/real-property-tax--general" className="contactPageLink">
+              https://tax.ohio.gov/help-center/faqs/real-property-tax-general/real-property-tax--general</a>. 
+            </li>
 
-          <li>
-            Garrett Watson, “States Should Continue to Reform Taxes on Tangible Personal Property,” Tax Foundation (Aug. 6, 2019), {" "}
-            <a target="_blank" href="https://taxfoundation.org/research/all/state/tangible-personal-property-tax/" className="contactPageLink">
-            https://taxfoundation.org/research/all/state/tangible-personal-property-tax/</a>.
-          </li>
+            <li>
+              House Bill 920: Ohio’s Unique Method for Controlling Tax Increases (p. 3 footnote) {" "}
+              <a target="_blank" href="http://www.oepiohio.org/wp-content/uploads/2023/12/OEPIHB-920-Explanation-Revised.FINAL-SG.pdf" className="contactPageLink">
+              http://www.oepiohio.org/wp-content/uploads/2023/12/OEPIHB-920-Explanation-Revised.FINAL-SG.pdf</a>.
+            </li>
 
-          <li>
-            Ohio Department of Taxation, “Public Utility Property” (accessed Feb. 4, 2025), {" "}
-            <a target="_blank" href="https://tax.ohio.gov/help-center/faqs/public-utility-property" className="contactPageLink">
-            https://tax.ohio.gov/help-center/faqs/public-utility-property</a>.
-          </li>
+            <li>
+              Garrett Watson, “States Should Continue to Reform Taxes on Tangible Personal Property,” Tax Foundation (Aug. 6, 2019), {" "}
+              <a target="_blank" href="https://taxfoundation.org/research/all/state/tangible-personal-property-tax/" className="contactPageLink">
+              https://taxfoundation.org/research/all/state/tangible-personal-property-tax/</a>.
+            </li>
 
-          <li>
-            ORC 5727.01
-          </li>
+            <li>
+              Ohio Department of Taxation, “Public Utility Property” (accessed Feb. 4, 2025), {" "}
+              <a target="_blank" href="https://tax.ohio.gov/help-center/faqs/public-utility-property" className="contactPageLink">
+              https://tax.ohio.gov/help-center/faqs/public-utility-property</a>.
+            </li>
 
-          <li>
-            Ohio Department of Taxation, “Instructions and Valuation Procedures for Filing Ohio Public Utility Property Tax Reports,” 
-            {" "}
-            <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/v1739290822/tax.ohio.gov/forms/public_utility_property/2025/pupp-instructions.pdf"
-            className="contactPageLink">
-            https://dam.assets.ohio.gov/image/upload/v1739290822/tax.ohio.gov/forms/public_utility_property/2025/pupp-instructions.pdf</a>.
-          </li>
+            <li>
+              ORC 5727.01
+            </li>
 
-          <li>
-            Ohio Laws and Administrative Rules, “Section 5703-3-11 | Tangible personal property tax; “true value” or “302” computation,” Ohio Revised Code,
-            Chapter 5703-3 Property Tax, {" "}
-            <a target="_blank" href="https://codes.ohio.gov/ohio-administrative-code/rule-5703-3-11" className="contactPageLink">
-            https://codes.ohio.gov/ohio-administrative-code/rule-5703-3-11</a>.
-          </li>
+            <li>
+              Ohio Department of Taxation, “Instructions and Valuation Procedures for Filing Ohio Public Utility Property Tax Reports,” 
+              {" "}
+              <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/v1739290822/tax.ohio.gov/forms/public_utility_property/2025/pupp-instructions.pdf"
+              className="contactPageLink">
+              https://dam.assets.ohio.gov/image/upload/v1739290822/tax.ohio.gov/forms/public_utility_property/2025/pupp-instructions.pdf</a>.
+            </li>
 
-          <li>
-            Keven Kuhns & Jason Mumma, “Public Utility Personal Property Tax: Basic Overview,” Ohio Department of Taxation, Excise & Energy Tax Division
-            (May 2016), {" "}
-            <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/research/vta/may2016/session%201.pdf"
-            className="contactPageLink">
-            https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/research/vta/may2016/session%201.pdf</a>.
-          </li>
+            <li>
+              Ohio Laws and Administrative Rules, “Section 5703-3-11 | Tangible personal property tax; “true value” or “302” computation,” Ohio Revised Code,
+              Chapter 5703-3 Property Tax, {" "}
+              <a target="_blank" href="https://codes.ohio.gov/ohio-administrative-code/rule-5703-3-11" className="contactPageLink">
+              https://codes.ohio.gov/ohio-administrative-code/rule-5703-3-11</a>.
+            </li>
 
-          <li>
-            Ohio Department of Tax, “Property Tax - Public Utility Property” (2008), {" "}
-            <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_public_utility_property.pdf"
-            className="contactPageLink">
-            https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_public_utility_property.pdf</a>.
-          </li>
+            <li>
+              Keven Kuhns & Jason Mumma, “Public Utility Personal Property Tax: Basic Overview,” Ohio Department of Taxation, Excise & Energy Tax Division
+              (May 2016), {" "}
+              <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/research/vta/may2016/session%201.pdf"
+              className="contactPageLink">
+              https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/research/vta/may2016/session%201.pdf</a>.
+            </li>
 
-          <li>
-            Livengood, M. General Information - County Auditor Website, Washington County, Ohio, Accessed 1 Jan. 2025. {" "}
-            <a target="_blank" href="https://auditorwashingtoncountyohio.gov/Posts" className="contactPageLink">
-            https://auditorwashingtoncountyohio.gov/Posts</a>.
-          </li>
+            <li>
+              Ohio Department of Tax, “Property Tax - Public Utility Property” (2008), {" "}
+              <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_public_utility_property.pdf"
+              className="contactPageLink">
+              https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_public_utility_property.pdf</a>.
+            </li>
 
-          <li>
-            “Section 5713.34: Portion of Tax Savings on Converted Lands May Be Recouped.” - Ohio Revised Code | Ohio Laws, {" "}
-            <a target="_blank" href="codes.ohio.gov/ohio-revisedcode/section-5713.34" className="contactPageLink">
-            codes.ohio.gov/ohio-revisedcode/section-5713.34</a>.
-          </li>
+            <li>
+              Livengood, M. General Information - County Auditor Website, Washington County, Ohio, Accessed 1 Jan. 2025. {" "}
+              <a target="_blank" href="https://auditorwashingtoncountyohio.gov/Posts" className="contactPageLink">
+              https://auditorwashingtoncountyohio.gov/Posts</a>.
+            </li>
 
-          <li>
-            Eric Romich & Chris Bruynis, Ohioline, “Renewable Energy Policy Series: The Effect of Renewable Energy Projects on Current Agricultural Use
-            Value” (Mar. 28, 2012), {" "}
-            <a target="_blank" href="https://ohioline.osu.edu/factsheet/CDFS-4003-12" className="contactPageLink">
-            https://ohioline.osu.edu/factsheet/CDFS-4003-12</a>. 
-          </li>
+            <li>
+              “Section 5713.34: Portion of Tax Savings on Converted Lands May Be Recouped.” - Ohio Revised Code | Ohio Laws, {" "}
+              <a target="_blank" href="codes.ohio.gov/ohio-revisedcode/section-5713.34" className="contactPageLink">
+              codes.ohio.gov/ohio-revisedcode/section-5713.34</a>.
+            </li>
 
-          <li>
-            See e.g., Caitlin Forsha, Highland County Press, “County Invoicing $373K in Recoupment for Land Taken Out of CAUV Due to Solar Development”
-            (Jan. 24, 2024).
-          </li>
+            <li>
+              Eric Romich & Chris Bruynis, Ohioline, “Renewable Energy Policy Series: The Effect of Renewable Energy Projects on Current Agricultural Use
+              Value” (Mar. 28, 2012), {" "}
+              <a target="_blank" href="https://ohioline.osu.edu/factsheet/CDFS-4003-12" className="contactPageLink">
+              https://ohioline.osu.edu/factsheet/CDFS-4003-12</a>. 
+            </li>
 
-          <li>
-            See Aaron Churchill, “Ohio’s New School Funding Formula: An Introduction,” Thomas B. Fordham Institute (Jan. 26, 2023), {" "}
-            <a target="_blank" href="https://fordhaminstitute.org/ohio/commentary/ohios-new-school-funding-formula-introduction" className="contactPageLink">
-            https://fordhaminstitute.org/ohio/commentary/ohios-new-school-funding-formula-introduction</a>. 
-          </li>
+            <li>
+              See e.g., Caitlin Forsha, Highland County Press, “County Invoicing $373K in Recoupment for Land Taken Out of CAUV Due to Solar Development”
+              (Jan. 24, 2024).
+            </li>
 
-          <li>
-            Michaud et. al., Chambers for Innovation and Clean Energy, IMPACT ANALYSIS OF THE OHIO PILOT PROGRAM, 2024 {" "}
-            <a target="_blank" 
-            href="https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf"
-            className="contactPageLink">
-            https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf</a>. 
-          </li>
+            <li>
+              See Aaron Churchill, “Ohio’s New School Funding Formula: An Introduction,” Thomas B. Fordham Institute (Jan. 26, 2023), {" "}
+              <a target="_blank" href="https://fordhaminstitute.org/ohio/commentary/ohios-new-school-funding-formula-introduction" className="contactPageLink">
+              https://fordhaminstitute.org/ohio/commentary/ohios-new-school-funding-formula-introduction</a>. 
+            </li>
 
-          <li>
-            County Commissioners Association of Ohio, “Commissioners’ Manual For Renewable Energy Generation Facilities: Siting And Taxation Of Certain
-            Wind And Solar Projects” (Dec. 2021), {" "}
-            <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
-            https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
-          </li>
-        </ol>
-      </div>
+            <li>
+              Michaud et. al., Chambers for Innovation and Clean Energy, IMPACT ANALYSIS OF THE OHIO PILOT PROGRAM, 2024 {" "}
+              <a target="_blank" 
+              href="https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf"
+              className="contactPageLink">
+              https://static1.squarespace.com/static/56a8596376d99c0164fc16bd/t/67238431ed32fc4f30c7f56a/1730380856677/V2+Final+Full+Report_Impact+Analysis+of+the+Ohio+PILOT+Program+2024.pdf</a>. 
+            </li>
 
-      <section>
+            <li>
+              County Commissioners Association of Ohio, “Commissioners’ Manual For Renewable Energy Generation Facilities: Siting And Taxation Of Certain
+              Wind And Solar Projects” (Dec. 2021), {" "}
+              <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
+              https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
+            </li>
+          </ol>
+        </div>
+      </section>
 
-        <h1>Wisconsin</h1>
-        <br></br>
+      <section className="about-section-divider">
 
-        <a
-          className="inPageButton"
-          href={`/wisconsin/Wisconsin-Property-Tax-Final.pdf`}
-          download={`Wisconsin-Policy-Brief.pdf`}
+        <div className="button-title"
         >
-          Click to download the Wisconsin policy brief
-        </a>
+          <h1 className="page-section-title" style={{ margin: 0 }}>
+            Wisconsin
+          </h1>
+
+          <a
+            className="inPageButton"
+            href="/wisconsin/Wisconsin-Property-Tax-Final.pdf"
+            download="Wisconsin-Policy-Brief.pdf"
+          >
+            Click to download the Wisconsin policy brief
+          </a>
+      </div>
 
         <div>
           <ol className="ref-list">

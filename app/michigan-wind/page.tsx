@@ -58,7 +58,7 @@ export default function MichiganWind() {
           <MIProjectLocationSection projectData={projectData} setProjectData={setProjectData}/>
       </div>
 
-      <div style={{ marginLeft: "3rem", marginTop: "3rem" }}>
+      <div style={{ marginLeft: "3rem", marginTop: "0" }}>
         <MIWindProjectDetailsSection projectData={projectData} setProjectData={setProjectData} />
       </div>
 

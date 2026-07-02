@@ -511,6 +511,14 @@ h2.contact {
   margin-bottom: 1.5rem;
 }
 
+.page-section-title-med {
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: #231f20;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
 .info-callout-box {
   background-color: #e6f4fc;
   border-left: 4px solid #0075bc;
@@ -539,6 +547,13 @@ h2.contact {
   color: #00aa4c;
 }
 
+.button-title {
+  display: flex;
+  align-items: last baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+
 @media (max-width: 640px) {
   .intro-header-block {
     flex-direction: column;
@@ -549,3 +564,4 @@ h2.contact {
     font-size: 2rem;
   }
 }
+

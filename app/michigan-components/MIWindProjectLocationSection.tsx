@@ -27,10 +27,8 @@ export default function MIWindProjectLocationSection({
 
 
   return (
-    <section>
-      <h1>Project Location Information</h1>
-
-      <br />
+    <section style={{ marginBottom: "0" }}>
+      <h1 className="page-section-title">Project Location Information</h1>
 
         <LocationSelector
             stateName="MICHIGAN"
@@ -40,8 +38,6 @@ export default function MIWindProjectLocationSection({
 
       {projectData && (
         <>
-          <br />
-
         </>
       )}
     </section>

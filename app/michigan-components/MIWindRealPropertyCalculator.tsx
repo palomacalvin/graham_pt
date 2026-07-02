@@ -16,9 +16,7 @@ export default function MIWindRealPropertyCalculator ({
 
     return (
         <section>
-            <h1>Real Property Calculation Details</h1>
-
-            <br></br>
+            <h1 className="page-section-title">Real Property Calculation Details</h1>
 
             <label>
                 Did the real property change ownership as a result of the solar project?
@@ -56,5 +54,4 @@ export default function MIWindRealPropertyCalculator ({
             <br></br>
         </section>
     )
-    
 }

@@ -316,11 +316,12 @@ export default function MIWindTaxResults( {projectData}: Props) {
 
     return (
         <section>
-            <h1>Michigan Wind Tax Results</h1>
-
             <br></br>
+                <h1 className="page-section-title">Michigan Wind Project Tax Results</h1>
 
-            <h2 style={{ margin: "0rem" }}>Non-PILT Year 1 Results</h2>
+            <div className="about-section-divider">
+                <h1 className="page-section-title-med">Non-PILT Year 1 Results</h1>
+            </div>
 
             <table className="basicTable">
                 <thead>

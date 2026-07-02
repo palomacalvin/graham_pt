@@ -38,7 +38,7 @@ export default function MIWindProjectDetailsSection({
           annual_discount_rate: 0.03,
           auto_calculate_costs: true,
       };
-  
+
       const handleResetDefaults = () => {
         setProjectData(prev => ({
           ...prev,
@@ -46,8 +46,6 @@ export default function MIWindProjectDetailsSection({
         }));
       };
 
-
-      
   const acreage = projectData.project_acreage;
   const acreage_default_value = acreage * 4285.7;
 
@@ -164,8 +162,7 @@ export default function MIWindProjectDetailsSection({
   return (
     <>
     <section>
-      <h1>Project Details</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Details</h1>
 
       <AllFieldsRequired />
 
@@ -182,7 +179,7 @@ export default function MIWindProjectDetailsSection({
       <br></br>
 
       <label>
-        Nameplate capacity of wind project (in megawatts):
+        Nameplate capacity of wind project (in mega-watts):
         <div className="inputWithInfo">
             <input
                 type="number"
@@ -222,7 +219,7 @@ export default function MIWindProjectDetailsSection({
         Original cost of site improvements for <strong>new</strong>{" "}
         wind projects <strong>up to and including the power interface (converters)</strong>, including:
         the rotor, drive train, tower, controls, foundation, and all land 
-        improvements (except buildings) like roads, fences, and communication facilities ($):
+        improvements (except buildings) like roads, fences, and communication facilities:
         <div className="inputWithInfo">
         <input
             type="number"
@@ -233,9 +230,9 @@ export default function MIWindProjectDetailsSection({
                     auto_calculate_costs: false,
                     original_cost_pre_interface: parseFloat(e.target.value),
                 }))
-            }
+            } 
             className="basicInputBox"
-            />
+            /> $
             <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                 <div className="infoBubble">
@@ -252,7 +249,7 @@ export default function MIWindProjectDetailsSection({
       <label>
             Original cost of site improvements for <strong>new</strong> wind projects
             {" "}<strong>after the interface</strong>, including: cables, substations, and other transmission
-            and distribution infrastructure created by the wind project ($):
+            and distribution infrastructure created by the wind project:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -265,7 +262,7 @@ export default function MIWindProjectDetailsSection({
                         }))
                     }
                     className="basicInputBox"
-                />
+                /> $
 
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -313,7 +310,7 @@ export default function MIWindProjectDetailsSection({
 
 
         <label>
-            Average annual inflation rate (%):
+            Average annual inflation rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -326,7 +323,7 @@ export default function MIWindProjectDetailsSection({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
                 
 
                 <div className="infoWrapper">
@@ -344,7 +341,7 @@ export default function MIWindProjectDetailsSection({
         </label>
 
         <label>
-            Annual discount rate (%):
+            Annual discount rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -357,7 +354,7 @@ export default function MIWindProjectDetailsSection({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
@@ -372,10 +369,8 @@ export default function MIWindProjectDetailsSection({
               </label>
 
       <br></br>
-      <h1>Acreage and Turbines</h1>
-
-      <br></br>
-
+      <h1 className="page-section-title">Acreage and Turbines</h1>
+      
       <label>
         Number of 1.5 MW wind turbine towers in service:
         <input
@@ -515,43 +510,41 @@ export default function MIWindProjectDetailsSection({
 
     </section>
 
-    <section style={{ marginTop: "3rem" }}>
-            <h1>Real Property Calculation Details</h1>
+    <section>
+      <h1 className="page-section-title">Real Property Calculation Details</h1>
 
-            <br></br>
-
-            <label>
-                Did the real property change ownership as a result of the solar project?
-                <div className="inputWithInfo">
-                    <div>
-                        <select
-                            value={projectData.real_property_ownership_change}
-                            onChange={(e) => {
-                                setProjectData((prev) => ({
-                                    ...prev,
-                                    real_property_ownership_change: e.target.value,
-                                    }))
-                                }}
-                                className="basicDropdown"
-                            >
-                            <option value="">-- Choose Option --</option>
-                            <option value={"yes"}>
-                                Yes
-                            </option>
-                            <option value={"no"}>
-                                No
-                            </option>
-                        </select>
-                    </div>
-                    
-                    <div className="infoWrapper">
-                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                        <div className="infoBubble">
-                            In most cases, but not always, the answer to this question will be "No" because the land under wind projects is typically leased.
-                        </div>
+        <label>
+            Did the real property change ownership as a result of the solar project?
+            <div className="inputWithInfo">
+                <div>
+                    <select
+                        value={projectData.real_property_ownership_change}
+                        onChange={(e) => {
+                            setProjectData((prev) => ({
+                                ...prev,
+                                real_property_ownership_change: e.target.value,
+                                }))
+                            }}
+                            className="basicDropdown"
+                        >
+                        <option value="">-- Choose Option --</option>
+                        <option value={"yes"}>
+                            Yes
+                        </option>
+                        <option value={"no"}>
+                            No
+                        </option>
+                    </select>
+                </div>
+                
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        In most cases, but not always, the answer to this question will be "No" because the land under wind projects is typically leased.
                     </div>
                 </div>
-            </label>
+            </div>
+        </label>
 
             <label>
                 <div className="inputWithInfo">
