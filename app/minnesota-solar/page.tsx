@@ -194,15 +194,13 @@ export default function ProjectForm() {
     <div>
       <Navbar />
 
-        <div style={{ margin: "3rem" }}>
-
-          <h1>Minnesota Solar Renewable Energy Tax Impacts Calculator</h1>
-
+        <div style={{ marginLeft: "1.5rem", marginTop: "2rem" }}>
+          <h1 className="page-main-title">Minnesota Solar Renewable Energy Tax Impacts Calculator</h1>
         </div>
         
         <Instructions state="Minnesota" />
 
-      <div style={{ margin: "3rem" }}>
+      <div style={{ margin: "3rem", marginTop: "0" }}>
       <form onSubmit={handleSubmit}>
         {/* Project Location Section */}
         <MNSolarProjectLocationSection

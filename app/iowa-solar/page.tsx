@@ -110,16 +110,14 @@ export default function ProjectForm() {
     <div>
       <Navbar />
 
-      <div className="spaced">
-
-          <h1>Iowa Solar Renewable Energy Tax Impacts Calculator</h1>
-
+      <div style={{marginLeft: "1.5rem", marginTop: "2rem"}}>
+          <h1 className="page-main-title">Iowa Solar Renewable Energy Tax Impacts Calculator</h1>
       </div>
 
       <Instructions state="Iowa" />
 
 
-      <div className="spaced">
+      <div className="spaced" style={{marginTop: "0"}}>
         <form>
           <IASolarUserSelections
             projectData={projectData}

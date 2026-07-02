@@ -260,7 +260,7 @@ label {
 }
 
 .required {
-  color: red;
+  color: #d61b15;
   font-style: italic;
   font-size: 0.85rem;
   padding-left: 0.5rem;

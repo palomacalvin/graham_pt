@@ -7,6 +7,8 @@ import { MIMultiplicationFactors } from "@/types/MIMultiplicationFactors";
 import { calculateGrossTotal, calculateMichiganTaxResults as calculateNonPILT } from "@/utils/MINonPILTWindCalculations";
 import { calculateMichiganTaxResults as calculateRealPropertyTaxes } from "@/utils/MIRealPropertyWindCalculations";
 import { calculateMichiganTaxResults as calculateUPPRevenue } from "@/utils/MIUPPWindCalculations";
+import ProjectLifeBreakdown from "@/components/Breakdown";
+import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 
 
 interface Props {
@@ -480,28 +482,7 @@ export default function MIWindTaxResults( {projectData}: Props) {
 
             <br></br>
 
-
-            <br></br>
-            <br></br>
-
-            <h1>Breakdown Over the Life of the Project</h1>
-            <br></br>
-
-            <p>
-                Click on the buttons below to view or hide gross and net present values for each 
-                jurisdiction over the life of the project. 
-            </p>
-            <br></br>
-
-            <p>
-                The gross value represents the total dollar value of tax revenue over the life of the project. Underlying property values are adjusted for inflation on an annual basis. 
-            </p>
-            <br></br>
-            
-            <p>
-                The net present value adjusts this dollar value using the discount factor to represent what the future money is expected to be worth today (accounting for inflation and risk).
-            </p>
-            <br></br>
+            <ProjectLifeBreakdown />
 
             <br></br>
 
@@ -683,19 +664,13 @@ export default function MIWindTaxResults( {projectData}: Props) {
 
                             </tbody>
                     </table>
-
                 </section>
             )}
 
 
             <br></br>
             <section>
-                <h1>Community Benefits</h1>
-                <br></br>
-
-                <p>Below is an estimate of real-world community benefits from your planned renewable project
-                    over the course of its lifespan.
-                </p>
+                <CommunityBenefitsHeader />
                 <br></br>
 
                 <table className="basicTable">

@@ -460,8 +460,9 @@ export default function ILUserSelections({
         <section>
             <h1>Manual Taxing District Rates</h1>
     
+            <br></br>
 
-            <div className="altBasicBox">
+            <div className="info-callout-box">
                 <p>
                     Illinois does not publish statewide data on local tax rates.
                     Check county website or contact local jurisdictions for all applicable rates.

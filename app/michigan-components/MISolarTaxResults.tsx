@@ -8,6 +8,8 @@ import { calculateGrossTotal, calculateMichiganTaxResults as calculateNonPILT } 
 import { calculateMichiganTaxResults as calculatePILT } from "@/utils/MIPILTSolarCalculations";
 import { calculateMichiganTaxResults as calculateRealPropertyTaxes } from "@/utils/MIRealPropertySolarCalculations";
 import { calculateMichiganTaxResults as calculateUPPRevenue } from "@/utils/MIUPPSolarCalculations";
+import ProjectLifeBreakdown from "@/components/Breakdown";
+import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 
 
 interface Props {
@@ -741,30 +743,9 @@ export default function MISolarTaxResults( {projectData}: Props) {
             </table>
 
             <br></br>
-            <br></br>
-
-            <h1>Breakdown Over the Life of the Project</h1>
-            <br></br>
-
-            <p>
-                Click on the buttons below to view gross and net present values for each 
-                jurisdiction over the life of the project. 
-            </p>
-            <br></br>
-
-            <p>
-                The gross value represents the total dollar value of tax revenue over the 
-                life of the project. Underlying property values are adjusted for inflation on an annual basis. 
-            </p>
-
-            <br></br>
             
-            <p>
-                The net present value adjusts this dollar value using the discount factor to represent what the future money 
-                is expected to be worth today (accounting for inflation and risk).
-            </p>
-            <br></br>
-
+            <ProjectLifeBreakdown />
+            
             <br></br>
 
             <div className="buttonContainer">
@@ -1126,14 +1107,9 @@ export default function MISolarTaxResults( {projectData}: Props) {
             )}
 
 
-            <br></br>
             <section>
-                <h1>Community Benefits</h1>
-                <br></br>
+                <CommunityBenefitsHeader />
 
-                <p>Below is an estimate of real-world community benefits from your planned renewable project
-                    over the course of its lifespan.
-                </p>
                 <br></br>
 
                 <table className="basicTable">
@@ -1180,9 +1156,8 @@ export default function MISolarTaxResults( {projectData}: Props) {
                 </table>
             </section>
 
-
         </section>
-        
+
     );
 
 }

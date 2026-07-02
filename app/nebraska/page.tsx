@@ -12,11 +12,13 @@ export default function NEHome() {
   };
 
   return (
-    <div>
+    <div className="home-page-wrapper">
       <Navbar />
-      <div className="">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <header>Nebraska</header>
+
+      <main className="landing-container">
+        <div className="intro-header-block" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          
+          <h1 className="page-main-title">Nebraska</h1>
             <img
               src="/photos-logos/EPCstacked.png"
               alt="EPC Logo"
@@ -31,21 +33,21 @@ export default function NEHome() {
           >
             Wind and Solar Calculators
           </button>
-
         </div>
 
-          <h2>
-          Local governments, school districts, and other local taxing units (like natural resource districts and fire districts)
-          in Nebraska receive revenues from wind and solar facilities through two categories: 
-          </h2>
+        <div className="landing-body-text">
+          <p>
+            Local governments, school districts, and other local taxing units (like natural resource districts and fire districts)
+            in Nebraska receive revenues from wind and solar facilities through two categories: 
+          </p>
 
-          <h2>
+          <p>
             <strong>Nameplate capacity taxes</strong>: These taxes are calculated by multiplying a facility’s rated power generation capacity (i.e.,
             its nameplate capacity), measured in megawatts (MW), times $3,518. This is distributed to all units in
             the tax district, based on their proportional share of the tax rate.
-          </h2>
+          </p>
 
-          <h2>
+          <p>
             <strong>Real property taxes</strong>: Wind and solar projects continue to pay property taxes on the underlying land,
             called real property.2 For renewable energy facilities, real property also includes foundations, access roads,
             fences, and the value of leases with landowners.3 In Nebraska, all real property is taxed according to the
@@ -54,17 +56,30 @@ export default function NEHome() {
             as agricultural land, there would be no change to the real property taxes paid when a renewable energy
             project is built. If the land is reclassified as commercial property, there would be a small increase in real
             property taxes paid, because agricultural land is valued for tax purposes at 75% of its market value. 
-          </h2>
+          </p>
 
-          <h2>
+          <p>
             Click on the button above to understand the tax impacts for wind and solar projects. Note that all values are
             estimates.
-          </h2>
+          </p>
 
-          <div className="basicTextBlock">
-            Have questions? Visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="/nebraska/Nebraska-Property-Tax-Final-2025.pdf" download="Nebraska-Policy-Brief.pdf"> download the policy brief</a> for more information.
+          </div>
+
+          <div className="about-section-divider">
+          <div className="info-callout-box">
+            Have questions? Visit the{" "}
+            <a className="accent-link" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener noreferrer">
+              landing page
+            </a>{" "}
+            or{" "}
+            <a className="accent-link" href="/nebraska/Nebraska-Property-Tax-Final.pdf" download="Nebraska-Policy-Brief.pdf">
+              download the policy brief
+            </a>{" "}
+            for more information.
           </div>
         </div>
+        
+        </main>
 
         <Footer></Footer>
     </div>

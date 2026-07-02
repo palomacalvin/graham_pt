@@ -47,15 +47,13 @@ export default function MichiganWind() {
     <div>
       <Navbar />
 
-      <div style={{ margin: "3rem" }}>
-
-        <h1>Michigan Wind Renewable Energy Tax Impacts Calculator</h1>
-
+      <div style={{ marginLeft: "1.5rem", marginTop: "2rem" }}>
+        <h1 className="page-main-title">Michigan Wind Renewable Energy Tax Impacts Calculator</h1>
       </div>
 
       <Instructions state="Michigan" />
 
-      <div style={{ margin: "3rem" }}>
+      <div style={{ margin: "3rem", marginTop: "0" }}>
           {/* Project Location Section */}
           <MIProjectLocationSection projectData={projectData} setProjectData={setProjectData}/>
       </div>

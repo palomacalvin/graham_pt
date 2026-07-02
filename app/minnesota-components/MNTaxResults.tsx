@@ -1,5 +1,7 @@
 // TaxResults.tsx
 import React from "react";
+import ProjectLifeBreakdown from "@/components/Breakdown";
+import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 
 interface Props {
   totalProductionRevenue: number;
@@ -322,21 +324,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
     <br></br>
 
-    <h1>Breakdown Over the Life of the Project</h1>
-
-    <br></br>
-
-    <p>
-      The gross value represents the total dollar value of tax revenue over the life of the project.  
-      Underlying property values are adjusted for inflation on an annual basis.
-    </p>
-
-    <br></br>
-
-    <p>
-      The net present value discounts this dollar value to represent what the value of this 
-      future money is worth today (accounting for inflation and risk).
-    </p>
+    <ProjectLifeBreakdown />
 
     <br></br>
 
@@ -440,16 +428,8 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
     </section>
 
-        <br></br>
-        <br></br>
+        <CommunityBenefitsHeader />
 
-        <h1>Community Benefits Table</h1>
-        <br></br>
-
-        <p>
-          Below is an estimate of real-world community benefits from your 
-          planned renewable project over the course of its lifespan.
-        </p>
         <br></br>
 
         <table className="basicTable">

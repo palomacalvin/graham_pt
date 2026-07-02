@@ -2,6 +2,8 @@
 import React from "react";
 import { ProjectData } from "@/types/IAWindProject";
 import { generateWindTaxResults } from "@/utils/IACalculations";
+import ProjectLifeBreakdown from "@/components/Breakdown";
+import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 
 interface IAWindTaxResultsProps {
   projectData: ProjectData;
@@ -45,15 +47,6 @@ export default function IAWindTaxResults({
     dbCountyTaxData,
     dbCityData
   });
-
-  // // ----------- TEMP ------------- //
-  // console.log("CALC RESULTS CAPTURED:", calcResults);
-  // return (
-  //   <div style={{ padding: '20px', background: '#000', color: '#0f0' }}>
-  //     <h1>Check Console (F12)</h1>
-  //     <pre>{JSON.stringify(calcResults.totals, null, 2)}</pre>
-  //   </div>
-  // );
 
   const { millageRows } = calcResults;
 
@@ -233,22 +226,8 @@ export default function IAWindTaxResults({
       </div>
 
         <br></br>
-        <br></br>
 
-        <h1>Breakdown Over the Life of the Project</h1>
-        <br></br>
-
-        <p>
-          The gross value represents the total dollar value of tax revenue over the life of the project. 
-          Underlying property values are adjusted for inflation on an annual basis.
-        </p>
-
-        <br></br>
-
-        <p>
-          The net present value adjusts this dollar value using the discount factor to represent 
-          what the future money is expected to be worth today (accounting for inflation and risk).
-        </p>
+        <ProjectLifeBreakdown />
 
         <br />
 
@@ -330,16 +309,7 @@ export default function IAWindTaxResults({
         </table>
         </div>
 
-        <br></br>
-        <br></br>
-
-        <h1>Community Benefits Table</h1>
-        <br></br>
-
-        <p>
-          Below is an estimate of real-world community benefits from your 
-          planned renewable project over the course of its lifespan.
-        </p>
+        <CommunityBenefitsHeader />
 
         <br></br>
 

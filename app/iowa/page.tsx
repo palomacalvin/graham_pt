@@ -15,11 +15,12 @@ export default function IAHome() {
   };
 
   return (
-    <div>
+    <div className="home-page-wrapper">
       <Navbar />
-      <div className="">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <header>Iowa</header>
+
+      <main className="landing-container">
+        <div className="intro-header-block" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <h1 className="page-main-title">Iowa</h1>
             <img
               src="/photos-logos/EPCstacked.png"
               alt="EPC Logo"
@@ -41,48 +42,66 @@ export default function IAHome() {
           >
             Solar
           </button>
+        </div>
 
-          </div>
+        <div className="landing-body-text">
 
-          <h2>
-          In Iowa, when large-scale solar projects are constructed, the farmland is no longer taxed as agricultural
-          property. Instead, the solar projects continue to pay taxes to counties, townships, schools, and other local units,
-          but through a different framework. When large-scale wind projects are constructed, in contrast, traditional
-          real property taxes are still paid on the farmland, but the wind project itself is taxed according to a special
-          valuation system.
-          </h2>
+          <p>
+            In Iowa, when large-scale solar projects are constructed, the farmland is no longer taxed as agricultural
+            property. Instead, the solar projects continue to pay taxes to counties, townships, schools, and other local units,
+            but through a different framework. When large-scale wind projects are constructed, in contrast, traditional
+            real property taxes are still paid on the farmland, but the wind project itself is taxed according to a special
+            valuation system.
+          </p>
 
-          <h2>
             <ul>
               <li>
-                <strong>Solar projects</strong> are treated as utility-scale energy producers, which pay a Replacement Tax rather than traditional property
-                taxes. This is an annual fee based on a project’s electricity generation, transmission assets, and electricity delivered to
-                end-users in any given year. The replacement tax is distributed to local government units in the same proportions as
-                property taxes.
+                <p>
+                  <strong>Solar projects</strong> are treated as utility-scale energy producers, which pay a Replacement Tax rather than traditional property
+                  taxes. This is an annual fee based on a project’s electricity generation, transmission assets, and electricity delivered to
+                  end-users in any given year. The replacement tax is distributed to local government units in the same proportions as
+                  property taxes.
+                </p>
                </li>
-               <li>
-                <strong>Wind projects</strong> are typically taxed under a special valuation system, which assesses the project based on a percentage of
+               
+              <li>
+                <p>
+                  <strong>Wind projects</strong> are typically taxed under a special valuation system, which assesses the project based on a percentage of
                   its net acquisition cost (total cost to acquire and install turbines, including foundations and equipment, minus adjustments).
                   This system uses a set percentage schedule, with 0% of net acquisition cost being taxable in Year 1 and an additional 5%
                   added each year until Year 7, when the percentage is capped at 30%. This taxable value is then multiplied by local tax rates
                   to determine the wind project’s tax bill. Wind projects are also often set up as Tax Increment Financing (TIF) projects, in
                   which the county directs the increased tax revenue from the projects to a special fund for public redevelopment projects.
-               </li>
+                </p>
+              </li>
             </ul>
-          </h2>
 
-          <h2>
-          Click on the buttons above to understand the tax impacts for wind and solar projects. Note that all values are
-          estimates.
-
-          </h2>
-
-          <div className="basicTextBlock">
-            Have questions? Click to visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="/iowa/Iowa-Property-Tax-Final-2025.pdf" download="Iowa-Policy-Brief.pdf"> download the policy brief</a> for more information.
-          </div>
+          <p>
+            Click on the buttons above to understand the tax impacts for wind and solar projects. Note that all values are
+            estimates.
+          </p>
         </div>
 
+          <div className="about-section-divider">
+            <div className="info-callout-box">
+              Have questions? Visit the{" "}
+              <a className="accent-link" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener noreferrer">
+                landing page
+              </a>{" "}
+              or{" "}
+              <a className="accent-link" href="/iowa/Iowa-Property-Tax-Final.pdf" download="Iowa-Policy-Brief.pdf">
+                download the policy brief
+              </a>{" "}
+              for more information.
+            </div>
+          </div>
+
+        </main>
+
         <Footer></Footer>
+
+
     </div>
   );
 }
+

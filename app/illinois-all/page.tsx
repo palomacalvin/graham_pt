@@ -181,16 +181,14 @@ export default function ProjectForm() {
     <div>
       <Navbar />
 
-      <div className="spaced">
-
-          <h1>Illinois Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
-
+      <div style={{marginLeft: "1.5rem", marginTop: "2rem"}}>
+        <h1 className="page-main-title">Illinois Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
       </div>
 
       <Instructions state="Illinois" />
 
 
-      <div className="spaced">
+      <div className="spaced" style={{marginTop: "0"}}>
         <form>
           <ILUserSelections
             projectData={projectData}
@@ -199,6 +197,11 @@ export default function ProjectForm() {
             taxUnits={taxUnits}
             setTaxUnits={setTaxUnits}
           /> 
+
+          {/* 
+            Uncomment the depreciation schedule code to show the depreciation schedule table,
+            for testing/validation only.
+          */}
 
           {/* <div style={{ margin: "3rem" }}>
           <h2>Depreciation Schedule</h2>

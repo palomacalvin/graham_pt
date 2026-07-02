@@ -74,16 +74,13 @@ export default function ProjectForm() {
     <div>
       <Navbar />
 
-      <div className="spaced">
-
-          <h1>Nebraska Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
-
+      <div style={{ marginLeft: "1.5rem", marginTop: "2rem" }}>
+          <h1 className="page-main-title">Nebraska Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
       </div>
 
       <Instructions state="Ohio" />
 
-
-      <div className="spaced">
+      <div className="spaced" style={{ marginTop: "0" }}>
         <form>
           <NEUserSelections
             projectData={projectData}

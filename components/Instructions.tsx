@@ -4,11 +4,14 @@ import Link from "next/link";
 
 export default function Instructions ( {state}: { state: string } ) {
 
-    const fileName = `${state}-Property-Tax-Final-2025.pdf`
+    const fileName = `${state}-Property-Tax-Final.pdf`
 
     return (
+        <main className="landing-container">
 
-        <div className="basicBox">
+        <div className="landing-body-text">
+
+        <div className="info-callout-box" style={{marginBottom: "0"}}>
             <p>
                 Fill in the fields below with values relevant to your project. Default values
                 are available for each county, city/township, and school district; these values
@@ -37,5 +40,10 @@ export default function Instructions ( {state}: { state: string } ) {
             </a>
             
         </div>
+
+        </div>
+
+        </main>
+
     )
 }

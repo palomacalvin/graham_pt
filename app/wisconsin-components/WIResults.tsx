@@ -2,7 +2,8 @@
 "use client";
 import React from "react";
 import type { ProjectData } from "@/types/WIProject";
-
+import ProjectLifeBreakdown from "@/components/Breakdown";
+import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 
 interface Props {
     projectData?: ProjectData;
@@ -378,20 +379,7 @@ export default function WIResults({ projectData }: Props) {
 
     <br></br>
 
-    <h1>Breakdown Over the Life of the Project</h1>
-    <br></br>
-
-    <p>
-      The gross value represents the total dollar value of tax revenue over the life of the project. 
-      Underlying property values are adjusted for inflation on an annual basis.
-    </p>
-
-    <br></br>
-
-    <p>
-      The net present value adjusts this dollar value using the discount factor to represent 
-      what the future money is expected to be worth today (accounting for inflation and risk).
-    </p>
+    <ProjectLifeBreakdown />
 
     <br />
 
@@ -555,17 +543,7 @@ export default function WIResults({ projectData }: Props) {
         </table>
       </section>
 
-      <br />
-
-      <h1>Community Benefits Table</h1>
-        <br></br>
-
-        <p>
-          Below is an estimate of real-world community benefits from your 
-          planned renewable project over the course of its lifespan.
-        </p>
-
-        <br></br>
+      <CommunityBenefitsHeader />
 
         <table className="basicTable">
           <thead>

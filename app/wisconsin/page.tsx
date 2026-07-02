@@ -12,11 +12,14 @@ export default function WIHome() {
   };
 
   return (
-    <div>
+    <div className="home-page-wrapper">
       <Navbar />
-      <div className="">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <header>Wisconsin</header>
+
+      <main className="landing-container">
+
+        <div className="intro-header-block" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          
+          <h1 className="page-main-title">Wisconsin</h1>
             <img
               src="/photos-logos/EPCstacked.png"
               alt="EPC Logo"
@@ -31,50 +34,67 @@ export default function WIHome() {
           >
             Wind and Solar Calculators
           </button>
+        </div>
 
-          </div>
+        <div className="landing-body-text">
+          <p>
+            In Wisconsin, large-scale wind and solar projects are exempt from local property taxes. Instead, projects pay
+            taxes and fees to the Department of Revenue. The state then reimburses local governments via utility aid
+            payments. Utility aid payments are split between the municipalities and counties hosting the project. The
+            amount paid to each local unit is based on the type and size of the energy facility, and whether the project is
+            located in a township or city/village. 
+          </p>
 
-          <h2>
-          In Wisconsin, large-scale wind and solar projects are exempt from local property taxes. Instead, projects pay
-          taxes and fees to the Department of Revenue. The state then reimburses local governments via utility aid
-          payments. Utility aid payments are split between the municipalities and counties hosting the project. The
-          amount paid to each local unit is based on the type and size of the energy facility, and whether the project is
-          located in a township or city/village. 
-          </h2>
+          <p>
+            When farmland is converted, counties and municipalities gain substantial tax revenue from utility aid payments
+            and a one-time conversion fee. While schools and other units lose a small amount of revenue from the elimination
+            of agricultural property taxes, developers may agree to reimburse units for the loss.
+          </p>
 
-          <h2>
-          When farmland is converted, counties and municipalities gain substantial tax revenue from utility aid payments
-          and a one-time conversion fee. While schools and other units lose a small amount of revenue from the elimination
-          of agricultural property taxes, developers may agree to reimburse units for the loss.
-          </h2>
-
-          <h2>
-            <ul>
-              <li>
+          <ul>
+            <li>
+              <p>
                 <strong>Annual utility aid payments:</strong>Utility aid payments typically total $5,000/per megawatt (MW) of project
                 capacity per year, split between counties and municipalities in proportions dictated by state law.
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
                 <strong>One-time conversion fee (Year 1):</strong> Counties charge a fee for converting farmland, averaging $283/acre
                 for 30+ acres, though fees vary widely based on agricultural land value.
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
                 <strong>Loss of farmland property taxes:</strong> Farm property taxes, based on current land use, no longer apply. Since
                 schools and some local units do not receive utility aid or conversion payments, they may lose a small
-                amount of annual revenue. 
-              </li>
-            </ul>
-          </h2>
+                amount of annual revenue.
+              </p>
+            </li>
+          </ul>
 
-          <h2>
+          <p>
             Click on the button above to understand the tax impacts for wind and solar projects. Note that all values are
             estimates.
-          </h2>
+          </p>
 
-          <div className="basicTextBlock">
-            Have questions? Visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="/wisconsin/Wisconsin-Property-Tax-Final-2025.pdf" download="Wisconsin-Policy-Brief.pdf"> download the policy brief</a> for more information.
+          </div>
+
+          <div className="about-section-divider">
+          <div className="info-callout-box">
+            Have questions? Visit the{" "}
+            <a className="accent-link" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener noreferrer">
+              landing page
+            </a>{" "}
+            or{" "}
+            <a className="accent-link" href="/wisconsin/Wisconsin-Property-Tax-Final.pdf" download="Wisconsin-Policy-Brief.pdf">
+              download the policy brief
+            </a>{" "}
+            for more information.
           </div>
         </div>
+
+        </main>
 
         <Footer></Footer>
     </div>

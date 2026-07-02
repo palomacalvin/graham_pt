@@ -5,7 +5,6 @@ import { ProjectData } from "@/types/WIProject";
 import Link from "next/link";
 
 import WIUserSelections from "@/app/wisconsin-components/WIUserSelections";
-import { County } from "@/components/WILocationSelector";
 import WIResults from "@/app/wisconsin-components/WIResults";
 import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
@@ -13,7 +12,6 @@ import { useEffect } from "react";
 export default function ProjectForm() {
 
   const [showResults, setShowResults] = useState(false);
-
 
   const [projectData, setProjectData] = useState<ProjectData>({
     county_name: "",
@@ -103,16 +101,14 @@ export default function ProjectForm() {
     <div>
       <Navbar />
 
-      <div style={{ margin: "3rem" }}>
-
-          <h1>Wisconsin Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
-
+      <div style={{ marginLeft: "1.5rem", marginTop: "2rem" }}>
+          <h1 className="page-main-title">Wisconsin Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
       </div>
 
       <Instructions state="Wisconsin" />
 
 
-      <div style={{ margin: "3rem" }}>
+      <div style={{ margin: "3rem", marginTop: "0" }}>
         <form onSubmit={handleSubmit}>
           {/* Project Selections / User Inputs */}
           <WIUserSelections

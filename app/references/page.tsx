@@ -46,7 +46,7 @@ export default function ReferencesPage() {
 
         <a
           className="inPageButton"
-          href={`/illinois/Illinois-Property-Tax-Final-2025.pdf`}
+          href={`/illinois/Illinois-Property-Tax-Final.pdf`}
           download={`Illinois-Policy-Brief.pdf`}
         >
           Click to download the Illinois policy brief
@@ -150,7 +150,7 @@ export default function ReferencesPage() {
               https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergytrendingfactors.pdf</a>.
             </li>
           </ol>
-        </div>
+          </div>
       </section>
 
       <br></br>
@@ -162,7 +162,7 @@ export default function ReferencesPage() {
 
         <a
           className="inPageButton"
-          href={`/indiana/Indiana-Property-Tax-Final-2025.pdf`}
+          href={`/indiana/Indiana-Property-Tax-Final.pdf`}
           download={`Indiana-Policy-Brief.pdf`}
         >
           Click to download the Indiana policy brief
@@ -182,7 +182,7 @@ export default function ReferencesPage() {
 
       <a
         className="inPageButton"
-        href={`/iowa/Iowa-Property-Tax-Final-2025.pdf`}
+        href={`/iowa/Iowa-Property-Tax-Final.pdf`}
         download={`Iowa-Policy-Brief.pdf`}
       >
         Click to download the Iowa policy brief
@@ -493,7 +493,7 @@ export default function ReferencesPage() {
 
         <a
           className="inPageButton"
-          href={`/michigan/Michigan-Property-Tax-Final-2025.pdf`}
+          href={`/michigan/Michigan-Property-Tax-Final.pdf`}
           download={`Michigan-Policy-Brief.pdf`}
         >
           Click to download the Michigan policy brief
@@ -767,7 +767,7 @@ export default function ReferencesPage() {
 
         <a
           className="inPageButton"
-          href={`/minnesota/Minnesota-Property-Tax-Final-2025.pdf`}
+          href={`/minnesota/Minnesota-Property-Tax-Final.pdf`}
           download={`Minnesota-Policy-Brief.pdf`}
         >
           Click to download the Minnesota policy brief
@@ -932,7 +932,7 @@ export default function ReferencesPage() {
 
       <a
         className="inPageButton"
-        href={`/nebraska/Nebraska-Property-Tax-Final-2025.pdf`}
+        href={`/nebraska/Nebraska-Property-Tax-Final.pdf`}
         download={`Nebraska-Policy-Brief.pdf`}
       >
         Click to download the Nebraska policy brief
@@ -1294,7 +1294,7 @@ export default function ReferencesPage() {
   
       <a
         className="inPageButton"
-        href={`/ohio/Ohio-Property-Tax-Final-2025.pdf`}
+        href={`/ohio/Ohio-Property-Tax-Final.pdf`}
         download={`Ohio-Policy-Brief.pdf`}
       >
         Click to download the Ohio policy brief
@@ -1519,7 +1519,7 @@ export default function ReferencesPage() {
 
         <a
           className="inPageButton"
-          href={`/wisconsin/Wisconsin-Property-Tax-Final-2025.pdf`}
+          href={`/wisconsin/Wisconsin-Property-Tax-Final.pdf`}
           download={`Wisconsin-Policy-Brief.pdf`}
         >
           Click to download the Wisconsin policy brief

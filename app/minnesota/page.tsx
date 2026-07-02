@@ -15,11 +15,13 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="home-page-wrapper">
       <Navbar />
-      <div className="">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <header>Minnesota</header>
+
+      <main className="landing-container">
+
+        <div className="intro-header-block" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <h1 className="page-main-title">Minnesota</h1>
             <img
               src="/photos-logos/EPCstacked.png"
               alt="EPC Logo"
@@ -41,41 +43,60 @@ export default function Home() {
           >
             Solar
           </button>
+        </div>
 
-          </div>
+        <div className="landing-body-text">
 
-          <h2>
-          In Minnesota, wind and solar projects pay property taxes based on both land value and energy production.
-          Land is classified according to its primary use—typically agriculture or energy production—and taxed at
-          local rates accordingly. In addition, projects pay a production tax per megawatt-hour (MWh) of electricity
-          generated annually.
-          </h2>
+          <p>
+            In Minnesota, wind and solar projects pay property taxes based on both land value and energy production.
+            Land is classified according to its primary use—typically agriculture or energy production—and taxed at
+            local rates accordingly. In addition, projects pay a production tax per megawatt-hour (MWh) of electricity
+            generated annually.
+          </p>
 
-          <h2>
-          Click on the buttons above to understand the tax impacts for wind and solar projects. Note that all values are
-          estimates.
+          <p>
+            Click on the buttons above to understand the tax impacts for wind and solar projects. Note that all values are
+            estimates.
+          </p>
 
-          </h2>
-
-          <div className="basicTextBlock">
-            <h1> Taxes on Wind and Solar Projects</h1>
+          <div className="about-section-divider">
+            <h1 className="page-section-title">Taxes on Wind and Solar Projects</h1>
               <ul style={{marginTop: "1rem" }}>
-                  <li>Land tax: Wind and solar projects continue to pay property taxes on the land they occupy, though
-                  sometimes the classification of the land changes. Land directly under solar panels is usually considered
-                  as commercial and taxed at a higher rate than agricultural land. In contrast, land around wind turbines
-                  typically retains its agricultural classification and lower tax rate.</li>
+                  <li>
+                    <p>Land tax: Wind and solar projects continue to pay property taxes on the land they occupy, though
+                    sometimes the classification of the land changes. Land directly under solar panels is usually considered
+                    as commercial and taxed at a higher rate than agricultural land. In contrast, land around wind turbines
+                    typically retains its agricultural classification and lower tax rate.
+                    </p>
+                  </li>
                   
-                  <li>Production tax: Instead of paying personal property taxes on equipment, projects pay $1.20 per MWh
-                  of electricity produced each year. Annual production varies depending on factors such as local conditions
-                  (e.g., wind or sunlight levels), energy demand (e.g., grid power needs), and specific project requirements
-                  (e.g., maintenance, adverse conditions, compliance).</li>
+                  <li>
+                    <p>
+                      Production tax: Instead of paying personal property taxes on equipment, projects pay $1.20 per MWh
+                      of electricity produced each year. Annual production varies depending on factors such as local conditions
+                      (e.g., wind or sunlight levels), energy demand (e.g., grid power needs), and specific project requirements
+                      (e.g., maintenance, adverse conditions, compliance).
+                    </p>
+                  </li>
               </ul>
           </div>
+        </div>
 
-          <div className="basicTextBlock">
-            Have questions? Click to visit the <a className="basicLinkText" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener norefferer">landing page</a> or <a className="basicLinkText" href="/minnesota/Minnesota-Property-Tax-Final-2025.pdf" download="Minnesota-Policy-Brief.pdf"> download the policy brief</a> for more information.
+          <div className="about-section-divider">
+          <div className="info-callout-box">
+            Have questions? Visit the{" "}
+            <a className="accent-link" href="https://graham.umich.edu/project/renewable-energy-tax-impacts" target="_blank" rel="noopener noreferrer">
+              landing page
+            </a>{" "}
+            or{" "}
+            <a className="accent-link" href="/minnesota/Minnesota-Property-Tax-Final.pdf" download="Minnesota-Policy-Brief.pdf">
+              download the policy brief
+            </a>{" "}
+            for more information.
           </div>
         </div>
+        
+        </main>
 
         <Footer></Footer>
     </div>

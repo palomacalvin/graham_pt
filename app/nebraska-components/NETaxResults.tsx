@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { ProjectData } from "@/types/NEProject";
-// import { calculateNERevenue } from "@/utils/NECalculations";
 import { useState, useMemo } from "react";
 import { TaxUnit } from "./NETaxTable";
 import { calculateNEResults } from "@/utils/NECalculations";
+import ProjectLifeBreakdown from "@/components/Breakdown";
+import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 
 interface NETaxResultsProps {
   projectData: ProjectData;
@@ -154,24 +155,10 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
         </>
 
       <br></br>
-      <br></br>
 
-        <h1>Breakdown Over the Life of the Project</h1>
-        <br></br>
+      <ProjectLifeBreakdown />
 
-        <p>
-          The gross value represents the total dollar value of tax revenue over the life of the project. 
-          Underlying property values are adjusted for inflation on an annual basis.
-        </p>
-
-        <br></br>
-
-        <p>
-          The net present value adjusts this dollar value using the discount factor to represent 
-          what the future money is expected to be worth today (accounting for inflation and risk).
-        </p>
-
-        <br />
+      <br />
 
         <h3>Jurisdictional Gross & NPV Totals</h3>
         <table className="basicTable">
@@ -246,16 +233,7 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
         </table>
         </div>
 
-        <br></br>
-        <br></br>
-
-        <h1>Community Benefits Table</h1>
-        <br></br>
-
-        <p>
-          Below is an estimate of real-world community benefits from your 
-          planned renewable project over the course of its lifespan.
-        </p>
+        <CommunityBenefitsHeader />
 
         <br></br>
 
