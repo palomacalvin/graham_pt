@@ -68,8 +68,7 @@ export default function WIUserSelections({
   return (
     <>
     <section>
-      <h1>Project Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Information</h1>
 
       <AllFieldsRequired />
 
@@ -171,20 +170,17 @@ export default function WIUserSelections({
 
                     {userEditedSolarRelation && (
                         <>
-                        <p className="warning">
-                            <img
-                                src="/photos-logos/warning-alert.svg"
-                                alt="Warning sign logo."
-                                className="warningImg"
-                            />
-                            <span>
-                                WARNING: Nameplate capacity and fencline acres no longer linked. Click "Reset Fencline Acres to Match Nameplate Capacity"
-                                to restore the default relationship.
-                            </span>
-                        </p>
-
-                        <br></br>
-                        <br></br>
+                            <div className="warning-alert-box">
+                                <img
+                                    src="/photos-logos/warning-alert.svg"
+                                    alt="Warning sign logo."
+                                    className="warning-alert-icon"
+                                />
+                                <span className="warning-alert-text">
+                                    <strong>WARNING:</strong> Nameplate capacity and fenceline acres are no longer linked.
+                                    Click <em>"Reset Fenceline Acres to Match Nameplate Capacity"</em> below to restore the default relationship.
+                                </span>
+                            </div>
                         </>
                     )}
 
@@ -251,51 +247,53 @@ export default function WIUserSelections({
             </label>
 
             {userEditedAcreage && (
-                <p className="warning">
+                <div className="warning-alert-box">
                     <img
                         src="/photos-logos/warning-alert.svg"
                         alt="Warning sign logo."
-                        className="warningImg"
+                        className="warning-alert-icon"
                     />
-                    <span>
-                        WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
-                        below to restore automatic calculation from turbine totals.
+                    <span className="warning-alert-text">
+                        <strong>WARNING:</strong> Acreage is manually overridden.
+                        Click <em>"Reset Acreage to Match Turbines"</em> below to restore automatic calculation from turbine totals.
                     </span>
-                </p>
+                </div>
             )}
-            <br></br>
 
             <br></br>
-            <button
-                type="button"
-                onClick={() => {
-                    setUserEditedAcreage(false);
-                    setProjectData(prev => ({
-                    ...prev,
-                    land_area: prev.number_of_turbines * 1
-                    }));
-                }}
-                className="inPageButton"
-                >
-                Reset Acreage to Match Number of Turbines
-            </button>
 
-            <button
-                type="button"
-                onClick={() => {
-                    setUserEditedAcreage(false);
-
-                    setProjectData(prev => ({
-                    ...prev,
-                    nameplate_capacity: 100,
-                    number_of_turbines: 50,
-                    land_area: 50, // 1 turbine per acre
-                    }));
-                }}
-                className="inPageButton"
-                >
-                Reset All Inputs
+            <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setUserEditedAcreage(false);
+                        setProjectData(prev => ({
+                        ...prev,
+                        land_area: prev.number_of_turbines * 1
+                        }));
+                    }}
+                    className="inPageButton"
+                    >
+                    Reset Acreage to Match Turbines
                 </button>
+
+                <button
+                    type="button"
+                    onClick={() => {
+                        setUserEditedAcreage(false);
+
+                        setProjectData(prev => ({
+                        ...prev,
+                        nameplate_capacity: 100,
+                        number_of_turbines: 50,
+                        land_area: 50, // 1 turbine per acre
+                        }));
+                    }}
+                    className="inPageButton"
+                    >
+                    Reset All Inputs
+                </button>
+            </div>
 
             </>
             )}
@@ -316,15 +314,14 @@ export default function WIUserSelections({
             </select>
             </label>
 
-            <h1>Inflation Factors</h1>
-            <br></br>
+            <h1 className="page-section-title">Inflation Factors</h1>
 
             <AllFieldsRequired />
 
             <br></br>
 
         <label>
-            Average annual inflation rate (%):
+            Average annual inflation rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -337,7 +334,7 @@ export default function WIUserSelections({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
 
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -355,7 +352,7 @@ export default function WIUserSelections({
         </label>
 
         <label>
-            Annual discount rate (%):
+            Annual discount rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -368,7 +365,7 @@ export default function WIUserSelections({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">

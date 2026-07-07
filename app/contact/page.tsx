@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function ContactPage() {
   return (
@@ -13,7 +14,7 @@ export default function ContactPage() {
           <h1 className="page-main-title">Contact Us</h1>
         </div>
 
-        <div className="landing-body-text">
+        <div className="info-callout-box">
           <p>
             This project is updated and maintained by the Center for EmPowering Communities
             at the Graham Sustainability Institute (University of Michigan).
@@ -77,6 +78,7 @@ export default function ContactPage() {
       </main>
 
       <FooterComp />
+      <Analytics />
     </div>
   );
 }

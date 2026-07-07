@@ -107,11 +107,9 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
   return (
     <div>
       <br></br>
-      <h1>Your Results</h1>
-
-      <br></br>
+      <h1 className="page-section-title">Your Results</h1>
         <>
-          <h3>Year 1 Summary</h3>
+          <h1 className="page-section-title-med">Year 1 Summary</h1>
           <table className="basicTable">
             <thead>
               <tr>
@@ -158,9 +156,7 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
 
       <ProjectLifeBreakdown />
 
-      <br />
-
-        <h3>Jurisdictional Gross & NPV Totals</h3>
+        <h1 className="page-section-title-med">Jurisdictional Gross & NPV Totals</h1>
         <table className="basicTable">
           <thead>
             <tr>
@@ -217,14 +213,14 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
             </tr>
 
             <tr className="rowHighlight">
-              <td>Gross Over the Life of the Project (Total Dollar Value)</td>
+              <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
               <td colSpan={Number(years)}>
                 <strong>{formatCurrency(totalGrossAllUnits)}</strong>
               </td>
             </tr>
 
             <tr className="rowHighlight">
-              <td>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
+              <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
                 <td colSpan={Number(years)}>
                   <strong>{formatCurrency(totalNPVAllUnits)}</strong>
                 </td>

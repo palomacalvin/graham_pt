@@ -10,8 +10,8 @@ import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
 import { TaxUnit } from "../nebraska-components/NETaxTable";
 import { createDefaultTaxUnits } from "../nebraska-components/NEUserSelections";
-
-
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function ProjectForm() {
 
@@ -110,6 +110,10 @@ export default function ProjectForm() {
           </div>
         </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
+
     </div>
   );
 }

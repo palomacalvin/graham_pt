@@ -6,7 +6,7 @@ export default function ProjectLifeBreakdown() {
 
         <h1 className="page-section-title">Breakdown Over the Life of the Project</h1>
     
-        <div className="landing-body-text">
+        <div className="info-callout-box">
             <p>
             The gross value represents the total dollar value of tax revenue over the life of the project. 
             Underlying property values are adjusted for inflation on an annual basis.

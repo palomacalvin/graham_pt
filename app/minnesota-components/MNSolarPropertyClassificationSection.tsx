@@ -11,8 +11,7 @@ interface Props {
 export default function SolarPropertyClassificationSection({ projectData, handleChange }: Props) {
   return (
     <section>
-      <h1>Property Classification Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Property Classification Information</h1>
 
       <AllFieldsRequired />
 

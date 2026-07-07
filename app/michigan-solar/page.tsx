@@ -9,7 +9,8 @@ import MIProjectLocationSection from "@/app/michigan-components/MISolarProjectLo
 import MISolarProjectDetailsSection from "../michigan-components/MISolarProjectDetails";
 import MISolarRealPropertyCalculator from "../michigan-components/MISolarRealPropertyCalculator";
 import MISolarTaxResults from "../michigan-components/MISolarTaxResults";
-
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 import Instructions from "@/components/Instructions";
 
 export default function MichiganSolar() {
@@ -78,7 +79,8 @@ export default function MichiganSolar() {
           </div>
         )}
 
-
+      <FooterComp />
+      <Analytics />
 
     </div>
   );

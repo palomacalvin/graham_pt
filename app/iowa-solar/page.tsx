@@ -10,7 +10,10 @@ import { useEffect } from "react";
 import TaxResults from "../iowa-components/IASolarTaxResults";
 import { strict } from "assert";
 import { generateSolarTaxResults, agLandCalculations } from "@/utils/IACalculations";
+import { Analytics } from "@vercel/analytics/next";
+import FooterComp from "@/components/Footer";
 
+/* For debugging/data validation */
 import { AgCalculationVerificationTable } from "@/components/TempIADisplay";
 
 export default function ProjectForm() {
@@ -146,15 +149,11 @@ export default function ProjectForm() {
             )}
           </div>
 
-          {/* {dbCounties.length > 0 && (
-        <AgCalculationVerificationTable 
-          dbCounties={dbCounties} 
-          projectData={projectData} 
-        />
-              )} */}
-
         </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
     </div>
   );
 }

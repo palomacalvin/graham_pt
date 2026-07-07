@@ -132,12 +132,12 @@ export default function NEUserSelections({
   return (
     <>
     <section>
-      <h1>Project Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Information</h1>
 
       <AllFieldsRequired />
 
       <br></br>
+
       <LocationSelector
         stateName="NEBRASKA"
         onSelectCounty={(county) => {
@@ -216,25 +216,19 @@ export default function NEUserSelections({
 
                         </label>
 
-
-                    <br></br>
-
                     {userEditedSolarRelation && (
                         <>
-                        <p className="warning">
-                            <img
-                                src="/photos-logos/warning-alert.svg"
-                                alt="Warning sign logo."
-                                className="warningImg"
-                            />
-                            <span>
-                                WARNING: Nameplate capacity and fencline acres no longer linked. Click "Reset Fencline Acres to Match Nameplate Capacity"
-                                to restore the default relationship.
-                            </span>
-                        </p>
-
-                        <br></br>
-                        <br></br>
+                            <div className="warning-alert-box">
+                                <img
+                                    src="/photos-logos/warning-alert.svg"
+                                    alt="Warning sign logo."
+                                    className="warning-alert-icon"
+                                />
+                                <span className="warning-alert-text">
+                                    <strong>WARNING:</strong> Nameplate capacity and fenceline acres are no longer linked.
+                                    Click <em>"Reset Fenceline Acres to Match Nameplate Capacity"</em> below to restore the default relationship.
+                                </span>
+                            </div>
                         </>
                     )}
 
@@ -301,64 +295,63 @@ export default function NEUserSelections({
             </label>
 
             {userEditedAcreage && (
-                <p className="warning">
+                <div className="warning-alert-box">
                     <img
                         src="/photos-logos/warning-alert.svg"
                         alt="Warning sign logo."
-                        className="warningImg"
+                        className="warning-alert-icon"
                     />
-                    <span>
-                        WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
-                        below to restore automatic calculation from turbine totals.
+                    <span className="warning-alert-text">
+                        <strong>WARNING:</strong> Acreage is manually overridden. 
+                        Click <em>"Reset Acreage to Match Turbines"</em> below to restore automatic calculation from turbine totals.
                     </span>
-                </p>
+                </div>
             )}
-            <br></br>
 
             <br></br>
-            <button
-                type="button"
-                onClick={() => {
-                    setUserEditedAcreage(false);
-                    setProjectData(prev => ({
-                    ...prev,
-                    land_area: prev.number_of_turbines * 1
-                    }));
-                }}
-                className="inPageButton"
-                >
-                Reset Acreage to Match Number of Turbines
-            </button>
-
-            <button
-                type="button"
-                onClick={() => {
-                    setUserEditedAcreage(false);
-
-                    setProjectData(prev => ({
-                    ...prev,
-                    nameplate_capacity: 100,
-                    number_of_turbines: 50,
-                    land_area: 50, // 1 turbine per acre
-                    }));
-                }}
-                className="inPageButton"
-                >
-                Reset All Inputs
+            <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setUserEditedAcreage(false);
+                        setProjectData(prev => ({
+                        ...prev,
+                        land_area: prev.number_of_turbines * 1
+                        }));
+                    }}
+                    className="inPageButton"
+                    >
+                    Reset Acreage to Match Turbines
                 </button>
+
+                <button
+                    type="button"
+                    onClick={() => {
+                        setUserEditedAcreage(false);
+
+                        setProjectData(prev => ({
+                        ...prev,
+                        nameplate_capacity: 100,
+                        number_of_turbines: 50,
+                        land_area: 50, // 1 turbine per acre
+                        }));
+                    }}
+                    className="inPageButton"
+                    >
+                    Reset All Inputs
+                </button>
+            </div>
 
             </>
             )}
+            
 
-            <h1>Inflation Factors</h1>
-            <br></br>
+            <h1 className="page-section-title">Inflation Factors</h1>
 
             <AllFieldsRequired />
 
-            <br></br>
-
             <label>
-                Average annual inflation rate (%):
+                Average annual inflation rate:
                 <div className="inputWithInfo">
                     <input
                         type="number"
@@ -371,7 +364,7 @@ export default function NEUserSelections({
                         }))
                         }
                         className="basicInputBox"
-                    />
+                    /> %
 
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -389,7 +382,7 @@ export default function NEUserSelections({
         </label>
 
         <label>
-            Annual discount rate (%):
+            Annual discount rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -402,7 +395,7 @@ export default function NEUserSelections({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
@@ -465,9 +458,7 @@ export default function NEUserSelections({
         <br></br>
 
         <section>
-            <h1>Project Specifications</h1>
-
-            <br />
+            <h1 className="page-section-title">Project Specifications</h1>
 
             <AllFieldsRequired />
 
@@ -584,15 +575,11 @@ export default function NEUserSelections({
 
             <br></br>
 
-            <h1>Taxing Units</h1>
+            <h1 className="page-section-title">Taxing Units</h1>
 
-            <br></br>
-
-            <p style={{ color: "red", fontStyle: "italic"}}>
-                This question is required.
+            <p style={{ borderLeft: "4px solid #d9534f", paddingLeft: "1rem", margin: "1rem 0", backgroundColor: "#fffdfd"}}>
+                This field is required.
             </p>
-
-            <br></br>
 
             <label>
                 Use County Average for Total District Tax Rate:
@@ -610,7 +597,7 @@ export default function NEUserSelections({
 
             {projectData.is_using_avg === "no" && (
                 <>
-                    <div className="altBasicBox">
+                    <div className="info-callout-box">
                         Identify your taxing district {" "}
                         <Link className="boxLinkText" href="https://revenue.nebraska.gov/PAD/research-statistical-reports/consolidated-tax-districts-and-rates-county-reports">
                             at this link
@@ -619,8 +606,6 @@ export default function NEUserSelections({
                         are currently filled in can be used as an example, or cleared. Use the drop-down to indicate
                         which units are school bonds.
                     </div>
-
-                    <br></br>
 
                     <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
                         <button
@@ -642,6 +627,7 @@ export default function NEUserSelections({
                         </button>
                     </div>
 
+                    <br></br>
                     <br></br>
 
                     <TaxTable taxUnits={taxUnits} setTaxUnits={setTaxUnits} />

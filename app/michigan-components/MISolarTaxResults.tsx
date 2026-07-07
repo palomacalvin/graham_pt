@@ -419,11 +419,13 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
     return (
         <section>
-            <h1>Michigan Solar Tax Results</h1>
-
             <br></br>
 
-            <h2 style={{ margin: "0rem" }}>Non-PILT Year 1 Results</h2>
+            <h1 className="page-section-title">Michigan Solar Tax Results</h1>
+
+            <div className="about-section-divider">
+                <h1 className="page-section-title-med">Non-PILT Year 1 Results</h1>
+            </div>
 
             <table className="basicTable">
                 <thead>
@@ -583,7 +585,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
             <br></br>
 
-            <h2 style={{ margin: "0rem" }}>PILT Year 1 Results</h2>
+            <h1 className="page-section-title-med">PILT Year 1 Results</h1>
 
 
             <table className="basicTable">
@@ -769,7 +771,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
                     Hide
                 </button>
             </div>
-            <br></br>
 
 
             {visibleTable === "non_pilt" && (
@@ -1109,8 +1110,6 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
             <section>
                 <CommunityBenefitsHeader />
-
-                <br></br>
 
                 <table className="basicTable">
                     <thead>

@@ -201,7 +201,6 @@ export default function WIResults({ projectData }: Props) {
     );
 
     // Jurisdiction cash flows.
-
     const county_cash_flows = Array.from({ length: YEARS }, (_, i) =>
       -inflated_reduction_array[i] * county_pct + 
       utility_aid_to_county + 
@@ -328,10 +327,9 @@ export default function WIResults({ projectData }: Props) {
   return (
     <div>
     <section>
-      <h1>Your results</h1>
-      <br></br>
+      <h1 className="page-section-title">Your results</h1>
 
-      <h3>Year 1 Summary</h3>
+      <h1 className="page-section-title-med">Year 1 Summary</h1>
       <table className="basicTable">
         <tbody>
           <tr>
@@ -377,14 +375,10 @@ export default function WIResults({ projectData }: Props) {
         </tbody>
       </table>
 
-    <br></br>
-
     <ProjectLifeBreakdown />
 
-    <br />
-
     {/* Jurisdiction section */}
-    <h3>Jurisdictional Gross & NPV Totals</h3>
+    <h1 className="page-section-title-med">Jurisdictional Gross & NPV Totals</h1>
 
       <table className="basicTable">
         <thead>
@@ -531,12 +525,12 @@ export default function WIResults({ projectData }: Props) {
             <tr><th></th></tr>
 
             <tr className="rowHighlight">
-              <td>Gross Over the Life of the Project (Total Dollar Value)</td>
+              <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
               <td colSpan={YEARS}>{formatCurrency(grossTotal)}</td>
             </tr>
 
             <tr className="rowHighlight">
-              <td>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
+              <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
               <td colSpan={YEARS}>{formatCurrency(npvTotal)}</td>
             </tr>
           </tbody>

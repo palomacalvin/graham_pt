@@ -28,10 +28,7 @@ export default function MIProjectLocationSection({
 
   return (
     <section>
-      <h1>Project Location Information</h1>
-
-      <br />
-
+      <h1 className="page-section-title">Project Location Information</h1>
 
       <LocationSelector
         stateName="MICHIGAN"

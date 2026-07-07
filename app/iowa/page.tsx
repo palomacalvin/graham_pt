@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function IAHome() {
   const router = useRouter();
@@ -98,8 +99,8 @@ export default function IAHome() {
 
         </main>
 
-        <Footer></Footer>
-
+        <Footer />
+        <Analytics />
 
     </div>
   );

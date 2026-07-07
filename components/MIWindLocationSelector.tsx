@@ -192,8 +192,6 @@ export default function LocationSelector({ onSelectLocation }: Props) {
         <div className="required">Required</div>
       </div>
 
-      <br />
-
       {/* Village */}
       {villages.length > 0 && (
         <div>

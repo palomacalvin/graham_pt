@@ -167,16 +167,16 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   return (
     <div>
     <section>
-      <h1>Your results</h1>
-      <br></br>
+      <h1 className="page-section-title">Your results</h1>
 
-      <p>
-        These values are based on user inputs. Taxable value for property taxes is adjusted
-        for inflation annually.
-      </p>
-      <br></br>
+      <div className="info-callout-box">
+        <p>
+          These values are based on user inputs. Taxable value for property taxes is adjusted
+          for inflation annually.
+        </p>
+      </div>
 
-      <h3>Production Tax Revenue for Each Year</h3>
+      <h1 className="page-section-title-med">Production Tax Revenue for Each Year</h1>
       <table className="basicTable">
         <thead>
           <tr>
@@ -202,12 +202,13 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
       <br></br>
 
-      <h3>Real Property Tax Revenue (Year 1)</h3>
+      <h1 className="page-section-title-med">Real Property Tax Revenue (Year 1)</h1>
 
-      <p>Note that because land classification typically does not change for wind projects, there is usually
-        no change in property tax revenue.
-      </p>
-      <br></br>
+      <div className="info-callout-box">
+        <p>Note that because land classification typically does not change for wind projects, there is usually
+          no change in property tax revenue.
+        </p>
+      </div>
 
       <table className="basicTable">
         <thead>
@@ -297,7 +298,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
       <br></br>
   
-      <h3>Total Net Tax Revenue (Year 1)</h3>
+      <h1 className="page-section-title-med">Total Net Tax Revenue (Year 1)</h1>
 
       <table className="basicTable">
         <thead>
@@ -321,8 +322,6 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
         </tbody>
       </table>
     </section>
-
-    <br></br>
 
     <ProjectLifeBreakdown />
 

@@ -11,6 +11,8 @@ import { generateNetAssessedValues } from "@/utils/ILCalculations";
 import TaxResults from "../illinois-components/ILTaxResults";
 import { createDefaultTaxUnits } from "../illinois-components/ILUserSelections";
 import { TaxUnit } from "../illinois-components/ILTaxTable";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 
 export default function ProjectForm() {
@@ -258,6 +260,9 @@ export default function ProjectForm() {
 
         </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
     </div>
   );
 }

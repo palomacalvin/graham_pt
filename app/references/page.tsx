@@ -1,5 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function ReferencesPage() {
 
@@ -11,10 +13,10 @@ export default function ReferencesPage() {
     <main className="landing-container">
 
       <div className="intro-header-block">
-          <h1 className="page-main-title">References Page</h1>
+          <h1 className="page-main-title">References</h1>
         </div>
 
-        <div className="landing-body-text">
+        <div className="info-callout-box">
           <p>
             On this page, download updated information briefs for the project. You can also find
             the same briefs by clicking to visit the{" "}
@@ -39,8 +41,6 @@ export default function ReferencesPage() {
             </a>.
           </p>
         </div>
-
-        <br></br>
 
       <section className="about-section-divider">
 
@@ -1761,6 +1761,9 @@ export default function ReferencesPage() {
       <br></br>
 
     </main>
+
+    <FooterComp />
+    <Analytics />
     </div>
     </>
   );

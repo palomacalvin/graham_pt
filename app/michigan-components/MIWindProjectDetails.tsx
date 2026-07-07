@@ -197,19 +197,17 @@ export default function MIWindProjectDetailsSection({
 
       {!projectData.auto_calculate_costs && (
         <>
-          <br></br>
-            <p className="warning">
-                <img
-                    src="/photos-logos/warning-alert.svg"
-                    alt="Warning sign logo."
-                    className="warningImg"
-                />
-                <span>
-                    WARNING: Costs are manually overridden. Click "Reset to Defaults" to restore automatic
-                    calculation from nameplate capacity.
-                </span>
-            </p>
-          <br></br>
+          <div className="warning-alert-box">
+              <img
+                  src="/photos-logos/warning-alert.svg"
+                  alt="Warning sign logo."
+                  className="warning-alert-icon"
+              />
+              <span className="warning-alert-text">
+                  <strong>WARNING:</strong> Costs are manually overridden.
+                  Click <em>"Reset to Defaults"</em> above to restore automatic calculation from nameplate capacity.
+              </span>
+          </div>
         </>
       )}
 
@@ -219,7 +217,7 @@ export default function MIWindProjectDetailsSection({
         Original cost of site improvements for <strong>new</strong>{" "}
         wind projects <strong>up to and including the power interface (converters)</strong>, including:
         the rotor, drive train, tower, controls, foundation, and all land 
-        improvements (except buildings) like roads, fences, and communication facilities:
+        improvements (except buildings) like roads, fences, and communication facilities ($):
         <div className="inputWithInfo">
         <input
             type="number"
@@ -232,7 +230,7 @@ export default function MIWindProjectDetailsSection({
                 }))
             } 
             className="basicInputBox"
-            /> $
+            />
             <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                 <div className="infoBubble">
@@ -249,7 +247,7 @@ export default function MIWindProjectDetailsSection({
       <label>
             Original cost of site improvements for <strong>new</strong> wind projects
             {" "}<strong>after the interface</strong>, including: cables, substations, and other transmission
-            and distribution infrastructure created by the wind project:
+            and distribution infrastructure created by the wind project ($):
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -262,7 +260,7 @@ export default function MIWindProjectDetailsSection({
                         }))
                     }
                     className="basicInputBox"
-                /> $
+                />
 
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -473,19 +471,18 @@ export default function MIWindProjectDetailsSection({
 
       {!projectData.auto_calculate_acreage && (
           <>
-            <br />
-            <p className="warning">
+
+            <div className="warning-alert-box">
               <img
-                src="/photos-logos/warning-alert.svg"
-                alt="Warning sign logo."
-                className="warningImg"
+                  src="/photos-logos/warning-alert.svg"
+                  alt="Warning sign logo."
+                  className="warning-alert-icon"
               />
-              <span>
-                WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
-                below to restore automatic calculation from turbine totals.
+              <span className="warning-alert-text">
+                  <strong>WARNING:</strong> Acreage is manually overridden
+                  Click <em>"Reset Turbines/Acreage to Default"</em> below to restore automatic calculation from turbine totals.
               </span>
-            </p>
-            <br />
+            </div>
           </>
         )}
 

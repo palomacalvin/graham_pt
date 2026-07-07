@@ -51,11 +51,10 @@ export default function WindFarmSection({ projectData, handleChange, setProjectD
 
   return (
     <section>
-      <h1>Wind Farm Systems Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Wind Farm Systems Information</h1>
 
       <AllFieldsRequired />
-      
+
       <br></br>
 
       <label>
@@ -98,23 +97,23 @@ export default function WindFarmSection({ projectData, handleChange, setProjectD
       </label>
 
       {isBroken && (
-        <p className="warning">
-              <img
+          <div className="warning-alert-box">
+            <img
                 src="/photos-logos/warning-alert.svg"
                 alt="Warning sign logo."
-                className="warningImg"
-              />
-              <span>
-                WARNING: Acreage is manually overridden. Click "Reset Turbines/Acreage to Default"
-                below to restore automatic calculation from turbine totals.
-              </span>
-          </p>
+                className="warning-alert-icon"
+            />
+            <span className="warning-alert-text">
+                <strong>WARNING:</strong> Acreage is manually overridden.
+                Click <em>"Reset to Default"</em> below to restore automatic calculation from turbine totals.
+            </span>
+          </div>
       )}
 
       <br></br>
 
       <button className="inPageButton" type="button" onClick={handleReset} style={{marginLeft: "1rem"}}>
-        Reset to default
+        Reset to Default
       </button>
 
     </section>

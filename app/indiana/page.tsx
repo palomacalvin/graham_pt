@@ -1,5 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function IndianaPage() {
   return (
@@ -10,6 +12,9 @@ export default function IndianaPage() {
 
       <h2>Under Construction</h2>
     </div>
+
+    <FooterComp />
+    <Analytics />
     </>
   );
 }

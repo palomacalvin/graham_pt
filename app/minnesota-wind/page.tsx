@@ -12,6 +12,8 @@ import { County } from "@/components/LocationSelector";
 import Link from "next/link";
 import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function ProjectForm() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -157,6 +159,9 @@ export default function ProjectForm() {
 
       </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
     </div>
   );
 }

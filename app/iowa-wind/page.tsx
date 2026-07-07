@@ -4,12 +4,13 @@ import Navbar from "@/components/Navbar";
 import { ProjectData } from "@/types/IAWindProject";
 import Link from "next/link";
 
-import IASolarUserSelections from "../iowa-components/IASolarUserSelections";
 import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
 import TaxResults from "../iowa-components/IAWindTaxResults";
 import { strict } from "assert";
 import IAWindUserSelections from "../iowa-components/IAWindUserSelections";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 
 export default function ProjectForm() {
@@ -138,6 +139,9 @@ export default function ProjectForm() {
 
         </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
     </div>
   );
 }

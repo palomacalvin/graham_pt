@@ -8,8 +8,9 @@ import { ProjectData } from "@/types/MIWindProject";
 import MIProjectLocationSection from "@/app/michigan-components/MIWindProjectLocationSection";
 import MIWindProjectDetailsSection from "../michigan-components/MIWindProjectDetails";
 import MIWindTaxResults from "../michigan-components/MIWindTaxResults";
-
 import Instructions from "@/components/Instructions";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function MichiganWind() {
   const [projectData, setProjectData] = useState<ProjectData>({
@@ -77,6 +78,9 @@ export default function MichiganWind() {
           <MIWindTaxResults projectData={projectData}/>
         </div>
       )}
+
+      <FooterComp />
+      <Analytics />
     </div>
   );
 }

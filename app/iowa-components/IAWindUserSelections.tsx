@@ -214,21 +214,20 @@ export default function IAWindUserSelections({
                         </div>
                     </label>
 
-                    <br></br>
-
                     {userEditedAcreage && (
-                <p className="warning">
-                    <img
-                        src="/photos-logos/warning-alert.svg"
-                        alt="Warning sign logo."
-                        className="warningImg"
-                    />
-                    <span>
-                        WARNING: Acreage is manually overridden. Click "Reset Turbines to Default"
-                        below to restore automatic calculation from turbine totals.
-                    </span>
-                </p>
-            )}
+
+                    <div className="warning-alert-box">
+                        <img
+                            src="/photos-logos/warning-alert.svg"
+                            alt="Warning sign logo."
+                            className="warning-alert-icon"
+                        />
+                        <span className="warning-alert-text">
+                            <strong>WARNING:</strong> Acreage is manually overridden. 
+                            Click <em>"Reset Turbines to Default"</em> to restore automatic calculation from turbine totals.
+                        </span>
+                    </div>
+                )}
             <br></br>
 
             <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>

@@ -8,6 +8,8 @@ import OHTaxResults from "../ohio-components/OHTaxResults";
 import OHUserSelections from "../ohio-components/OHUserSelections";
 import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 
 
@@ -104,6 +106,9 @@ export default function ProjectForm() {
 
         </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
     </div>
   );
 }

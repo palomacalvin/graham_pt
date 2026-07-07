@@ -74,8 +74,7 @@ export default function MNProjectLocationSection({
   return (
     <>
     <section>
-      <h1>Project Location Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Location Information</h1>
 
       <AllFieldsRequired />
 
@@ -137,13 +136,13 @@ export default function MNProjectLocationSection({
 
       <br></br>
 
-      <p>
-        Note that the County Average Land Market Value and the Estimated Solar Capacity Factor
-        defaults are determined based on the county, city/town, and school district you select. You may
-        manually override these values, or select a different location to see new defaults.
-      </p>
-
-      <br></br>
+      <div className="info-callout-box">
+        <p>
+          Note that the County Average Land Market Value and the Estimated Solar Capacity Factor
+          defaults are determined based on the county, city/town, and school district you select. You may
+          manually override these values, or select a different location to see new defaults.
+        </p>
+      </div>
 
       <label>
         County Average Land Market Value ($/acre):
@@ -154,8 +153,9 @@ export default function MNProjectLocationSection({
           onChange={handleChange}
           className="basicInputBox"
         />
+
         <button type="button" onClick={handleResetCountyDefaults} className="inPageButton">
-          Reset to county default
+          Reset to County Default
         </button>
       </label>
 
@@ -168,9 +168,10 @@ export default function MNProjectLocationSection({
           value={projectData.useEstimatedCapacityFactor || ""}
           onChange={handleChange}
           className="basicInputBox"
+          placeholder="Choose county"
         />
         <button type="button" onClick={handleResetCountyDefaults} className="inPageButton">
-          Reset to county default
+          Reset to County Default
         </button>
       </label>
 
@@ -183,6 +184,7 @@ export default function MNProjectLocationSection({
               value={projectData.pilotPayment || ""}
               onChange={handleChange}
               className="basicInputBox"
+              placeholder="Enter payment"
             />
           </label>
     </section>
@@ -190,15 +192,14 @@ export default function MNProjectLocationSection({
     <section>
       <br></br>
 
-      <h1>Inflation Factors</h1>
-      <br></br>
+      <h1 className="page-section-title">Inflation Factors</h1>
 
       <AllFieldsRequired />
 
       <br></br>
 
       <label>
-        Average annual inflation rate (%):
+        Average annual inflation rate:
         <div className="inputWithInfo">
             <input
                 type="number"
@@ -211,7 +212,7 @@ export default function MNProjectLocationSection({
                 }))
                 }
                 className="basicInputBox"
-            />
+            /> %
 
             <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -229,7 +230,7 @@ export default function MNProjectLocationSection({
       </label>
 
       <label>
-        Annual discount rate (%):
+        Annual discount rate:
         <div className="inputWithInfo">
           <input
             type="number"
@@ -242,7 +243,7 @@ export default function MNProjectLocationSection({
             }))
             }
             className="basicInputBox"
-          />
+          /> %
           <div className="infoWrapper">
             <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
             <div className="infoBubble">
@@ -262,7 +263,7 @@ export default function MNProjectLocationSection({
         onClick={handleResetDefaults}
         className="inPageButton"
       >
-        Reset inflation factors
+        Reset Inflation Factors
       </button>
     </section>
 

@@ -172,17 +172,16 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
   return (
     <div>
     <section>
-      <h1>Your results</h1>
-      <br></br>
+      <h1 className="page-section-title">Your results</h1>
 
-      <p>
-        These values are based on user inputs. Taxable value for property taxes is adjusted
-        for inflation annually.
-      </p>
+      <div className="info-callout-box">
+        <p>
+          These values are based on user inputs. Taxable value for property taxes is adjusted
+          for inflation annually.
+        </p>
+      </div>
 
-      <br></br>
-
-      <h3>Production Tax Revenue for Each Year</h3>
+      <h1 className="page-section-title-med">Production Tax Revenue for Each Year</h1>
       <table className="basicTable">
         <thead>
           <tr>
@@ -207,7 +206,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       </table>
 
       <br></br>
-      <h3>Real Property Tax Revenue (Year 1)</h3>
+      <h1 className="page-section-title-med">Real Property Tax Revenue (Year 1)</h1>
 
       <table className="basicTable">
         <thead>
@@ -297,7 +296,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
 
       <br></br>
 
-      <h3>Total Net Tax Revenue (Year 1)</h3>
+      <h1 className="page-section-title-med">Total Net Tax Revenue (Year 1)</h1>
 
       <table className="basicTable">
         <thead>
@@ -322,11 +321,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
       </table>
     </section>
 
-    <br></br>
-
     <ProjectLifeBreakdown />
-
-    <br></br>
 
     {/* Jurisdictional Gross & NPV Totals */}
     <table className="basicTable">
@@ -411,12 +406,12 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
           <tr><th></th></tr>
 
           <tr className="rowHighlight">
-            <td>Gross Over the Life of the Project (Total Dollar Value)</td>
+            <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
             <td colSpan={years}>{formatCurrency(grossTotal)}</td>
           </tr>
 
           <tr className="rowHighlight">
-            <td>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
+            <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
             <td colSpan={years}>{formatCurrency(npvTotal)}</td>
           </tr>
         </tbody>

@@ -13,6 +13,8 @@ import SolarFarmSection from "@/app/minnesota-components/MNSolarFarmSection";
 import TaxResults from "@/app/minnesota-components/MNSolarTaxResults";
 import Link from "next/link";
 import { useEffect } from "react";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 import Instructions from "@/components/Instructions";
 
@@ -249,7 +251,9 @@ export default function ProjectForm() {
 
       </form>
       </div>
-    </div>
 
+      <FooterComp />
+      <Analytics />
+    </div>
   );
 }

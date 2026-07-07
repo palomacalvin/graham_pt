@@ -17,8 +17,6 @@ interface Props {
   onSelectCounty?: (county: County | null) => void
 }
 
-// console.log("MNSolarProjectLocationSection rendered");
-
 const MAX_USEFUL_LIFE = 35;
 
 export default function MNSolarProjectLocationSection({
@@ -76,8 +74,7 @@ export default function MNSolarProjectLocationSection({
   return (
     <>
     <section>
-      <h1>Project Location Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Project Location Information</h1>
 
       <AllFieldsRequired />
 
@@ -136,17 +133,15 @@ export default function MNSolarProjectLocationSection({
         }}
       />
 
-      
-
       <br></br>
       
-      <p>
-        Note that the County Average Land Market Value and the Estimated Solar Capacity Factor
-        defaults are determined based on the county, city/town, and school district you select. You may
-        manually override these values, or select a different location to see new defaults.
-      </p>
-
-      <br></br>
+      <div className="info-callout-box">
+        <p>
+          Note that the County Average Land Market Value and the Estimated Solar Capacity Factor
+          defaults are determined based on the county, city/town, and school district you select. You may
+          manually override these values, or select a different location to see new defaults.
+        </p>
+      </div>
 
       <label>
         County Average Land Market Value ($/acre):
@@ -158,7 +153,7 @@ export default function MNSolarProjectLocationSection({
           className="basicInputBox"
         />
         <button type="button" onClick={handleResetCountyDefaults} className="inPageButton">
-          Reset to county default
+          Reset to County Default
         </button>
       </label>
 
@@ -175,7 +170,7 @@ export default function MNSolarProjectLocationSection({
         />
 
         <button type="button" onClick={handleResetCountyDefaults} className="inPageButton">
-          Reset to county default
+          Reset to County Default
         </button>
       </label>
 
@@ -192,15 +187,13 @@ export default function MNSolarProjectLocationSection({
           />
         </label>
       )}
-      
 
       <br></br>
 
-      <h1>Inflation Factors</h1>
-      <br></br>
+      <h1 className="page-section-title">Inflation Factors</h1>
 
       <label>
-        Average annual inflation rate (%):
+        Average annual inflation rate:
         <div className="inputWithInfo">
             <input
                 type="number"
@@ -213,7 +206,7 @@ export default function MNSolarProjectLocationSection({
                 }))
                 }
                 className="basicInputBox"
-            />
+            /> %
 
             <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -231,7 +224,7 @@ export default function MNSolarProjectLocationSection({
     </label>
 
     <label>
-        Annual discount rate (%):
+        Annual discount rate:
         <div className="inputWithInfo">
             <input
                 type="number"
@@ -244,7 +237,7 @@ export default function MNSolarProjectLocationSection({
                 }))
                 }
                 className="basicInputBox"
-            />
+            /> %
               <div className="infoWrapper">
                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                 <div className="infoBubble">
@@ -264,7 +257,7 @@ export default function MNSolarProjectLocationSection({
           onClick={handleResetDefaults}
           className="inPageButton"
         >
-          Reset inflation factors
+          Reset Inflation Factors
         </button>
     </section>
 

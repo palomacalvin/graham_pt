@@ -52,8 +52,7 @@ export default function SolarFarmSection({ projectData, handleChange }: Props)
 
   return (
     <section>
-      <h1>Solar Farm Systems Information</h1>
-      <br></br>
+      <h1 className="page-section-title">Solar Farm Systems Information</h1>
 
       <AllFieldsRequired />
 
@@ -95,29 +94,27 @@ export default function SolarFarmSection({ projectData, handleChange }: Props)
 
       {hasManualAcreage && (
         <>
-          <br />
-          <p className="warning">
+          <div className="warning-alert-box">
             <img
-              src="/photos-logos/warning-alert.svg"
-              className="warningImg"
+                src="/photos-logos/warning-alert.svg"
+                alt="Warning sign logo."
+                className="warning-alert-icon"
             />
-            <span>
-              WARNING: Project acreage has been manually overridden.
-              Click "Reset to Defaults" to restore the 7 acres per MW assumption.
+            <span className="warning-alert-text">
+                <strong>WARNING:</strong> Project acreage has been manually overridden.
+                Click <em>"Reset Acreage to Default"</em> to restore the 7 acres per mega-watt assumption.
             </span>
-          </p>
-          <br />
+          </div>
         </>
       )}
 
-      <br></br>
       
       <button
           type="button"
           onClick={handleResetAcreage}
           className="inPageButton"
         >
-          Reset acreage to default
+          Reset Acreage to Default
         </button>
 
     </section>

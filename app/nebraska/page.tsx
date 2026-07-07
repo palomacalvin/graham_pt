@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 
 export default function NEHome() {
@@ -81,7 +82,8 @@ export default function NEHome() {
         
         </main>
 
-        <Footer></Footer>
+        <Footer />
+        <Analytics />
     </div>
   );
 }

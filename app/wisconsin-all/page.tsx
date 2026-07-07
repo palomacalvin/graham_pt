@@ -8,6 +8,8 @@ import WIUserSelections from "@/app/wisconsin-components/WIUserSelections";
 import WIResults from "@/app/wisconsin-components/WIResults";
 import Instructions from "@/components/Instructions";
 import { useEffect } from "react";
+import FooterComp from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function ProjectForm() {
 
@@ -132,6 +134,9 @@ export default function ProjectForm() {
 
         </form>
       </div>
+
+      <FooterComp />
+      <Analytics />
       </div>
   );
 }

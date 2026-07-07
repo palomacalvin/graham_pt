@@ -14,12 +14,9 @@ export default function PropertyClassificationSection({
 }: Props) {
   return (
     <section>
-      <h1>Property Classification Information</h1>
-      <br />
+      <h1 className="page-section-title">Property Classification Information</h1>
 
       <AllFieldsRequired />
-
-      <br></br>
 
       <label>
         Property Class:

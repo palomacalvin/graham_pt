@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   const router = useRouter();
@@ -95,10 +96,12 @@ export default function Home() {
             for more information.
           </div>
         </div>
-        
+
         </main>
 
-        <Footer></Footer>
+        <Footer />
+        <Analytics />
+
     </div>
   );
 }

@@ -12,7 +12,7 @@ export interface TaxData {
   avg_land_market_value: number;
   jurisdictions: Jurisdiction[];
 
-  // TODO: Add other data as needed.
+  // Add other data as needed.
 }
 
 interface Props {
@@ -227,13 +227,13 @@ export default function LocationSelector({
 
     <br></br>
       
-    <p>
-      Note that the County Average Land Market Value defaults are determined based on the county
-      and taxing district you select. You may
-      manually override these values, or select a different location to see new defaults.
-    </p>
-
-    <br></br>
+    <div className="info-callout-box">
+      <p>
+        Note that the County Average Land Market Value defaults are determined based on the county
+        and taxing district you select. You may
+        manually override these values, or select a different location to see new defaults.
+      </p>
+    </div>
 
     <label>
       County Average Land Market Value ($/acre):
@@ -246,12 +246,13 @@ export default function LocationSelector({
           avg_land_market_value: Number(e.target.value)
         }))}
         className="basicInputBox"
+        placeholder="Choose county"
       />
     </label>
     {isMarketValueOverridden && <WarningMessage />}
 
     <label>
-      CAUV of Agricultural Land ($/Acre):
+      CAUV of Agricultural Land ($/acre):
       <input
         type="number"
         name="userCauvAgLand"

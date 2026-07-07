@@ -66,10 +66,10 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
   return (
     <div>
       <br></br>
-      <h1>Your Results</h1>
+      <h1 className="page-section-title">Your Results</h1>
         {(isQEP && isSolar) && (
         <>
-          <h3>Year 1 Summary (Solar, QEP)</h3>
+          <h1 className="page-section-title-med">Year 1 Summary (Solar, QEP)</h1>
           <table className="basicTable">
             <thead>
               <tr>
@@ -107,11 +107,10 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
         </>
       )}
 
-      <br></br>
 
         {(!isQEP && isSolar) && (
         <>
-          <h3>Year 1 Summary (Solar, Non-QEP)</h3>
+          <h1 className="page-section-title-med">Year 1 Summary (Solar, Non-QEP)</h1>
           <table className="basicTable">
             <thead>
               <tr>
@@ -157,7 +156,7 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
 
         {(!isQEP && isWind) && (
         <>
-          <h3>Year 1 Summary (Wind, Non-QEP)</h3>
+          <h1 className="page-section-title-med">Year 1 Summary (Wind, Non-QEP)</h1>
           <table className="basicTable">
             <thead>
               <tr>
@@ -201,7 +200,7 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
 
         {(isQEP && isWind) && (
         <>
-          <h3>Year 1 Summary (Wind, QEP)</h3>
+          <h1 className="page-section-title-med">Year 1 Summary (Wind, QEP)</h1>
           <table className="basicTable">
             <thead>
               <tr>
@@ -243,9 +242,7 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
 
       <ProjectLifeBreakdown />
 
-      <br />
-
-        <h3>Jurisdictional Gross & NPV Totals</h3>
+        <h1 className="page-section-title-med">Jurisdictional Gross & NPV Totals</h1>
         <table className="basicTable">
           <thead>
             <tr>
@@ -302,14 +299,14 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
             </tr>
 
             <tr className="rowHighlight">
-              <td>Gross Over the Life of the Project (Total Dollar Value)</td>
+              <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
               <td colSpan={Number(years)}>
                 {formatCurrency(calculatedUnits.reduce((sum, u) => sum + u.grossTotal, 0))}
               </td>
             </tr>
 
             <tr className="rowHighlight">
-              <td>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
+              <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
               <td colSpan={Number(years)} className="rowHighlight">
                 {formatCurrency(calculatedUnits.reduce((sum, u) => sum + u.npvTotal, 0))}
               </td>
@@ -319,8 +316,6 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
         </table>
 
         <CommunityBenefitsHeader />
-
-        <br></br>
 
         <table className="basicTable">
           <thead>

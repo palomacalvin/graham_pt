@@ -152,13 +152,10 @@ export default function MISolarRealPropertyCalculator ({
 
     return (
         <section>
-            <h1>Real Property Calculation Details</h1>
-
-            <br />
+            <h1 className="page-section-title">Real Property Calculation Details</h1>
 
             <AllFieldsRequired />
 
-            <br></br>
             <br></br>
 
             <button
@@ -168,8 +165,6 @@ export default function MISolarRealPropertyCalculator ({
             >
                 Reset to Defaults
             </button>
-
-            <br></br>
 
             <label>
                 <div className="inputWithInfo">
@@ -197,19 +192,17 @@ export default function MISolarRealPropertyCalculator ({
 
             {hasManualPreSolarValue && (
                 <>
-                    <br />
-                    <p className="warning">
+                    <div className="warning-alert-box">
                         <img
                             src="/photos-logos/warning-alert.svg"
                             alt="Warning sign logo."
-                            className="warningImg"
+                            className="warning-alert-icon"
                         />
-                        <span>
-                            WARNING: The pre-solar taxable value is manually overridden. Click "Reset to Defaults" to restore
-                            automatic calculation based on acreage.
+                        <span className="warning-alert-text">
+                            <strong>WARNING:</strong> The pre-solar taxable value is manually overridden.
+                            Click <em>"Reset to Defaults"</em> above to restore automatic calculation based on acreage.
                         </span>
-                    </p>
-                    <br />
+                    </div>
                 </>
             )}
 
@@ -230,7 +223,6 @@ export default function MISolarRealPropertyCalculator ({
                     }}
                     className="basicInputBox"
                 />
-                
 
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
@@ -370,23 +362,19 @@ export default function MISolarRealPropertyCalculator ({
                 </div>
             </label>
 
-            <br></br>
-
             {hasManualPostSolarValue && (
                 <>
-                <br></br>
-                    <p className="warning">
+                    <div className="warning-alert-box">
                         <img
                             src="/photos-logos/warning-alert.svg"
                             alt="Warning sign logo."
-                            className="warningImg"
+                            className="warning-alert-icon"
                         />
-                        <span>
-                            WARNING: The post-solar taxable value is manually overridden. Click "Reset to Defaults" to restore
-                            automatic calculation based on acreage and ownership change.
+                        <span className="warning-alert-text">
+                            <strong>WARNING:</strong> The post-solar taxable value is manually overridden.
+                            Click <em>"Reset to Defaults"</em> above to restore automatic calculation based on acreage and ownership change.
                         </span>
-                    </p>
-                <br></br>
+                    </div>
                 </>
             )}
 
@@ -414,6 +402,8 @@ export default function MISolarRealPropertyCalculator ({
                     </div>
                 </label>
             )}
+
+            <br></br>
 
             </section>
 

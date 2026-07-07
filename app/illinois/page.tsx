@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function ILHome() {
   const router = useRouter();
@@ -77,6 +78,7 @@ export default function ILHome() {
       </main>
 
       <Footer />
+      <Analytics />
     </div>
   );
 }

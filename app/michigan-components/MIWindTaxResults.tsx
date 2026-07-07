@@ -318,7 +318,6 @@ export default function MIWindTaxResults( {projectData}: Props) {
         <section>
             <br></br>
                 <h1 className="page-section-title">Michigan Wind Project Tax Results</h1>
-
             <div className="about-section-divider">
                 <h1 className="page-section-title-med">Non-PILT Year 1 Results</h1>
             </div>
@@ -500,12 +499,10 @@ export default function MIWindTaxResults( {projectData}: Props) {
                     Hide
                 </button>
             </div>
-            <br></br>
 
 
             {visibleTable === "non_pilt" && (
                 <section>
-                    <br></br>
 
                     <table className="basicTable">
                         <thead>

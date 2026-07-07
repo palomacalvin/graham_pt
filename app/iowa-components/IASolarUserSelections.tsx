@@ -220,26 +220,23 @@ export default function IASolarUserSelections({
                         </div>
                     </label>
 
-                    <br></br>
-
                     {userEditedSolarRelation && (
                         <>
-                        <p className="warning">
+                        <div className="warning-alert-box">
                             <img
                                 src="/photos-logos/warning-alert.svg"
                                 alt="Warning sign logo."
-                                className="warningImg"
+                                className="warning-alert-icon"
                             />
-                            <span>
-                                WARNING: Nameplate capacity and fencline acres no longer linked. Click "Reset Fencline Acres to Match Nameplate Capacity"
-                                to restore the default relationship.
+                            <span className="warning-alert-text">
+                                <strong>WARNING:</strong> Nameplate capacity and fenceline acres are no longer linked.
+                                Click <em>"Reset Fenceline Acres to Match Nameplate Capacity"</em> to restore the default relationship.
                             </span>
-                        </p>
-
-                        <br></br>
-                        <br></br>
+                        </div>
                         </>
                     )}
+
+                    <br></br>
 
                     <button
                         type="button"

@@ -55,9 +55,7 @@ export default function MISolarProjectDetailsSection ({
 
     return (
         <section>
-            <h1>Project Details</h1>
-
-            <br />
+            <h1 className="page-section-title">Project Details</h1>
 
             <AllFieldsRequired />
             
@@ -70,8 +68,6 @@ export default function MISolarProjectDetailsSection ({
             >
                 Reset to Defaults
             </button>
-
-            <br></br>
             
             <label>
                 Nameplate capacity of solar project (in megawatts):
@@ -92,19 +88,17 @@ export default function MISolarProjectDetailsSection ({
 
             {!projectData.auto_calculate_costs && (
                 <>
-                <br></br>
-                    <p className="warning">
+                    <div className="warning-alert-box">
                         <img
                             src="/photos-logos/warning-alert.svg"
                             alt="Warning sign logo."
-                            className="warningImg"
+                            className="warning-alert-icon"
                         />
-                        <span>
-                            WARNING: Costs are manually overridden. Click "Reset to Defaults" to restore automatic
-                            calculation from nameplate capacity.
+                        <span className="warning-alert-text">
+                            <strong>WARNING:</strong> Costs are manually overridden. 
+                            Click <em>"Reset to Defaults"</em> above to restore automatic calculation from nameplate capacity.
                         </span>
-                    </p>
-                <br></br>
+                    </div>
                 </>
             )}
 
@@ -202,7 +196,7 @@ export default function MISolarProjectDetailsSection ({
     
 
         <label>
-            Average annual inflation rate (%):
+            Average annual inflation rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -215,7 +209,7 @@ export default function MISolarProjectDetailsSection ({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
                 
 
                 <div className="infoWrapper">
@@ -233,7 +227,7 @@ export default function MISolarProjectDetailsSection ({
         </label>
 
         <label>
-            Annual discount rate (%):
+            Annual discount rate:
             <div className="inputWithInfo">
                 <input
                     type="number"
@@ -246,7 +240,7 @@ export default function MISolarProjectDetailsSection ({
                     }))
                     }
                     className="basicInputBox"
-                />
+                /> %
                 <div className="infoWrapper">
                     <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                     <div className="infoBubble">
