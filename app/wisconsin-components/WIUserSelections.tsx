@@ -17,7 +17,6 @@ interface Props {
 
 const MAX_USEFUL_LIFE = 35;
 
-
 export default function WIUserSelections({
   projectData,
   handleChange,

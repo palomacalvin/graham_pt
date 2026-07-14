@@ -123,7 +123,8 @@ export default function WIResults({ projectData }: Props) {
 
     const conversion_charge_to_tvc = total_conversion_charge * CONVERSION_CHARGE_SPLIT.to_tvc;
     const conversion_charge_to_county = total_conversion_charge * CONVERSION_CHARGE_SPLIT.to_county;
-
+    console.log("HELLO check here:");
+    console.log(conversion_charge_to_county);
     
     const selected_grade = Number(projectData.selected_grade);
 
