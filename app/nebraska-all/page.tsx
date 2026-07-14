@@ -78,7 +78,7 @@ export default function ProjectForm() {
           <h1 className="page-main-title">Nebraska Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
       </div>
 
-      <Instructions state="Ohio" />
+      <Instructions state="Nebraska" />
 
       <div className="spaced" style={{ marginTop: "0" }}>
         <form>

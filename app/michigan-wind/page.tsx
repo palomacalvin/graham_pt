@@ -79,6 +79,7 @@ export default function MichiganWind() {
         </div>
       )}
 
+      <br></br>
       <FooterComp />
       <Analytics />
     </div>

@@ -1,14 +1,12 @@
 import { ProjectData } from "@/types/MIWindProject";
 import { MIMultiplicationFactors } from "@/types/MIMultiplicationFactors";
 
-
 // Data structure for the yearly revenue calculations.
 interface YearlyRevenueResult {
     year: number;
     tcv: number;
     revenue: number;
 }
-
 
 // NPV calculation function.
 export function calculateNPV(rate: number, cash_flows: number[]): number {
@@ -38,10 +36,9 @@ export function generateYearlyRevenue(
 ): YearlyRevenueResult[] {
 
     const expectedYears = years ?? projectData?.expected_useful_life ?? 30;
-     const clampedYears = Math.max(1, Math.min(expectedYears, 35));
+    const clampedYears = Math.max(1, Math.min(expectedYears, 35));
 
     const results: YearlyRevenueResult[] = [];
-
     const inflation_rate = projectData?.inflation_multiplier ?? 0;
 
     const taxable_increase =

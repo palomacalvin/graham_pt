@@ -89,7 +89,6 @@ export function calculateNEResults(
   taxUnits: TaxUnit[]
 ): NECalculationResult[] {
   const activeUnits = taxUnits.filter(u => u.name.trim() !== "" && (u.rate ?? 0) > 0);
-  const totalProjectRate = activeUnits.reduce((sum, u) => sum + (u.rate || 0), 0);
   const totalAnnualRevenueYear2Plus = (projectData.nameplate_capacity || 0) * 3518;
 
   // Calculating prorate data.
@@ -109,12 +108,9 @@ export function calculateNEResults(
 
   const prorateValue = dateValue - 1;
 
-  // 5. Final Multiplier: 1 - (I3 / 365)
   const prorateMultiplier = 1 - (prorateValue / 365);
 
   console.log(`Lookup Key: ${lookupKey} | I3: ${prorateValue} | Multiplier: ${prorateMultiplier}`);
-
-
 
   // Capacity Tax Revenue.
   const totalYear1Revenue = totalAnnualRevenueYear2Plus * prorateMultiplier;
@@ -147,12 +143,19 @@ export function calculateNEResults(
   const results: NECalculationResult[] = activeUnits.map((unit) => {
 
     const unitRate = unit.rate || 0;
+    // console.log("UNITRATE");
+    // console.log(unitRate);
 
     const totalProjectRate = activeUnits.reduce((sum, u) => sum + (u.rate || 0), 0);
+    // console.log("TOTALPROJECTRATE");
+    // console.log(totalProjectRate);
 
     const proportionalTaxRate = totalProjectRate > 0 ? (unit.rate || 0) / totalProjectRate : 0;
 
     const capacityTaxRevenue = proportionalTaxRate * totalYear1Revenue; 
+
+    console.log("TOTALYEAR1REVENUE");
+    console.log(totalYear1Revenue);
 
     // console.log("CAPACITYTAX")
     // console.log("Capacity tax revenue: ", proportionalTaxRate, "*", totalYear1Revenue);
@@ -160,7 +163,6 @@ export function calculateNEResults(
     const projectRealTaxRevenue = (unitRate / 100) * totalLandMarketValue;
 
     // console.log("Project Real Tax Rate Calculation: ", unitRate, "*", totalLandMarketValue);
-
 
     // Previous Farmland Tax Revenue.
     const isBond = unit.type === "School District (bond)";

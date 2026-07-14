@@ -79,6 +79,8 @@ export default function MichiganSolar() {
           </div>
         )}
 
+      <br></br>
+
       <FooterComp />
       <Analytics />
 

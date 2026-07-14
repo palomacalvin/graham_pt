@@ -707,6 +707,8 @@ export default function MIWindTaxResults( {projectData}: Props) {
                             <td>~{Math.round((local_unit.npv) / 2100000)} fire truck(s)</td>
                         </tr>
                     </tbody>
+
+
                 </table>
             </section>
         </section>
