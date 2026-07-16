@@ -202,7 +202,7 @@ export default function OHUserSelections({
                         />
                     </label>
             
-                    <label>
+                    <label className="inputWithInfo">
                         Fenceline Acres:
                         <input
                             type="number"
@@ -214,6 +214,13 @@ export default function OHUserSelections({
                             }}
                             className="basicInputBox"
                         />
+
+                        <div className="infoWrapper">
+                            <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                            <div className="infoBubble">
+                                For solar projects, we assume 7 fenceline acres per mega-watt.
+                            </div>
+                        </div>
                     </label>
 
                     {userEditedSolarRelation && (
@@ -289,7 +296,7 @@ export default function OHUserSelections({
                 <div className="infoWrapper">
                   <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                   <div className="infoBubble">
-                      We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                      For wind projects, we assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
                   </div>
                 </div>
             </label>

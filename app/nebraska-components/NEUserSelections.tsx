@@ -209,8 +209,7 @@ export default function NEUserSelections({
                             <div className="infoWrapper">
                                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                                 <div className="infoBubble">
-                                    For solar projects, we assume the fenceline acres are equivalent
-                                    to 7 acres per mega-watt.
+                                    For solar projects, we assume 7 fenceline acres per mega-watt.
                                 </div>
                             </div>
 

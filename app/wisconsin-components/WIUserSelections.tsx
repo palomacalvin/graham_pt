@@ -151,7 +151,7 @@ export default function WIUserSelections({
                         />
                     </label>
             
-                    <label>
+                    <label className="inputWithInfo">
                         Fenceline Acres:
                         <input
                             type="number"
@@ -163,6 +163,13 @@ export default function WIUserSelections({
                             }}
                             className="basicInputBox"
                         />
+
+                        <div className="infoWrapper">
+                            <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                            <div className="infoBubble">
+                                We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                            </div>
+                        </div>
                     </label>
 
                     <br></br>
@@ -297,20 +304,31 @@ export default function WIUserSelections({
             </>
             )}
 
-            <label>
-            Grade of Agricultural Land Converted:
-            <select
-                name="selected_grade"
-                value={projectData.selected_grade}
-                onChange={handleChange}
-                className="basicInputBox"
-            >
-                <option value="">Select</option>
-                <option value={1}>Grade 1</option>
-                <option value={2}>Grade 2</option>
-                <option value={3}>Grade 3</option>
-                <option value={4}>Pasture</option>
-            </select>
+            <label className="inputWithInfo">
+                Grade of Agricultural Land Converted:
+                <select
+                    name="selected_grade"
+                    value={projectData.selected_grade}
+                    onChange={handleChange}
+                    className="basicInputBox"
+                >
+                    <option value="">Select</option>
+                    <option value={1}>Grade 1</option>
+                    <option value={2}>Grade 2</option>
+                    <option value={3}>Grade 3</option>
+                    <option value={4}>Pasture</option>
+                </select>
+
+                <div className="infoWrapper">
+                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                    <div className="infoBubble">
+                        Soil quality classification based
+                        on agricultural production capacity. Grade 1 is the most
+                        productive, Grade 2 is moderately productive, and Grade 3
+                        is the least productive tillable land. A fourth category exists
+                        for untillable pasture.
+                    </div>
+                </div>
             </label>
 
             <h1 className="page-section-title">Inflation Factors</h1>

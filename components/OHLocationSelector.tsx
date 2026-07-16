@@ -229,7 +229,7 @@ export default function LocationSelector({
       
     <div className="info-callout-box">
       <p>
-        Note that the County Average Land Market Value defaults are determined based on the county
+        Note that the <strong>County Average Land Market Value (CAUV) </strong> defaults are determined based on the county
         and taxing district you select. You may
         manually override these values, or select a different location to see new defaults.
       </p>
@@ -252,7 +252,7 @@ export default function LocationSelector({
     {isMarketValueOverridden && <WarningMessage />}
 
     <label>
-      CAUV of Agricultural Land ($/acre):
+      County Average Land Market Value of Agricultural Land ($/acre):
       <input
         type="number"
         name="userCauvAgLand"

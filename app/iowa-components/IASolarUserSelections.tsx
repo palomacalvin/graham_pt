@@ -214,8 +214,7 @@ export default function IASolarUserSelections({
                         <div className="infoWrapper">
                                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                                 <div className="infoBubble">
-                                    For solar projects, we assume the fenceline acres are equivalent
-                                    to 7 acres per mega-watt.
+                                    For solar projects, we assume 7 fenceline acres per mega-watt.
                                 </div>
                         </div>
                     </label>
@@ -283,7 +282,7 @@ export default function IASolarUserSelections({
                         The default number (2.5%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" 
-                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a>
+                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a> {" "}
                         between 1995 and 2025.
                         The default multiplier translates to a 2.5% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
@@ -552,7 +551,7 @@ export default function IASolarUserSelections({
                     <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                         <div className="infoBubble">
-                            If the proportion is unknown, assume a proportion of 100%.
+                            If the proportion is unknown, we assume a proportion of 100%.
                         </div>
                     </div>
                 </div>

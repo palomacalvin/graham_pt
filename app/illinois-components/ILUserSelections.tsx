@@ -204,8 +204,7 @@ export default function ILUserSelections({
                         <div className="infoWrapper">
                                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                                 <div className="infoBubble">
-                                    For solar projects, we assume the fenceline acres are equivalent
-                                    to 7 acres per mega-watt.
+                                    For solar projects, we assume 7 fenceline acres per mega-watt.
                                 </div>
                         </div>
                     </label>
@@ -282,7 +281,7 @@ export default function ILUserSelections({
                 <div className="infoWrapper">
                   <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                   <div className="infoBubble">
-                      We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                      For wind projects, we assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
                   </div>
                 </div>
             </label>

@@ -209,7 +209,7 @@ export default function IAWindUserSelections({
                         <div className="infoWrapper">
                         <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                         <div className="infoBubble">
-                            We assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                            For wind projects, we assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
                         </div>
                         </div>
                     </label>
@@ -331,7 +331,7 @@ export default function IAWindUserSelections({
                         The default number (2.5%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" 
-                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a>
+                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a> {" "}
                         between 1995 and 2025.
                         The default multiplier translates to a 2.5% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
@@ -384,7 +384,7 @@ export default function IAWindUserSelections({
         <br></br>
         
         <label>
-                Expected useful economic life of project (years):
+                Expected useful economic life of the project (years):
                 <div className="inputWithInfo">
                     <input
                         type="number"
@@ -478,7 +478,7 @@ export default function IAWindUserSelections({
             <br></br>
 
             <label>
-                Is the project located in a TIF district?
+                Is the project located in a Tax Increment Financing (TIF) district?
                 <select
                     value={projectData.is_project_tif}
                     onChange={(e) =>
