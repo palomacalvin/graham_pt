@@ -27,7 +27,7 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
       );
       const gross = filtered.reduce((sum, r) => sum + r.grossTotal, 0)
       const npv = filtered.reduce((sum, r) => sum + r.npvTotal, 0);
-      const yearly = Array.from({length: Number(years)}, (_, i) =>
+      const yearly = Array.from({length: Number(years) + 1}, (_, i) =>
         filtered.reduce((sum, r) => sum + r.yearlyCashFlows[i], 0)
       );
 
@@ -274,7 +274,7 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
           <thead>
             <tr>
               <th>Year</th>
-              {Array.from({ length: Number(years) }, (_, i) => (
+              {Array.from({ length: Number(years) + 1 }, (_, i) => (
                 <th key={i}>{startYear + i}</th>
               ))}
             </tr>
@@ -292,7 +292,7 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
 
             <tr className="rowBold">
               <td>Total Gross Per Year (All Jurisdictions)</td>
-              {Array.from({ length: Number(years) }, (_, i) => {
+              {Array.from({ length: Number(years) + 1}, (_, i) => {
                 const yearTotal = calculatedUnits.reduce((sum, unit) => sum + unit.yearlyCashFlows[i], 0);
                 return <td key={i}>{formatCurrency(yearTotal)}</td>;
               })}
@@ -300,14 +300,14 @@ export default function OHTaxResults({ projectData }: OHTaxResultsProps) {
 
             <tr className="rowHighlight">
               <td colSpan={3}>Gross Over the Life of the Project (Total Dollar Value)</td>
-              <td colSpan={Number(years)}>
+              <td colSpan={Number(years) + 1}>
                 {formatCurrency(calculatedUnits.reduce((sum, u) => sum + u.grossTotal, 0))}
               </td>
             </tr>
 
             <tr className="rowHighlight">
               <td colSpan={3}>Net Present Value Over the Life of the Project (Discounted for future inflation and risk)</td>
-              <td colSpan={Number(years)} className="rowHighlight">
+              <td colSpan={Number(years) + 1} className="rowHighlight">
                 {formatCurrency(calculatedUnits.reduce((sum, u) => sum + u.npvTotal, 0))}
               </td>
             </tr>

@@ -149,7 +149,7 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
 
     const yearlyCashFlows: number[] = [];
 
-    for (let i = 0; i < expected_useful_life; i++) {
+    for (let i = 0; i < expected_useful_life + 1; i++) {
       // Compounded inflation factor for the specific year.
       const inflationFactor = Math.pow(1 + Number(inflation_rate), i);
       const inflatedFarmland = previousFarmland * inflationFactor;
@@ -172,7 +172,7 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     }
 
     const grossTotal = yearlyCashFlows.reduce((a, b) => a + b, 0);
-    const npvTotal = calculateNPV(Number(discount_rate), yearlyCashFlows);
+    const npvTotal = calculateNPV(Number(inflation_rate), yearlyCashFlows);
 
     return {
       name: unit.political_unit_name,

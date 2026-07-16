@@ -408,7 +408,7 @@ export default function OHUserSelections({
                         The default number (2.5%) represents the average 
                         annual inflation rate multiplier from the {" "}
                         <a style={{textDecoration: "underline"}} target="_blank" 
-                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a>
+                        href="https://data.bls.gov/pdq/SurveyOutputServlet">U.S. Bureau of Labor Statistics</a> {" "}
                         between 1995 and 2025.
                         The default multiplier translates to a 2.5% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
@@ -543,7 +543,7 @@ export default function OHUserSelections({
                 <div className="infoWrapper">
                   <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                   <div className="infoBubble">
-                      Note that to qualify for QEP projects, a minimum of 70% of employed Construction
+                      Note that to qualify for QEP projects, a minimum of 70% of employed construction
                       workers must be residents of Ohio.
                   </div>
                 </div>
