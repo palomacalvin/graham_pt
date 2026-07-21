@@ -20,6 +20,8 @@ export default function ContactPage() {
             at the Graham Sustainability Institute (University of Michigan).
           </p>
 
+          <br></br>
+
           <p>
             If you have questions or concerns about references, page content,
             calculations, or website bugs, please reach out to{" "}
@@ -27,6 +29,8 @@ export default function ContactPage() {
               empoweringcommunities@umich.edu
             </a>.
           </p>
+
+          <br></br>
 
           <p>
             For our full reference list, please visit the{" "}

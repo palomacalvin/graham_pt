@@ -461,6 +461,8 @@ h2.contact {
 
 .contactPageLink {
   color: #0075bc;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .contactPageLink:hover {

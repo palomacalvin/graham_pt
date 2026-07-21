@@ -30,9 +30,13 @@ export default function ReferencesPage() {
             </a>.
           </p>
 
+          <br></br>
+
           <p>
             Below are lists of all references and data sources, which can also be found on the briefs.
           </p>
+
+          <br></br>
 
           <p>
             If you have any questions or concerns, please contact us by emailing{" "}
