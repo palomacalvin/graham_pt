@@ -172,7 +172,7 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     }
 
     const grossTotal = yearlyCashFlows.reduce((a, b) => a + b, 0);
-    const npvTotal = calculateNPV(Number(inflation_rate), yearlyCashFlows);
+    const npvTotal = calculateNPV(Number(discount_rate), yearlyCashFlows);
 
     return {
       name: unit.political_unit_name,

@@ -67,7 +67,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
       const farmlandTaxYear1 = yearlyFarmlandPayments[0] || 0;
 
       const grossLifetime = calculateGrossTotal(yearlyNetImpacts);
-      const npvLifetime = calculateNPV((projectData.inflation_rate || 0.0290), yearlyNetImpacts);
+      const npvLifetime = calculateNPV((projectData.discount_rate || 0.0290), yearlyNetImpacts);
 
       if (unit.type === "County") {
         console.log(`--- DEBUG: ${unit.name} (Year 1) ---`);
