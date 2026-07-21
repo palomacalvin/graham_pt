@@ -498,7 +498,7 @@ export default function IAWindUserSelections({
 
             <br></br>
 
-            {projectData.is_project_tif === 'no' && (
+            {projectData.is_project_tif === 'yes' && (
 
                 <>
                 <div>

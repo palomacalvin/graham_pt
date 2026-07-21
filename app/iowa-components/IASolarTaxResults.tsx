@@ -56,21 +56,35 @@ export default function IASolarTaxResults({
   const startYear: number = new Date().getFullYear();
   const timelineYears = Array.from({ length: lifespanYears }, (_, idx) => startYear + idx);
 
+
+
+
+
+
   // Create jurisdictional datasets over the lifespan of the project.
-  const fullLifetimeData = taxRevenueRows.map((u: any, index: number) => {
-    let matchingMillage = millageRows.find((m: any) => m.jurisdiction === u.jurisdiction);
-    
-    if (!matchingMillage && u.jurisdiction.toLowerCase().includes("county additional")) {
-      matchingMillage = millageRows.find((m: any) => m.jurisdiction === "County Additional Rural Rate");
+  const fullLifetimeData = taxRevenueRows.map((u: any) => {
+  
+    let matchedPreviousRevenue = u.previousRevenue;
+
+    if (matchedPreviousRevenue === undefined || matchedPreviousRevenue === null) {
+      let matchingMillage = millageRows.find(
+        (m: any) => m.jurisdiction?.toLowerCase().trim() === u.jurisdiction?.toLowerCase().trim()
+      );
+      
+      if (!matchingMillage && u.jurisdiction?.toLowerCase().includes("county")) {
+        matchingMillage = millageRows.find((m: any) => m.jurisdiction?.toLowerCase().includes("county"));
+      }
+
+      matchedPreviousRevenue = matchingMillage?.previousRevenue;
     }
 
-    const previousRevenueBase = matchingMillage?.previousRevenue || 0;
-    
+    const previousRevenueBase = Number(matchedPreviousRevenue ?? 0);
+  
     const yearlyNetImpacts = Array.from({ length: lifespanYears }, (_, idx) => {
-      const inflationMultiplier = Math.pow(1 + inflationRate, idx);
-      const projectTaxThisYear = u.total;
-      const baselineFarmlandTaxThisYear = previousRevenueBase * inflationMultiplier;
-      
+    const inflationMultiplier = Math.pow(1 + inflationRate, idx);
+    const projectTaxThisYear = Number(u.total || 0);
+    const baselineFarmlandTaxThisYear = previousRevenueBase * inflationMultiplier;
+    
       return projectTaxThisYear - baselineFarmlandTaxThisYear;
     });
 
@@ -79,7 +93,7 @@ export default function IASolarTaxResults({
 
     return {
       ...u,
-      previousRevenue: matchingMillage?.previousRevenue,
+      previousRevenue: previousRevenueBase,
       yearlyNetImpacts,
       grossLifetime,
       npvLifetime
