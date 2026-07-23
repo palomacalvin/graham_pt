@@ -4,6 +4,8 @@ import { ProjectData } from "@/types/INProject";
 import LocationSelector, { County } from "@/components/INLocationSelector";
 import { useState, useEffect, useCallback } from "react";
 import AllFieldsRequired from "@/components/AllFieldsRequired";
+import { AbatementUnit } from "./AbatementTable";
+import AbatementTable from "./AbatementTable";
 
 
 interface Props {
@@ -104,6 +106,31 @@ export default function INUserSelections({
             land_area: prev.nameplate_capacity * 7
         }));
     }, [projectData.nameplate_capacity, projectData.project_type, userEditedSolarRelation]);
+
+
+    // Initialize abatement table.
+    const [abatementUnits, setAbatementUnits] = useState<AbatementUnit[]>(
+        Array.from({ length: 10 }, (_, i) => ({
+            year: i + 1,
+            personalPropertyAbatement: 1.0, // 100%
+            realPropertyAbatement: 1.0,     // 100%
+        }))
+    );
+
+    // Default values for abatement table (sets all values to 100%).
+    const DEFAULT_ABATEMENT_UNITS: AbatementUnit[] = Array.from({ length: 10 }, (_, i) => ({
+        year: i + 1,
+        personalPropertyAbatement: 1.0, // 100%
+        realPropertyAbatement: 1.0,     // 100%
+    }));
+
+    // Handles resetting the abatement table.
+    const handleResetAbatement = () => {
+        setAbatementUnits(DEFAULT_ABATEMENT_UNITS);
+    };
+
+
+
 
   return (
     <>
@@ -504,7 +531,7 @@ export default function INUserSelections({
         <br></br>
 
         <section>
-            <h1 className="page-section-title">Manual Taxing District Rates</h1>
+            <h1 className="page-section-title">Abatement</h1>
 
             <div className="info-callout-box">
                 <p>
@@ -517,6 +544,42 @@ export default function INUserSelections({
 
             <br></br>
 
+            <AbatementTable 
+                abatementUnits={abatementUnits} 
+                setAbatementUnits={setAbatementUnits} 
+            />
+            
+            <button
+                type="button"
+                onClick={handleResetAbatement}
+                className="inPageButton"
+                style={{ marginTop: "1rem" }}
+                >
+                Reset Abatement Schedule to Default
+            </button>
+
+        </section>
+
+        <section>
+            <h1 className="page-section-title">Taxing Units Selection</h1>
+
+            <div className="info-callout-box">
+                <p>
+                    Below, select the taxing units that are applicable to your project. All county funds
+                    have already populated based on your county selection above. Choose a township from the list.
+                    Then, select applicable units (city/town, school, library, and special units).
+                </p>
+
+                <br></br>
+
+                <p>
+                    <strong>
+                        Note that you must manually verify that selected cities/towns, schools, libraries,
+                        and special units are within the jurisdiction of the township that you choose.
+                    </strong>
+                </p>
+
+            </div>
         </section>
 
     </>
