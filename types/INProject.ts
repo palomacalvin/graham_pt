@@ -1,3 +1,5 @@
+import { TaxUnitRecord } from "@/app/indiana-components/TaxUnits";
+
 export interface ProjectData {
   county: string;
 
@@ -20,6 +22,18 @@ export interface ProjectData {
   rp_district: string;
 
   total_investment: number;
+  
+  township: string;
+  cityTown: string;
+  school: string;
+  libraries: any;
+  specialUnits: any;
+
+  selectedTaxUnits?: TaxUnitRecord[];
+  totals?: {
+    totalLevy: number;
+    totalRate: number;
+  };
 
 }
 

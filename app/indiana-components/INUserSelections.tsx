@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import AllFieldsRequired from "@/components/AllFieldsRequired";
 import { AbatementUnit } from "./AbatementTable";
 import AbatementTable from "./AbatementTable";
+import TaxUnits from "./TaxUnits";
 
 
 interface Props {
@@ -579,7 +580,24 @@ export default function INUserSelections({
                     </strong>
                 </p>
 
+                <br></br>
+
+                <p>
+                    You can verify rates and levies using the {" "}
+                    <a target="_blank" href="https://gateway.ifionline.org/report_builder/Default3a.aspx?rpttype=abstract&rpt=rptDetail_By_District&rptName=Detail%20By%20District" className="contactPageLink">Indiana Gateway tool.</a>
+                </p>
             </div>
+
+            <TaxUnits 
+                selectedCounty={selectedCounty}
+                projectData={projectData}
+                setProjectData={setProjectData}
+            />
+
+        </section>
+
+        <section>
+            {/* TODO: ADD TAX RESULTS SECTION HERE */}
         </section>
 
     </>

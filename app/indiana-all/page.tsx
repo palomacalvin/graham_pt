@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import TaxResults from "../indiana-components/INTaxResults";
 import FooterComp from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
+import { TaxUnitRecord } from "../indiana-components/TaxUnits";
 
 
 export default function ProjectForm() {
@@ -30,7 +31,24 @@ export default function ProjectForm() {
 
     north_land_assessed_value: 13000,
     central_land_assessed_value: 14607,
-    south_land_assessed_value: 7699
+    south_land_assessed_value: 7699,
+
+    land_assessed_value: 0,
+    rp_district: "",
+    total_investment: 0,
+
+    township: "",
+    cityTown: "",
+    school: "",
+    libraries: [],
+    specialUnits: [],
+
+    selectedTaxUnits: [],
+
+    totals: {
+      totalLevy: 0,
+      totalRate: 0,
+    },
 
   });
 
