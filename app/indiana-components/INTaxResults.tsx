@@ -23,6 +23,7 @@ export interface JurisdictionRow {
   abatementYears?: number;
   unit_type?: string;
   unitType?: string;
+  fundName?: string;
 }
 
 interface INTaxResultsProps {
@@ -261,8 +262,8 @@ export default function INTaxResults({
 
                   {safeJurisdictionRows.map((j) => (
                     <tr key={`no-abate-${j.id}`}>
-                      <td>
-                        {j.name ? `${j.name}` : ""}
+                      <td style={{whiteSpace: "wrap"}}>
+                        {j.name ? `${j.name} - ${j.fundName}` : ""}
                       </td>
                       <td>{formatCurrency(j.projectTaxYear1)}</td>
                       <td>{formatCurrency(j.additionalUnitRevenueYear1)}</td>
@@ -291,7 +292,7 @@ export default function INTaxResults({
                   {safeJurisdictionRows.map((j) => (
                     <tr key={`abate-${j.id}`}>
                       <td>
-                        {j.name ? `${j.name}` : ""}
+                        {j.name ? `${j.name} - ${j.fundName}` : ""}
                       </td>
                       <td>{formatCurrency(j.abatedProjectTaxYear1)}</td>
                       <td>{formatCurrency(j.abatedAdditionalUnitRevenueYear1)}</td>
@@ -338,7 +339,7 @@ export default function INTaxResults({
               const npv = getRowNPV(u);
               return (
                 <tr key={u.id}>
-                  <td>{u.name ? `${u.name}` : u.label}</td>
+                  <td>{u.name ? `${u.name}${u.fundName ? ` - ${u.fundName}` : ""}` : u.label}</td>
                   <td>{formatCurrency(gross)}</td>
                   <td>{formatCurrency(npv)}</td>
                 </tr>
@@ -372,8 +373,8 @@ export default function INTaxResults({
               const flows = getEffectiveCashFlows(u);
               return (
                 <tr key={u.id}>
-                  <td style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>
-                    {u.name ? `${u.name}` : u.label}
+                  <td style={{ whiteSpace: "wrap" }}>
+                    {u.name ? `${u.name} - ${u.fundName}` : u.label}
                   </td>
                   {safeRows.map((_, idx) => (
                     <td key={idx}>{formatCurrency(flows[idx] || 0)}</td>

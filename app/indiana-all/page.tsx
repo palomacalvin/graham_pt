@@ -155,6 +155,7 @@ export default function ProjectForm() {
       id: unit.unit_code || unit.fund_code || String(index),
       label,
       name: unit.unit_name || unit.fund_name || "Taxing Unit",
+      fundName: unit.fund_name || unit.fundName || "",
 
       projectTaxYear1,
       additionalUnitRevenueYear1,
