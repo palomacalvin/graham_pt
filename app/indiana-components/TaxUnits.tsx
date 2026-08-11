@@ -39,7 +39,7 @@ export const TaxUnits: React.FC<TaxUnitsProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Normalize county name string from County object or string
+  // Normalize the county name string.
   const activeCountyName = useMemo(() => {
     if (!externalSelectedCounty) return projectData.county || "";
     if (typeof externalSelectedCounty === "object") {
@@ -48,7 +48,7 @@ export const TaxUnits: React.FC<TaxUnitsProps> = ({
     return externalSelectedCounty;
   }, [externalSelectedCounty, projectData.county]);
 
-  // Downstream Selection states
+  // Selection states.
   const [selectedTownship, setSelectedTownship] = useState<string>(
     projectData.township || ""
   );
@@ -65,13 +65,14 @@ export const TaxUnits: React.FC<TaxUnitsProps> = ({
     projectData.specialUnits || []
   );
 
-  // Track active county to detect actual changes and reset child selections
+  // Track the selected county.
   const prevCountyRef = useRef<string>(activeCountyName);
 
   useEffect(() => {
     if (prevCountyRef.current !== activeCountyName) {
       prevCountyRef.current = activeCountyName;
-      // Reset dependent selections when county changes upstream
+
+      // Reset selections when changes are made.
       setSelectedTownship("");
       setSelectedCityTown("");
       setSelectedSchool("");
@@ -80,44 +81,44 @@ export const TaxUnits: React.FC<TaxUnitsProps> = ({
     }
   }, [activeCountyName]);
 
-  // Fetch tax units from API
-useEffect(() => {
-  const fetchTaxUnits = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      // 1. Point to your actual API route path
-      const response = await fetch("/api/indiana/certified_values_avs");
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch tax unit data. (Status ${response.status})`);
-      }
+  // Fetch tax units from the API.
+  useEffect(() => {
+    const fetchTaxUnits = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch("/api/indiana/certified_values_avs");
 
-      const json = await response.json();
+        // Error message.
+        if (!response.ok) {
+          throw new Error(`Failed to fetch tax unit data. (Status ${response.status})`);
+        }
 
-      // Check if the API returned an error object
-      if (json.error) {
-        throw new Error(json.error);
-      }
+        const json = await response.json();
 
-      // 2. Extract the 'counties' array from the returned response object
-      const data: TaxUnitRecord[] = json.counties || [];
-      setAllTaxUnits(data);
-    } catch (err: any) {
-      console.error("Fetch tax units error:", err);
-      setError(err.message || "An unexpected error occurred.");
-    } finally {
-      setLoading(false);
-    }
-  };
+        // Check if the API returned an error object.
+        if (json.error) {
+          throw new Error(json.error);
+        }
 
-  fetchTaxUnits();
-}, []);
+        // Extract the 'counties' array from the returned object.
+        const data: TaxUnitRecord[] = json.counties || [];
+          setAllTaxUnits(data);
+        } catch (err: any) {
+          console.error("Fetch tax units error:", err);
+          setError(err.message || "An unexpected error occurred.");
+        } finally {
+          setLoading(false);
+        }
+      };
 
-  // Filter records to only the active county
+      fetchTaxUnits();
+    }, []);
+
+  // Filter records to only the active county.
   const countyTaxUnits = useMemo(() => {
     if (!activeCountyName) return [];
-    
+
     const cleanActive = activeCountyName.toLowerCase().replace(/\s+county$/i, "").trim();
 
     return allTaxUnits.filter((item) => {
@@ -127,7 +128,8 @@ useEffect(() => {
     });
   }, [allTaxUnits, activeCountyName]);
 
-  // Handlers for cascading downstream resets
+
+  // Handlers for changes/resets.
   const handleTownshipChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const township = e.target.value;
     setSelectedTownship(township);
@@ -153,6 +155,8 @@ useEffect(() => {
     );
   };
 
+
+  // Helper function to handle matching.
   const matchesType = (u: any, type: string) => {
     const code = String(u.unit_type_code || "").toLowerCase();
     const name = String(u.unit_type_name || "").toLowerCase();
@@ -160,7 +164,8 @@ useEffect(() => {
     return code === search || name.includes(search);
   };
 
-  // Available unique unit options scoped to county/township
+
+  // Filtered unit options for selected county.
   const availableTownships = useMemo(() => {
     if (!activeCountyName) return [];
     const filtered = countyTaxUnits.filter((u) => matchesType(u, "township"));
@@ -191,34 +196,24 @@ useEffect(() => {
     return Array.from(new Set(filtered.map((u) => u.unit_name))).sort();
   }, [countyTaxUnits, selectedTownship]);
 
-  // Aggregate active tax units for calculations
+
+  // Aggregated active tax units for calculations.
   const activeTaxUnits = useMemo(() => {
     if (!activeCountyName || !selectedTownship) return [];
 
     return countyTaxUnits.filter((item) => {
-      // 1. County level funds (always included once county is selected)
       if (matchesType(item, "county")) return true;
-
-      // 2. Selected Township funds
       if (matchesType(item, "township") && item.unit_name === selectedTownship)
         return true;
-
-      // 3. Selected City/Town funds
       if (matchesType(item, "city/town") && item.unit_name === selectedCityTown)
         return true;
-
-      // 4. Selected School District funds
       if (matchesType(item, "school") && item.unit_name === selectedSchool)
         return true;
-
-      // 5. Selected Libraries funds
       if (
         matchesType(item, "library") &&
         selectedLibraries.includes(item.unit_name)
       )
         return true;
-
-      // 6. Selected Special Districts funds
       if (
         matchesType(item, "special") &&
         selectedSpecialUnits.includes(item.unit_name)
@@ -237,7 +232,7 @@ useEffect(() => {
     selectedSpecialUnits,
   ]);
 
-  // Compute Grand Totals
+  // Compute grand totals based on selected funds.
   const grandTotals = useMemo(() => {
     return activeTaxUnits.reduce(
       (acc, item) => {
@@ -250,10 +245,9 @@ useEffect(() => {
     );
   }, [activeTaxUnits]);
 
-  // Sync state upward to parent ProjectData without infinite render loop
+  // Sync state upward to parent ProjectData without infinite render loop.
   useEffect(() => {
     setProjectData((prev) => {
-      // Guard: Only update if values actually changed
       if (
         prev.county === activeCountyName &&
         prev.township === selectedTownship &&
@@ -295,7 +289,7 @@ useEffect(() => {
     setProjectData,
   ]);
 
-  // Group active items by unit type for table/summary rendering
+  // Group like items together for UI rendering.
   const groupedUnits = useMemo(() => {
     const order = [
       "County",
@@ -331,9 +325,7 @@ useEffect(() => {
         </div>
       )}
 
-      {/* Control Panel / Dropdowns */}
       <div className="input-grid">
-        {/* Selected County Display */}
         <div>
           <label className="label">
             Your Selected County
@@ -349,7 +341,6 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Township Selection */}
         <div>
           <label className="label">
             Township <span style={{ color: "#d61b15", fontStyle: "italic", fontSize: "0.85rem"}}>(Required)</span>
@@ -369,7 +360,6 @@ useEffect(() => {
           </select>
         </div>
 
-        {/* City/Town Selection */}
         <div>
           <label className="label">
             City / Town <span style={{ color: "#7a7a7a", fontStyle: "italic", fontSize: "0.85rem"}}>(Optional)</span>
@@ -389,7 +379,6 @@ useEffect(() => {
           </select>
         </div>
 
-        {/* School District Selection */}
         <div>
           <label className="label">
             School District <span style={{ color: "#7a7a7a", fontStyle: "italic", fontSize: "0.85rem"}}>(Optional)</span>
@@ -410,10 +399,8 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* Multi-Select Sections for Libraries and Special Units */}
       {selectedTownship && (
         <div className="input-grid">
-          {/* Library Multi-Select Checkboxes */}
           <div className="full-width-check">
             <h4 className="label" style={{marginBottom: "0.5rem", marginLeft: "0.5rem" }}>
               Library Districts <span style={{ color: "#7a7a7a", fontStyle: "italic", fontSize: "0.85rem"}}>(Select all applicable units)</span>
@@ -437,7 +424,6 @@ useEffect(() => {
             )}
           </div>
 
-          {/* Special Units Multi-Select Checkboxes */}
             <div className="full-width-check">
             <h4 className="label">
               Special Districts <span style={{ color: "#7a7a7a", fontStyle: "italic", fontSize: "0.85rem"}}>(Select all applicable units)</span>
@@ -465,11 +451,10 @@ useEffect(() => {
 
       <br></br>
 
-      {/* Tax Units Breakdown Table */}
       {activeCountyName && selectedTownship && (
         <div className="homepage-wrapper">
           <h3 className="page-title-text">
-            Tax Units Breakdown ({activeTaxUnits.length} funds loaded)
+            Tax Units Breakdown ({activeTaxUnits.length} funds selected)
           </h3>
           <div className="">
             <table className="basicTable">
@@ -517,7 +502,7 @@ useEffect(() => {
               <tfoot>
                 <tr>
                   <td colSpan={3} className="rowHighlight">
-                    Grand Totals:
+                    Total:
                   </td>
                   <td className="rowHighlight">
                     ${grandTotals.levy.toLocaleString()}

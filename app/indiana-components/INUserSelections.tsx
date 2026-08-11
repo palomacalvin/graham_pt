@@ -8,7 +8,6 @@ import { AbatementUnit } from "./AbatementTable";
 import AbatementTable from "./AbatementTable";
 import TaxUnits from "./TaxUnits";
 
-
 interface Props {
     projectData: ProjectData;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -49,7 +48,7 @@ export default function INUserSelections({
     const [userEditedSolarRelation, setUserEditedSolarRelation] = useState(false);
     const [userEditedLandValue, setUserEditedLandValue] = useState(false);
 
-    // Helper function to resolve regional land value based on selected county
+    // Helper function to choose regional land value based on selected county.
     const getRegionalLandValue = useCallback(
     (county: County | null) => {
         if (!county?.rp_district) return 0;
@@ -62,7 +61,6 @@ export default function INUserSelections({
         case "South":
             return projectData.south_land_assessed_value ?? 7699;
         default:
-            // Default fallback if region not recognized
             return projectData.central_land_assessed_value ?? 14607;
         }
     },
@@ -73,7 +71,7 @@ export default function INUserSelections({
     ]
     );
 
-    // Auto-populate land assessed value when county selection changes
+    // Auto-populate land assessed value when county selection changes.
     useEffect(() => {
         if (!selectedCounty) return;
 
@@ -113,25 +111,22 @@ export default function INUserSelections({
     const [abatementUnits, setAbatementUnits] = useState<AbatementUnit[]>(
         Array.from({ length: 10 }, (_, i) => ({
             year: i + 1,
-            personalPropertyAbatement: 1.0, // 100%
-            realPropertyAbatement: 1.0,     // 100%
+            personalPropertyAbatement: 1.0,
+            realPropertyAbatement: 1.0,
         }))
     );
 
     // Default values for abatement table (sets all values to 100%).
     const DEFAULT_ABATEMENT_UNITS: AbatementUnit[] = Array.from({ length: 10 }, (_, i) => ({
         year: i + 1,
-        personalPropertyAbatement: 1.0, // 100%
-        realPropertyAbatement: 1.0,     // 100%
+        personalPropertyAbatement: 1.0,
+        realPropertyAbatement: 1.0,
     }));
 
     // Handles resetting the abatement table.
     const handleResetAbatement = () => {
         setAbatementUnits(DEFAULT_ABATEMENT_UNITS);
     };
-
-
-
 
   return (
     <>
@@ -216,7 +211,7 @@ export default function INUserSelections({
           <input
             type="number"
             name="land_assessed_value"
-            value={projectData.total_investment}
+            value={projectData.total_investment || 337500000}
             className="basicInputBox"
             placeholder="Example: $337,500,000"
           />
@@ -270,7 +265,7 @@ export default function INUserSelections({
                             className="basicInputBox"
                         />
                     </label>
-            
+
                     <label className="inputWithInfo">
                         Fenceline Acres:
                         <input
@@ -420,83 +415,81 @@ export default function INUserSelections({
             </>
             )}
 
-            
-
             <h1 className="page-section-title">Inflation Factors</h1>
 
             <AllFieldsRequired />
 
             <br></br>
 
-        <label>
-            Average annual inflation rate (%):
-            <div className="inputWithInfo">
-                <input
-                    type="number"
-                    step="0.01"
-                    value={Math.round(projectData.inflation_rate * 10000) / 100}
-                    onChange={(e) =>
-                    setProjectData((prev) => ({
-                        ...prev,
-                        inflation_rate: e.target.value === "" ? 0 : parseFloat(e.target.value) / 100
-                    }))
-                    }
-                    className="basicInputBox"
-                />
+            <label>
+                Average annual inflation rate (%):
+                <div className="inputWithInfo">
+                    <input
+                        type="number"
+                        step="0.01"
+                        value={Math.round(projectData.inflation_rate * 10000) / 100}
+                        onChange={(e) =>
+                        setProjectData((prev) => ({
+                            ...prev,
+                            inflation_rate: e.target.value === "" ? 0 : parseFloat(e.target.value) / 100
+                        }))
+                        }
+                        className="basicInputBox"
+                    />
 
-                <div className="infoWrapper">
-                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                    <div className="infoBubble">
-                        The default number (2.5%) represents the average annual inflation rate multiplier from the U.S. Bureau of 
-                        Labor Statistics between 1995 and 2025. The default multiplier translates to a 2.5% average annual inflation rate. 
-                        Users can override this default number and enter their own estimated average annual inflation rate multiplier if they prefer.
+                    <div className="infoWrapper">
+                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            The default number (2.5%) represents the average annual inflation rate multiplier from the U.S. Bureau of 
+                            Labor Statistics between 1995 and 2025. The default multiplier translates to a 2.5% average annual inflation rate. 
+                            Users can override this default number and enter their own estimated average annual inflation rate multiplier if they prefer.
+                        </div>
                     </div>
                 </div>
-            </div>
-        </label>
+            </label>
 
-        <label>
-            Annual discount rate (%):
-            <div className="inputWithInfo">
-                <input
-                    type="number"
-                    step="0.01"
-                    value={projectData.discount_rate * 100} // Display as 3%
-                    onChange={(e) =>
-                    setProjectData((prev) => ({
-                        ...prev,
-                        discount_rate: e.target.value === "" ? 0 : parseFloat(e.target.value) / 100,
-                    }))
-                    }
-                    className="basicInputBox"
-                />
-                <div className="infoWrapper">
-                    <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
-                    <div className="infoBubble">
-                        The default discount rate of 3.0% comes from {" "}
-                        <a style={{ textDecoration: "underline" }} 
-                        target="_blank" 
-                        href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
-                        Users can override this default rate and enter their own estimated 
-                        discount rate if they prefer.
+            <label>
+                Annual discount rate (%):
+                <div className="inputWithInfo">
+                    <input
+                        type="number"
+                        step="0.01"
+                        value={projectData.discount_rate * 100} // Display as 3%
+                        onChange={(e) =>
+                        setProjectData((prev) => ({
+                            ...prev,
+                            discount_rate: e.target.value === "" ? 0 : parseFloat(e.target.value) / 100,
+                        }))
+                        }
+                        className="basicInputBox"
+                    />
+                    <div className="infoWrapper">
+                        <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
+                        <div className="infoBubble">
+                            The default discount rate of 3.0% comes from {" "}
+                            <a style={{ textDecoration: "underline" }} 
+                            target="_blank" 
+                            href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
+                            Users can override this default rate and enter their own estimated 
+                            discount rate if they prefer.
+                        </div>
                     </div>
                 </div>
-            </div>
             </label>
 
             <br></br>
 
             <button
-            type="button"
-            onClick={handleResetDefaults}
-            className="inPageButton"
-            >
-            Reset Inflation Factors
+                type="button"
+                onClick={handleResetDefaults}
+                className="inPageButton"
+                >
+                Reset Inflation Factors
             </button>
         </section>
 
         <section>
-        <label>
+            <label>
                 Expected useful economic life of project (years):
                 <div className="inputWithInfo">
                     <input
@@ -538,18 +531,18 @@ export default function INUserSelections({
                 <p>
                     Input a potential abatement schedule for personal and real property. 
                     Indiana law allows for up to a 10-year 100% abatement of personal and real property taxes. 
-                    Every value must be between 0 and 1.		
+                    All values must be between 0 and 100%.
                 </p>
 
             </div>
 
             <br></br>
 
-            <AbatementTable 
-                abatementUnits={abatementUnits} 
-                setAbatementUnits={setAbatementUnits} 
+            <AbatementTable
+                abatementUnits={abatementUnits}
+                setAbatementUnits={setAbatementUnits}
             />
-            
+
             <button
                 type="button"
                 onClick={handleResetAbatement}
@@ -588,18 +581,13 @@ export default function INUserSelections({
                 </p>
             </div>
 
-            <TaxUnits 
+            <TaxUnits
                 selectedCounty={selectedCounty}
                 projectData={projectData}
                 setProjectData={setProjectData}
             />
 
         </section>
-
-        <section>
-            {/* TODO: ADD TAX RESULTS SECTION HERE */}
-        </section>
-
     </>
   );
 }

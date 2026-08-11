@@ -22,6 +22,10 @@ export interface ProjectData {
   rp_district: string;
 
   total_investment: number;
+  pct_investment_udp: number;
+  depreciation_floor: number;
+  state_credit_gross_additions: number;
+  real_property_assessment_ratio: number;
   
   township: string;
   cityTown: string;
