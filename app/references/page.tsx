@@ -65,13 +65,14 @@ export default function ReferencesPage() {
         <div>
           <ol className="ref-list">
             <li>
-              Illinois Department of Revenue, “How Is Farmland Assessed for Property Tax?,” Government of Illinois, accessed May 13, 2025, <a target="_blank" 
-              href="https://tax.illinois.gov/questionsandanswers/answer.319.html" className="contactPageLink">https://tax.illinois.gov/questionsandanswers/answer.319.html</a>
+              Illinois Department of Revenue, “How Is Farmland Assessed for Property Tax?,” Government of Illinois, accessed May 13th, 2025, <a target="_blank" 
+              href="https://tax.illinois.gov/questionsandanswers/answer.319.html" className="contactPageLink">https://tax.illinois.gov/questionsandanswers/answer.319.html</a>.
             </li>
 
             <li>
-              Illinois Department of Revenue, “Commercial Solar Energy Systems Valuation,” accessed May 13 2025, <a target="_blank" 
-              href="https://tax.illinois" className="contactPageLink">https://tax.illinois</a>.
+              Illinois Department of Revenue, “Commercial Solar Energy Systems Valuation,” accessed August 4th, 2026, <a target="_blank" 
+              href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf" 
+              className="contactPageLink">https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf</a>.
             </li>
 
             <li>
@@ -79,50 +80,16 @@ export default function ReferencesPage() {
             </li>
 
             <li>
-              Illinois Department of Revenue, “Commercial Solar Energy Systems Valuation,” accessed May 13 2025, {" "}
-              <a target="_blank" href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf"
-              className="contactPageLink">https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf</a>.
-            </li>
-
-            <li>
-              Illinois Department of Revenue, “Wind Energy Device Valuation,” accessed May 13 2025, <a target="_blank" href="https://tax.illinois.gov/content/dam/soi/en/web/tax/
+              Illinois Department of Revenue, “Wind Energy Device Valuation,” accessed May 13th, 2025, <a target="_blank" href="https://tax.illinois.gov/content/dam/soi/en/web/tax/
               localgovernments/property/documents/windenergydevicevaluation.pdf" className="contactPageLink">
               https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergydevicevaluation.pdf</a>
             </li>
 
             <li>
-              Illinois Department of Revenue, “Commercial Solar Energy Systems Valuation,” accessed May 13 2025, <a target="_blank" 
-              href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf"
-              className="contactPageLink">
-              https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf</a>.
-            </li>
-
-            <li>
-              Illinois Department of Revenue, “Wind Energy Device Valuation,” accessed May 13 2025, <a target="_blank" 
-              href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergydevicevaluation.pdf"
-              className="contactPageLink">
-              https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergydevicevaluation.pdf</a>.
-            </li>
-
-            <li>
-              Illinois Department of Revenue, “Wind Energy Device Valuation,” accessed May 13 2025, <a target="_blank"
-              href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergydevicevaluation.pdf"
-              className="contactPageLink">
-              https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergydevicevaluation.pdf</a>.
-            </li>
-
-            <li>
-              Illinois Department of Revenue, “History of CPI’s and Trending Factors Used for Wind Energy Device Valuation,” January 2024, {" "}
+              Illinois Department of Revenue, “History of CPI’s and Trending Factors Used for Wind Energy Device Valuation,” January 2026, {" "}
               <a target="_blank" href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergytrendingfactors.pdf"
               className="contactPageLink">
               https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergytrendingfactors.pdf</a>.
-            </li>
-
-            <li>
-              llinois Department of Revenue, “Commercial Solar Energy Systems Valuation,” accessed May 13 2025, {" "}
-              <a target="_blank" href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf"
-              className="contactPageLink">
-              https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/commercialsolarenergysystemsvaluation.pdf</a>.
             </li>
 
             <li>
@@ -133,14 +100,14 @@ export default function ReferencesPage() {
             </li>
 
             <li>
-              Illinois Department of Revenue, “Informational Bulletin,” June 2013, <a target="_blank"
-              href="https://tax.illinois.gov/content/dam/soi/en/web/tax/research/publications/bulletins/documents/2014/fy-2014-16.pdf"
+              Illinois Department of Revenue, “Informational Bulletin,” June 2014, <a target="_blank"
+              href="https://tax.illinois.gov/research/publications/bulletins.html"
               className="contactPageLink">
-              https://tax.illinois.gov/content/dam/soi/en/web/tax/research/publications/bulletins/documents/2014/fy-2014-16.pdf</a>.
+              https://tax.illinois.gov/research/publications/bulletins.html</a>.
             </li>
 
             <li>
-              Illinois Department of Revenue, “Personal Property Replacement Tax,” accessed October 20 2024, {" "}
+              Illinois Department of Revenue, “Personal Property Replacement Tax,” accessed October 20th, 2024, {" "}
               <a target="_blank" href="https://tax.illinois.gov/localgovernments/personal-property-replacement-tax.html"
               className="contactPageLink">
               https://tax.illinois.gov/localgovernments/personal-property-replacement-tax.html</a>.
@@ -154,11 +121,67 @@ export default function ReferencesPage() {
             </li>
 
             <li>
-              Illinois Department of Revenue, “History of CPI’s and Trending Factors Used for Wind Energy Device Valuation,” January 2024, {" "}
-              <a target="_blank" href="https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergytrendingfactors.pdf"
-              className="contactPageLink">
-              https://tax.illinois.gov/content/dam/soi/en/web/tax/localgovernments/property/documents/windenergytrendingfactors.pdf</a>.
-            </li>
+              Bungaran, Y. (n.d.). Firefighter. In The Noun Project. 
+              Retrieved from {" "}
+              <a target="_blank" href="https://thenounproject.com/search/icons/?q=firefighter" className="contactPageLink">
+              https://thenounproject.com/search/icons/?q=firefighter</a>; Hermawan. (n.d.). Road.
+              In The Noun Project. Retrieved from {" "}
+              <a target="_blank" href="https://thenounproject.com/search/icons/?q=road" className="contactPageLink">
+              https://thenounproject.com/search/icons/?q=road</a>; Hikami, E. (n.d.). Fire Truck. In The Noun Project. 
+              Retrieved from {" "}<a target="_blank" href="https://thenounproject.com/search/icons/?q=firetruck" className="contactPageLink">
+              https://thenounproject.com/search/icons/?q=firetruck</a>.
+          </li>
+
+          <li>
+            Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
+            <a target="_blank" href="https://reason.org/highway-report/28th-annual-highway-report/"
+            className="contactPageLink">
+            https://reason.org/highway-report/28th-annual-highway-report/</a>.
+          </li>
+
+          <li>
+            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Illinois,” May 2023. {" "}
+            <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes_il.htm" className="contactPageLink">
+            https://www.bls.gov/oes/2023/may/oes_il.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
+            September 12 2025, {" "}<a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+          </li>
+
+          <li>
+            Summer Kiswani, “Homewood board approves purchase of $1.3 million fire truck,” Homewood Flossmoor Chronicle, January 12 2025, {" "}
+            <a target="_blank" href="https://www.hfchronicle.com/2025/01/22/homewood-board-approves-purchase-of-1-3-million-fire-truck/"
+            className="contactPageLink">
+            https://www.hfchronicle.com/2025/01/22/homewood-board-approves-purchase-of-1-3-million-fire-truck/</a>.
+          </li>
+
+          <li>
+            National Education Association, “Educator Pay Data 2025,” {" "}
+            <a target="_blank" href="https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank"
+            className="contactPageLink">
+            https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank</a>; 
+            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12
+            2025, {" "}
+            <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
+            className="contactPageLink">https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+          </li>
+
+          <li>
+            United States Bureau of Labor Statistics, “25-4022 Librarians and Media Collections Specialists,” Occupational Employment and Wages, May 2023, {" "}
+            <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes254022.htm"
+            className="contactPageLink"> https://www.bls.gov/oes/2023/may/oes254022.htm</a>;
+            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12th 2025, {" "}
+            <a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">
+            https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+          </li>
+
+          <li>
+            “Midwest Construction Professionals, “Bureau Valley High School”, {" "}
+            <a target="_blank" href="https://midconpro.com/projects/bureau_hs/"
+            className="contactPageLink"> https://midconpro.com/projects/bureau_hs/</a>;
+            Adam Rollins, “Illinois school district approves $152 million to improve, renovate three campuses,” Government Market News, {" "}
+            <a target="_blank" href="https://govmarketnews.com/illinois-school-district-approves-152-million-to-improve-renovate-three-campuses/" className="contactPageLink">
+            https://govmarketnews.com/illinois-school-district-approves-152-million-to-improve-renovate-three-campuses/</a>.
+          </li>
+
           </ol>
           </div>
       </section>
@@ -1436,7 +1459,7 @@ export default function ReferencesPage() {
             </li>
 
             <li>
-              Ohio Department of Taxation, Real Property Taxation in Ohio (2009), 
+              Ohio Department of Taxation, Real Property Taxation in Ohio (2009), {" "}
               <a target="_blank" href="https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_real_property.pdf"
               className="contactPageLink">
               https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/communications/publications/property_tax_real_property.pdf</a>.
@@ -1544,6 +1567,65 @@ export default function ReferencesPage() {
               <a target="_blank" href="https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks" className="contactPageLink">
               https://ccao.org/aws/CCAO/pt/sp/manuals-handbooks</a>.
             </li>
+
+            <li>
+              Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
+              <a target="_blank" href="https://reason.org/highway-report/28th-annual-highway-report/"
+              className="contactPageLink">
+              https://reason.org/highway-report/28th-annual-highway-report/</a>.
+            </li>
+
+            <li>
+              United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Ohio,” May 2023. {" "}
+              <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes_oh.htm" className="contactPageLink">
+              https://www.bls.gov/oes/2023/may/oes_il.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
+              September 12 2025, {" "}<a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+            </li>
+
+            <li>
+              National Education Association, “Educator Pay Data 2025,” {" "}
+              <a target="_blank" href="https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank"
+              className="contactPageLink">
+              https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank</a>; 
+              United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12
+              2025, {" "}
+              <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
+              className="contactPageLink">https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+            </li>
+
+            <li>
+              United States Bureau of Labor Statistics, “25-4022 Librarians and Media Collections Specialists,” Occupational Employment and Wages, May 2023, {" "}
+              <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes254022.htm"
+              className="contactPageLink"> https://www.bls.gov/oes/2023/may/oes254022.htm</a>;
+              United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12th 2025, {" "}
+              <a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">
+              https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+            </li>
+
+            <li>
+              United States Bureau of Labor Statistics, “33-2011 Firefighters,” Occupational Employment and Wages, May 2023, {" "}
+              <a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf"
+              className="contactPageLink"> https://www.bls.gov/news.release/pdf/ecec.pdf</a>;
+              United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12th 2025, {" "}
+              <a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">
+              https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
+            </li>
+
+            <li>
+              Abby Bammerlin, “Marion FD’s $1.7M ladder truck enters service soon - here’s what firefighters have to say,” Marion Star, July 28 2025, {" "}
+              <a target="_blank" href="https://www.marionstar.com/story/news/local/2025/07/28/marion-city-fire-department-buys-ladder-truck-with-100-foot-ladder-ohio-technology-training/85339132007/?gnt-cfr=1&gca-cat=p&gca-uir=false&gca-epti=z112505p002550c002550e007600v112505&gca-ft=161&gca-ds=sophi" 
+              className="contactPageLink">
+              https://www.marionstar.com/story/news/local/2025/07/28/marion-city-fire-department-buys-ladder-truck-with-100-foot-ladder-ohio-technology-training/85339132007/?gnt-cfr=1&gca-cat=p&gca-uir=false&gca-epti=z112505p002550c002550e007600v112505&gca-ft=161&gca-ds=sophi</a>.
+            </li>
+
+            <li>
+              Stan Boney, “$3M approved for Youngstown school renovation,” WKBN27, March 10th, 2026 {" "}
+              <a target="_blank" href="https://www.wkbn.com/news/local-news/youngstown-news/3m-approved-for-youngstown-school-renovation/" 
+              className="contactPageLink">
+              https://www.wkbn.com/news/local-news/youngstown-news/3m-approved-for-youngstown-school-renovation/</a>; 
+              Katie Millard, “Bexley City Schools considers heading to 2026 ballot for $113 million facilities project,” NBC4i, November 30 2025.
+            </li>
+
           </ol>
         </div>
       </section>
