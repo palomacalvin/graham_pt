@@ -3,8 +3,8 @@ import React from "react";
 
 export interface AbatementUnit {
   year: number;
-  personalPropertyAbatement: number; // Decimal value between 0 and 1
-  realPropertyAbatement: number; // Decimal value between 0 and 1
+  personalPropertyAbatement: number; // Decimal value between 0 and 1.
+  realPropertyAbatement: number; // Decimal value between 0 and 1.
 }
 
 interface Props {
@@ -18,14 +18,14 @@ export default function AbatementTable({ abatementUnits, setAbatementUnits }: Pr
     field: "personalPropertyAbatement" | "realPropertyAbatement",
     inputValue: string
   ) => {
-    // Parse input percentage (e.g., 100) and convert to decimal (e.g., 1.0)
+    // Parse input percentage (e.g., 100) and convert to decimal (e.g., 1.0).
     let parsedVal = parseFloat(inputValue);
 
     if (isNaN(parsedVal)) {
       parsedVal = 0;
     }
 
-    // Clamp value between 0% and 100% (0.0 and 1.0)
+    // Clamp value between 0% and 100% (0.0 and 1.0).
     const decimalVal = Math.min(Math.max(parsedVal / 100, 0), 1);
 
     setAbatementUnits((prevUnits) =>
