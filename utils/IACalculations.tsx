@@ -180,7 +180,7 @@ export function generateSolarTaxResults({
   const countyBaseMills = countyRow ? Number(countyRow.urban_rate || 0) : 0;
   const countyRuralMills = isRural ? Number((countyRow?.rural_rate || 0) - (countyRow?.urban_rate || 0)) : 0;
   const cityMills = isCity && cityRow 
-    ? Number(cityRow.regular_without_ag || 0) // Use ONLY the Ag levy column
+    ? Number(cityRow.regular_without_ag || 0)
     : 0;
   
   // Gets school district data from state.
@@ -189,16 +189,14 @@ export function generateSolarTaxResults({
   // Calculates total mills based on the above data.
   const total_mills = countyBaseMills + countyRuralMills + cityMills + schoolMills;
 
-    console.log(`Math Check: Base(${countyBaseMills}) + Rural(${countyRuralMills}) + City(${cityMills}) + School(${schoolMills}) = Total(${total_mills})`);
+    // console.log(`Math Check: Base(${countyBaseMills}) + Rural(${countyRuralMills}) + City(${cityMills}) + School(${schoolMills}) = Total(${total_mills})`);
 
-
-
-    // Console logs for accuracy checks.
-    console.log("--- DATABASE CHECK ---");
-    console.log("dbCounties Length:", dbCounties.length);
-    console.log("dbCountyTaxData Length:", dbCountyTaxData.length);
-    console.log("dbCityData Length:", dbCityData.length);
-    console.log("User Selection:", { userCounty, userCityOrDistrict });
+    // // Console logs for accuracy checks.
+    // console.log("--- DATABASE CHECK ---");
+    // console.log("dbCounties Length:", dbCounties.length);
+    // console.log("dbCountyTaxData Length:", dbCountyTaxData.length);
+    // console.log("dbCityData Length:", dbCityData.length);
+    // console.log("User Selection:", { userCounty, userCityOrDistrict });
 
 // Display formatting.
 const millageRows = [
@@ -243,28 +241,28 @@ const millageRows = [
   //                   CONSOLE VALIDATION                       //
   // ========================================================== //
 
-  console.log("\n--- JURISDICTIONAL MILLAGE TABLE ---");
-  console.table(
-    millageRows.map((r) => ({
-      Jurisdiction: r.jurisdiction,
-      Name: r.name || "—",
-      Mills: r.mills.toFixed(5),
-      "Tax Rate": `${(r.mills / 10).toFixed(2)}%`,
-      "Replacement Tax Distribution %": `${Math.round(r.distributionPercent)}%`,
-      "Previous Real Property Tax Revenue": r.previousRevenue.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      }),
-    }))
-  );
+  // console.log("\n--- JURISDICTIONAL MILLAGE TABLE ---");
+  // console.table(
+  //   millageRows.map((r) => ({
+  //     Jurisdiction: r.jurisdiction,
+  //     Name: r.name || "—",
+  //     Mills: r.mills.toFixed(5),
+  //     "Tax Rate": `${(r.mills / 10).toFixed(2)}%`,
+  //     "Replacement Tax Distribution %": `${Math.round(r.distributionPercent)}%`,
+  //     "Previous Real Property Tax Revenue": r.previousRevenue.toLocaleString("en-US", {
+  //       style: "currency",
+  //       currency: "USD",
+  //       maximumFractionDigits: 0,
+  //     }),
+  //   }))
+  // );
 
    // ========================================================== //
   //                 TAX REVENUE BY UNIT                        //
   // ========================================================== //
 
   const taxRevenueRows = millageRows.map((r) => {
-    // Convert distribution percentage back to a fraction decimal
+    // Convert distribution percentage back to a fraction decimal.
     const distFraction = r.distributionPercent / 100;
 
     // Calculate the Generation, Delivery, Transmission, and Total Revenues.
@@ -289,7 +287,7 @@ const millageRows = [
   const total_unit_transmission = taxRevenueRows.reduce((sum, r) => sum + r.transmission, 0);
   const total_unit_revenue = taxRevenueRows.reduce((sum, r) => sum + r.total, 0);
 
-  // Helper function that cleanly displays for console log check.
+  // Helper function that formats currency.
   const formatCurr = (val: number) =>
     val.toLocaleString("en-US", {
       style: "currency",
@@ -299,24 +297,24 @@ const millageRows = [
 
 
   // Console check for accuracy.
-  console.log("\n--- TAX REVENUE BY UNIT TABLE ---");
-  console.table(
-    taxRevenueRows.map((r) => ({
-      Jurisdiction: r.jurisdiction,
-      Name: r.name || "—",
-      Generation: formatCurr(r.generation),
-      Delivery: formatCurr(r.delivery),
-      Transmission: formatCurr(r.transmission),
-      Total: formatCurr(r.total),
-    }))
-  );
+  // console.log("\n--- TAX REVENUE BY UNIT TABLE ---");
+  // console.table(
+  //   taxRevenueRows.map((r) => ({
+  //     Jurisdiction: r.jurisdiction,
+  //     Name: r.name || "—",
+  //     Generation: formatCurr(r.generation),
+  //     Delivery: formatCurr(r.delivery),
+  //     Transmission: formatCurr(r.transmission),
+  //     Total: formatCurr(r.total),
+  //   }))
+  // );
 
-  console.log("TAX REVENUE BY UNIT TOTALS:", {
-    "Total Generation": formatCurr(total_unit_generation),
-    "Total Delivery": formatCurr(total_unit_delivery),
-    "Total Transmission": formatCurr(total_unit_transmission),
-    "Grand Total": formatCurr(total_unit_revenue),
-  });
+  // console.log("TAX REVENUE BY UNIT TOTALS:", {
+  //   "Total Generation": formatCurr(total_unit_generation),
+  //   "Total Delivery": formatCurr(total_unit_delivery),
+  //   "Total Transmission": formatCurr(total_unit_transmission),
+  //   "Grand Total": formatCurr(total_unit_revenue),
+  // });
 
   return {
     electricity_generated_annually,
@@ -334,7 +332,6 @@ const millageRows = [
     }
   };
 }
-
 
 export function generateWindTaxResults({
   projectData,
@@ -438,16 +435,16 @@ const millageRows = [
   //                   CONSOLE VALIDATION                       //
   // ========================================================== //
 
-  console.log("\n--- JURISDICTIONAL MILLAGE TABLE ---");
-  console.table(
-    millageRows.map((r) => ({
-      Jurisdiction: r.jurisdiction,
-      Name: r.name || "—",
-      Mills: r.mills.toFixed(5),
-      "Tax Rate": `${(r.mills / 10).toFixed(2)}%`,
-      "Replacement Tax Distribution %": `${Math.round(r.distributionPercent)}%`,
-    }))
-  );
+  // console.log("\n--- JURISDICTIONAL MILLAGE TABLE ---");
+  // console.table(
+  //   millageRows.map((r) => ({
+  //     Jurisdiction: r.jurisdiction,
+  //     Name: r.name || "—",
+  //     Mills: r.mills.toFixed(5),
+  //     "Tax Rate": `${(r.mills / 10).toFixed(2)}%`,
+  //     "Replacement Tax Distribution %": `${Math.round(r.distributionPercent)}%`,
+  //   }))
+  // );
 
    // ============================================================= //
    // Taxable Value Schedule for Special Valuation of Wind Projects //
@@ -461,7 +458,6 @@ const millageRows = [
 
   const valuationSchedule = Array.from({ length: lifespan }, (_, i) => {
     const year = i + 1;
-    // Use the hardcoded multiplier for years 1-7, then default to 30% (0.30)
     const multiplier = i < multipliers.length ? multipliers[i] : 0.30;
     const taxableValue = netAcquisitionCost * multiplier;
 
@@ -474,11 +470,8 @@ const millageRows = [
     };
   });
 
-  // Calculate the Year 1 Total Valuation (which is $0 based on your table)
-  const year1TaxableValue = valuationSchedule[0].taxableValue;
-
-  console.log("\n--- WIND SPECIAL VALUATION SCHEDULE ---");
-  console.table(valuationSchedule.slice(0, 10)); // Logs first 10 years to console
+  // console.log("\n--- WIND SPECIAL VALUATION SCHEDULE ---");
+  // console.table(valuationSchedule.slice(0, 10)); 
 
   return {
     millageRows,

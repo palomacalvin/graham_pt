@@ -87,7 +87,7 @@ export default function LocationSelector({
   }, []);
 
   return (
-    <div className="w-full max-w-xs space-y-4">
+    <div>
 
       {/* County Select */}
       <div>
@@ -113,7 +113,7 @@ export default function LocationSelector({
       </div>
       
 
-      <div className="w-full max-w-xs space-y-4">
+      <div>
 
       {/* County Select */}
       <div>
