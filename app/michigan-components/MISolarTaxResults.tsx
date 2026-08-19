@@ -71,7 +71,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
         ? calculateUPPRevenue(projectData, multiplicationFactors)
         : null;
 
-    // Helper to provide empty structure for a taxing unit
+    // Helper to provide empty structure for a taxing unit.
     function emptyUnit() {
         return {
             allocated: [],
@@ -104,7 +104,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
         village: piltVillage
     } = piltResults!;
 
-    // ================= All unit helper functions =================
+    // ================= Helper functions ================= //
 
     // NPV calculation function.
     function calculateNPV(rate: number, cash_flows: number[]): number {
@@ -119,7 +119,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
     }
 
 
-    // ================= NON-PILT ALL TAXING UNITS COMBINED =================
+    // ================= Non-PILT, all taxing units combined =================
 
     const non_pilt_total_all_taxing_units = county.totalPerYear.map((_, i) =>
         county.totalPerYear[i] +
@@ -140,7 +140,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
     );
 
 
-    // ================= PILT ALL TAXING UNITS COMBINED =================
+    // ================= PILT, all taxing units combined =================
 
     const pilt_total_all_taxing_units = piltCounty.totalPerYear.map((_, i) =>
         piltCounty.totalPerYear[i] +
@@ -161,7 +161,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
     );
 
 
-    // ================= REAL PROPERTY REVENUE ALL UNITS COMBINED =================
+    // ================= Real property, all taxing units combined =================
 
     const real_property_revenue_all_units =
         realPropertyResults
@@ -185,7 +185,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
     );
 
 
-    // ================= UPP REVENUE ALL TAXING UNITS COMBINED =================
+    // ================= UPP Revenue, all taxing units combined =================
 
     const upp_total_all_taxing_units = 
         uppRevenueResults
@@ -409,7 +409,7 @@ export default function MISolarTaxResults( {projectData}: Props) {
 
             } catch (error) {
                 console.error("Error fetching multiplication factors:", error);
-                setMultiplicationFactors([]); // NEVER allow undefined
+                setMultiplicationFactors([]);
             }
         };
 

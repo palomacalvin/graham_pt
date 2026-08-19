@@ -233,7 +233,7 @@ export default function ReferencesPage() {
         <ol className="ref-list">
 
           <li>
-            “Tax Levy Calculation,” Story County Iowa, Accessed June 22, 2025, {" "}
+            “Tax Levy Calculation,” Story County Iowa, Accessed June 22nd, 2025, {" "}
             <a target="_blank" href="https://www.storycountyiowa.gov/645/Tax-Levy-Calculation" className="contactPageLink">
             https://www.storycountyiowa.gov/645/Tax-Levy-Calculation</a>.
           </li>
@@ -245,13 +245,13 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            U.S. Energy Information Administration, “Glossary,” Accessed Apr. 28, 2025, {" "}
+            U.S. Energy Information Administration, “Glossary,” Accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://www.eia.gov/tools/glossary/index.php?id=Capacity_factor"
             className="contactPageLink">https://www.eia.gov/tools/glossary/index.php?id=Capacity_factor</a>.
           </li>
 
           <li>
-            U.S. Energy Information Administration, “Electric Power Monthly,” Accessed Apr. 28, 2025, {" "}
+            U.S. Energy Information Administration, “Electric Power Monthly,” Accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=table_6_07_b"
             className="contactPageLink">
             https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=table_6_07_b</a>.
@@ -259,35 +259,35 @@ export default function ReferencesPage() {
 
           <li>
             U.S. Energy Information Administration, “What is the difference between electricity generation capacity and electricity generation?,” Accessed Apr.
-            28, 2025, {" "} <a target="_blank" href="https://www.eia.gov/tools/faqs/faq.php?id=101&t=3" className="contactPageLink">
+            28th, 2025, {" "} <a target="_blank" href="https://www.eia.gov/tools/faqs/faq.php?id=101&t=3" className="contactPageLink">
             https://www.eia.gov/tools/faqs/faq.php?id=101&t=3</a>.
           </li>
 
           <li>
-            Iowa Code 476.25. Accessed Apr. 28, 2025, {" "}
+            Iowa Code 476.25. Accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://www.legis.iowa.gov/docs/code//476.pdf" className="contactPageLink">https://www.legis.iowa.gov/docs/code//476.pdf</a>.
           </li>
 
           <li>
-            Iowa Utilities Commission, “Electric Service Area Boundary Map.” Accessed Apr. 28, 2025, {" "}
+            Iowa Utilities Commission, “Electric Service Area Boundary Map.” Accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://iuc.iowa.gov/regulated-industries/electric/electric-service-area-boundary-map" className="contactPageLink">
             https://iuc.iowa.gov/regulated-industries/electric/electric-service-area-boundary-map</a>.
           </li>
 
           <li>
-            Iowa Code 427B.26. Accessed Apr. 28, 2025, {" "}
+            Iowa Code 427B.26. Accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://www.legis.iowa.gov/docs/code/427b.26.pdf" className="contactPageLink">
             https://www.legis.iowa.gov/docs/code/427b.26.pdf</a>.
           </li>
 
           <li>
-            Iowa Department of Revenue, “Utility Replacement Tax Basics,” accessed June 19, 2025. {" "}
+            Iowa Department of Revenue, “Utility Replacement Tax Basics,” accessed June 19th, 2025. {" "}
             <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics" className="contactPageLink">
             https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics</a>.
           </li>
 
           <li>
-            “Rollback Information,” Story County, Iowa, Accessed Mar. 20, 2025, {" "}
+            “Rollback Information,” Story County, Iowa, Accessed Mar. 20th, 2025, {" "}
             <a target="_blank" href="https://www.storycountyiowa.gov/644/Rollback-Information"
             className="contactPageLink">https://www.storycountyiowa.gov/644/Rollback-Information</a>.
           </li>
@@ -299,7 +299,7 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            Iowa League of Cities, “Tax Increment Finance,” Published Jan. 2022, Accessed Apr. 28, 2025, {" "}
+            Iowa League of Cities, “Tax Increment Finance,” Published Jan. 2022, Accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://iowaleague.org/wp-content/uploads/TIF_FactSheet_jan22.pdf" className="contactPageLink">
             https://iowaleague.org/wp-content/uploads/TIF_FactSheet_jan22.pdf</a>.
           </li>
@@ -311,20 +311,20 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            See “Utility-Scale Solar,” Linn County, IA, accessed Apr. 28, 2025, {" "}
+            See “Utility-Scale Solar,” Linn County, IA, accessed Apr. 28th, 2025, {" "}
             <a target="_blank" href="https://www.linncountyiowa.gov/1525/Utility-Scale-Solar" className="contactPageLink">
             https://www.linncountyiowa.gov/1525/Utility-Scale-Solar</a>.
           </li>
 
           <li>
-            Iowa Department of Revenue, “Utility Replacement Tax Basics,” accessed June 19, 2025 {" "}
+            Iowa Department of Revenue, “Utility Replacement Tax Basics,” accessed June 19th, 2025 {" "}
             <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics" 
             className="contactPageLink">
             https://revenue.iowa.gov/taxes/tax-guidance/property-tax/utility-replacement-tax-basics</a>.
           </li>
 
           <li>
-            “Resource Guide: Taxing Utility-Scale Solar Projects in Iowa,” Center for Rural Affairs, Accessed Mar. 20, 2025, {" "}
+            “Resource Guide: Taxing Utility-Scale Solar Projects in Iowa,” Center for Rural Affairs, Accessed Mar. 20th, 2025, {" "}
             <a target="_blank" href="https://www.cfra.org/sites/default/files/publications/taxing-utility-scale-solar-in-iowa-resource-guide.pdf"
             className="contactPageLink">
             https://www.cfra.org/sites/default/files/publications/taxing-utility-scale-solar-in-iowa-resource-guide.pdf</a>.
@@ -371,93 +371,93 @@ export default function ReferencesPage() {
 
           <li>
             Susan Crowley, “Legislative Guide to Urban Renewal and Tax Increment Financing,” Iowa Legislative Services Agency, Published December 2007,
-            Accessed Mar. 20, 2025, {" "}
+            Accessed Mar. 20th, 2025, {" "}
             <a target="_blank" href="https://www.legis.iowa.gov/docs/central/guides/urbannew.pdf" className="contactPageLink">
             https://www.legis.iowa.gov/docs/central/guides/urbannew.pdf</a>.
           </li>
 
           <li>
-            “How is Your Property Tax Calculated?”, Iowa Treasurers, Published 2023, Accessed May 4, 2025, {" "}
+            “How is Your Property Tax Calculated?”, Iowa Treasurers, Published 2023, Accessed May 4th, 2025, {" "}
             <a target="_blank" href="https://www.iowatreasurers.org/kcfinder/upload/Guthrie/How%20Is%20Your%20Property%20Tax%20Calculated%202023.pdf"
             className="contactPageLink">
             https://www.iowatreasurers.org/kcfinder/upload/Guthrie/How%20Is%20Your%20Property%20Tax%20Calculated%202023.pdf</a>.
           </li>
 
           <li>
-            German Mandrini, “Understanding Iowa’s Corn Suitability Rating Index (CSR2),” Farmers Business Network, Published May 9, 2023, {" "}
+            German Mandrini, “Understanding Iowa’s Corn Suitability Rating Index (CSR2),” Farmers Business Network, Published May 9th, 2023, {" "}
             <a target="_blank" href="https://www.fbn.com/community/blog/iowa-corn-suitability-rating-index-csr2?srsltid=AfmBOoowGT9PaMW5Y2F3DXeQb5KNFgYoDb9hG1RmfDCb4zkXGyuo_dVZ"
             className="contactPageLink">
             https://www.fbn.com/community/blog/iowa-corn-suitability-rating-index-csr2?srsltid=AfmBOoowGT9PaMW5Y2F3DXeQb5KNFgYoDb9hG1RmfDCb4zkXGyuo_dVZ</a>.
           </li>
 
           <li>
-            “Land Valuation,” Iowa Real Property Appraisal Manual, Iowa Department of Revenue, Accessed May 4, 2025, {" "}
+            “Land Valuation,” Iowa Real Property Appraisal Manual, Iowa Department of Revenue, Accessed May 4th, 2025, {" "}
             <a target="_blank" href="https://revenue.iowa.gov/taxes/tax-guidance/property-tax/iowa-real-property-appraisal-manual" 
             className="contactPageLink">
             https://revenue.iowa.gov/taxes/tax-guidance/property-tax/iowa-real-property-appraisal-manual</a>.
           </li>
 
           <li>
-            “Rollback Rates & Levies,” Des Moines County, Accessed June 19, 2025, {" "}
+            “Rollback Rates & Levies,” Des Moines County, Accessed June 19th, 2025, {" "}
             <a target="_blank" href="https://desmoinescounty.iowa.gov/assessor/rollback_rate_levies/"
             className="contactPageLink">
             https://desmoinescounty.iowa.gov/assessor/rollback_rate_levies/</a>.
           </li>
 
           <li>
-            “Property Tax & Tax Replacement,” Iowa Department of Revenue, Accessed June 19, 2025, {" "}
+            “Property Tax & Tax Replacement,” Iowa Department of Revenue, Accessed June 19th, 2025, {" "}
             <a target="_blank" href="https://dom.iowa.gov/local-government/property-tax-tax-replacement" className="contactPageLink">
             https://dom.iowa.gov/local-government/property-tax-tax-replacement</a>.
           </li>
 
           <li>
-            “PV Capacity Factors,” Energy Markets & Policy, Berkeley Lab, Accessed June 8, 2025, {" "}
+            “PV Capacity Factors,” Energy Markets & Policy, Berkeley Lab, Accessed June 8th, 2025, {" "}
             <a target="_blank" href="https://emp.lbl.gov/pv-capacity-factors" className="contactPageLink">
             https://emp.lbl.gov/pv-capacity-factors</a>.
           </li>
 
           <li>
-            “AY 2023 Agricultural Productivity Per Acre Values,” Iowa Department of Revenue, Accessed Jun. 1, 2025, {" "}
+            “AY 2023 Agricultural Productivity Per Acre Values,” Iowa Department of Revenue, Accessed Jun. 1st, 2025, {" "}
             <a target="_blank" href="https://revenue.iowa.gov/media/100/download?inline" className="contactPageLink">
             https://revenue.iowa.gov/media/100/download?inline</a>.
           </li>
 
           <li>
-            “Iowa County Summary Highlights 2022,” Census of Agriculture, U.S. Department of Agriculture, Accessed Jun. 1, 2025, {" "}
+            “Iowa County Summary Highlights 2022,” Census of Agriculture, U.S. Department of Agriculture, Accessed Jun. 1st, 2025, {" "}
             <a target="_blank" href="https://www.nass.usdagov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf." className="contactPageLink">
             https://www.nass.usdagov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf.</a>.
           </li>
 
           <li>
-            Bradley Miller, “County Weighted Average CSR2,” Iowa State University, Accessed Jun. 1, 2025, {" "}
+            Bradley Miller, “County Weighted Average CSR2,” Iowa State University, Accessed Jun. 1st, 2025, {" "}
             <a target="_blank" href="https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/"
             className="contactPageLink">
             https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/</a>.
           </li>
 
           <li>
-            “Iowa County Summary Highlights 2022,” Census of Agriculture, U.S. Department of Agriculture, Accessed Jun. 1, 2025, {" "}
+            “Iowa County Summary Highlights 2022,” Census of Agriculture, U.S. Department of Agriculture, Accessed Jun. 1st, 2025, {" "}
             <a target="_blank" href="https://www.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf"
             className="contactPageLink">
             https://www.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Iowa/st19_2_001_001.pdf</a>.
           </li>
 
           <li>
-            Bradley Miller, “County Weighted Average CSR2,” Iowa State University, Accessed Jun. 1, 2025, {" "}
+            Bradley Miller, “County Weighted Average CSR2,” Iowa State University, Accessed Jun. 1st, 2025, {" "}
             <a target="_blank" href="https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/"
             className="contactPageLink">
             https://www.agron.iastate.edu/glsi/soil-interpretations-images/county-weighted-average-csr2/</a>.
           </li>
 
           <li>
-            “Iowa Property Tax Rollback Adjustments,” Iowa Department of Revenue, Accessed Jun. 1, 2025, {" "}
+            “Iowa Property Tax Rollback Adjustments,” Iowa Department of Revenue, Accessed Jun. 1st, 2025, {" "}
             <a target="_blank" href="https://www.legis.iowa.gov/docs/publications/FCTA/1460458.pdf"
             className="contactPageLink">
             https://www.legis.iowa.gov/docs/publications/FCTA/1460458.pdf</a>.
           </li>
 
           <li>
-            Iowa Administrative Bulletin, Vol. XLVII, Published Dec. 11, 2024, p. 5893, {" "}
+            Iowa Administrative Bulletin, Vol. XLVII, Published Dec. 11th, 2024, p. 5893, {" "}
             <a target="_blank" href="https://www.legis.iowa.gov/docs/aco/bulletin/12-11-2024.pdf" className="contactPageLink">
             https://www.legis.iowa.gov/docs/aco/bulletin/12-11-2024.pdf</a>.
           </li>
@@ -480,15 +480,15 @@ export default function ReferencesPage() {
 
           <li>
             Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
-            <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
+            <a target="_blank" href="https://reason.org/highway-report/28th-annual-highway-report/"
             className="contactPageLink">
-            https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+            https://reason.org/highway-report/28th-annual-highway-report/</a>.
           </li>
 
           <li>
-            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Michigan,” May 2023. {" "}
+            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Iowa,” May 2023. {" "}
             <a target="_blank" href="https://www.bls.gov/oes/2023/may/oes_wi.htm" className="contactPageLink">
-            https://www.bls.gov/oes/2023/may/oes_wi.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
+            https://www.bls.gov/oes/2023/may/oes_ia.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
             September 12 2025, {" "}<a target="_blank" href="https://www.bls.gov/news.release/pdf/ecec.pdf" className="contactPageLink">https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
           </li>
 
@@ -504,10 +504,10 @@ export default function ReferencesPage() {
             <a target="_blank" href="https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank"
             className="contactPageLink">
             https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank</a>; 
-            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12
+            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12th
             2025, {" "}
-            <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
-            className="contactPageLink">https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+            <a target="_blank" href="https://www.bls.gov/ecec/"
+            className="contactPageLink">https://www.bls.gov/ecec/</a>.
           </li>
 
           <li>
@@ -996,13 +996,13 @@ export default function ReferencesPage() {
         <ol className="ref-list">
 
           <li>
-            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” accessed Dec. 22, 2024, {" "}
+            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” accessed Dec. 22nd, 2024, {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
             https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
           </li>
 
           <li>
-            Nebraska Legislature, “Nebraska Revised Statute 77-103,” Accessed Mar. 9, 2025, {" "}
+            Nebraska Legislature, “Nebraska Revised Statute 77-103,” Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.nebraskalegislature.gov/laws/statutes.php?statute=77-103">
             https://www.nebraskalegislature.gov/laws/statutes.php?statute=77-103</a>.
           </li>
@@ -1011,30 +1011,30 @@ export default function ReferencesPage() {
             David C. Levy & Lee E. Greenwald, “Impacts of Wind and Solar Energy Development on Property Taxes and Rural Economies in Nebraska,” Baird
             Holm LLP (2023), {" "} <a target="_blank" className="contactPageLink" href="https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ">
             https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ</a>, p. 5, Accessed
-            Mar. 9, 2025.
+            Mar. 9th, 2025.
           </li>
 
           <li>
-            NMPP Energy, “Understanding Energy Capacity and Capacity Factor,” Published Jan. 29, 2021, Accessed Mar. 9, 2025, {" "}
+            NMPP Energy, “Understanding Energy Capacity and Capacity Factor,” Published Jan. 29th, 2021, Accessed Mar. 9, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.nmppenergy.org/energy-education/understanding-energy-capacity-and-capacity-factor">
             https://www.nmppenergy.org/energy-education/understanding-energy-capacity-and-capacity-factor</a>.
           </li>
 
           <li>
-            Interview with John Hansen, Nebraska Farmers Union President, Dec. 20, 2024; and Nebraska Legislature, “Nebraska Revised Statute 77-6201,”
-            Accessed Mar. 9, 2025, {" "}
+            Interview with John Hansen, Nebraska Farmers Union President, Dec. 20th, 2024; and Nebraska Legislature, “Nebraska Revised Statute 77-6201,”
+            Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-6201">
             https://nebraskalegislature.gov/laws/statutes.php?statute=77-6201</a>.
           </li>
 
           <li>
-            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” Accessed Dec. 22, 2024, {" "}
+            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” Accessed Dec. 22nd, 2024, {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
             https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
           </li>
 
           <li>
-            REVE, “Ørsted starts construction of 298 MW Nebraska wind power project,” Published Oct. 28, 2020, Accessed Mar. 9, 2025, {" "}
+            REVE, “Ørsted starts construction of 298 MW Nebraska wind power project,” Published Oct. 28th, 2020, Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.evwind.es/2020/10/28/orsted-starts-construction-of-298-mw-nebraska-wind-power-project/77908">
             https://www.evwind.es/2020/10/28/orsted-starts-construction-of-298-mw-nebraska-wind-power-project/77908</a>.
           </li>
@@ -1047,7 +1047,7 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” accessed Dec. 22, 2024, {" "}
+            Nebraska Department of Revenue, “Nameplate Capacity Tax FAQ,” accessed Dec. 22nd, 2024, {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq">
             https://revenue.nebraska.gov/about/frequently-asked-questions/nameplate-capacity-tax-faq</a>.
           </li>
@@ -1059,63 +1059,63 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            Directive 24-3: Assessment of Renewable Energy Generation Facilities, Nebraska Department of Revenue, Published Sep. 30, 2024, Accessed
-            Mar. 9, 2025, {" "} <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf">
+            Directive 24-3: Assessment of Renewable Energy Generation Facilities, Nebraska Department of Revenue, Published Sep. 30th, 2024, Accessed
+            Mar. 9th, 2025, {" "} <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf">
             https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir24-3.pdf</a>.
           </li>
 
           <li>
             Nebraska Department of Revenue, “Nebraska Property Assessment FAQs,” {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/about/frequently-asked-questions/nebraska-property-assessment-faqs">
-            https://revenue.nebraska.gov/about/frequently-asked-questions/nebraska-property-assessment-faqs</a>, Accessed June 2, 2025.
+            https://revenue.nebraska.gov/about/frequently-asked-questions/nebraska-property-assessment-faqs</a>, Accessed June 2nd, 2025.
           </li>
 
           <li>
-            Ruth A. Sorensen, “2022 Annual Report,” Nebraska Department of Revenue Property Assessment Division. Published March 28 2023. {" "}
+            Ruth A. Sorensen, “2022 Annual Report,” Nebraska Department of Revenue Property Assessment Division. Published March 28th, 2023. {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/FloorDocs/108/PDF/Agencies/Revenue__Department_of/476_20230330-154956.pdf">
             https://nebraskalegislature.gov/FloorDocs/108/PDF/Agencies/Revenue__Department_of/476_20230330-154956.pdf</a>.
           </li>
 
           <li>
-            Nebraska Department of Revenue, “Special Valuation of Agricultural or Horticultural Land,” June 2021, {" "}
+            Nebraska Department of Revenue, “Special Valuation of Agricultural or Horticultural Land,” June, 2021, {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/info/Special_Valuation_of_Agri_and_Hort_Land.pdf">
             https://revenue.nebraska.gov/sites/default/files/doc/pad/info/Special_Valuation_of_Agri_and_Hort_Land.pdf</a>.
           </li>
 
           <li>
             Nebraska Administrative Code, “Title 350 - Nebraska Department of Revenue, Property Assessment Division; Chapter14 – Agricultural Land
-            and Horticultural Land Assessment Regulations.” Published March 25 2009. {" "}
+            and Horticultural Land Assessment Regulations.” Published March 25th, 2009. {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/legal/regs/pad/Chapter14_Agricultural_Land_Assessment_3-15-2009.pdf">
             https://revenue.nebraska.gov/sites/default/files/doc/legal/regs/pad/Chapter14_Agricultural_Land_Assessment_3-15-2009.pdf</a>.
           </li>
 
           <li>
-            Nebraska Legislature, “Neb. Rev. Stat. § 77-201(2),” Accessed June 3, 2025 {" "}
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-201(2),” Accessed June 3rd, 2025 {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-201">
             https://nebraskalegislature.gov/laws/statutes.php?statute=77-201</a>.
           </li>
 
           <li>
-            Nebraska Department of Revenue, “Directive 24-1: Real Property Tax Credit and Tax Statements Calculations,” Published Sep. 13, 2024, Accessed
-            Mar. 9, 2025, {" "}
+            Nebraska Department of Revenue, “Directive 24-1: Real Property Tax Credit and Tax Statements Calculations,” Published Sep. 13th, 2024, Accessed
+            Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-1_Real_Property_Tax_Credit.pdf">
             https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-1_Real_Property_Tax_Credit.pdf</a>; and Nebraska Department of
-            Revenue, “Directive 24-2: School District Property Tax Relief Credit (SDPTRC) and Tax Statement Calculations,” Published Sep. 12, 2024, Accessed
-            Mar. 9, 2025, <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-2_School_District_Property_Tax_Relief_Credit.pdf">
+            Revenue, “Directive 24-2: School District Property Tax Relief Credit (SDPTRC) and Tax Statement Calculations,” Published Sep. 12th, 2024, Accessed
+            Mar. 9th, 2025, <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-2_School_District_Property_Tax_Relief_Credit.pdf">
             https://revenue.nebraska.gov/sites/default/files/doc/pad/legal/dir_24-2_School_District_Property_Tax_Relief_Credit.pdf</a>.
           </li>
 
           <li>
-            Nebraska Legislature, “Neb. Rev. Stat. § 77-4212(4)(a),” Accessed Mar. 9, 2025, {" "}
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-4212(4)(a),” Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-4212">
             https://nebraskalegislature.gov/laws/statutes.php?statute=77-4212</a>
-            and Nebraska Legislature, “Neb. Rev. Stat. § 77-7305(5),” Accessed Mar. 9, 2025, {" "}
+            and Nebraska Legislature, “Neb. Rev. Stat. § 77-7305(5),” Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-7305">
             https://nebraskalegislature.gov/laws/statutes.php?statute=77-7305</a>.
           </li>
 
           <li>
-            Nebraska Legislature, “Neb. Rev. Stat. § 77-6203(2)(a),” Accessed Mar. 9, 2025, {" "}
+            Nebraska Legislature, “Neb. Rev. Stat. § 77-6203(2)(a),” Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=77-6203">
             https://nebraskalegislature.gov/laws/statutes.php?statute=77-6203</a>.
           </li>
@@ -1127,39 +1127,39 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            Nebraska Legislature, “Neb. Rev. Stat. § 70-601,” Accessed Mar. 9, 2025, {" "}
+            Nebraska Legislature, “Neb. Rev. Stat. § 70-601,” Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/laws/statutes.php?statute=70-601">
             https://nebraskalegislature.gov/laws/statutes.php?statute=70-601</a>.
           </li>
 
           <li>
-            See also David C. Levy, “Public Power District Was Not Liable,” Baird Holm LLP, Published Aug. 26, 2014, Accessed Mar. 9, 2025, {" "}
+            See also David C. Levy, “Public Power District Was Not Liable,” Baird Holm LLP, Published Aug. 26th, 2014, Accessed Mar. 9, 2025, {" "}
             <a target="_blank" className="contactPageLink" 
             href="https://www.bairdholm.com/blog/public-power-district-was-not-liable-for-property-taxes-on-land-it-leased-for-commercial-and-residential-uses-because-it-paid-in-lieu-of-taxes/">
             https://www.bairdholm.com/blog/public-power-district-was-not-liable-for-property-taxes-on-land-it-leased-for-commercial-and-residential-uses-because-it-paid-in-lieu-of-taxes/</a>.
           </li>
 
           <li>
-            Nebraska Legislative Research Office, “Payments in Lieu of Taxes: Who Pays and How Much?”, LRO Snapshot, Published April 2022, Accessed
-            Mar. 9, 2025, {" "} <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/pdf/reports/research/snapshot_payments_2022.pdf">
+            Nebraska Legislative Research Office, “Payments in Lieu of Taxes: Who Pays and How Much?”, LRO Snapshot, Published April, 2022, Accessed
+            Mar. 9th, 2025, {" "} <a target="_blank" className="contactPageLink" href="https://nebraskalegislature.gov/pdf/reports/research/snapshot_payments_2022.pdf">
             https://nebraskalegislature.gov/pdf/reports/research/snapshot_payments_2022.pdf</a>.
           </li>
 
           <li>
-            U.S. Energy Information Administration, “Nebraska: State Profile and Energy Estimates,” Updated Aug. 15, 2024, Accessed Mar. 9, 2025, {" "}
+            U.S. Energy Information Administration, “Nebraska: State Profile and Energy Estimates,” Updated Aug. 15th, 2024, Accessed Mar. 9, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.eia.gov/state/analysis.php?sid=NE">
             https://www.eia.gov/state/analysis.php?sid=NE</a>.
           </li>
 
           <li>
-            Peter F. Biedenweg, “Propelling Nebraska’s Wind Power,” Nebraska Law Review, Published Jun. 15, 2024, Accessed Mar. 9, 2025, {" "}
+            Peter F. Biedenweg, “Propelling Nebraska’s Wind Power,” Nebraska Law Review, Published Jun. 15th, 2024, Accessed Mar. 9, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://lawreview.unl.edu/propelling-nebraskas-wind-power/">
             https://lawreview.unl.edu/propelling-nebraskas-wind-power/</a>.
           </li>
 
           <li>
             Eric Thompson, “The Economic and Tax Revenue Impact of the Nebraska Wind Energy Industry,” Bureau of Business Research at the University of
-            Nebraska - Lincoln, Published Dec. 30, 2014, Accessed Mar. 9, 2025, {" s"}
+            Nebraska - Lincoln, Published Dec. 30th, 2014, Accessed Mar. 9th, 2025, {" s"}
             <a target="_blank" className="contactPageLink" href="https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1048&context=bbrpub">
             https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1048&context=bbrpub</a>.
           </li>
@@ -1179,8 +1179,8 @@ export default function ReferencesPage() {
           </li>
 
           <li>
-            Interviews with Jane Klassen, Deputy Assessor of Boone County, Nebraska (Jan. 8, 2025) and Kamisah O’Donnell, Senior Tax Specialist, Property
-            Assessment Division, Nebraska Department of Revenue (Jan. 8, 2025).
+            Interviews with Jane Klassen, Deputy Assessor of Boone County, Nebraska (Jan. 8th, 2025) and Kamisah O’Donnell, Senior Tax Specialist, Property
+            Assessment Division, Nebraska Department of Revenue (Jan. 8th, 2025).
           </li>
 
           <li>
@@ -1199,13 +1199,13 @@ export default function ReferencesPage() {
 
           <li>
             David Levy, “Nebraska Department of Revenue’s Directive 24-3 Clarifies Taxation Updates for Renewable Energy Developers,” Baird Holm LLP,
-            Published Oct. 8, 2024, Accessed Mar. 9, 2025, {" s"}
+            Published Oct. 8th, 2024, Accessed Mar. 9th, 2025, {" s"}
             <a target="_blank" className="contactPageLink" href="https://www.bairdholm.com/blog/nebraska-department-of-revenues-directive-24-3-clarifies-taxation-updates-for-renewable-energy-developers/">
             https://www.bairdholm.com/blog/nebraska-department-of-revenues-directive-24-3-clarifies-taxation-updates-for-renewable-energy-developers/</a>.
           </li>
 
           <li>
-            Jim Jansen, “Nebraska Farm Real Estate Report,” University of Nebraska - Lincoln Center for Agricultural Profitability. Last updated March 12
+            Jim Jansen, “Nebraska Farm Real Estate Report,” University of Nebraska - Lincoln Center for Agricultural Profitability. Last updated March 12th,
             2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://cap.unl.edu/realestate/">
             https://cap.unl.edu/realestate/</a>.
@@ -1213,14 +1213,14 @@ export default function ReferencesPage() {
 
           <li>
             David C. Levy & Lee E. Greenwald, “Impacts of Wind and Solar Energy Development on Property Taxes and Rural Economies in Nebraska,” Baird
-            Holm LLP, Published 2023, Accessed Mar. 9, 2025, {" "}
+            Holm LLP, Published 2023, Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ">
             https://issuu.com/bairdholm/docs/impact_of_wind_and_solar_energy_development_on_pro?fr=xKAE9_zU1NQ</a>.
           </li>
 
           <li>
             Elizabeth Rembert, “Here’s how Nebraska funds its public schools. It involves a lot of ‘bells and whistles,’” Nebraska Public Radio, Published May 2,
-            2023, Accessed Mar. 9, 2025, {" "}
+            2023, Accessed Mar. 9th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://nebraskapublicmedia.org/en/news/news-articles/heres-how-nebraska-funds-its-public-schools-it-involves-a-lot-of-bells-and-whistles/">
             https://nebraskapublicmedia.org/en/news/news-articles/heres-how-nebraska-funds-its-public-schools-it-involves-a-lot-of-bells-and-whistles/</a>.
           </li>
@@ -1228,33 +1228,33 @@ export default function ReferencesPage() {
           <li>
             Educational Service Unit #2, “Nebraska ESUs”, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.esu2.org/about-educational-service-unit-2/nebraska-esus/">
-            https://www.esu2.org/about-educational-service-unit-2/nebraska-esus/, Accessed June 1, 2025</a>.
+            https://www.esu2.org/about-educational-service-unit-2/nebraska-esus/, Accessed June 1st, 2025</a>.
           </li>
 
           <li>
             Nebraska Department of Revenue, Property Assessment of Division, “SCHOOL DISTRICT REFERENCE LIST -- Effective for JULY 2020 - JUNE
-            2021,” June 12 2020, {" "}
+            2021,” June 12th, 2020, {" "}
             <a target="_blank" className="contactPageLink" href="https://revenue.nebraska.gov/sites/default/files/doc/pad/research/esu/School_District_Reference_List_2020-2021.pdf">
             https://revenue.nebraska.gov/sites/default/files/doc/pad/research/esu/School_District_Reference_List_2020-2021.pdf</a>, Accessed
             June 1, 2025.
           </li>
 
           <li>
-            GWorks, “Saunders County, Nebraska,” accessed Feb. 18, 2025, {" "}
+            GWorks, “Saunders County, Nebraska,” accessed Feb. 18th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://saunders.gworks.com/">
             https://saunders.gworks.com/</a>.
           </li>
 
           <li>
             Center for Agricultural Profitability, Department of Agricultural Economics, University of Nebraska, “Nebraska Farm Real Estate Report,” accessed
-            June 3, 2025, {" "}
+            June 3rd, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://cap.unl.edu/realestate/">
             https://cap.unl.edu/realestate/</a>.
           </li>
 
           <li>
             Center for Agricultural Profitability, Department of Agricultural Economics, University of Nebraska, “Nebraska Farm Real Estate Report,” accessed
-            June 3, 2025, {" "}
+            June 3rd, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://cap.unl.edu/realestate/">
             https://cap.unl.edu/realestate/</a>.
           </li>
@@ -1283,30 +1283,24 @@ export default function ReferencesPage() {
 
           <li>
             Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
-            <a target="_blank" className="contactPageLink" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf">
-            https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
+            <a target="_blank" className="contactPageLink" href="https://reason.org/highway-report/28th-annual-highway-report/">
+            https://reason.org/highway-report/28th-annual-highway-report/</a>.
           </li>
 
           <li>
-            Baruch Feigenbaum, Truong Bui, Jay Derr, Thuy Nguyen, and Nicholas Montano, “28th Annual Highway Report,” Reason Foundation, March 2025. {" "}
-            <a target="_blank" className="contactPageLink" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf">
-            https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
-          </li>
-
-          <li>
-            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Michigan,” May 2023. {" "}
+            United States Bureau of Labor Statistics, “May 2023 State Occupational Employment and Wage Estimates: Nebraska,” May, 2023. {" "}
             <a target="_blank" className="contactPageLink" href="https://www.bls.gov/oes/2023/may/oes_wi.htm">
-            https://www.bls.gov/oes/2023/may/oes_wi.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
+            https://www.bls.gov/oes/2023/may/oes_ne.htm</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,”
             September 12 2025, 
             <a target="_blank" className="contactPageLink" href="https://www.bls.gov/news.release/pdf/ecec.pdf">
             https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
           </li>
 
           <li>
-            Lincoln (NE) Fire & Rescue Welcomes New $1.08M Ladder Truck,” Fire Apparatus Magazine, April 10 2023, {" "}
+            Lincoln (NE) Fire & Rescue Welcomes New $1.08M Ladder Truck,” Fire Apparatus Magazine, April 10th, 2023, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.fireapparatusmagazine.com/fire-apparatus/ladder-trucks/lincoln-ne-fire-rescue-welcomes-new-1-08m-ladder-truck/">
             https://www.fireapparatusmagazine.com/fire-apparatus/ladder-trucks/lincoln-ne-fire-rescue-welcomes-new-1-08m-ladder-truck/</a>; Jartavius Edmond, “City Council approves new
-            upgrades for Kearney Volunteer Fire Department,” June 11 2025, {" "}
+            upgrades for Kearney Volunteer Fire Department,” June 11th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.ksnblocal4.com/2025/06/11/city-council-approves-new-upgrades-kearney-volunteer-fire-department/">
             https://www.ksnblocal4.com/2025/06/11/city-council-approves-new-upgrades-kearney-volunteer-fire-department/</a>.
           </li>
@@ -1316,23 +1310,23 @@ export default function ReferencesPage() {
             <a target="_blank" href="https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank"
             className="contactPageLink">
             https://www.nea.org/resource-library/educator-pay-and-student-spending-how-doesyour-state-rank</a>; 
-            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12
+            United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION – JUNE 2025,” September 12th,
             2025, {" "}
             <a target="_blank" href="https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf"
             className="contactPageLink">https://a8d50b36.delivery.rocketcdn.me/wp-content/uploads/28th-annual-highway-report.pdf</a>.
           </li>
 
           <li>
-            United States Bureau of Labor Statistics, “25-4022 Librarians and Media Collections Specialists,” Occupational Employment and Wages, May 2023, {" "}
+            United States Bureau of Labor Statistics, “25-4022 Librarians and Media Collections Specialists,” Occupational Employment and Wages, May, 2023, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.bls.gov/oes/2023/may/oes254022.htm.">
             https://www.bls.gov/oes/2023/may/oes254022.htm.</a>; United States Bureau of Labor Statistics, “EMPLOYER COSTS FOR EMPLOYEE COMPENSATION
-            – JUNE 2025,” September 12 2025, {" "}
+            – JUNE 2025,” September 12th, 2025, {" "}
             <a target="_blank" className="contactPageLink" href="https://www.bls.gov/news.release/pdf/ecec.pdf">
             https://www.bls.gov/news.release/pdf/ecec.pdf</a>.
           </li>
 
           <li>
-            Carol Bryant, “G.I. Public Schools Superintendent Matt Fisher gives presentation about 3-phase facility plan,” Central Nebraska Today, Feb 13 {" "}
+            Carol Bryant, “G.I. Public Schools Superintendent Matt Fisher gives presentation about 3-phase facility plan,” Central Nebraska Today, Feb. 13th, {" "}
             2026, <a target="_blank" className="contactPageLink" href="https://www.centralnebraskatoday.com/2026/02/13/g-i-public-schools-superintendent-matt-fisher-gives-presentation-about-3-phase-facility-plan/#:~:text=The%20first%20project%20for%20Phase,Phase%203">
             https://www.centralnebraskatoday.com/2026/02/13/g-i-public-schools-superintendent-matt-fisher-gives-presentation-about-3-phase-facility-plan/#:~:text=The%20first%20project%20for%20Phase,Phase%203</a>.
           </li>
