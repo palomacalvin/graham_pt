@@ -54,7 +54,7 @@ export function generateYearlyRevenue(
         tcv = projectData?.post_wind_taxable_value ?? projectData?.pre_wind_taxable_value ?? 0;
         base_revenue = (millage_rate / 1000) * tcv;
     } else {
-        // Only count the increase if there was ownership change
+        // Only count the increase if there was ownership change.
         tcv = taxable_increase;
         base_revenue = (millage_rate / 1000) * tcv;
     }
@@ -102,7 +102,6 @@ export function calculateMichiganTaxResults(
     projectData: ProjectData,
     multiplicationFactors: MIMultiplicationFactors[]
 ) {
-    const original_cost = projectData.original_cost_post_interface ?? 0;
     const discount_rate = projectData.annual_discount_rate ?? 0.05;
 
     const years = getExpectedYears(projectData);

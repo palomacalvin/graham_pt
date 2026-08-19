@@ -59,7 +59,7 @@ export interface ProjectData {
     project_acreage: number;
 
 
-    // Auto-calculations
+    // Auto-calculations.
     auto_calculate_costs: boolean;
 }
 

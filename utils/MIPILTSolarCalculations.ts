@@ -87,13 +87,13 @@ export function calculateMichiganTaxResults(
 
             const year = index + 1;
 
-            // PILT years
+            // PILT years.
             if (year <= 20) {
                 const revenue = proportionalPayment(millage);
                 return { year, revenue };
             }
 
-            // Non-PILT years
+            // Non-PILT years.
             const tcv = originalCost * factor.factor_form_5762 * 0.5;
             const revenue = ((millage ?? 0) / 1000) * tcv;
 

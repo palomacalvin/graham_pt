@@ -43,39 +43,6 @@ export function generateYearlyRevenue(
         }));
     }
 
-    // const taxable_increase = ownership_change ?
-    //     Math.max(
-    //         (projectData.post_solar_taxable_value ?? 0) -
-    //         (projectData.pre_solar_taxable_value ?? 0),
-    //         0
-    //     ) : 0;
-
-
-
-    // ================== Year 1 Calculations ======================== //
-    // let tcv: number;
-    // let base_revenue: number;
-    // let revenue: number;
-
-    // if (is_school_operating) {
-    // // Use post_solar if available, otherwise pre_solar
-    //     tcv = projectData?.post_solar_taxable_value ?? projectData?.pre_solar_taxable_value ?? 0;
-    //     base_revenue = (millage_rate / 1000) * tcv;
-    // } else {
-    //     // Only count the increase if there was ownership change
-    //     tcv = taxable_increase;
-    //     base_revenue = (millage_rate / 1000) * tcv;
-    // }
-
-    // revenue = base_revenue;
-    // results.push({
-    //     year: 1,
-    //     tcv: is_school_operating 
-    //     ? (projectData?.real_property_school_district_millages ?? 0)
-    //     : taxable_increase,
-    //     revenue: base_revenue,
-    // });
-
     // ================== Year 1 Calculations ======================== //
     let tcv = 0;
 
@@ -100,21 +67,6 @@ export function generateYearlyRevenue(
         revenue: base_revenue,
     });
 
-    // ======================= Year 2+ Calculations ======================= //
-
-//     revenue = base_revenue;
-//     for (let year = 2; year <= years; year++) {
-//         revenue = revenue * (1 + inflation_rate);
-
-//         results.push({
-//             year,
-//             tcv: 0,
-//             revenue,
-//         });
-//     }
-
-//     return results;
-// }
 
     let revenue = base_revenue;
     for (let year = 2; year <= years; year++) {

@@ -54,7 +54,6 @@ export default function LocationSelector({ onSelectLocation }: Props) {
   const [selectedVillage, setSelectedVillage] = useState("");
   const [selectedSchool, setSelectedSchool] = useState("");
 
-  // Fetch all locations and normalize city to boolean
   useEffect(() => {
     fetch("/api/michigan/millages")
       .then(res => res.json())
@@ -71,10 +70,10 @@ export default function LocationSelector({ onSelectLocation }: Props) {
       .catch(() => setAllLocations([]));
   }, []);
 
-  // Counties
+  // Counties.
   const counties = useMemo(() => Array.from(new Set(allLocations.map(l => l.county_name))).sort(), [allLocations]);
 
-  // Local units (cities + townships) for selected county
+  // Local units (cities and townships) for selected county.
   const localUnits = useMemo(() => {
     if (!selectedCounty) return [];
     const units = allLocations.filter(l => l.county_name === selectedCounty);
@@ -87,7 +86,7 @@ export default function LocationSelector({ onSelectLocation }: Props) {
     return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
   }, [allLocations, selectedCounty]);
 
-  // Villages for selected unit
+  // Villages for selected unit.
   const villages = useMemo(() => {
     if (!selectedCounty || !selectedUnit) return [];
     return Array.from(
@@ -105,7 +104,7 @@ export default function LocationSelector({ onSelectLocation }: Props) {
     ) as string[];
   }, [allLocations, selectedCounty, selectedUnit]);
 
-  // Schools for selected county/unit/village
+  // Schools for selected county/unit/village.
   const schools = useMemo(() => {
     if (!selectedCounty || !selectedUnit) return [];
     return Array.from(
@@ -123,7 +122,7 @@ export default function LocationSelector({ onSelectLocation }: Props) {
     ).sort();
   }, [allLocations, selectedCounty, selectedUnit, selectedVillage]);
 
-  // Update selected location
+  // Update selected location.
   useEffect(() => {
     if (!selectedCounty || !selectedUnit) {
       onSelectLocation?.(null);
