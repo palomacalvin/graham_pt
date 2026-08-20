@@ -55,12 +55,7 @@ export function calculateRealPropertyTax(
       return 0;
   }
 
-  console.log(chosenRate)
-
   let adjustedChosenRate = Number(chosenRate) / 100;
-
-  console.log("CO Adjusted Rate", adjustedChosenRate)
-
 
   return landArea * landValuePerAcre * adjustedChosenRate;
 }

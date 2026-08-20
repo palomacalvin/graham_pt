@@ -49,17 +49,6 @@ export function calculateCityRealPropertyTax(
       return 0;
   }
 
-  // console.log("CITY NEW PROPERTY CLASS:", newPropertyClass)
-
-  // console.log("City Tax Rates", cityTaxRates)
-
-  // console.log("City Chosen Rate:", chosenRate)
-  // console.log("CITY LAND AREA", landArea)
-  // console.log("CITY LANDVALUEPERACRE", landValuePerAcre)
-  // console.log("CITY CHOSEN RATE", chosenRate)
-  //let calculatedValue = landArea * landValuePerAcre * chosenRate;
-  // console.log("City Calculated value:", calculatedValue)
-
   let adjustedChosenRate = Number(chosenRate) / 100;
 
   return landArea * landValuePerAcre * adjustedChosenRate;
@@ -94,11 +83,6 @@ export function calculateFormerCityRealPropertyTax(
     default:
       return 0;
   }
-
-  // console.log("CITY FORMER PROPERTY CLASS:", previousPropertyClass)
-  // console.log("City Chosen Rate", chosenRate)
-  //let calculatedValue = landArea * landValuePerAcre * chosenRate;
-  // console.log("City Calculated value:", calculatedValue)
 
   let adjustedChosenRate = Number(chosenRate) / 100;
 

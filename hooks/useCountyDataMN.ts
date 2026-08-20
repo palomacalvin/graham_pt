@@ -3,10 +3,8 @@ import { ProjectData } from "@/types/MNproject";
 
 export function useCountyData(projectData: ProjectData, setProjectData: React.Dispatch<React.SetStateAction<ProjectData>>) {
   const [countyAvgValue, setCountyAvgValue] = useState(0);
-  //const [landValueDefaultSet, setLandValueDefaultSet] = useState(false);
-  //const [capacityFactorDefaultSet, setCapacityFactorDefaultSet] = useState(false);
 
-  // Fetch county data for land value
+  // Get land value from county data.
   useEffect(() => {
   if (!projectData.county) return;
 

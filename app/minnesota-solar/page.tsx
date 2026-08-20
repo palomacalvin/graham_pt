@@ -50,16 +50,14 @@ export default function ProjectForm() {
   });
 
   const [userEditedLandValue, setUserEditedLandValue] = useState(false);
-
   const { countyAvgValue } = useCountyData(projectData, setProjectData);
-
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
     setShowResults(false);
   }, [projectData]);
 
-  // Handle input changes
+  // Handle input changes.
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
 
@@ -97,18 +95,14 @@ export default function ProjectForm() {
   });
 };
 
-// console.log(projectData.countyTaxRates)
-
-  // Calculate production revenue
+  // Calculate production revenue.
   const productionRate = getProductionRate(projectData.nameplateCapacity);
   const annualMWh = getAnnualSolarEnergyMWh(projectData);
   const modProdTaxRevenue = productionRate * annualMWh;
   const totalProductionRevenue = (projectData.pilotAgreement ? projectData.pilotPayment : modProdTaxRevenue);
-
   const landValuePerAcre = (userEditedLandValue || countyAvgValue === 0) ? projectData.userLandValue : countyAvgValue;
 
-
-  // Real Property Tax Revenue (County)
+  // Real Property Tax Revenue (County).
   const realPropertyTaxRevenue = projectData.countyTaxRates
     ? calculateRealPropertyTax(
         projectData.landArea,
@@ -119,7 +113,7 @@ export default function ProjectForm() {
       )
     : 0;
 
-  // Former Property Tax Revenue (County)
+  // Former Property Tax Revenue (County).
   const formerRealPropertyTaxRevenue =
   projectData.approvedLandValuation
     ? realPropertyTaxRevenue
@@ -133,7 +127,7 @@ export default function ProjectForm() {
           )
         : 0;
 
-  // Real Property Tax Revenue (City)
+  // Real Property Tax Revenue (City).
   const cityRealPropertyTaxRevenue = projectData.cityTaxRates
     ? calculateCityRealPropertyTax(
         projectData.landArea,
@@ -144,7 +138,7 @@ export default function ProjectForm() {
       )
     : 0;
 
-  // Former Property Tax Revenue (City)
+  // Former Property Tax Revenue (City).
   const formerCityRealPropertyTaxRevenue =
   projectData.approvedLandValuation
     ? cityRealPropertyTaxRevenue
@@ -159,32 +153,30 @@ export default function ProjectForm() {
         : 0;
 
 
-    // Real Property Tax Revenue (School District)
-    const schoolDistrictRealPropertyTaxRevenue = projectData.schoolDistrictTaxRates
-      ? calculateSchoolDistrictRealPropertyTax(
-          projectData.landArea,
-          landValuePerAcre,
-          projectData.newPropertyClass,
-          projectData.newAgriculturalType,
-          projectData.schoolDistrictTaxRates
-        )
-      : 0;
+  // Real Property Tax Revenue (School District).
+  const schoolDistrictRealPropertyTaxRevenue = projectData.schoolDistrictTaxRates
+    ? calculateSchoolDistrictRealPropertyTax(
+        projectData.landArea,
+        landValuePerAcre,
+        projectData.newPropertyClass,
+        projectData.newAgriculturalType,
+        projectData.schoolDistrictTaxRates
+      )
+    : 0;
 
-    // Former Property Tax Revenue (School District)
-    const formerSchoolDistrictRealPropertyTaxRevenue =
-    projectData.approvedLandValuation
-      ? schoolDistrictRealPropertyTaxRevenue
-      : projectData.schoolDistrictTaxRates
-          ? calculateFormerSchoolDistrictRealPropertyTax(
-              projectData.landArea,
-              landValuePerAcre,
-              projectData.previousPropertyClass,
-              projectData.agriculturalType,
-              projectData.schoolDistrictTaxRates
-            )
-          : 0;
-
-
+  // Former Property Tax Revenue (School District)
+  const formerSchoolDistrictRealPropertyTaxRevenue =
+  projectData.approvedLandValuation
+    ? schoolDistrictRealPropertyTaxRevenue
+    : projectData.schoolDistrictTaxRates
+        ? calculateFormerSchoolDistrictRealPropertyTax(
+            projectData.landArea,
+            landValuePerAcre,
+            projectData.previousPropertyClass,
+            projectData.agriculturalType,
+            projectData.schoolDistrictTaxRates
+          )
+        : 0;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

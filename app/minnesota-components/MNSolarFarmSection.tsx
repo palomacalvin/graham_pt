@@ -31,7 +31,7 @@ export default function SolarFarmSection({ projectData, handleChange }: Props)
   const handleResetAcreage = () => {
     setHasManualAcreage(false);
 
-    // Reset nameplate capacity
+    // Reset nameplate capacity.
     handleChange({
       target: {
         name: "nameplateCapacity",
@@ -40,7 +40,7 @@ export default function SolarFarmSection({ projectData, handleChange }: Props)
       }
     } as any);
 
-    // Clear manual acreage
+    // Clear manual acreage.
     handleChange({
       target: {
         name: "landArea",

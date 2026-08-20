@@ -6,24 +6,21 @@ import CommunityBenefitsHeader from "@/components/CommunityBenefits";
 interface Props {
   totalProductionRevenue: number;
 
-  // County
+  // County.
   realPropertyTaxRevenue: number;
   formerRealPropertyTaxRevenue: number;
 
-  // City
+  // City.
   cityRealPropertyTaxRevenue: number;
   formerCityRealPropertyTaxRevenue: number;
 
-  // School District
+  // School District.
   schoolDistrictRealPropertyTaxRevenue: number;
   formerSchoolDistrictRealPropertyTaxRevenue: number;
 
   discountRate: number;
-
   expectedUsefulLife: number;
-
   inflationRate: number;
-
 }
 
 // Adding inflation.
@@ -36,7 +33,7 @@ export function inflationRevenues(
 
   let revenue = baseValue;
 
-  results.push(revenue); // Year 1
+  results.push(revenue); // Year 1.
 
   for (let year = 2; year <= years; year++) {
     revenue = revenue * (1 + inflationRate);
@@ -95,7 +92,7 @@ export default function TaxResults({ totalProductionRevenue, realPropertyTaxReve
     netSchool: "Net School District Property Tax Revenue",
   };
 
-  // Arrays of values for revenue with inflation //
+  // Arrays of values for revenue with inflation.
   const revenueSeries = {
     netCounty: inflationRevenues(netCounty, years, inflationRate),
     netCity: inflationRevenues(netCity, years, inflationRate),

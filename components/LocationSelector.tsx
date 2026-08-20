@@ -34,8 +34,6 @@ interface SchoolDistrict {
 
 interface Props {
   stateName: string;
-
-  // UPDATED: city and district now pass full objects, not strings
   onSelectCounty?: (county: County | null) => void;
   onSelectCity?: (city: City | null) => void;
   onSelectSchoolDistrict?: (district: SchoolDistrict | null) => void;
@@ -58,7 +56,7 @@ export default function LocationSelector({
   
   useState<SchoolDistrict | null>(null);
 
-  // Fetch counties
+  // Fetch counties.
   useEffect(() => {
     fetch(`/api/minnesota/location?state=${stateName}`)
       .then((res) => res.json())
@@ -66,7 +64,7 @@ export default function LocationSelector({
       .catch((err) => console.error("Error fetching counties:", err));
   }, [stateName]);
 
-  // Fetch cities for county
+  // Fetch cities for county.
   useEffect(() => {
     if (!selectedCounty) {
       setCities([]);
@@ -81,7 +79,7 @@ export default function LocationSelector({
   }, [selectedCounty, selectedSchoolDistrict, selectedCity]);
 
 
-  // Fetch school districts for county
+  // Fetch school districts for county.
   useEffect(() => {
     if (!selectedCounty) {
       setSchoolDistricts([]);
@@ -96,22 +94,18 @@ export default function LocationSelector({
   }, [selectedCounty, selectedSchoolDistrict, selectedCity]);
 
   return (
-    <div className="w-full max-w-xs space-y-4">
+    <div>
 
       {/* County Select */}
       <div>
         <select
           value={selectedCounty?.county_name || ""}
           onChange={(e) => {
-            // console.log("County select changed:", e.target.value);
-
 
             const countyObj = counties.find(c => c.county_name === e.target.value) || null;
-            // const value = e.target.value || null;
             setSelectedCounty(countyObj);
             onSelectCounty?.(countyObj);
 
-            // reset city + school district when county changes
             setSelectedCity(null);
             setSelectedSchoolDistrict(null);
           }}

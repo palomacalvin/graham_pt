@@ -48,10 +48,8 @@ export function calculateSchoolDistrictRealPropertyTax(
       return 0;
   }
 
-  // console.log(chosenRate)
   let calculatedValue = landArea * landValuePerAcre * chosenRate;
 
-  // console.log("SD Calculated value:", calculatedValue)
   return landArea * landValuePerAcre * chosenRate;
 }
 
@@ -85,9 +83,7 @@ export function calculateFormerSchoolDistrictRealPropertyTax(
       return 0;
   }
 
-  // console.log(chosenRate)
   let calculatedValue = landArea * landValuePerAcre * chosenRate;
 
-  // console.log("SD Calculated value:", calculatedValue)
   return landArea * landValuePerAcre * chosenRate;
 }

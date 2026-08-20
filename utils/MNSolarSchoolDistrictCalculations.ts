@@ -6,7 +6,6 @@ export function getProductionRate(nameplateCapacity: number): number {
   return 0;
 }
 
-
 export function getAnnualEnergyMWh(projectData: ProjectData): number {
   const HOURS_PER_YEAR = 8760;
   const capacityFactor =
@@ -17,7 +16,6 @@ export function getAnnualEnergyMWh(projectData: ProjectData): number {
   console.log("SD Cap factor", capacityFactor)
   return projectData.nameplateCapacity * capacityFactor * HOURS_PER_YEAR;
 }
-
 
 export function calculateSchoolDistrictRealPropertyTax(
   landArea: number,
@@ -48,10 +46,6 @@ export function calculateSchoolDistrictRealPropertyTax(
     default:
       return 0;
   }
-
-  // console.log(chosenRate)
-  // let calculatedValue = landArea * landValuePerAcre * chosenRate;
-  // console.log("SD Calculated value:", calculatedValue)
 
   let adjustedChosenRate = Number(chosenRate) / 100;
 
@@ -90,10 +84,6 @@ export function calculateFormerSchoolDistrictRealPropertyTax(
     default:
       return 0;
   }
-
-  // console.log(chosenRate)
-  // let calculatedValue = landArea * landValuePerAcre * chosenRate;
-  // console.log("SD Calculated value:", calculatedValue)
 
   let adjustedChosenRate = Number(chosenRate) / 100;
 
