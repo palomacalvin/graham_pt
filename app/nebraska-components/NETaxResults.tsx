@@ -15,10 +15,6 @@ interface NETaxResultsProps {
 
 export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProps) {
 
-    // Determine project type.
-    const isSolar = projectData.project_type === "Solar";
-    const isWind = projectData.project_type === "Wind";
-
     const years = projectData.expected_useful_life || 30;
     const startYear = new Date().getFullYear();
 
@@ -35,16 +31,6 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
       (decimal * 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 3 }) + "%";
 
     const currentYear = new Date().getFullYear();
-  
-    function calculateNPV(rate: number, cash_flows: number[]) {
-        return cash_flows.reduce((sum, cf, i) => {
-        return sum + cf / Math.pow(1 + rate, i);
-        }, 0);
-    }
-
-    function calculateGrossTotal(values: number[]) {
-        return values.reduce((sum, v) => sum + v, 0);
-    }
 
     const results = calculateNEResults(projectData, taxUnits);
 
@@ -84,13 +70,12 @@ export default function NETaxResults({ projectData, taxUnits }: NETaxResultsProp
   const totalGrossAllUnits = results.reduce((sum, r) => sum + r.grossTotal, 0);
   const totalNPVAllUnits = results.reduce((sum, r) => sum + r.npvTotal, 0);
 
-
-  // Group NPV by type for the Community Benefits table
+  // Group NPV by type for the Community Benefits table.
   const totalsByType = useMemo(() => {
     return results.reduce((acc, curr) => {
       let category = curr.type;
 
-      // Group both school types into one "School District" key
+      // Group both school types into one "School District" key.
       if (category === "School District (non-bond)" || category === "School District (bond)") {
         category = "School District";
       }

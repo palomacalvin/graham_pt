@@ -64,7 +64,6 @@ export default function ProjectForm() {
   });
 };
 
-
   // Handles showing/hiding results table based on user input changes.
   useEffect(() => {
     setShowResults(false);

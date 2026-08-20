@@ -81,8 +81,6 @@ const PRORATE_LOOKUP: Record<string, number> = {
   "December-1": 335, "December-2": 336, "December-3": 337, "December-4": 338, "December-5": 339, "December-6": 340, "December-7": 341, "December-8": 342, "December-9": 343, "December-10": 344, "December-11": 345, "December-12": 346, "December-13": 347, "December-14": 348, "December-15": 349, "December-16": 350, "December-17": 351, "December-18": 352, "December-19": 353, "December-20": 354, "December-21": 355, "December-22": 356, "December-23": 357, "December-24": 358, "December-25": 359, "December-26": 360, "December-27": 361, "December-28": 362, "December-29": 363, "December-30": 364, "December-31": 365,
 };
 
-
-
 /* Main calculations */
 export function calculateNEResults(
   projectData: ProjectData,
@@ -126,11 +124,7 @@ export function calculateNEResults(
     landMarketValuePerAcre = REGIONAL_MARKET_VALUES["Statewide"];
   }
 
-  // console.log("Selected land value:", landMarketValuePerAcre)
-
   const totalLandMarketValue = landMarketValuePerAcre * (projectData.land_area || 0);
-
-  // console.log("Total Land Market Value Calculation:", landMarketValuePerAcre, "* (", projectData.land_area, ")")
 
   const NON_SCHOOL_BOND_RATE = 0.75;
   const SCHOOL_BOND_RATE = 0.50;
@@ -143,12 +137,8 @@ export function calculateNEResults(
   const results: NECalculationResult[] = activeUnits.map((unit) => {
 
     const unitRate = unit.rate || 0;
-    // console.log("UNITRATE");
-    // console.log(unitRate);
 
     const totalProjectRate = activeUnits.reduce((sum, u) => sum + (u.rate || 0), 0);
-    // console.log("TOTALPROJECTRATE");
-    // console.log(totalProjectRate);
 
     const proportionalTaxRate = totalProjectRate > 0 ? (unit.rate || 0) / totalProjectRate : 0;
 
@@ -157,22 +147,15 @@ export function calculateNEResults(
     console.log("TOTALYEAR1REVENUE");
     console.log(totalYear1Revenue);
 
-    // console.log("CAPACITYTAX")
-    // console.log("Capacity tax revenue: ", proportionalTaxRate, "*", totalYear1Revenue);
-
     const projectRealTaxRevenue = (unitRate / 100) * totalLandMarketValue;
-
-    // console.log("Project Real Tax Rate Calculation: ", unitRate, "*", totalLandMarketValue);
 
     // Previous Farmland Tax Revenue.
     const isBond = unit.type === "School District (bond)";
     const assessmentRatio = isBond ? SCHOOL_BOND_RATE : NON_SCHOOL_BOND_RATE;
     const previousFarmlandTaxRevenue = (unitRate / 100) * totalLandMarketValue * assessmentRatio;
-    // console.log("Previous farmland tax calculation: ", "(", unitRate, "/", "100 ) *", totalLandMarketValue, "*", assessmentRatio);
 
     const netRealPropertyRevenue = projectRealTaxRevenue - previousFarmlandTaxRevenue;
     const netTaxRevenue = capacityTaxRevenue + netRealPropertyRevenue;
-    
     
     // Yearly array calculations.
     const yearlyCashFlows: number[] = [];

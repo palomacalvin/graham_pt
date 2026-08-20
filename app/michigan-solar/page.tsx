@@ -15,7 +15,6 @@ import Instructions from "@/components/Instructions";
 
 export default function MichiganSolar() {
     const [projectData, setProjectData] = useState<ProjectData>({
-    // Required fields.
     real_property_previously_covered: "yes",
     real_property_ownership_change: "no",
     post_solar_taxable_value: undefined,

@@ -46,17 +46,15 @@ export default function LocationSelector({
 
 
   return (
-    <div className="w-full max-w-xs space-y-4">
+    <div>
 
       {/* County Select */}
       <div>
         <select
           value={selectedCounty?.county_name || ""}
           onChange={(e) => {
-            // console.log("County select changed:", e.target.value);
 
             const countyObj = counties.find(c => c.county_name === e.target.value) || null;
-            // const value = e.target.value || null;
             setSelectedCounty(countyObj);
             onSelectCounty?.(countyObj);
           }}

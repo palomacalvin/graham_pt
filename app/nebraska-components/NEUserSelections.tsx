@@ -488,7 +488,6 @@ export default function NEUserSelections({
                         style={{ flex: 1 }}
                         >
                         <option value="">Day</option>
-                        {/* Limits the date to real dates based on the selected month */}
                         {Array.from(
                             { length: new Date(2024, Number(projectData.project_start_month) || 0, 0).getDate() || 31 },
                             (_, i) => (

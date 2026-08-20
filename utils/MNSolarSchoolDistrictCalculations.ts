@@ -87,7 +87,5 @@ export function calculateFormerSchoolDistrictRealPropertyTax(
 
   let adjustedChosenRate = Number(chosenRate) / 100;
 
-  console.log("SD Adjusted Rate", adjustedChosenRate)
-
   return landArea * landValuePerAcre * adjustedChosenRate;
 }
