@@ -24,10 +24,14 @@ export default function Instructions ( {state}: { state: string } ) {
                 Hover over the information icons next to each field to learn more about individual inputs.
             </p>
 
-            <p style={{ marginTop: "1rem" }}>
-                Please contact us by emailing <a href="mailto:empoweringcommunities@umich.edu" className="mailto">empoweringcommunities@umich.edu</a> with any questions,
+            <div className="about-section-divider">
+                <p><strong>Have feedback?</strong></p>
+                We appreciate your perspective! If you have feedback to share, please fill out {" "}
+                <a className="accent-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeQAkqsU5jzojgh0W-Q8KQIs_8j3LmOq0NgpKYjhvr8CXLa6Q/viewform?usp=dialog">this Google form</a>. 
+                The form is anonymous, but you can leave your name and email address if you'd like to be contacted by the Center for EmPowering Communities. Otherwise, you may 
+                contact us directly by emailing <a href="mailto:empoweringcommunities@umich.edu" className="mailto">empoweringcommunities@umich.edu</a> with any questions,
                 comments, or feedback.
-            </p>
+            </div>
 
             <br></br>
 

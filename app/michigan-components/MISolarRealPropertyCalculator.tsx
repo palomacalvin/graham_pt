@@ -26,7 +26,7 @@ export default function MISolarRealPropertyCalculator ({
     const pre_solar_taxable_value = acreage * 4285.7;
 
     const DEFAULT_REAL_PROPERTY = {
-        project_acreage: 0, // Triggers 7 acres per MW fallback
+        project_acreage: 0, // Triggers 7 acres per MW fallback.
         real_property_previously_covered: "yes",
         real_property_ownership_change: "no",
         real_property_conditions: false,
@@ -34,13 +34,13 @@ export default function MISolarRealPropertyCalculator ({
     };
 
     const handleResetDefaults = () => {
-        setHasManualPostSolarValue(false); // reset manual override
-        setHasManualPreSolarValue(false); // reset pre-solar override
+        setHasManualPostSolarValue(false);
+        setHasManualPreSolarValue(false);
 
         setProjectData((prev) => ({
             ...prev,
             ...DEFAULT_REAL_PROPERTY,
-            post_solar_taxable_value: undefined, // go back to derived default
+            post_solar_taxable_value: undefined,
             pre_solar_taxable_value: undefined,
         }));
     };

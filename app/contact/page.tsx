@@ -37,6 +37,8 @@ export default function ContactPage() {
             <a href="references" className="accent-link">References</a> page.
           </p>
 
+          <br></br>
+
           <p>
             To learn more about the project, click to{" "}
             <a 
@@ -51,6 +53,18 @@ export default function ContactPage() {
             a webinar recording from August 2025 with helpful information about the project.
             You can also learn more about the Center for EmPowering Communities on this page.
           </p>
+        </div>
+
+        <div className="about-section-divider">
+          <h1 className="page-section-title">Have feedback?</h1>
+
+          <div className="landing-body-text">
+            <p>
+              We appreciate your perspective! If you have feedback to share, please fill out {" "}
+              <a className="accent-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeQAkqsU5jzojgh0W-Q8KQIs_8j3LmOq0NgpKYjhvr8CXLa6Q/viewform?usp=dialog">this Google form</a>. 
+              The form is anonymous, but you can leave your name and email address if you'd like to be contacted by the Center for EmPowering Communities.
+            </p>
+          </div>
         </div>
   
         <div className="about-section-divider">

@@ -88,6 +88,15 @@ export default function Home() {
             </p>
           </div>
         </div>
+
+        <div className="about-section-divider">
+          <h1 className="page-section-title">Have feedback?</h1>
+          We appreciate your perspective! If you have feedback to share, please fill out {" "}
+          <a className="accent-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeQAkqsU5jzojgh0W-Q8KQIs_8j3LmOq0NgpKYjhvr8CXLa6Q/viewform?usp=dialog">this Google form</a>. 
+          The form is anonymous, but you can leave your name and email address if you'd like to be contacted by the Center for EmPowering Communities.
+        </div>
+
+
       </main>
 
       <Footer />
