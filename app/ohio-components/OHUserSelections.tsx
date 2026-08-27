@@ -23,10 +23,6 @@ export default function OHUserSelections({
   setProjectData,
 }: Props) {
 
-    // Define inflation and discount rate using project data inputs.
-    const inflation = (projectData.inflation_rate?? 0) * 100;
-    const discount = (projectData.discount_rate ?? 0) * 100;
-
     // Default details.
     const DEFAULT_PROJECT_DETAILS = {
       inflation_rate: 0.025, 
@@ -133,15 +129,6 @@ export default function OHUserSelections({
         onSelectLocation={(location) => {
 
             if (!location) return;
-
-            // DEBUGGING //
-            console.log("DEBUG - Full Location Keys:", Object.keys(location || {}));
-                if (location?.jurisdictions) {
-                    console.log("DEBUG - First Jurisdiction:", location.jurisdictions[0]);
-            }
-
-            console.log("DATABASE CHECK - Jurisdiction Keys:", Object.keys(location.jurisdictions[0]));
-            console.log("DATABASE CHECK - Class II Value:", location.jurisdictions[0].class_ii_tax_rate);
 
             const mappedJurisdictions: Jurisdiction[] = (location?.jurisdictions || []).map((j: any) => ({
                 political_unit_name: j.political_unit_name,

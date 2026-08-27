@@ -63,13 +63,7 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     pct_employed_construction_workers = "from_70_to_74"
   } = projectData;
 
-  // console.log("--- OH Calculation Debug Start ---");
-  // console.log("Project Type:", projectData.project_type);
-  // console.log("Use County Avg?:", projectData.use_county_avg);
-  // console.log("Assessed Market Value Used:", cauv_100_percent_valuation_total_acres);
-  // console.log("Total Land Area:", land_area);
-
-  // Gets the CAUV value from the type file (default or user-specified)
+  // Gets the CAUV value from the type file (default or user-specified).
   const cauvValuePerAcre = cauv_100_percent_valuation_total_acres || 0;
 
   // Gets the market value from the type file (default or user-specified).
@@ -100,11 +94,9 @@ export function calculateOHRevenue(projectData: ProjectData): OHCalculationResul
     // Calculates the land revenue for both solar and wind.
     let landRevenue = 0;
 
-    // ============ TODO: CHECK THIS WHOLE IF/ELSE =============== */
     if (project_type === "Wind") {
       const windAssessedValue = (marketValuePerAcre * land_area) / 3;
       landRevenue = windAssessedValue * OH_ASSESSMENT_RATIO * classIIRate;
-      //console.log(`Wind Debug - Market: ${marketValuePerAcre}, Area: ${land_area}, Unit: ${unit.political_unit_name}`);
     }
     else {
       landRevenue = (marketValuePerAcre * land_area) * OH_ASSESSMENT_RATIO * classIIRate;

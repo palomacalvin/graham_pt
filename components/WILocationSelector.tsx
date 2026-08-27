@@ -43,7 +43,6 @@ interface Props {
   onSelectCounty?: (county: County | null) => void;
   onSelectMunicipality?: (municipality: Municipality | null) => void;
   onSelectCity?: (municipality: Municipality | null) => void;
-
 }
 
 export default function LocationSelector({
@@ -57,7 +56,7 @@ export default function LocationSelector({
   const [cities, setMunicipalities] = useState<Municipality[]>([]);
   const [selectedMunicipality, setSelectedMunicipality] = useState<Municipality | null>(null);
 
-  // Fetch counties
+  // Fetch counties.
   useEffect(() => {
     fetch(`/api/wisconsin/conversion_rates?state=${stateName}`)
       .then((res) => res.json())
@@ -69,7 +68,7 @@ export default function LocationSelector({
         } else if (Array.isArray(data?.counties)) {
           setCounties(data.counties);
         } else {
-          setCounties([]); // ← critical
+          setCounties([]);
         }
       })
       .catch((err) => {
@@ -79,7 +78,7 @@ export default function LocationSelector({
   }, [stateName]);
 
 
-  // Fetch cities for county
+  // Fetch cities based on selected county.
   useEffect(() => {
     if (!selectedCounty) {
       setMunicipalities([]);
@@ -100,25 +99,19 @@ export default function LocationSelector({
       .catch(() => setMunicipalities([]));
   }, [selectedCounty]);
 
-
-
-
   return (
-    <div className="w-full max-w-xs space-y-4">
-
+    <div>
       {/* County Select */}
       <div>
         <select
           value={selectedCounty?.county_name || ""}
           onChange={(e) => {
-            // console.log("County select changed:", e.target.value);
 
             const countyObj = counties.find(c => c.county_name === e.target.value) || null;
-            // const value = e.target.value || null;
             setSelectedCounty(countyObj);
             onSelectCounty?.(countyObj);
 
-            // Reset city value when county changes
+            // Reset city value when county changes.
             setSelectedMunicipality(null);
           }}
           className="basicDropdown"

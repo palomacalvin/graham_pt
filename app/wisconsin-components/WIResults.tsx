@@ -36,6 +36,8 @@ const formatCurrency = (value: number) => {
   return `$${rounded.toLocaleString()}`;
 };
 
+
+// Applies inflation and calculates the NPV and Gross Total values.
 function inflationArray(base: number, years: number, rate: number) {
   const arr = [base];
   for (let i = 1; i < years; i++) {
@@ -55,6 +57,7 @@ function calculateGrossTotal(values: number[]) {
 }
 
 
+// Renders results.
 export default function WIResults({ projectData }: Props) {
   if (
     !projectData ||
