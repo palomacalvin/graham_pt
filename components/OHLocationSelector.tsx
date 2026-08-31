@@ -11,8 +11,6 @@ export interface TaxData {
   taxing_district_number: number;
   avg_land_market_value: number;
   jurisdictions: Jurisdiction[];
-
-  // Add other data as needed.
 }
 
 interface Props {
@@ -50,8 +48,7 @@ export default function LocationSelector({
       const detailCounties = detailRes.counties || [];
     setAllDistricts(taxRes.counties || []);
     setCauvData(cauvRes.counties || []);
-    
-    // Set BOTH state and ref
+
     setAllOhioTaxData(detailCounties);
     taxDataRef.current = detailCounties; 
 
@@ -63,7 +60,7 @@ export default function LocationSelector({
     const handleCountyChange = (countyName: string) => {
       setSelectedCounty(countyName);
       setSelectedDistrictNum("");
-    
+
       // Filter taxing districts.
       const filtered = allDistricts.filter(r => r.county_name === countyName);
       setDistricts(filtered);
@@ -149,7 +146,7 @@ export default function LocationSelector({
     }
   };
 
-  // Helper to get the default data for the current selection
+  // Helper to get the default data for the current selection.
   const getDefaultData = () => {
     if (!selectedCounty) return null;
     return cauvData.find((c) => c.county_name?.toLowerCase() === selectedCounty.toLowerCase());

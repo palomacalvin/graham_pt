@@ -6,7 +6,6 @@ export function useCountyData(projectData: ProjectData, setProjectData: React.Di
   const [landValueDefaultSet, setLandValueDefaultSet] = useState(false);
   const [capacityFactorDefaultSet, setCapacityFactorDefaultSet] = useState(false);
 
-  // Fetch county data for land value
 useEffect(() => {
   if (!projectData.county) return;
 
@@ -21,7 +20,7 @@ useEffect(() => {
 
       if (!countyData) return;
 
-      // Always update defaults for the selected county
+      // Always update defaults for the selected county.
       setProjectData((prev) => ({
         ...prev,
         userLandValue: countyData.avg_market_value_per_acre

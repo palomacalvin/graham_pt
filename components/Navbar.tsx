@@ -52,7 +52,6 @@ export default function Navbar() {
           </li>
         ))}
 
-        {/* Dropdown as li */}
         <li
           className={styles.dropdown}
           onMouseEnter={() => !isMobileMenuOpen && setOpenDropdown('calc')}

@@ -81,7 +81,7 @@
 }
 
 .showDropdown {
-  display: block; /* visible when React state triggers it */
+  display: block;
 }
 
 .dropdownItem {

@@ -56,7 +56,6 @@ function calculateGrossTotal(values: number[]) {
   return values.reduce((sum, v) => sum + v, 0);
 }
 
-
 // Renders results.
 export default function WIResults({ projectData }: Props) {
   if (
@@ -179,15 +178,15 @@ export default function WIResults({ projectData }: Props) {
 
     const reduction_in_local_pt = acres_converted * Number(projectData.gross_rate) * use_value_ag;
 
-    // Utility aid (no inflation)
+    // Utility aid (no inflation).
     const utility_aid_array = Array(YEARS).fill(utility_aid_total);
 
-    // Conversion charge (year 1 only)
+    // Conversion charge (year 1 only).
     const conversion_array = Array.from({ length: YEARS }, (_, i) =>
       i === 0 ? base_conversion_charge : 0
     );
 
-    // Reduction in local PT w/inflation
+    // Reduction in local property tax w/inflation/.
     const inflated_reduction_array = inflationArray(
       reduction_in_local_pt,
       YEARS,
@@ -199,7 +198,7 @@ export default function WIResults({ projectData }: Props) {
     console.log("use value ag", use_value_ag);
     console.log("inflated_reduction_array", inflated_reduction_array);
 
-    // Net cash flow array (total)
+    // Net cash flow array (total).
     const net_cash_flows = utility_aid_array.map((val, i) =>
       val + conversion_array[i] - inflated_reduction_array[i]
     );
@@ -253,8 +252,7 @@ export default function WIResults({ projectData }: Props) {
     const npv_all =
       npv_county + npv_tvc + npv_school + npv_college + npv_other;
 
-
-    // Creating yearlyResults
+    // Create yearlyResults array.
     const yearlyResults = Array.from({ length: YEARS }, (_, i) => ({
       year: i + 1,
       utility_aid: utility_aid_array[i],
@@ -276,7 +274,7 @@ export default function WIResults({ projectData }: Props) {
       total_to_other: -inflated_reduction_array[i] * other_pct,
     }));
 
-    // Row arrays for table formatting
+    // Row arrays for table formatting.
     const utility_aid_row = yearlyResults.map(r => r.utility_aid);
     const conversion_row = yearlyResults.map(r => r.conversion_charge);
     const reduction_row = yearlyResults.map(r => r.reduction_in_local_pt);

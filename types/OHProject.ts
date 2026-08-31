@@ -24,14 +24,10 @@ export interface ProjectData {
   // Location specific details.
   avg_land_market_value: number;
 
-  // Default.
   assumed_personal_property_valuation: number;
   calculated_valuation: number;
   cauv_100_percent_valuation_total_acres: number;
   jurisdictions: Jurisdiction[];
-
-  // TODO: Organize
-
   use_county_avg: string;
 }
 
