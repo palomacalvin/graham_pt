@@ -14,7 +14,7 @@ import { Analytics } from "@vercel/analytics/next";
 import FooterComp from "@/components/Footer";
 
 /* For debugging/data validation */
-import { AgCalculationVerificationTable } from "@/components/TempIADisplay";
+// import { AgCalculationVerificationTable } from "@/components/TempIADisplay";
 
 export default function ProjectForm() {
   const [showResults, setShowResults] = useState(false);
