@@ -130,8 +130,10 @@ export interface PropertyTaxPaymentResultWithAbatement extends PropertyTaxPaymen
 export interface FundTaxOffsetWithAbatement extends FundTaxOffsetNoAbatement {}
 export interface TaxOffsetResultWithAbatement extends TaxOffsetResult {}
 
-// 5-Year MACRS Schedule Rates.
-const MACRS_5_YR_RATES = [0.20, 0.32, 0.192, 0.1152, 0.1152, 0.0576];
+// 13-year Pool 4 True Tax percentages.
+const POOL_4_TRUE_TAX_PCT = [0.40, 0.60, 0.63, 0.54, 0.46, 0.40, 0.34, 0.29, 0.25, 0.21, 0.15, 0.10, 0.10, 0.10,
+  0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10
+];
 const STATEWIDE_AGRICULTURAL_BASELINE_ASSESSED_VALUE = 2120;
 
 // Default units for the Abatement Schedule Table.
@@ -321,11 +323,10 @@ export function calculateSchedule(
   const withAbatementSchedule: WithAbatementYearRow[] = [];
 
   for (let yr = 1; yr <= 25; yr++) {
-    const macrsRate = yr <= 6 ? MACRS_5_YR_RATES[yr - 1] : 0;
+    const macrsRate = yr <= 25 ? POOL_4_TRUE_TAX_PCT[yr - 1] : 0;
     runningCumulativeDepreciation += macrsRate;
 
     const depreciationBalance = totalUDP * runningCumulativeDepreciation;
-    // const undepreciatedValue = Math.max(0, totalUDP - depreciationBalance);
 
     const floorValue = totalUDP * depreciationFloor;
     const netValue = totalUDP - depreciationBalance;
