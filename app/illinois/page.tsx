@@ -18,13 +18,12 @@ export default function ILHome() {
 
       <main className="landing-container">
         
-        <div className="intro-header-block" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div className="intro-header-block intro-header-block-text" >
           <h1 className="page-main-title">Illinois</h1>
           <img
             src="/photos-logos/EPCstacked.png"
             alt="EPC Logo"
-            className="header-logo-image"
-            style={{ maxWidth: "40vh", height: "auto", padding: "2rem" }}
+            className="epc-logo"
           />
         </div>
 

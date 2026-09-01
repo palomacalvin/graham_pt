@@ -18,7 +18,7 @@ interface Props {
     setTaxUnits: React.Dispatch<React.SetStateAction<TaxUnit[]>>;
 }
 
-const MAX_USEFUL_LIFE = 35;
+const MAX_USEFUL_LIFE = 35; // Update if default assumptions change. 
 
 // Default tax unit definition; example for users.
 export const createDefaultTaxUnits = (): TaxUnit[] =>
@@ -30,14 +30,14 @@ export const createDefaultTaxUnits = (): TaxUnit[] =>
       i === 2 ? "School District" :
       i === 3 ? "Special Unit/Other" : "",
     rate:
-      i === 0 ? 0.76473 :
-      i === 1 ? 0.33223 :
-      i === 2 ? 3.50119 :
+      i === 0 ? 0.76473 : // Update yearly. 
+      i === 1 ? 0.33223 : // Update yearly. 
+      i === 2 ? 3.50119 : // Update yearly. 
       i === 3 ? 1.43 : 0,
     name:
-      i === 0 ? "Adams" :
-      i === 1 ? "Clayton" :
-      i === 2 ? "Camp Point" :
+      i === 0 ? "Adams" : // Update if default location changes.
+      i === 1 ? "Clayton" : // Update if default location changes.
+      i === 2 ? "Camp Point" : // Update if default location changes.
       i === 3 ? "Special units" : "",
   }));
 
@@ -77,8 +77,8 @@ export default function ILUserSelections({
 
     // Default details.
     const DEFAULT_PROJECT_DETAILS = {
-      inflation_rate: 0.029, 
-      discount_rate: 0.03,
+      inflation_rate: 0.029,  // Update yearly. 
+      discount_rate: 0.03, // Update yearly.
       auto_calculate_costs: true,
     };
 
@@ -90,10 +90,8 @@ export default function ILUserSelections({
       }));
     };
 
-    const [selectedCounty, setSelectedCounty] = useState<County | null>(null);
     const [userEditedAcreage, setUserEditedAcreage] = useState(false);
     const [userEditedSolarRelation, setUserEditedSolarRelation] = useState(false);
-
 
     // Wind and solar specifics.
     useEffect(() => {
@@ -102,7 +100,7 @@ export default function ILUserSelections({
 
         setProjectData(prev => ({
             ...prev,
-            land_area: prev.number_of_turbines * 1
+            land_area: prev.number_of_turbines * 1 // Update multiplier if default assumptions change.
         }));
     }, [projectData.number_of_turbines, projectData.project_type, userEditedAcreage]);
 
@@ -112,7 +110,7 @@ export default function ILUserSelections({
 
         setProjectData(prev => ({
             ...prev,
-            land_area: prev.nameplate_capacity * 7
+            land_area: prev.nameplate_capacity * 7 // Update multiplier if default assumptions change.
         }));
     }, [projectData.nameplate_capacity, projectData.project_type, userEditedSolarRelation]);
     
@@ -135,6 +133,7 @@ export default function ILUserSelections({
       <AllFieldsRequired />
 
       <br></br>
+
       <LocationSelector
         stateName="ILLINOIS"
         onSelectCounty={(county) => {
@@ -175,7 +174,7 @@ export default function ILUserSelections({
                                 const newCapacity = Number(e.target.value);
 
                                 setProjectData(prev => {
-                                    const expectedAcreage = newCapacity * 7;
+                                    const expectedAcreage = newCapacity * 7; {/* Update multiplier if default assumptions change. */}
 
                                     return {
                                     ...prev,
@@ -204,7 +203,7 @@ export default function ILUserSelections({
                         <div className="infoWrapper">
                                 <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                                 <div className="infoBubble">
-                                    For solar projects, we assume 7 fenceline acres per mega-watt.
+                                    For solar projects, we assume 7 fenceline acres per mega-watt. {/* Update multiplier if default assumptions change. */}
                                 </div>
                         </div>
                     </label>
@@ -230,8 +229,8 @@ export default function ILUserSelections({
                             setUserEditedSolarRelation(false);
                             setProjectData(prev => ({
                             ...prev,
-                            land_area: prev.nameplate_capacity * 7
-                            }));
+                            land_area: prev.nameplate_capacity * 7 
+                            })); {/* Update multiplier if default assumptions change. */}
                         }}
                         className="inPageButton"
                         >
@@ -281,7 +280,7 @@ export default function ILUserSelections({
                 <div className="infoWrapper">
                   <img src="/photos-logos/information-bubble.svg" alt="Vector graphic information bubble"></img>
                   <div className="infoBubble">
-                      For wind projects, we assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre).
+                      For wind projects, we assume that total acreage is equivalent to the total number of turbines (1 turbine = 1 acre). {/* Update multiplier if default assumptions change. */}
                   </div>
                 </div>
             </label>
@@ -309,7 +308,7 @@ export default function ILUserSelections({
                     setProjectData(prev => ({
                     ...prev,
                     land_area: prev.number_of_turbines * 1
-                    }));
+                    })); {/* Update multiplier if default assumptions change. */}
                 }}
                 className="inPageButton"
                 >
@@ -323,9 +322,9 @@ export default function ILUserSelections({
 
                     setProjectData(prev => ({
                     ...prev,
-                    nameplate_capacity: 100,
-                    number_of_turbines: 50,
-                    land_area: 50, // 1 turbine per acre
+                    nameplate_capacity: 100, // Update if default assumptions change.
+                    number_of_turbines: 50, // Update if default assumptions change.
+                    land_area: 50, // Update if default assumptions change.
                     }));
                 }}
                 className="inPageButton"
@@ -351,7 +350,7 @@ export default function ILUserSelections({
                 <input
                     type="number"
                     step="0.01"
-                    value={Math.round(projectData.inflation_rate * 10000) / 100} // Displays as 2.7%
+                    value={Math.round(projectData.inflation_rate * 10000) / 100}
                     onChange={(e) =>
                     setProjectData((prev) => ({
                         ...prev,
@@ -372,7 +371,7 @@ export default function ILUserSelections({
                         The default multiplier translates to a 2.9% average annual inflation rate. 
                         Users can override this default number and enter their own estimated 
                         average annual inflation rate multiplier if they prefer.
-                    </div>
+                    </div> {/* Update yearly */}
                 </div>
             </div>
         </label>
@@ -383,7 +382,7 @@ export default function ILUserSelections({
                 <input
                     type="number"
                     step="0.01"
-                    value={projectData.discount_rate * 100} // Display as 3%
+                    value={projectData.discount_rate * 100} 
                     onChange={(e) =>
                     setProjectData((prev) => ({
                         ...prev,
@@ -401,7 +400,7 @@ export default function ILUserSelections({
                         href="https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.85-3273-38.pdf">FEMP guidelines for analyzing renewable energy projects for federal agencies</a>.
                         Users can override this default rate and enter their own estimated 
                         discount rate if they prefer.
-                    </div>
+                    </div> {/* Update yearly */}
                 </div>
             </div>
             </label>
@@ -426,7 +425,7 @@ export default function ILUserSelections({
                         step="1"
                         min={1}
                         max={MAX_USEFUL_LIFE}
-                        value={projectData.expected_useful_life ?? 30}
+                        value={projectData.expected_useful_life ?? 30} // Update fallback if default assumptions change.
                     onChange={(e) => {
                         let value = parseInt(e.target.value, 10) || 1;
 

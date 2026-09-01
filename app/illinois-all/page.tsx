@@ -1,17 +1,17 @@
 "use client";
-import React, { useState } from "react";
-import Navbar from "@/components/Navbar";
-import { ProjectData } from "@/types/ILProject";
 import Link from "next/link";
 
+import React, { useState, useEffect } from "react";
+import Navbar from "@/components/Navbar";
+import FooterComp from "@/components/Footer";
+
+import { ProjectData } from "@/types/ILProject";
 import ILUserSelections from "../illinois-components/ILUserSelections";
 import Instructions from "@/components/Instructions";
-import { useEffect } from "react";
 import { generateNetAssessedValues } from "@/utils/ILCalculations";
 import TaxResults from "../illinois-components/ILTaxResults";
 import { createDefaultTaxUnits } from "../illinois-components/ILUserSelections";
 import { TaxUnit } from "../illinois-components/ILTaxTable";
-import FooterComp from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 
 
@@ -24,23 +24,23 @@ export default function ProjectForm() {
     county: "",
     project_type: "Solar",
 
-    number_of_turbines: 50,
-    land_area: 700,
-    inflation_rate: 0.029,
-    discount_rate: 0.03,
-    nameplate_capacity: 100,
-    expected_useful_life: 30,
+    number_of_turbines: 50, // Update if project default assumptions change.
+    land_area: 700, // Update if project default assumptions change. 
+    inflation_rate: 0.029, // Update yearly.
+    discount_rate: 0.03, // Update yearly/as needed.
+    nameplate_capacity: 100, // Update if project default assumptions change.
+    expected_useful_life: 30, // Update if project default assumptions change.
 
-    per_mw_value_solar: 218000,
-    per_mw_value_wind: 360000,
-    wind_trending_factor: 1.61,
-    solar_trending_factor: 1.31,
-    county_avg_soil_productivity: 110,
+    per_mw_value_solar: 218000, // Update yearly.
+    per_mw_value_wind: 360000, // Update yearly.
+    wind_trending_factor: 1.61, // Update yearly.
+    solar_trending_factor: 1.31, // Update yearly.
+    county_avg_soil_productivity: 110, // Update yearly.
 
-    unit1: 0.76473,
-    unit2: 0.33223,
-    unit3: 3.50119,
-    unit4: 1.42907,
+    unit1: 0.76473, // Update yearly.
+    unit2: 0.33223, // Update yearly.
+    unit3: 3.50119, // Update yearly.
+    unit4: 1.42907, // Update yearly.
     unit5: 0,
     unit6: 0,
     unit7: 0,
@@ -53,10 +53,10 @@ export default function ProjectForm() {
     unit14: 0,
     unit15: 0,
 
-    unit1_name: "Adams",
-    unit2_name: "Clayton",
-    unit3_name: "Camp Point",
-    unit4_name: "Special units",
+    unit1_name: "Adams", // Update if default county changes.
+    unit2_name: "Clayton", // Update if default county/township changes.
+    unit3_name: "Camp Point", // Update if default location changes.
+    unit4_name: "Special units", // Update if needed.
     unit5_name: "",
     unit6_name: "",
     unit7_name: "",
@@ -119,14 +119,12 @@ export default function ProjectForm() {
       .catch((err) => console.error("Failed to fetch values", err));
   }, []);
 
-  // Define the rows for output tables; update when the user changes
-  // tax unit inputs.
+  // Define the rows for output tables; update when the user changes tax unit inputs.
   const rows = React.useMemo(() => {
 
     // Choose the avg. soil productivity based on the location and target PI.
     const targetPI = Number(projectData.county_avg_soil_productivity);
 
-    // DEBUG.
     if (certifiedValues.length > 0) {
       console.log("API Data Sample:", certifiedValues[0]);
       console.log("Looking for PI:", targetPI);
@@ -140,23 +138,13 @@ export default function ProjectForm() {
     // Compute the EAV based on the certified value.
     const dollarEAV = lookupRow ? Number(lookupRow.certified_value) : targetPI;
 
-    // Compute the base cost and trending factor.
-    // const baseCost =
-    //   projectData.project_type === "Solar"
-    //     ? projectData.per_mw_value_solar * projectData.nameplate_capacity
-    //     : projectData.per_mw_value_wind * projectData.nameplate_capacity;
-
     const baseCost = projectData.project_type === "Solar"
       ? projectData.per_mw_value_solar * projectData.nameplate_capacity
       : projectData.per_mw_value_wind * projectData.nameplate_capacity;
 
-    // const trending = baseTrendingFactor > 0 ? baseTrendingFactor : 1;
-
     const trending = projectData.project_type === "Solar"
       ? projectData.solar_trending_factor
       : projectData.wind_trending_factor;
-
-
 
     // Generate the net assessed values table.
     return generateNetAssessedValues(
@@ -183,7 +171,7 @@ export default function ProjectForm() {
     <div>
       <Navbar />
 
-      <div style={{marginLeft: "1.5rem", marginTop: "2rem"}}>
+      <div className="additional-header-spacing">
         <h1 className="page-main-title">Illinois Wind & Solar Renewable Energy Tax Impacts Calculator</h1>
       </div>
 

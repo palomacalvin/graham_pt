@@ -508,6 +508,13 @@ h2.contact {
   gap: 1.5rem;
   padding-bottom: 1.5rem;
   margin-bottom: 2rem;
+  width: 100%;
+}
+
+.intro-header-block.intro-header-block-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .page-main-title {
@@ -586,6 +593,16 @@ h2.contact {
   align-items: last baseline;
   justify-content: space-between;
   width: 100%;
+}
+
+.additional-header-spacing {
+  margin-left: 1.5rem;
+  margin-top: 2rem;
+}
+
+.com-benefits-table-logo {
+  min-width: 100px;
+  max-width: 200px;
 }
 
 @media (max-width: 640px) {
@@ -682,4 +699,10 @@ h2.contact {
 
 .hover-row:hover {
   background-color: rgb(239 246 255 / 0.5); 
+}
+
+.epc-logo {
+  max-width: 40vh; 
+  height: auto; 
+  padding: 2rem;
 }

@@ -50,12 +50,14 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
     return values.reduce((sum, v) => sum + v, 0);
   }
 
+  /* ************************************************************************* */
+
   // Main calculations.
   const taxImpactRows = React.useMemo(() => {
     // Filter out units with no rate and no name/label.
     const activeUnits = taxUnits.filter((u) => u.rate > 0 || (u.name || "") !== "");
 
-    // For units that are filled in...
+    // For units that are filled in:
     return activeUnits.map((unit) => {
       const decimalRate = unit.rate / 100; // Convert to decimal for calculations.
 
@@ -67,7 +69,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
       const farmlandTaxYear1 = yearlyFarmlandPayments[0] || 0;
 
       const grossLifetime = calculateGrossTotal(yearlyNetImpacts);
-      const npvLifetime = calculateNPV((projectData.discount_rate || 0.0290), yearlyNetImpacts);
+      const npvLifetime = calculateNPV((projectData.discount_rate || 0.0290), yearlyNetImpacts); // Update fallback value as needed.
 
       if (unit.type === "County") {
         console.log(`--- DEBUG: ${unit.name} (Year 1) ---`);
@@ -92,7 +94,7 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
     });
   }, [rows, projectData.discount_rate, taxUnits]);
 
-    // For displaying wind vs. solar.
+    // For displaying wind vs. solar calculations.
     const projectLabel = projectData.project_type || "Project";
 
     // Calculate rows of gross, npv, and year one results.
@@ -253,29 +255,29 @@ export default function ILTaxResults({ projectData, rows, taxUnits }: ILTaxResul
 
           <tbody>
               <tr>
-                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
+                  <td className="com-benefits-table-logo"><img src="/photos-logos/roadway-maintenance.png" alt="Vector graphic of a roadway."></img></td>
                   <td>Roadway Maintenance</td>
                   <td>County</td>
-                  <td>~$9,790 per mile</td>
+                  <td>~$9,790 per mile</td> {/* Update Yearly */}
                   <td>
-                      ~{Math.round((countyNPV) / 9790)} miles
+                      ~{Math.round((countyNPV) / 9790)} miles {/* Update Yearly */}
                   </td>
               </tr>
 
               <tr>
-                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a firefighter"></img></td>
+                  <td className="com-benefits-table-logo"><img src="/photos-logos/fire-truck.png" alt="Vector graphic of a firefighter"></img></td>
                   <td>Fire Trucks</td>
                   <td>Township</td>
-                  <td>~$1,650,000 per regular fire truck</td>
-                  <td>~{Math.round((townshipNPV) / 1650000)} fire truck(s)</td>
+                  <td>~$1,650,000 per regular fire truck</td> {/* Update Yearly */}
+                  <td>~{Math.round((townshipNPV) / 1650000)} fire truck(s)</td> {/* Update Yearly */}
               </tr>
 
               <tr>
-                  <td style={{ minWidth: "100px", maxWidth: "200px" }}><img src="/photos-logos/teacher.png" alt="Vector graphic of a fire truck"></img></td>
+                  <td className="com-benefits-table-logo"><img src="/photos-logos/teacher.png" alt="Vector graphic of a fire truck"></img></td>
                   <td>Public School Teachers</td>
                   <td>School District</td>
-                  <td>~$101,810 per annual salary</td>
-                  <td>~{Math.round((schoolNPV) / 101810)} full-time employee annual salaries</td>
+                  <td>~$101,810 per annual salary</td> {/* Update Yearly */}
+                  <td>~{Math.round((schoolNPV) / 101810)} full-time employee annual salaries</td> {/* Update Yearly */}
               </tr>
           </tbody>
       </table>
